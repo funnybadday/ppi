@@ -1,0 +1,22 @@
+{
+ "source_run": null,
+ "events": [],
+ "history_review": [
+  {
+   "event_key": "evt-1f6d571d17f62ca4f45f",
+   "change_type": "repeat",
+   "status": "drafted",
+   "article_directory": "稿件/多智能体诊断反转",
+   "platform_outputs": {
+    "xiaohongshu": {
+     "directory": "稿件/多智能体诊断反转/小红书",
+     "review_status": "awaiting_user_review",
+     "published": false,
+     "source_file": "稿件/多智能体诊断反转/公众号/公众号正文.txt",
+     "source_sha256": "c1d5ac8ce358b71ed548ca27dccce389448b3227d2e344db40bf67689f9f4d47",
+     "change_note": "小红书v2.2：采用用户定稿标题（五个AI专家综合问诊，诊断准确率竟输给了直接向AI提问；封面3行、第一行删'的'修复孤字行；发布标题19字）；正文与v2一致；公众号未改动。"
+    }
+   }
+  }
+ ]
+}

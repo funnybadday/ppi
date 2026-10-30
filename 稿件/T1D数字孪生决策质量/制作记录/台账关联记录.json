@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "review_file": "稿件/T1D数字孪生决策质量/制作记录/制作与检查记录.json",
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "events": [],
+  "history_review": [
+    {
+      "event_key": "evt-6da9217478626639d4ca",
+      "change_type": "repeat",
+      "status": "drafted",
+      "observed_at": "2026-10-23T13:20:00+08:00",
+      "article_directory": "稿件/T1D数字孪生决策质量",
+      "note": "C01选定制作：公众号解读Word与小红书派生同日完成，进入待用户审阅",
+      "platform_outputs": {
+        "wechat": {
+          "directory": "稿件/T1D数字孪生决策质量/公众号",
+          "review_status": "awaiting_user_review",
+          "published": false,
+          "source_file": "公众号/公众号稿件.docx",
+          "source_sha256": "8689cb272f039e90776cef9f806d2a11e11da54430951e75beba2242fcd58f4b"
+        },
+        "xiaohongshu": {
+          "directory": "稿件/T1D数字孪生决策质量/小红书",
+          "review_status": "awaiting_user_review",
+          "published": false,
+          "source_file": "公众号/公众号正文.txt",
+          "source_sha256": "375d883138e6bf096cc321601aac09748368d0c53f94718e9449e7b75a960cb1",
+          "copy_file": "小红书/发布标题与正文.txt",
+          "copy_sha256": "21da24a803947716d2656bf5db8cdb824738ef57436f5aa5b82c1b5807d4239a",
+          "image_count": 6,
+          "dimensions": [
+            1080,
+            1440
+          ]
+        }
+      }
+    }
+  ]
+}

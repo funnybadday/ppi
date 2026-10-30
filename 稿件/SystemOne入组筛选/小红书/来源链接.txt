@@ -1,0 +1,5 @@
+论文：A general-purpose System One decision model for clinical records
+arXiv（Mass General Brigham AI Institute、Harvard Medical School、MIT，Andrew Zhang等，通讯作者Faisal Mahmood）
+2026-10-19提交（v1）
+https://arxiv.org/abs/2610.27099v1
+PDF全文：https://arxiv.org/pdf/2610.27099v1

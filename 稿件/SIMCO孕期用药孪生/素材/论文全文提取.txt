@@ -1,0 +1,928 @@
+===== PAGE 1 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+IMMUNOLOGY copyright © 2026 the
+Authors, some rights
+Single- cell–level digital twins for preterm birth
+reserved; exclusive
+licensee American
+prevention strategies
+Association for the
+Advancement of
+Jakob Einhaus1†, Peter Neidlinger1†, Olivier Fondeur1†, Masaki Sato1,2†, Sasha Anronikov1, Science. no claim to
+original U.S.
+Kotaro Miyazaki1, Antoine Maechler1, Jonas N. Amar1, Kazuo Ando1, Valentin Badea1,
+Government Works.
+Dyani K. Gaudilliere3, Maximilian Sabayev1, Dorien Feyaerts1, Maïgane Diop1, Amy S. Tsai1,3, distributed under a
+Amelie Cambriel1,4, Edward A. Ganio1, Romain Lagarde1, Emmeline O’Kelly1, Ina A. Stelzer1,5, creative commons
+Julien Hedou1,6, Ronald J. Wong7, Yair J. Blumenfeld8, Deirdre J. Lyell8, Gary M. Shaw7, Attribution license 4.0
+Tomiko T. Oskotsky9,10, Marina Sirota10, Linda C. Giudice11, David K. Stevenson7, (cc BY).
+Nima Aghaeepour1, Brice Gaudilliere1*
+Digital twin models can accelerate therapeutic development by enabling low-r isk testing of candidate interven-
+tions. In preterm labor (PTL), a major pregnancy complication where clinical trials face ethical and financial barri-
+ers, digital twins are especially valuable for evaluating new therapies targeting immune dysfunctions driving PTL.
+Yet, current models lack single- cell resolution, limiting detection of cell type–specific mechanisms, off-t arget ef-
+fects, and the design of personalized interventions. We present Simulated Immunome Modeling of Clinical Out-
+comes (SIMCO), a single- cell–level digital twin framework that models immunomodulatory treatment effects on
+the timing of labor using immunome- wide, single- cell simulations. SIMCO’s digital twins are trained and validated
+on a newly generated mass cytometry atlas of the pregnant immunome exposed to nine candidate drugs prese-
+lected for PTL prevention. Applying SIMCO to an independent cohort of pregnant individuals, we simulate treatment
+effects on gestational length, screening for candidate drugs that delay labor timing and providing system-l evel
+mechanistic insight for each drug candidate. Tetrahydrofolate and the combination of aspirin and lansoprazole
+emerged as top candidates for PTL prevention, delaying labor onset primarily through enhanced mTOR signaling
+in innate immune cells and attenuated JAK/STAT signaling in naïve CD4+ T cells.
+INTRODUCTION dynamics culminate in an inflammatory cascade of parturition (19–
+Preterm birth, defined as birth before 37 completed weeks of ges- 21). In sPTL, anticipated immune adaptations of healthy pregnan-
+tation, remains the leading cause of child mortality under age five cies occur prematurely or inappropriately (22).
+worldwide (1). One in 10 pregnancies ends preterm, leading to sub- Understanding the differences in gestational immune dynamics
+stantial neonatal complications. Most cases (60 to 70%) are sponta- between pregnancies resulting in sPTL and those delivering at term is
+neous preterm labor (sPTL) and can occur without warning signs or critical for identifying immunomodulatory interventions that could
+known risk factors (2). While multiple factors contribute to sPTL, influence timing of labor onset (23, 24). Current sPTL preventive
+increasing evidence points to dysregulation of innate and adaptive strategies, including low-d ose aspirin (25) and progesterone (26, 27),
+immune adaptations that maintain pregnancy from conception to have shown modest and inconsistent results in clinical trials, likely
+labor (3–11). Early pregnancy is dominated by tolerogenic mecha- benefiting some but not all patients (28). Given the ethical and finan-
+nisms, such as the expansion of regulatory T cells (T cells), which cial constraints on clinical trials during pregnancy, immune digital
+reg
+promote maternal- fetal tolerance (12–15). Late pregnancy involves twins offer a transformative approach to accelerate the development
+activation of pro-i nflammatory pathways in neutrophils, monocytes, of immunomodulatory drug candidates for sPTL (29, 30). Incorpo-
+macrophages, and natural killer cell subsets (16–18). These temporal rating single-c ell resolution can equip digital twin models to capture
+immune system–wide drug effects, reveal cell type–specific mecha-
+nisms, identify off- target responses, and guide the rational design of
+1department of Anesthesiology, Perioperative, and Pain Medicine, Stanford Uni- personalized interventions.
+versity School of Medicine, Stanford, cA, USA. 2department of critical care and Mass cytometry enables single-c ell immune profiling with high-
+Anesthesia, national center for child health and development, tokyo, Japan. 3de-
+dimensional functional readouts including cell- surface receptors,
+partment of Surgery, Stanford University School of Medicine, Stanford, cA, USA.
+4APhP, hopital Saint Antoine & tenon, dMU dREAM, department of Anesthesiology cytokines, and phosphorylation states (31). Beyond characterizing
+and critical care, Paris, France. 5department of Pathology, University of california immune states, the rich datasets generated by mass cytometry can
+San diego, la Jolla, cA, USA. 6Sorbonne Université, inSERM, centre de Recherche
+be harnessed by machine learning to extract biomarkers of clinical
+Saint- Antoine, cRSA, F-7 5012 Paris, France. 7department of Pediatrics, division of
+neonatal and developmental Medicine, Stanford University School of Medicine, outcomes. For example, the recently developed Stabl algorithm uses
+Stanford, cA, USA. 8department of Obstetrics and Gynecology, Stanford University artificial noise to select informative features and build sparse, inter-
+School of Medicine, Stanford, cA, USA. 9division of clinical informatics and digi- pretable prediction models (32). Applied to peripheral blood sam-
+tal transformation, University of california, San Francisco, San Francisco, cA, USA.
+10Bakar computational health Sciences institute, University of california San Francisco, ples across gestation, mass cytometry combined with Stabl revealed
+San Francisco, cA, USA. 11center for Reproductive Sciences, department of Obstet- conserved temporal trajectories of immune cell signaling activity,
+rics, Gynecology, and Reproductive Sciences, University of california San Francisco enabling the prediction of labor timing in both term and preterm
+School of Medicine, San Francisco, cA, USA.
+pregnancies (5, 33). Besides biomarker discovery, mass cytometry
+*corresponding author. Email: gbrice@ stanford. edu
+†these authors contributed equally to this work. can also serve as a high-t hroughput screening platform to study cell
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 1 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 2 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+type and pathway specificity of immunomodulatory therapeutics 1) First, SIMCO is trained on high-d imensional single-c ell pertur-
+(34). With recent advances in computational modeling, a vast scale bation data (e.g., flow and mass cytometry and single-c ell transcrip-
+of drug effects can then be parsed at the single-c ell level (35). In par- tomics) to encode drug- perturbed immune responses at single- cell
+ticular, optimal transport (OT) has emerged as a powerful mathemat- resolution using OT learning with CellOT. CellOT leverages an input-
+ical framework to model single-c ell immune perturbation responses convex neural network that is highly accurate in predicting hetero-
+(36). For mapping unpaired distributions with and without pertur- geneous single- cell perturbation responses (37).
+bation, CellOT by Bunne et al. (37) leverages a neural network for 2) Second, SIMCO projects the learned single-c ell behavior onto
+efficient OT solving. Its robust performance on unseen data enables a separate immunome dataset, comprising only baseline samples
+personalized treatment response modeling beyond the original per- (unstimulated and untreated) with linked clinical outcomes. From
+turbation dataset. these baseline samples, SIMCO simulates single-c ell responses to per-
+In this study, we present Simulated Immunome Modeling of turbations (e.g., ex vivo stimulation or drug treatment). This simula-
+Clinical Outcomes (SIMCO), a single-c ell–level digital twin frame- tion generates digital twins of each patient’s immunome with and
+work that models immunomodulatory treatment effects on clinical without exposure to the candidate drugs.
+outcomes by integrating simulated immune responses with multi- 3) Last, SIMCO builds a multivariable predictive model of the
+variable modeling. Trained on a new single-c ell mass cytometry atlas clinical outcome with Stabl, a sparse machine learning algorithm,
+of the pregnant immunome, SIMCO’s digital twins predict patient- on a training set of patients using the simulated immune data. In a
+specific immune modulation and resulting effects on gestational held- out test set of patients, SIMCO compares the predictions for
+length for nine US Food and Drug Administration (FDA)–approved, each patient’s untreated and treated digital twin. This difference quan-
+low- risk (category A/B) drug candidates—eight single agents and tifies the predicted drug effect on the outcome, enabling SIMCO to
+one combination—preselected through a published computational model the immunomodulatory potential of candidate drugs and to
+drug repurposing pipeline for their potential to prevent preterm personalize treatment strategies.
+birth (23).
+A single- cell perturbation atlas capturing
+pregnancy- relevant immune profiles
+RESULTS To generate a mass cytometry single- cell perturbation atlas, we en-
+Simulating treatment effects from single- cell–level rolled eight nonpregnant and 11 pregnant volunteers for a multi-
+digital twins plexed drug screen assay measuring immunomodulatory effects of
+Simulating the therapeutic potential of immunomodulatory treat- nine candidate drugs for the prevention of sPTL (Fig. 2A and Table 1).
+ment requires digital twins of the immunome that not only predict A second trimester sampling timepoint was chosen to capture the
+clinical outcomes but also forecast how specific treatments would influence of candidate drugs on the pregnant immunome during the
+alter these outcomes in individual patients. SIMCO addresses this maintenance phase of gestation and before proinflammatory pathways
+need by integrating simulation of single- cell responses with clinical of parturition become increasingly activated. Nonpregnant controls
+outcome modeling (Fig. 1, Materials and Methods, and fig. S1): were sampled in the early follicular phase of their menstrual cycle
+Fig. 1. Overview over the single- cell–level digital twin framework SIMCO. SiMcO is a single- cell–level digital twin framework that combines simulated immune re-
+sponses with multivariable modeling of clinical outcomes to evaluate the immunomodulatory potential of candidate drugs. in vitro perturbation experiments (i.e., analy-
+sis of ex vivo stimulation responses to inflammatory ligands in the presence or absence of drug candidates) are performed to generate a single- cell perturbation atlas of
+immunomodulatory treatment effects. SiMcO learns Ot maps (using cellOt) that encode the observed single- cell perturbation responses. For baseline samples from an
+independent clinical cohort linked to a clinical outcome, SiMcO simulates single- cell responses by applying the learned Ot maps. A sparse machine learning model
+(Stabl) is trained on the simulated single- cell data before treatment (light turquoise, light red) to model the observed outcome. Applied to an unseen test set of patients,
+SiMcO provides a readout of simulated drug effects on the outcome as the difference in outcome prediction between the treated and untreated digital twin (light red,
+light yellow). SiMcO- generated immune digital twins can be used for in silico clinical trials and prioritization of candidate drugs for clinical trial testing, as well as for per-
+sonalization of treatment strategies. Parts of the figure were created in BioRender. E. Ganio (2026) (https://BioRender.com/9k4hdoc).
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 2 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 3 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+A
+B C
+D
+E F G
+Fig. 2. A single- cell immune perturbation atlas of the second- trimester pregnancy immunome. (A) in 19 individuals, including eight nonpregnant (nP) between
+days 2 to 7 of the menstrual cycle and 11 pregnant (P) between 20 to 27 weeks of gestation, immunomodulatory effects of nine candidate drugs (eight single drugs and
+one drug combination) were screened in a 96- plex ex vivo whole blood immunoassay. (B) Proportional abundance of 28 cell populations in pregnant and nonpregnant
+individuals. Percent of all live leukocytes (granulocytes) and percent of mononuclear cells (all other cell types) are depicted. Significance (P < 0.05, Mann- Whitney U test,
+Benjamini-h ochberg corrected) is indicated. (C) Radial plots show absolute arcsinh difference between stimulated and unstimulated samples across 28 immune cell
+populations for selected functional markers. cell populations are numbered as defined in (B). (D) heatmap of differences in average immune responses to stimulation
+between pregnant and nonpregnant individuals. Stars indicate significant differences (P < 0.05, Wilcoxon rank- sum test, Benjamini- hochberg corrected across all features
+with a group difference > 0.05 arcsinh). Feature groups with significant differences (individual features plotted in (E) to (G) are highlighted with boxes. cell populations
+are numbered as defined in (B). (E to G) Example features of significant differences between pregnant and nonpregnant individuals. Pregnant individuals showed up-
+regulated immune responses in innate immunity (granulocytes, E), down-r egulated adaptive immune responses (cd4+ central memory t cells, F), and down- regulated
+cd44 expression (G). depicted is arcsinh difference to unstimulated (for stimulation responses) or arcsinh- transformed signal (for unstimulated). candidate drugs are
+abbreviated as follows: chlorthalidone (cht), maprotiline (MAP), metformin (MF), lansoprazole (lPZ), pravastatin (PRA), rifabutin (RiF), SA, SAlPZ, and thF. dMSO was used
+as no- drug control. Parts of the figure were created in BioRender. E. Ganio (2026) (https://BioRender.com/4bi6cci). tOF, time- of- flight.
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 3 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 4 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+Table 1. Clinical information and patient demographics for pregnant and nonpregnant volunteers. Percentage and interquartile range (iQR) within each
+cohort are indicated.
+Nonpregnant individuals (n = 8) Pregnant individuals (n = 11)
+Age (years) 32 (29–35, iQR) 30 (29–32, iQR)
+Race
+White 5 (62.5%) 4 (36.4%)
+Asian 2 (25.0%) 4 (36.4%)
+Black 1 (12.5%) 0
+Other 0 3 (27.3%)
+Ethnicity
+non- hispanic 8 8
+hispanic 0 0
+Other 0 3
+Pregnancy information
+GA at sampling time 22.4 (20.9–22.8, iQR)
+Prepregnancy BMi 24.6 (22.4–27.0, iQR)
+GA at delivery 40.0 (39.5–40.05, iQR)
+Medication
+Prenatal vitamin 7 (63.6%)
+Omeprazole prenatal 1 (9.1%)
+contraception
+Oral contraception 1 (9.1%)
+copper iUd 1 (9.1%)
+hormonal iUd 2 (18.2%)
+cycle day 3 (3–4, iQR)
+Medical history
+hyperlipidemia 1 (9.1%)
+Factor v leiden 1 (9.1%)
+PcOS 1 (12.5%) 1 (9.1%)
+iUi 1 (9.1%)
+to capture a low-h ormone state. The candidate drugs—chlorthalidone, Methods). In total, our single- cell perturbation atlas comprised 218
+maprotiline, metformin, lansoprazole, pravastatin, rifabutin, salicylic million leukocytes across 80 perturbation scenarios.
+acid (SA), SA + lansoprazole (SALPZ), and 5-m ethyltetrahydrofolate In the absence of drug treatment (0.5% dimethyl sulfoxide, DMSO-
+(THF)—were preselected using a previously published computational control), pregnant and nonpregnant individuals exhibited distinct
+drug repurposing pipeline based on their potential to positively in- immune profiles. Several innate immune populations—such as granu-
+fluence sPTL-a ssociated gene signatures (23). Only candidate drugs locytes, classical monocytes (cMCs), and myeloid-d erived suppressor
+considered relatively safe for use in pregnancy (FDA category A/B) cells (MDSCs)—were proportionally expanded during mid-p regnancy,
+that can be administered orally were included in the assay. For each whereas CD4+ effector memory T cells were reduced (Fig. 2B). Func-
+candidate, we used the compound form predominantly present in tional responses to seven stimuli were quantified for each cell type,
+the bloodstream after oral administration, which in some cases cor- revealing highly specific response profiles for different signaling path-
+responds to an active metabolite (e.g., THF and SA). Experimental ways induced to each stimulation condition (Fig. 2C). Of the 4480
+concentrations were selected to reflect in vivo plasma levels follow- immune activation features, 163 differed significantly between the
+ing standard oral dosing (Table 2). two groups (Fig. 2D).
+Each screening experiment consisted of 96 conditions requiring Specifically, in samples from pregnant compared to nonpregnant
+only 100 μl of whole blood per condition. A two- hour, whole blood participants, we observed increased innate immune signaling in gran-
+stimulation allowed us to examine physiologically relevant cell type– ulocytes in response to interleukin-2 /4/6 (IL-2 /4/6), lipopolysaccharide
+and stimulation-s pecific responses. The functional responsiveness of (LPS), and tumor necrosis factor–α (TNFα) (Fig. 2E), suppressed
+28 immune cell populations was assessed as expression changes in adaptive immune responses, e.g., in pSTAT6 in CD4+ central mem-
+12 intracellular phospho-p roteins and eight activation markers (fig. S2 ory T cells in response to IL-2 /4/6 (Fig. 2F), and reduced the expres-
+and table S1). All conditions were analyzed simultaneously using mass sion of CD44 on innate and adaptive immune cells in unstimulated
+cytometry by leveraging a newly developed nine-c hoose-f our doublet- samples (Fig. 2G). These findings highlight the global adaptations
+removing mass- tag barcoding scheme (see fig. S3 and Materials and of the maternal peripheral immune system during pregnancy and
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 4 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 5 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+Table 2. Candidate drugs for the prevention of sPTL. the screened compound, the used assay concentration, and the abbreviation (Abb.) of the compound in
+the figures are listed. T1/2, half- life.
+Drug Clinical Cmax (ng/ml) T1/2 (hours) Relevant metabolites Assay concentration Screened Abb. References
+candidate reference dose (ng/ml) compound
+chlorthalidone 12.5 mg 75 32 none 75 chlorthalidone cht (74)
+Maprotiline 75 mg 24 40 desmethyl- maprotiline 10 Maprotiline MAP (75)
+Metformin 500 mg 1100 4 none 800 Metformin MF (76)
+lansoprazole 30 mg 1000 2 5′- hydroxy- lansoprazole 400 lansoprazole lPZ (77)
+Pravastatin 10 mg 15 2.5 3′α- isopravastatin 7.5 Pravastatin PRA (78)
+Rifabutin 150 mg 200 36 25–O- deacetyl- rifabutin 10 Rifabutin RiF (79)
+Aspirin 81 mg 5700 2.5 Salicylic acid 2500 Salicylic acid SA (80)
+Folic acid 800 μg 15 5.5 5- Methyl- thF 75 5- Methyl- thF thF (81)
+recapitulate important innate and adaptive cell responses previously drug effects between the pregnant and nonpregnant cohorts. This
+implicated in the maintenance of healthy pregnancies (4, 33, 38). cross- cohort correlation analysis revealed conserved treatment ef-
+fects on certain protein markers (e.g., pSTAT1, pSTAT3, and CD25),
+Candidate drugs show differential stimulation conditions (e.g., PI), and cell types (e.g., granulocytes
+immunomodulatory properties and plasmacytoid dendritic cells) across both cohorts (Fig. 3E). In
+From the single- cell perturbation atlas, we characterized each can- contrast, effects involving PD- L1, CD44, or GM- CSF stimulation
+didate drug’s immunomodulatory profile when administered in the differed between pregnant and nonpregnant individuals. Correlat-
+context of the pregnant immunome. For each candidate drug, we ing individual- level drug effects between individuals showed that
+analyzed 4480 immune cell features comparing the drug- treated the achieved drug effects were more consistent among pregnant in-
+measurements to their respective DMSO controls. This provided an dividuals (Pearson R range = 0.3 to 0.5) than among nonpregnant
+in- depth analysis of cell type– and pathway- specific concerted ef- individuals (Pearson R range = 0 to 0.5), reflecting lower variability
+fects that each candidate drug exerted on the immune cells’ responses in treatment responses in the pregnant group (Fig. 3F). We further
+and interactions occurring over the 2-h our stimulation period (Fig. 3A evaluated whether variability within the pregnant cohort could be
+and fig. S4). For example, SA globally enhanced Janus kinase–signal explained by maternal age, gestational age at sampling, fetal sex, or
+transducers and activators of transcription (JAK- STAT) responses prepregnancy BMI. Across all covariates, mean absolute Spearman
+in response to LPS stimulation while differentially regulating these correlations were weak (0.24 to 0.29) and did not exceed values ex-
+pathways under polymethyl methacrylate/ionomycin (PI) stimula- pected under permutation-b ased null models (all empirical P > 0.05),
+tion in a highly cell type–specific manner. Hence, SA increased the indicating no systematic confounding by these variables. While the
+pSTAT5 activation in CD4+ T cells after PI stimulation but de- cumulative effect size per drug was generally comparable between
+reg
+creased pSTAT5 in CD8+ T cell subsets. cohorts, lansoprazole and SALPZ exhibited stronger cumulative ef-
+Across all treatments, we identified 1872 significant drug effects fects in pregnant individuals, whereas pravastatin showed a reduced
+(paired t test, P < 0.05, Benjamini- Hochberg corrected; Fig. 3B). effect (Fig. 3G). To identify drugs that preferentially modulated im-
+Most drug effects (94.8%) were inhibitory. Naïve CD4+ and CD8+ mune function in pregnant individuals, we calculated a pregnancy-
+cells and central memory CD4+ T cells were the most frequently tar- enrichment index for each drug-f eature combination, ranging from
+geted immune cell populations, followed by granulocytes and cMCs 0 (equal effect in both groups) to 1 (effect present only in pregnant
+among innate cell types (Fig. 3C). PI and granulocyte-m acrophage individuals; see Materials and Methods). While this metric reflects
+colony- stimulating factor (GM- CSF) stimulations were most fre- relative enrichment rather than definitive pregnancy- exclusive be-
+quently modulated. havior, enrichment was highest for effects mediated by SALPZ and
+We categorized drug effects in the following groups: inhibitory/ chlorthalidone (Fig. 3H).
+neutralizing or stimulatory/amplifying treatment effects affecting Notably, the combination therapy SALPZ achieved a distinct im-
+(i) baseline immune cell activity, (ii) strong stimulation responses munomodulatory profile compared to its individual components, SA
+(arcsinh difference > 0.1 between unstimulated and stimulated), or and lansoprazole (fig. S5). SA alone increased JAK-S TAT signaling
+(iii) weak stimulation responses (arcsinh difference < 0.1; Fig. 3D). in response to LPS, whereas lansoprazole and SALPZ exerted inhibi-
+Most effects amplified weak or inhibited strong stimulation responses. tory effects on the same pathway. Lansoprazole strongly suppressed
+Overall, all tested treatments showed cell type– and pathway-s pecific calcium signaling in response to PI stimulation, an effect that was
+immunomodulatory profiles that may be leveraged to counteract less pronounced with SALPZ and absent with SA. In response to
+disease- associated immune dysregulation. IL- 2/4/6, lansoprazole enhanced pSTAT3 and pSTAT6 activation,
+We next investigated whether the identified treatment effects dif- while SALPZ attenuated these signals. To assess the interaction be-
+fered between pregnant and nonpregnant individuals, given the dis- tween the two drugs, we compared the observed effects of SALPZ to
+tinct immune activation states of the two cohorts. For each protein the summed effects of SA and lansoprazole, classifying them as syn-
+marker, stimulation, and cell type, we correlated cohort-l evel average ergistic, additive, or antagonistic effects. Across all features, SALPZ
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 5 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 6 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+Fig. 3. Candidate drugs show differential immunomodulatory properties. (A) heatmap of drug effects exerted by SA on the pregnant immunome (n = 11). the arcsinh dif-
+ference between treated and untreated is plotted and significant effects (see B) are labeled by stars. (B) volcano plot of all 40,320 drug effects for pregnant individuals (n = 11).
+Mean drug effect size and univariate P value (paired t test) are plotted. Significant drug effects with a P value < 0.05 after Benjamini- hochberg correction are colored in blue
+(decreasing) or red (increasing). (C) number of significant drug effects (see B) per cell population, colored by stimulation condition. (D) number of significant drug effects (see B)
+by candidate drug, categorized as stimulatory/ amplifying (↑) or inhibiting/neutralizing (↓) effects affecting either unstimulated (baseline) immune activity, strong stimulation
+responses (>0.1 arcsinh difference between unstimulated and stimulated), or weak stimulation responses (<0.1 arcsinh difference). (E) cross- cohort correlation analysis between
+cohort-l evel averages of pregnant (P) and nonpregnant (nP) for significant drug effects (see B) grouped by protein (green), cell type (light blue), or stimulation (orange) targeted.
+the average Pearson R is plotted against the average effect size. (F) correlation matrix of all significant drug effects (see B) between individuals. (G) Average cumulative effect
+size for all significant drug effects (see B) comparing pregnant and nonpregnant. (H) Average pregnancy- enrichment index of all significant drug effects (see B).
+effects were synergistic in 3%, additive in 79%, and antagonistic in heterogeneous individuals. SIMCO uses the OT algorithm CellOT
+18%. Most synergistic interactions involved JAK-S TAT signaling fol- to encode the observed perturbation responses as generalizable trans-
+lowing LPS or interferon- α (IFN- α) stimulation. port maps, under the hypothesis that the multivariable marker pro-
+file of each cell before stimulation or treatment is predictive of its
+SIMCO accurately simulates cell type- specific response. For each cell type, SIMCO was trained to model (i) stimu-
+perturbation responses lation responses from DMSO-c ontrol unstimulated samples and (ii)
+Perturbation modeling approaches at the single-c ell level can lever- drug- treatment responses within each stimulation condition from
+age millions of data points to provide accurate predictions across DMSO- control samples. The trained models included only the 13
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 6 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 7 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+functional markers that overlapped between the perturbation data- signaling response (Fig. 4D). The simulation error correlated with in-
+set and the clinical dataset from Stelzer et al. (33) (Fig. 4A). terpatient variability in the observed signaling responses (Spearman’s
+To validate SIMCO’s digital twin models, we compared simulated R = 0.93; Fig. 4D). However, SIMCO simulations still contained rela-
+immune responses with the observed, real- world responses in the tive differences between patients even for the most variable responses
+perturbation atlas. Models were evaluated based on three metrics (Fig. 4E).
+using a fourfold cross-v alidation strategy: the mean absolute error
+(MAE) and the coefficient of determination (R2) between simulated SIMCO predicts treatment effects on time to labor
+and observed population- level medians as well as the maximum The main purpose of the SIMCO framework is to leverage single-
+mean discrepancy (MMD) between simulated and observed marker cell–level digital twins to predict how immunomodulatory treat-
+distributions. Example evaluations are shown for the responses to ments influence clinical outcomes. Using an independent mass cy-
+IL- 2/4/6 stimulation (Fig. 4B). Performance summary metrics for tometry dataset collected by Stelzer et al. (33) over the past 120 days
+all stimulation conditions are provided in table S2. For benchmark- of pregnancy, SIMCO generated digital twins for 177 blood samples
+ing, we included the identity baseline (simply returning untreated collected in term (153 samples, 58 patients) and preterm (14 sam-
+distributions) and the observed training baseline (simply returning ples, 5 patients) pregnancies (Fig. 5A). We first established that a
+the perturbed distributions of the training patients). Across all met- sparse multivariable model built on the untreated single- cell digital
+rics, SIMCO consistently outperformed the training baseline, vali- twin dataset accurately predicted the clinical outcome time to labor
+dating that it captures patient heterogeneity and enables accurate [Pearson R = 0.64, root mean squared error (RMSE) = 24.1 days,
+individualized perturbation modeling (Fig. 4B). term: 24.0 days, preterm of 25.4 days; Fig. 5B]. Furthermore, after
+Comparing simulated and observed marker distributions for ex- estimating the expected pregnancy duration by combining the time
+ample features with strong IL- 2/4/6- induced stimulation response to labor prediction with the sampling timepoint, SIMCO accurately
+(0.1 arcsinh difference) highlighted the accuracy of SIMCO’s digital differentiated term from preterm digital twins (AUROC = 0.75 [95%
+twin models for heterogeneous single- cell behavior (Fig. 4C). The confidence interval = 0.59 to 0.88], AUPRC = 0.29 [0.12 to 0.54];
+MAE of single- cell simulations generally increased with stronger Fig. 5C and table S3). Notably, when comparing the performances of
+A B
+C D
+E
+Fig. 4. Comparing observed and simulated immune responses to validate SIMCO’s single- cell simulation performance. (A) Panel alignment between the gener-
+ated single- cell perturbation atlas and the independent mass cytometry data from Stelzer et al. (33). in total, 13 functional protein measurements overlapped between
+the two data sets. Separate Ot maps were learned per cell type and response, each predicting 13 functional protein marker changes. the cell types of the two studies were
+matched using the same gating strategy based on the 18 overlapping phenotypic markers. (B) to evaluate SiMcO’s single- cell simulation performance, we compared it to
+identity and training mean performance in fourfold cross- validation within the single- cell perturbation atlas. MAE, MMd, and R2 for the predicted population medians are
+shown for il- 2/4/6 stimulation responses across all cell types (364 features). (C) distributions of protein expression at baseline and in response to il- 2/4/6, comparing
+observed and SiMcO- simulated single- cell distributions for selected features. (D) heatmap of the MAE and the observed Sd for features with an il- 2/4/6 response greater
+than 0.1 arcsinh difference. (E) correlation (Spearman R) between SiMcO- simulated and observed feature values for the features with the highest ground truth standard
+deviation across n = 8 nonpregnant controls (indicated by arrows in d).
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 7 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 8 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+Fig. 5. SIMCO predicts treatment effects on time to labor. (A) SiMcO generated treated and untreated digital twins for the independent study from Stelzer et al. (33).
+the study cohort included 177 samples from 63 patients collected during the second and third trimesters of pregnancy (including 14 samples from 5 patients with sPtl).
+the primary outcome was the time to spontaneous labor onset. (B) SiMcO’s performance to predict time to labor. Pearson R and root mean squared error (RMSE) are
+shown. (C) Area under the receiver operating characteristic curve (AUROc) plot for identifying preterm samples via the expected pregnancy length, calculated from
+SiMcO’s time to labor prediction and the sampling timepoint. (D) time- dependency (rolling average of 30 days) of SiMcO-p redicted treatment effects across the last 120 days
+of pregnancy. (E) Proxy effect per patient (n = 63) on the gestational length for nine candidate drugs. (F) top 10 model features (of 21 [18 to 30] features total) in descend-
+ing order of mean Shapley Additive exPlanations (ShAP) value as a measure of feature importance in the SiMcO simulation. the ShAP summary plot reveals temporal
+association of z- scored feature values with gestational age. (G) heatmap of average drug effects (n = 177) on the top 10 model features, as simulated by SiMcO. Statistical
+power (indicated by asterisks) was estimated empirically with Monte carlo simulations using the observed SiMcO modeling error of each feature. Bold face indicates
+desired drug effects (i.e., opposing the trend toward onset of labor). Proportions of desired effects are given per candidate drugs and model feature. (H) Pseudotime
+representation of untreated samples (n = 177). (I) trajectory of baseline example model features throughout gestation. correlation was calculated using Spearman R. Parts
+of the figure were created in BioRender. E. Ganio (2026) (https://BioRender.com/qi8a8np).
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 8 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 9 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+SIMCO to the ground truth feature set of unstimulated data used to However, some drug effects paradoxically shifted features toward
+generate the digital twins, the addition of CellOT-s imulated features patterns associated with later pregnancy stages. For instance, THF
+yielded substantial gains in predictive performance (e.g., Pearson R and SALPZ, strongly inhibited pMK2 activation in non-C Ms (ncMCs)
+increase from 0.34 to 0.61; AUROC of 0.69 to 0.75; AUPRC of 0.24 following PI stimulation and pCREB activation in intermediate mono-
+to 0.34; table S3). Even compared to a multivariate model built on cytes (intMCs) following GM- CSF stimulation, whereas decreased
+the full ground truth feature set from Stelzer et al. (33), the addition activation in these features would normally be expected closer to
+of CellOT- simulated features modestly but consistently improved labor onset. Similarly, both chlorthalidone and SALPZ induced base-
+predictive performance (e.g., Pearson R increase of 0.79 to 0.82). line activation of pSTAT5 in CD4+ naïve T cells, a feature the model
+Predicted drug effects and overall model performance were robust to associated with later stages of pregnancy. However, SIMCO intrinsi-
+alternative cross-v alidation strategies, including a stratified shuffle- cally integrates and prioritizes these multiple effects when generat-
+groups- out cross- validation designed to leave one preterm patient ing outcome predictions for the treated digital twin. By integrating
+out per fold (table S3). many immunomodulatory effects across cell types, stimuli, and sig-
+SIMCO modeled the effect of the candidate drugs on the clinical naling pathways, SIMCO provides a quantitative, system-l evel eval-
+outcome “time to labor” (see Materials and Methods): For each sim- uation of each candidate drug’s net impact on gestational timing.
+ulated sample, SIMCO calculated the difference in the predicted time
+to labor between candidate drug-t reated and untreated digital twins
+(Fig. 5D). Maprotiline, THF, and SALPZ consistently delayed the DISCUSSION
+predicted time to labor throughout all measured gestational time SIMCO is a single- cell–level digital twin framework developed to
+points. In contrast, other candidate drugs displayed a biphasic ef- model clinical outcome effects of immunomodulatory candidate drugs.
+fect, first accelerating then decelerating the progression of gesta- In a first step, SIMCO learns immune mechanisms based on a high-
+tion. To capture the cumulative effect of treatment over time, we dimensional single- cell perturbation dataset. In a second step, the
+aggregated data from the same patient across all three sampling time trained model is parametrized with single- cell data of unseen indi-
+points (Fig. 5E). The strongest proxy effect on gestational length was viduals. By contrasting treated and untreated digital twin models,
+achieved by THF [24.7 days, interquartile range (IQR) = 11.4 to 45.9], SIMCO quantifies how interventions alter clinical outcomes while
+maprotiline (18.8 days, IQR = 8.6 to 27.5), and SALPZ (17.3 days, offering single-c ell–level mechanistic explainability. We showcase the
+IQR = 3.5 to 33.8). Reflecting clinical reality, not all patients were application of SIMCO for sPTL prevention, a setting where in silico
+modeled to benefit from a given treatment: THF, SALPZ, and ma- clinical trials are especially valuable given the constraints of inter-
+protiline were predicted to prolong gestational length in 90.5, 87.3, ventional studies in pregnancy. Simulating treatment with nine pre-
+and 82.5% of patients. Other candidate drugs, such as SA alone, only selected candidate drugs for the prevention of sPTL, SIMCO identified
+profited 46% of the patients. THF and SALPZ as strong candidates to delay labor onset in pre-
+The sparse prediction model for time to labor used 21 key infor- term pregnancies.
+mative immune features. Of the top 10 model features, five repre- We used SIMCO with the premise that altering labor-a ssociated
+sented CD4+ T cell signaling responses: Notably, reduced pSTAT3 immune signatures could delay labor onset and therefore prevent
+levels in response to GM- CSF, TNFα, PI, and IFN- α was associated sPTL. While the immune system continuously adapts to the pro-
+with earlier gestational time points, i.e., STAT3 activation increased gression of gestation, an immunological intervention should sustain
+with approaching labor (Fig. 5F). In the innate immune compart- mid-g estational maternal immunotolerance, such as pSTAT5-d riven
+ment, pS6 responses in granulocytes showed dynamic modulation regulatory T cell programs and immunosuppressive polarization in
+over time, with both baseline and TNFα-i nduced pS6 levels decreas- innate cells, while counteracting late-g estational trends of heightened
+ing as pregnancies approached labor. NF- κB responsiveness, proinflammatory cytokine production, and
+SIMCO also enabled mechanistic insight into individual drug ef- innate leukocyte activation. By quantitatively evaluating drug-i nduced
+fects: To delay the predicted onset to labor, candidate drugs shifted shifts of simulated immune states, SIMCO identified candidate drugs
+key immune features of the predictive model toward patterns asso- that stabilize or reverse immunological changes associated with the
+ciated with earlier pregnancy stages. THF and SALPZ did so by con- gestational progression toward labor. Trajectory analyses in the in-
+sistently suppressing pSTAT3 signaling in CD4+ naïve T cells and dependent longitudinal cohort confirmed that the key signaling axes,
+enhancing pS6 responses in granulocytes, thereby counteracting im- including pSTAT5 in CD4+ naïve T cells and pS6 in granulocytes,
+munological signatures linked to pregnancy progression (Fig. 5G). exhibited robust, monotonic trends across gestation, providing a ra-
+Overall, THF and SALPZ influenced seven of the top 10 features tional basis for extrapolating drug-i nduced perturbations toward later
+in the desired direction. Maprotiline and THF also boosted phos- gestational states. Notably, the effects were quantified based on a single-
+phorylated NF- κB (pNF- κB) signaling after PI stimulation in CD8+ dose exposure; in practice, repeated administration (e.g., daily) would
+CCR2+ central memory T cells, which was higher in earlier gesta- likely produce accumulating effects. Therefore, drug effects were ag-
+tion. These modeled effects targeted immune dynamics that showed gregated on the patient level (across up to three samples) as a way to
+consistent and predictable evolutions throughout gestation. Multi- approximate the cumulative effect of continuous treatment over time.
+variate, supervised pseudotime analysis using a neural network to The three most effective drugs or drug combinations in delaying pre-
+encode time to labor organized samples coherently by gestational dicted time to labor were THF, maprotiline, and SALPZ. Of these,
+age in the latent space (Fig. 5H), further supporting the interpreta- SALPZ, the combination of low- dose aspirin (81 mg) and lansopra-
+ble temporal structure of these model features. The temporal struc- zole (30 mg), is of particular interest: Aspirin treatment alone, when
+ture was further corroborated by individual feature trajectories that initiated between 6 and 12 weeks of gestation, has demonstrated
+illustrated the consistent evolution of signaling activity throughout modest reductions in the incidence of sPTL in large clinical trials
+gestation (Fig. 5I). (25, 39, 40). However, the small effect size has prompted ongoing
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 9 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 10 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+debate around optimal dosing, timing, and the potential for improved activation (58). In this context, drugs that bolstered pS6 activity in
+efficacy through combination with other agents. Lansoprazole, a pro- granulocytes, e.g., metformin, SA, and SALPZ, beneficially influ-
+ton pump inhibitor with known anti-i nflammatory properties, inhibits enced time to labor predictions in our simulations. While mecha-
+LPS-i nduced, Toll-l ike receptor (TLR) 4–mediated NF-κ B activation nistic target of rapamycin (mTOR) signaling is complex, activation
+(41), a pathway implicated in inflammation-d riven preterm labor (42). of mTOR/pS6 activity has been shown to enhance IL-1 0 production
+In a murine model of LPS- induced fetal wastage, lansoprazole treat- and anti- inflammatory (M2- like) polarization in myeloid immune
+ment significantly improved fetal survival (23). Our findings further cells (59, 60). Higher mTOR/pS6 signaling also protects from poten-
+suggest that SA and lansoprazole act synergistically, particularly in tially placenta-d amaging neutrophil extracellular traps at the maternal-
+the modulation of Janus kinase/signal transducer and activator of fetal interface (61, 62). Drugs that maintain higher mTOR pathway
+transcription (JAK- STAT) signaling. Although true synergy was ob- activity mid- pregnancy may thus help preserve immune tolerance
+served only in a small proportion of features (3%), and most effects and suppress labor- associated inflammation.
+were additive (79%), the immunomodulatory profile of this combi- SIMCO enables meaningful data augmentation by extrapolating
+nation provides a rationale for its clinical evaluation as a potential from unstimulated samples to infer responses under unmeasured
+strategy to reduce sPTL incidence. conditions, thereby generating digital twins of the immunome. This
+THF and maprotiline also delayed the simulated time to labor. approach assumes that the perturbation atlas is informative for the
+While current guidelines recommend folic acid supplementation clinical dataset, as mismatched datasets from different patient popu-
+primarily for the prevention of neural tube defects (43), results from lations could invalidate these extrapolations (36). By training CellOT
+large retrospective studies show that folic acid supplementation is models on the combined data from pregnant and nonpregnant in-
+associated with a reduced risk of preterm delivery (44). Our digi- dividuals, we aimed to increase cellular diversity for improved gen-
+tal twins suggest that folic acid/THF supplementation may benefit eralizability and reduce overfitting to a small number of patients.
+individuals at high risk for sPTL by delaying their immunological Future pregnancy-s pecific and cross-g estational CellOT training could
+progression toward labor. Maprotiline is a discontinued tetracyclic further refine the accuracy of learned single-c ell behavior. While OT
+antidepressant formerly used for treatment of major depressive dis- methods have seen growing use in basic science applications such as
+order and anxiety. Per FDA guidelines, maprotiline was a category B trajectory inference (63–65) and perturbation modeling (66–68),
+drug that could be continued throughout gestation with no evidence their adoption in translational research remains limited. Here, we
+of increased risk of sPTL (45, 46). However, maprotiline use often showcase the utility of OT-b ased modeling within SIMCO to simu-
+comes with substantial side effects such as fatigue, weight gain, and late gestational immune states and model outcome- level treatment
+anticholinergic effects. While it seems to mediate diverse immuno- effects. The strong predictive performance of the generated digital
+modulatory effects, its appeal as a preventive strategy for reducing twins, approaching that of the original mass cytometry dataset from
+sPTL risk is low due to its side effect profile and the general contro- Stelzer et al. (33), indicates that SIMCO accurately models immune
+versy around the use of antidepressants during pregnancy. mechanisms underlying labor timing and bases its prediction of treat-
+A key strength of the SIMCO framework is the ability to monitor ment effects on relevant immune responses. In addition, the robust
+simulated drug effects across the entire immune system and com- performances across cross-v alidation folds demonstrate how CellOT
+prehensively weigh desirable and undesirable effects on the clinical likely does not overfit to individual patients but learns generalizable
+outcome. Drugs that delayed the predicted time to labor predomi- immune responses. While uncertainty from CellOT- based recon-
+nantly modulated signaling in CD4+ T cells and granulocytes. These struction can propagate through the SIMCO pipeline, most drug-
+modulated pathways demonstrated stable temporal trajectories across induced feature shifts remained detectable above the noise level,
+gestation and have established roles in the immune adaptations to although smaller effects should be interpreted cautiously, and SIMCO
+pregnancy: Although naïve CD4+ T cells are not classical effector is best suited for comparative and mechanistic inference rather than
+populations during gestation, their signaling state critically shapes precise quantitative prediction.
+downstream immune differentiation, cytokine responsiveness, and This study has several limitations. The limited number of preterm
+the balance between regulatory and proinflammatory lineages. No- cases restricted the model’s ability to capture preterm-s pecific immu-
+tably, the suppression of pSTAT3 responsiveness in naïve CD4+ T nological adaptations, and future studies with more samples from
+cells can promote immune tolerance and limit proinflammatory T preterm pregnancies could enable targeted modeling. Although our
+cell differentiation (47, 48). A sustained reduction in pSTAT3 acti- immune perturbation atlas was profiled at the single-c ell level, it in-
+vation might therefore constrain T helpe 17 (T 17) or T 1 skweing cluded a relatively small number of individuals, captured only a re-
+H H
+and protect against premature fading of maternal immunotolerance stricted gestational window during the second trimester, and focused
+resulting in sPTL (49–51). Similarly, enhanced pSTAT5 responsive- exclusively on peripheral blood, rather than tissue- resident immune
+ness, which is central to regulatory T cells development and main- populations. The experimental design reflects our goal of develop-
+tenance (52, 53), may support maternal- fetal tolerance. Together, ing a minimally invasive, blood- based assay that can be scaled and
+these subtle shifts in CD4+ naïve T cell homeostasis observed in sam- incorporated in biomarker- driven clinical trial designs; however, it
+ples treated with THF, SALPZ, or maprotiline plausibly modulate may overlook key tissue- specific immune dynamics involved in the
+the downstream inflammatory tone and support immunotolerant pathophysiology of sPTL. Circulating immune signatures may re-
+maintenance in mid- gestation. flect downstream correlates of underlying placental processes rather
+Innate immune cells also show immunosuppressive adaptations than upstream drivers of sPTL pathophysiology. Our work assumes
+to sustain pregnancy before taking part in the proinflammatory ini- that peripheral immune changes either mirror or approximate local
+tiation of labor (54–56). Macrophages show an anti- inflammatory immune effects within the same pathways (10, 61, 62, 69, 70). Yet, it
+M2 polarization that helps maintain gestation to term (57) and is critical to recognize that candidate drugs may exert additional or
+granulocytic MDSCs expand, aiding directly with attenuating T cell alternative effects on local and systemic immunity beyond the model
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 10 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 11 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+features, thereby altering therapeutic benefits and constraining physio- USA) and approved by the Institutional Review Board (protocol num-
+logical immune defense mechanisms. Furthermore, our assay cap- ber 68417). All participants provided informed consent. Nonpreg-
+tures acute phospho-s ignaling responses but no functional readouts. nant volunteers were recruited during the first week of their menstrual
+While prior works have established some of these functional down- cycle. Inclusion criteria included age 18 to 45 years, BMI < 40, and
+stream effects, such as pSTAT3 enhancing IL-6 release while reducing no ongoing immunomodulatory treatment. Pregnant individuals were
+IL-1 0 production in T reg cells (70) or NF-κ B–mediated release of TNFα recruited between 20 + 0 and 27 + 7 weeks of gestation if they were
+from monocytes (71), further experiments are necessary to fully cap- 18 to 45 years old, had a prepregnancy BMI < 40, were carrying a
+ture the drug-i nduced changes to the gestational immune landscape. singleton pregnancy, and without prior pregnancies (G1P0). Exclu-
+In addition, our in vitro experiments required selecting specific sion criteria included fertility treatment, chronic conditions outside
+compounds concentrations for testing. Several of the investigated of pregnancy (e.g., hypertension and diabetes), concurrent immu-
+drugs are metabolized in the liver to active and inactive metabolites, nomodulatory medication, diagnosed pregnancy disorders and fetal
+a process that cannot be replicated in vitro. To approximate physio- anomalies, as well as autoimmune diseases (e.g., lupus, rheumatoid
+logical relevance, we selected the metabolites with the highest plas- arthritis, Sjogren’s, or Hashimoto’s). A single blood draw of 12 ml
+ma concentrations following oral administration (see Materials and was collected in heparinized tubes. In total, 8 nonpregnant controls
+Methods); for instance, for aspirin and folic acid, we tested SA and and 11 pregnant individuals participated in the study. Researchers
+THF, respectively. While we cannot exclude the possibility that other conducting the analyses were not blinded. Basic demographics and
+metabolites also exert immunomodulatory effects, our experimental pregnancy characteristics including EGA at recruitment are sum-
+design prioritized those most likely to reflect systemic exposure. Ef- marized in Table 1.
+fective concentrations strictly followed empirically observed plasma Ex vivo drug screening assay
+levels after oral administration of clinical standard doses. For THF, we Whole blood was collected from study subjects in heparinized tubes
+chose a high dose (4 mg) as many patients reported taking prenatal and processed between 30 and 60 min after blood draw. The drug
+vitamins, including THF at the recommended daily value. screen assessed 96 conditions per sample and was automated using
+Several key steps will be important to validate SIMCO as a work- an Opentrons Flex pipetting robot. Drug aliquots were prepared as
+flow for drug screening. First, application to cross-g estational, larger 200× stocks from powder dissolved in DMSO (except 5- THF, 100×
+cohorts as external validation will help assess the robustness and gen- stock in 1:1 water/DMSO). In a 96-w ell deep-w ell block, RPMI with
+eralizability of inferred treatment effects across different populations, 2× drug concentrations was added and warmed to 37°C. Heparinized
+sampling protocols, and disease severities. Second, complementary whole blood was added 1:1 to the RPMI/drug dilution in each well,
+in vivo studies in appropriate animal models could provide mecha- achieving the final 1× concentration for each drug (0.5% DMSO).
+nistic validation of predicted immunomodulatory effects and their The final drug concentrations per drug can be found in Table 2. The
+impact on gestational length and inflammatory pathways associated whole blood pretreated with each drug was incubated for 1 hour at
+with preterm labor. Last, prospective clinical studies will enable direct 37°C and 5% CO
+2
+in a humidified incubator on an orbital shaker.
+comparison of digital twin–based predictions of individual treatment After 1 hour of preincubation with the drug to allow sufficient time
+responsiveness with observed drug responses and clinical outcomes, for cellular uptake and target engagement, the samples were stimu-
+providing an opportunity to evaluate SIMCO’s predictive utility at the lated with LPS (50 ng/ml; InvivoGen, San Diego, CA); IFN-α (50 ng/
+patient level. In addition, these clinical studies will confirm the safety ml; PBL Assay Science, Piscataway, NJ); IL- 33 (50 ng/ml; R&D Sys-
+profile and exclude any increased risk of infection-d riven PTL result- tems, Minneapolis, MN); GM-C SF (50 ng/ml; R&D Systems); TNFα
+ing from immunomodulation. Together, these efforts will be critical (50 ng/ml; R&D Systems); a cocktail of IL- 2, IL- 4, and IL- 6 (each
+to determine whether digital twin–predicted immune modulation 50 ng/ml; R&D Systems); and PI (0.5×; Thermo Fisher Scientific,
+translates into meaningful therapeutic benefit. Waltham, MA) or left unstimulated for 2 hours. The 2-h our stimulation
+In conclusion, we present SIMCO as a proof-o f- concept frame- period was chosen to capture not only early signaling responses but
+work for single-c ell–level digital twins that simulate immune responses also posttranscriptional and paracrine effects, including cytokine-
+and model outcome-l evel treatment effects. With the ability to gen- mediated secondary signaling. After this 2-h our stimulation period
+erate digital twins from baseline immune profiles of unseen indi- at 37°C and 5% CO
+2
+in a humidified incubator on an orbital shaker,
+viduals, SIMCO offers a scalable and minimally invasive approach the whole-b lood culture was fixed with proteomic stabilizer (SMART
+for early-s tage compound prioritization and mechanistic hypothesis TUBE Inc., San Carlos, CA) for 20 min. Samples were treated with
+generation. Our work represents a critical step toward data-d riven, blood cell lysis buffer twice for 5 min, then washed, and stored at
+immune- guided therapeutic strategies. Following validation in in- −80°C until further processing.
+dependent cohorts and prospective trials, SIMCO has the potential Drug metabolites and concentrations
+to transform precision obstetrics by unifying immune profiling, com- All candidate drugs—chlorthalidone, maprotiline, metformin, lanso-
+putational modeling, and personalized therapeutic strategies for the prazole, pravastatin, rifabutin, SA, and THF—were preselected with
+prevention of sPTL. a computational drug repurposing pipeline (23) and categorized as
+FDA category A/B. For each candidate, we used the standard clinical
+oral dosing as anchor point (see Table 2). We identified in vivo stud-
+MATERIALS AND METHODS ies that described plasma concentrations over 24 hours after oral
+Study participant details and experimental setup administration of this reference dose and determined the empiri-
+Study design cally observed maximum concentration sustained for 3 hours, cor-
+The aim of this in vitro drug screen was to identify reproducible im- responding to the duration of our assay. From literature review, we
+munomodulatory effects of select candidate drugs for the prevention of selected the compound with the highest plasma concentration (ei-
+sPTL. The study was conducted at Stanford Hospital (Stanford, CA, ther the drug itself or a metabolite) for testing. For the drug tested,
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 11 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 12 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+active metabolites were used for folic acid and aspirin administra- participant. Per individual, the combination of eight stimulation ×
+tion (THF and SA, respectively). 28 immune cell subsets × 20 functional proteins produced a total
+96- plex layout and barcoding of 4480 features for each of the nine drug treatments and the three
+All 96 screening conditions for each donor were organized in a stan- DMSO controls. The extracted dataset was arcsinh transformed with
+dardized 12 × 8 format in a 2-m l deep- well block. Stimulation con- a cofactor of 5. The DMSO control triplicate was used to determine
+ditions were organized as rows, treatment conditions as columns. the intra- assay variability. Per patient per feature, a smooth spline
+Three DMSO controls were included in column 1, 6, and 12, the can- was fitted across all columns (k = 2, smoothing = 1.5, weight = 1 for
+didate drugs were organized as depicted in Fig. 2A. A 96-p lex doublet- drug- columns, weight = 2 for DMSO columns) to account for time-
+removing barcoding scheme was optimized to allow pooling of all dependent effects in signaling response (see fig. S7). Drug effects
+conditions together for mass cytometry staining and acquisition to were calculated as difference to the spline- modeled column- specific
+avoid batch effects (72). Mass- tag barcodes were designed using the corrected DMSO control within the same stimulation condition. Fea-
+isotopes Pd104, Pd105, Pd106, Pd108, Pd110, Pt194, Pt195, Pt196, ture stimulation effects were classified as strong response if the arc-
+and Au197. Isotope concentrations were titrated to 10 nM (Au, Pt sinh difference to unstimulated was >0.1 (0.01 for IL-3 3). For 168 of
+isotopes) and 100 nM (Pd isotopes) to achieve optimal barcode separa- the 196 cell type/stimulation combination, at least one strong stimu-
+tion. Of the 126 barcodes available in a choose-4 - out- of- 9 scheme, lation response was observed.
+the 96 barcodes with the highest purity (based on the purity of the
+underlying isotopes) were selected, while the remaining 30 were used SIMCO workflow
+to monitor the rate of wrongly assigned cells (fig. S3). Barcode re- Overview
+agents were prepared in DMSO and used after transient permeabi- We developed SIMCO to rapidly evaluate treatment effects of im-
+lization with 0.02% saponin/phosphate- buffered saline (PBS) (73). munomodulatory drugs on a clinical outcome via single-c ell simu-
+Across all 19 blood donors, the average barcode assignment rate with a lations. The prediction ensemble uses CellOT to simulate single-c ell
+threshold of 0.1 was 71.8% (±4.2%). For each condition, 100 μl of immune states and Stabl for feature selection and outcome model-
+blood yielded on average 138.0 × 103 (118.2 × 103 to 162.1 × 103) ing. A dataset of high- dimensional perturbation experiments (e.g.,
+live leukocytes for pregnant donors and 94.6 × 103 (76.9 × 103 to from mass cytometry) should be generated in a relevant patient popu-
+111.4 × 103) for nonpregnant donors. lation, evaluating immune cell responses when challenged with s stim-
+Opentrons Flex operation ulatory ligands in the presence or absence of t candidate drugs (fig.
+Protocol operation with the Opentrons Flex requires an eight-c hannel S1A). After identifying cell types (e.g., using manual gating), cell
+and a single- channel pipette. The protocol for the in vitro drug ex- type–specific CellOT models are trained for each stimulation sce-
+posure and whole blood lysis required around 5 hours of operation. A narios s; separately, for each stimulation condition, CellOT models
+custom tube rack and a pipette basin holder were three-d imensional for each drug treatment scenarios t (fig. S1B). The learned single-c ell
+printed to allow for the used deck configuration. The protocol for behavior is then projected onto a separate immunome dataset with
+96- well barcoding required around 2 hours of operation. The pro- documented outcomes and matching single- cell readouts (e.g., anti-
+tocols and the .stl files for the custom parts are available on the body panel). For n unstimulated samples with p unstimulated fea-
+GitHub repository. tures, responses are simulated to s stimulation scenarios, creating a
+Antibody staining and mass cytometry analysis feature matrix of p × (s + 1) features. This expanded feature matrix
+Pooled barcoded samples from all 96 conditions (40 × 106 cells) is then also transformed into t “treated” feature spaces (fig. S1C).
+were incubated with Fc- block (Human TruStain FcX, BioLegend) Outcome modeling using the Stabl algorithm is performed on the
+for 10 min and then stained with a master mix of surface antibod- untreated, simulation-e xpanded dataset in cross-v alidation: Per cross-
+ies for 30 min in cell staining medium (PBS with 0.5% bovine se- validation fold, a predictive model is built on the training cohort to
+rum albumin and 0.02% sodium azide). After washing, the cells then predict the outcome on a hold- out test set of patients as well as
+were permeabilized in ice-c old 100% methanol, washed, and stained their “treated” twins (fig. S1D). The global model performance is
+for 30 min with a master mix of intracellular antibodies (table S1). evaluated across folds; treatment effects were evaluated per patient
+Following intracellular staining, cells were washed and resuspend- per cross- validation fold as the difference between the predictions
+ed in an iridium intercalator (Standard Biotools) solution contain- on untreated in treated (fig. S1E). The final model built on the entire
+ing 2% paraformaldehyde. Last, samples were washed with ddH
+2
+O dataset can be used to identify patients at risk in an unseen cohort.
+and pelleted. The data were acquired using a mass cytometry XT By using a specific model prediction as treatment target (continuous
+instrument (Standard Biotools). The resulting mass cytometry data or categorical), the model can also steer personalized treatment strat-
+were normalized across each run using 6- EQ normalization beads. egies (fig. S1F).
+The debarcoding of the data was achieved using the Single Cell Single- cell simulation using CellOT
+Debarcoder v0.2 in MATLAB at a barcode separation threshold CellOT was introduced by Bunne et al. (37) as an implementation of
+of 0.1 (72). OT learning using an input convex neural network with four fully
+Stimulation responses and drug-i nduced effects connected hidden layers. We adapted the network architecture to
+Using CellEngine (Primity Bio), cell populations were defined with include a four- layer bottleneck structure (128, 128, 64, and 32). We
+manual gating (see fig. S2). Expression levels of intracellular phospho- reduced the latent-s pace dimensions from 50 to 42 to prevent over-
+signaling markers (pSTAT1, pSTAT3, pSTAT4, pSTAT5, pSTAT6, fitting and stopped training at 50,000 epochs (instead of 100,000).
+pMAPKAPK2, pCREB, pPLCγ2, pS6, pERK1/2, pP38, pNF-κ B, and CellOT models were trained on single- cell data from individual cell
+total IκB) and cell surface functional markers (PD-1 , PD- L1, CD25, types, identified by manual gating, as CellOT models trained per
+CD36, CD44, GLUT1, and HLA- DR) were exported as popula- cell type achieved better predictive accuracy than CellOT models
+tion median per stimulation condition, drug treatment, and study built on all leukocytes together.
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 12 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 13 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+Single- cell simulation performance evaluation features). Using a grid search across multiple hyperparameters (table
+We evaluated CellOT’s single-c ell simulation performance using four- S4; all other hyperparameters used as default), we selected the Stabl
+fold cross- validation with patient- level splits, excluding all cells of parameters providing the best feature set based on the RMSE. For
+the held- out test patients from training. For each fold, CellOT was the final model fit, we then iterated over a grid search for XGBoost
+trained on a subset of patients, and predictions were generated for hyperparameters optimizing the AUROC (table S4).
+the unseen, held- out patients. Predicted single- cell data were sum- Evaluation of simulated drug effects
+marized by calculating population medians per marker. To contex- Within the cross-v alidation strategy used to assess model performance,
+tualize the performance, we compared CellOT against two simple we calculated the time to labor predictions for both the held-o ut test
+baselines. In the identity baseline, predictions were set equal to the patients and their “treated” counterparts. To reduce the effect of model-
+untreated (baseline) distribution of the same patient, representing ing error on the treatment evaluation, we compared the model pre-
+the trivial case of assuming no perturbation effect was learned by diction on the “treated” patient data to the same patient’s “no drug”
+CellOT. In the training baseline, predictions were set equal to the model prediction.
+observed perturbed distributions from the training patients, repre- Computational resources
+senting the case of directly reusing available training data without CellOT was executed using the Python package “CellOT” (version
+modeling new responses. Performance metrics were then computed 0.1). CellOT training was performed on the Stanford-p rovided cloud
+consistently across models: MAE between predicted and observed computing platform Sherlock with maximum RAM request of 32 GB,
+population medians; MMD between predicted and observed marker maximum job time of 20 hours, maximum 16 CPU per job. Stabl
+distributions per cell type, marker, and patient; and R2 values quan- was run using the Python package Stabl lw. Basic data analysis steps,
+tifying the correlation between predicted and observed population including time-d ependent variability correction and dataset penaliza-
+medians across markers for each cell type and patient. tion, were executed using the Python packages SciPy (version 1.10.4),
+Final single- cell simulation model scikit- learn (version 1.5.2), pandas (version 2.2.3), and numpy (ver-
+For the final analysis, CellOT models were trained using all 19 pa- sion 1.26.4). For visualization, we used seaborn (version 0.13.2) and
+tients (pregnant and nonpregnant) from the perturbation dataset. matplotlib (version 3.10.3).
+Our rationale for combining both groups was to increase cellular and
+phenotypic diversity in the single- cell training data, thereby im- Univariate analysis
+proving robustness and reducing the risk of overfitting to pregnancy Statistical comparisons between nonpregnant and pregnant indi-
+status–specific and sampling-t ime point–specific cell behavior rather viduals were calculated using a Mann- Whitney U test with false dis-
+than learning more general immune state transitions. For stimula- covery rate (FDR) correction (FDR < 0.05, Benjamini- Hochberg).
+tion response models, we trained a separate CellOT model for each Comparisons between treatment and DMSO-c ontrol were calculated
+of the 168 cell- type stimulation combinations that showed at least as paired Student’s t test with Benjamini-H ochberg correction (FDR <
+one strong stimulation response. For treatment effect models, we 0.05). Pregnancy enrichment of drug effects was calculated as the
+extended the training to predict drug effects on the same 168 cell- absolute difference in effect size between pregnant and nonpregnant
+type stimulation combinations and drug effects on all 28 cell types at donors, normalized by the total absolute effect magnitude across
+unstimulated baseline. both groups.
+Independent dataset with time to labor outcome
+We used a longitudinal mass cytometry dataset recently published
+by our group as clinical reference dataset for simulation experiments Supplementary Materials
+(33). The dataset comprised 177 samples from 63 participants enrolled This PDF file includes:
+during the last 120 days of an uncomplicated, singleton pregnancy. Figs. S1 to S7
+Between one and three blood samples were collected throughout this tables S1 to S4
+period until patients went into spontaneous labor. For simulation
+REFERENCES
+experiments, only the 177 unstimulated samples (15 min, 37°C) were
+1. l. liu, S. Oza, d. hogan, Y. chu, J. Perin, J. Zhu, J. E. lawn, S. cousens, c. Mathers,
+used (original stimulation conditions included unstimulated, IL-2 /4/6,
+R. E. Black, Global, regional, and national causes of under- 5 mortality in 2000–15: An
+LPS, IFN- α, and GM- CSF). The antibody panel largely overlapped, updated systematic analysis with implications for the Sustainable development Goals.
+and manual gating was adjusted to match the perturbation dataset Lancet 388, 3027–3035 (2016).
+completely. Population medians were exported and arcsinh trans- 2. R. l. Goldenberg, J. F. culhane, J. d. iams, R. Romero, Epidemiology and causes of preterm
+birth. Lancet 371, 75–84 (2008).
+formed with a cofactor of 5.
+3. R. Romero, S. K. dey, S. J. Fisher, Preterm labor: One syndrome, many causes. Science 345,
+Multivariable outcome modeling using Stabl
+760–765 (2014).
+The Stabl algorithm allows for the selection of reliable biomarkers 4. X. han, M. S. Ghaemi, K. Ando, l. S. Peterson, E. A. Ganio, A. S. tsai, d. K. Gaudilliere,
+from multiomic datasets (32). As input data, population medians of i. A. Stelzer, J. Einhaus, B. Bertrand, n. Stanley, A. culos, A. tanada, J. hedou, E. S. tsai,
+baseline expression levels (unstimulated) or stimulation responses R. Fallahzadeh, R. J. Wong, A. E. Judy, v. d. Winn, M. l. druzin, Y. J. Blumenfeld, M. A. hlatky,
+c. c. Quaintance, R. S. Gibbs, B. carvalho, G. M. Shaw, d. K. Stevenson, M. S. Angst,
+(arcsinh difference between stimulated and unstimulated) were used.
+n. Aghaeepour, B. Gaudilliere, differential dynamics of the maternal immune system in
+To account for the longitudinal nature of the dataset, we used pa-
+healthy pregnancy and preeclampsia. Front. Immunol. 10, 1305 (2019).
+tient shuffle split to assess the robustness of our model. We applied a 5. n. Aghaeepour, E. A. Ganio, d. Mcilwain, A. S. tsai, M. tingle, S. van Gassen,
+penalization matrix to remove weak stimulation responses (median d. K. Gaudilliere, Q. Baca, l. Mcneil, R. Okada, M. S. Ghaemi, d. Furman, R. J. Wong,
+response across all samples <0.1 arcsinh difference) from the input v. d. Winn, M. l. druzin, Y. Y. El- Sayed, c. Quaintance, R. Gibbs, G. l. darmstadt, G. M. Shaw,
+d. K. Stevenson, R. tibshirani, G. P. nolan, d. B. lewis, M. S. Angst, B. Gaudilliere, An
+feature set. This penalization resulted in a dataset size of 364 un-
+immune clock of human pregnancy. Sci. Immunol. 2, eaan2946 (2017).
+stimulated features (28 cell types × 13 markers) and 691 stimulation 6. A. l. tarca, R. Romero, n. Benshalom- tirosh, n. G. than, d. W. Gudicha, B. done, P. Pacora,
+response features (of the 7 stimulation conditions × 28 × 13 = 2548 t. chaiworapongsa, B. Panaitescu, d. tirosh, n. Gomez- lopez, S. draghici, S. S. hassan,
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 13 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 14 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+O. Erez, the prediction of early preeclampsia: Results from a longitudinal proteomics 29. F. Pappalardo, G. Russo, F. M. tshinanu, M. viceconti, in silico clinical trials: concepts and
+study. PLOS ONE 14, e0217273 (2019). early adoptions. Brief. Bioinform. 20, 1699–1708 (2019).
+7. n. Gomez- lopez, R. Romero, S. S. hassan, G. Bhatti, S. M. Berry, J. P. Kusanovic, P. Pacora, 30. R. laubenbacher, A. niarakis, t. helikar, G. An, B. Shapiro, R. S. Malik- Sheriff, t. J. Sego,
+A. l. tarca, the cellular transcriptome in the maternal circulation during normal A. Knapp, P. Macklin, J. A. Glazier, Building digital twins of the human immune system:
+pregnancy: A longitudinal study. Front. Immunol. 10, 2863 (2019). toward a roadmap. npj Digit. Med. 5, 64 (2022).
+8. t. t. M. ngo, M. n. Moufarrej, M.- l. h. Rasmussen, J. camunas- Soler, W. Pan, J. Okamoto, 31. S. c. Bendall, E. F. Simonds, P. Qiu, E. d. Amir, P. O. Krutzik, R. Finck, R. v. Bruggner,
+n. F. neff, K. liu, R. J. Wong, K. downes, R. tibshirani, G. M. Shaw, l. Skotte, d. K. Stevenson, R. Melamed, A. trejo, O. i. Ornatsky, R. S. Balderas, S. K. Plevritis, K. Sachs, d. Pe’er,
+J. R. Biggio, M. A. Elovitz, M. Melbye, S. R. Quake, noninvasive blood tests for fetal S. d. tanner, G. P. nolan, Single- cell mass cytometry of differential immune and drug
+development predict gestational age and preterm delivery. Science 360, 1133–1136 responses across a human hematopoietic continuum. Science 332, 687–696 (2011).
+(2018). 32. J. hédou, i. Marić, G. Bellan, J. Einhaus, d. K. Gaudillière, F.- X. ladant, F. verdonk,
+9. K. Racicot, J. Kwon, P. Aldo, M. Silasi, G. Mor, Understanding the complexity of the i. A. Stelzer, d. Feyaerts, A. S. tsai, E. A. Ganio, M. Sabayev, J. Gillard, J. Amar, A. cambriel,
+immune system during pregnancy. Am. J. Reprod. Immunol. 72, 107–116 (2014). t. t. Oskotsky, A. Roldan, J. l. Golob, M. Sirota, t. A. Bonham, M. Sato, M. diop, X. durand,
+10. R. Pique- Regi, R. Romero, A. l. tarca, E. d. Sendler, Y. Xu, v. Garcia- Flores, Y. leng, F. luca, M. S. Angst, d. K. Stevenson, n. Aghaeepour, A. Montanari, B. Gaudillière, discovery of
+S. S. hassan, n. Gomez- lopez, Single cell transcriptional signatures of the human sparse, reliable omic biomarkers with Stabl. Nat. Biotechnol. 42, 1581–1593 (2024).
+placenta in term and preterm parturition. eLife 8, e52004 (2019). 33. i. A. Stelzer, M. S. Ghaemi, X. han, K. Ando, J. J. hédou, d. Feyaerts, l. S. Peterson,
+11. A. l. tarca, B. Á. Pataki, R. Romero, M. Sirota, Y. Guan, R. Kutum, n. Gomez- lopez, B. done, K. K. Rumer, E. S. tsai, E. A. Ganio, d. K. Gaudillière, A. S. tsai, B. choisy, l. P. Gaigne,
+G. Bhatti, t. Yu, G. Andreoletti, t. chaiworapongsa, dREAM Preterm Birth Prediction F. verdonk, d. Jacobsen, S. Gavasso, G. M. traber, M. Ellenberger, n. Stanley, M. Becker,
+challenge consortium, S. S. hassan, c.- d. hsu, n. Aghaeepour, G. Stolovitzky, i. csabai, A. culos, R. Fallahzadeh, R. J. Wong, G. l. darmstadt, M. l. druzin, v. d. Winn, R. S. Gibbs,
+J. c. costello, crowdsourcing assessment of maternal blood multi- omics for predicting X. B. ling, K. Sylvester, B. carvalho, M. P. Snyder, G. M. Shaw, d. K. Stevenson,
+gestational age and preterm birth. Cell Rep. Med. 2, 100323 (2021). K. contrepois, M. S. Angst, n. Aghaeepour, B. Gaudillière, integrated trajectories of the
+12. J. h. Rowe, J. M. Ertelt, l. Xin, S. S. Way, Pregnancy imprints regulatory memory that maternal metabolome, proteome, and immunome predict labor onset. Sci. Transl. Med.
+sustains anergy to fetal antigen. Nature 490, 102–106 (2012). 13, eabd9898 (2021).
+13. A. Erlebacher, Mechanisms of t cell tolerance towards the allogeneic fetus. Nat. Rev. 34. B. Bodenmiller, E. R. Zunder, R. Finck, t. J. chen, E. S. Savig, R. v. Bruggner, E. F. Simonds,
+Immunol. 13, 23–33 (2013). S. c. Bendall, K. Sachs, P. O. Krutzik, G. P. nolan, Multiplexed mass cytometry profiling of
+14. S. tsuda, A. nakashima, t. Shima, S. Saito, new paradigm in the role of regulatory t cells cellular states perturbed by small- molecule regulators. Nat. Biotechnol. 30, 858–867
+during pregnancy. Front. Immunol. 10, 573 (2019). (2012).
+15. d. A. Somerset, Y. Zheng, M. d. Kilby, d. M. Sansom, M. t. drayson, normal human 35. n. liu, W. E. Kattan, B. E. Mead, c. Kummerlowe, t. cheng, S. ingabire, J. h. cheah,
+pregnancy is associated with an elevation in the immune suppressive cd25+ cd4+ c. K. Soule, A. vrcic, J. K. Mcininch, S. triana, M. Guzman, t. t. dao, J. M. Peters, K. E. lowder,
+regulatory t- cell subset. Immunology 112, 38–43 (2004). l. crawford, A. P. Amini, P. c. Blainey, W. c. hahn, B. cleary, B. Bryson, P. S. Winter,
+16. n. Gomez- lopez, S. tanaka, Z. Zaeem, G. A. Metz, d. M. Olson, Maternal circulating S. Raghavan, A. K. Shalek, Scalable, compressed phenotypic screening using pooled
+leukocytes display early chemotactic responsiveness during late gestation. BMC perturbations. Nat. Biotechnol. 43, 1324–1336 (2025).
+Pregnancy Childbirth 13, S8 (2013). 36. c. Bunne, G. Schiebinger, A. Krause, A. Regev, M. cuturi, Optimal transport for single- cell
+17. M. Farias- Jofre, R. Romero, J. Galaz, Y. Xu, l. tao, c. demery- Poulos, M. Arenas- hernandez, and spatial omics. Nat. Rev. Methods Primers 4, 58 (2024).
+G. Bhatti, Z. liu, n. Kawahara, t. Kanninen, Z. Shaffer, t. chaiworapongsa, K. R. theis, 37. c. Bunne, S. G. Stark, G. Gut, J. S. del castillo, M. levesque, K.- v. lehmann, l. Pelkmans,
+A. l. tarca, n. Gomez- lopez, Pregnancy tailors endotoxin- induced monocyte and A. Krause, G. Rätsch, learning single- cell perturbation responses using neural optimal
+neutrophil responses in the maternal circulation. Inflamm. Res. 71, 653–668 (2022). transport. Nat. Methods 20, 1759–1768 (2023).
+18. G. Mor, P. Aldo, A. B. Alvero, the unique immunological and microbial aspects of 38. B. Abu- Raya, c. Michalski, M. Sadarangani, P. M. lavoie, Maternal immunological
+pregnancy. Nat. Rev. Immunol. 17, 469–482 (2017). adaptation during normal pregnancy. Front. Immunol. 11, 575197 (2020).
+19. n. Gomez- lopez, K. Motomura, d. Miller, v. Garcia-F lores, J. Galaz, R. Romero, inflammasomes: 39. A. J. E. M. c. landman, M. A. de Boer, l. visser, t. A. J. nijman, M. A. c. hemels,
+their role in normal and complicated pregnancies. J. Immunol. 203, 2757–2769 (2019). c. n. naaktgeboren, M. c. van der Weide, B. W. Mol, J. O. E. h. van laar,
+20. n. Gomez- lopez, J. Galaz, d. Miller, M. Farias- Jofre, Z. liu, M. Arenas- hernandez, d. n. M. Papatsonis, M. n. Bekker, J. van drongelen, M. G. van Pampus, M. Sueters,
+v. Garcia- Flores, Z. Shaffer, J. M. Greenberg, K. R. theis, R. Romero, the immunobiology of d. P. van der ham, J. M. Sikkema, J. J. Zwart, A. J. M. huisjes, M. E. van huizen, G. Kleiverda,
+preterm labor and birth: intra- amniotic inflammation or breakdown of maternal–fetal J. Boon, M. t. M. Franssen, W. hermes, h. visser, c. J. M. de Groot, M. A. Oudijk, Evaluation
+homeostasis. Reproduction 164, R11–R45 (2022). of low- dose aspirin in the prevention of recurrent spontaneous preterm labour (the
+21. d. Miller, v. Garcia- Flores, R. Romero, J. Galaz, R. Pique- Regi, n. Gomez- lopez, Single- cell APRil study): A multicentre, randomised, double- blinded, placebo- controlled trial. PLOS
+immunobiology of the maternal- fetal interface. J. Immunol. 209, 1450–1464 (2022). Med. 19, e1003892 (2022).
+22. d. Feyaerts, M. diop, J. Galaz, J. F. Einhaus, P. c. Arck, A. diemert, v. d. Winn, M. Parast, 40. R. M. Silver, K. Ahrens, l. F. Wong, n. J. Perkins, n. Galai, l. l. lesher, d. Faraggi,
+c. Gyamfi-B annerman, J. R. Prins, n. Gomez- lopez, i. A. Stelzer, the single- cell immune J. Wactawski- Wende, J. M. townsend, A. M. lynch, S. l. Mumford, l. Sjaarda,
+profile throughout gestation and its potential value for identifying women at risk for E. F. Schisterman, low- dose aspirin and preterm birth: A randomized controlled trial.
+spontaneous preterm birth. Eur. J. Obstet. Gynecol. Reprod. Biol. X 25, 100371 (2025). Obstet. Gynecol. 125, 876–884 (2015).
+23. B. l. le, S. iwatani, R. J. Wong, d. K. Stevenson, M. Sirota, computational discovery of 41. t. tanigawa, t. Watanabe, K. higuchi, h. Machida, h. Okazaki, h. Yamagami, K. Watanabe,
+therapeutic candidates for preventing preterm birth. JCI Insight 5, e133761 (2020). K. tominaga, Y. Fujiwara, n. Oshitani, t. Arakawa, lansoprazole, a proton pump inhibitor,
+24. d. Feyaerts, i. Marić, P. c. Arck, J. R. Prins, n. Gomez- lopez, B. Gaudillière, i. A. Stelzer, Predicting suppresses production of tumor necrosis factor- α and interleukin-1 β induced by
+spontaneous preterm birth using the immunome. Clin. Perinatol. 51, 441–459 (2024). lipopolysaccharide and helicobacter pylori bacterial components in human monocytic
+25. M. K. hoffman, S. S. Goudar, B. S. Kodkany, M. Metgud, M. Somannavar, J. Okitawutshu, cells via inhibition of 1 activation of nuclear factor- κB and extracellular signal- regulated
+A. lokangaka, A. tshefu, c. l. Bose, A. Mwapule, M. Mwenechanya, E. chomba, W. A. carlo, kinase. J. Clin. Biochem. Nutr. 45, 86–92 (2009).
+J. chicuy, l. Figueroa, A. Garces, n. F. Krebs, S. Jessani, F. Zehra, S. Saleem, 42. A. Gilman- Sachs, S. dambaeva, M. d. Salazar Garcia, Y. hussein, J. Kwak- Kim, K. Beaman,
+R. l. Goldenberg, K. Kurhe, P. das, A. Patel, P. l. hibberd, E. Achieng, P. nyongesa, inflammation induced preterm labor and birth. J. Reprod. Immunol. 129, 53–58 (2018).
+F. Esamai, E. A. liechty, n. Goco, J. hemingway- Foday, J. Moore, t. l. nolen, E. M. Mcclure, 43. US Preventive Services task Force, Folic acid supplementation to prevent neural tube
+M. Koso- thomas, M. Miodovnik, R. Silver, R. J. derman, ASPiRin Study Group, low- dose defects: US Preventive Services task Force reaffirmation recommendation statement.
+aspirin for the prevention of preterm delivery in nulliparous women with a singleton JAMA 330, 454–459 (2023).
+pregnancy (ASPiRin): A randomised, double- blind, placebo- controlled trial. Lancet 395, 44. Y. Wu, Y. Yuan, c. Kong, Q. Ma, h. Ye, W. Jing, J. liu, M. liu, the association between
+285–293 (2020). periconceptional folic acid supplementation and the risk of preterm birth: A population-
+26. Prediction and prevention of spontaneous preterm birth: AcOG Practice Bulletin, based retrospective cohort study of 200,000 women in china. Eur. J. Nutr. 60, 2181–2192
+number 234. Obstet. Gynecol. 138, e65–e90 (2021). (2021).
+27. Society for Maternal- Fetal Medicine (SMFM), SMFM Publications committee, Society for 45. c. Armstrong, AcOG guidelines on psychiatric medication use during pregnancy and
+Maternal- Fetal Medicine statement: Response to the Food and drug Administration’s lactation. Am. Fam. Physician 78, 772–778 (2008).
+withdrawal of 17- alpha hydroxyprogesterone caproate. Am. J. Obstet. Gynecol. 229, 46. J. Wang, d. Roy, M. Y.- F. Wang, d. dinh, A. lao, v. Mendoza, G. Xu, c. G. chatterton,
+B2–B6 (2023). n. Ahmadieh, timing of antidepressant use in pregnancy and preterm birth: A systematic
+28. t. A. Manuck, c. Gyamfi- Bannerman, G. Saade, What now? A critical evaluation of over review and meta- analysis. O G Open 1, 22 (2024).
+20 years of clinical and research experience with 17-a lpha hydroxyprogesterone caproate 47. E. K. deenick, S. J. Pelham, A. Kane, c. S. Ma, Signal transducer and activator of
+for recurrent preterm birth prevention. Am. J. Obstet. Gynecol. MFM 5, 101108 (2023). transcription 3 control of human t and B cell responses. Front. Immunol. 9, 168 (2018).
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 14 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 15 =====
+SciEncE AdvAncES | RESEAR ch AR ticlE
+48. l. durant, W. t. Watford, h. l. Ramos, A. laurence, G. vahedi, l. Wei, h. takahashi, 72. E. R. Zunder, R. Finck, G. K. Behbehani, E.- A. d. Amir, S. Krishnaswamy, v. d. Gonzalez,
+h.- W. Sun, Y. Kanno, F. Powrie, J. J. O’Shea, diverse targets of the transcription factor c. G. lorang, Z. Bjornson, M. h. Spitzer, B. Bodenmiller, W. J. Fantl, d. Pe’er, G. P. nolan,
+StAt3 contribute to t cell pathogenicity and homeostasis. Immunity 32, 605–615 (2010). Palladium- based mass tag cell barcoding with a doublet- filtering scheme and single- cell
+49. F. côté, E. Prairie, E. M. Sierra, c. Quiniou, t. habelrih, W. Xu, B. Ferri, X. hou, i. lahaie, deconvolution algorithm. Nat. Protoc. 10, 316–333 (2015).
+n. côté, S.- E. loiselle, l. Gobeil, K. Sawaya, A. Faucher, A. Beaulieu, S. delisle, M.- P. Simard, 73. G. K. Behbehani, c. thom, E. R. Zunder, R. Finck, B. Gaudilliere, G. K. Fragiadakis, W. J. Fantl,
+M. A. Mohammad nezhady, v. laplante, A. Reuben, S. M. Kalaidji, E. Bajon, G. cagnone, G. P. nolan, transient partial permeabilization with saponin enables cellular barcoding
+K. B. leimert, J.- F. Gauchat, l. Gaudreau, S. Robertson, W. d. lubell, d. M. Olson, prior to surface marker staining. Cytometry A 85, 1011–1019 (2014).
+S. chemtob, A novel modulator of il- 6R prevents inflammation-i nduced preterm birth 74. J. v. Shah, d. P. Patel, P. A. Shah, M. Sanyal, P. S. Shrivastav, Simultaneous quantification of
+and improves newborn outcome. EMBO Mol. Med. 17, 1950–1982 (2025). atenolol and chlorthalidone in human plasma by ultra- performance liquid
+50. l. Wang, Z. liu, d. huang, Y. Ran, h. Zhang, J. he, n. Yin, h. Qi, il- 37 exerts anti- chromatography–tandem mass spectrometry. Biomed. Chromatogr. 30, 208–216 (2016).
+inflammatory effects in fetal membranes of spontaneous preterm birth via the nF-κ B and 75. K. P. Maguire, t. R. norman, G. d. Burrows, B. A. Scoggins, An evaluation of maprotiline
+il- 6/StAt3 signaling pathway. Mediators Inflamm. 2020, 1069563 (2020). intravenous kinetics and comparison of two oral doses. Eur. J. Clin. Pharmacol. 18,
+51. d. Marzioni, F. Piani, n. di Simone, S. Giannubilo, A. ciavattini, G. tossetta, importance of 249–254 (1980).
+StAt3 signaling in preeclampsia (Review). Int. J. Mol. Med. 55, 58 (2025). 76. S. Eyal, t. R. Easterling, d. carr, J. G. Umans, M. Miodovnik, G. d. v. hankins, S. M. clark,
+52. l. Passerini, S. E. Allan, M. Battaglia, S. di nunzio, A. n. Alstad, M. K. levings, l. Risler, J. Wang, E. J. Kelly, d. d. Shen, M. F. hebert, Pharmacokinetics of metformin
+M. G. Roncarolo, R. Bacchetta, StAt5- signaling cytokines regulate the expression of during pregnancy. Drug Metab. Dispos. 38, 833–840 (2010).
+FOXP3 in cd4+cd25+ regulatory t cells and cd4+cd25− effector t cells. Int. Immunol. 20, 77. M. Song, X. Gao, t.- J. hang, A.- d. Wen, Pharmacokinetic properties of lansoprazole (30- mg
+421–431 (2008). enteric- coated capsules) and its metabolites: A single- dose, open- label study in healthy
+53. M. A. Burchill, J. Yang, c. vogtenhuber, B. R. Blazar, M. A. Farrar, il- 2 receptor β- dependent chinese male subjects. Curr. Ther. Res. Clin. Exp. 70, 228–239 (2009).
+StAt5 activation is required for the development of Foxp3+ regulatory t cells. J. Immunol. 78. M. M. costantine, K. cleary, M. F. hebert, M. S. Ahmed, l. M. Brown, Z. Ren, t. R. Easterling,
+178, 280–290 (2007). d. M. haas, l. S. haneline, S. n. caritis, R. venkataramanan, h. West, M. d’Alton, G. hankins,
+54. n. Gomez- lopez, d. Stlouis, M. A. lehr, E. n. Sanchez- Rodriguez, M. Arenas- hernandez, Eunice Kennedy Shriver national institute of child health and human development
+immune cells in term and preterm labor. Cell. Mol. Immunol. 11, 571–581 (2014). Obstetric- Fetal Pharmacology Research Units network, Safety and pharmacokinetics of
+55. i. Aneman, d. Pienaar, S. Suvakov, t. P. Simic, v. d. Garovic, l. Mcclements, Mechanisms of key pravastatin used for the prevention of preeclampsia in high-r isk pregnant women: A pilot
+innate immune cells in early- and late- onset preeclampsia. Front. Immunol. 11, 1864 (2020). randomized controlled trial. Am. J. Obstet. Gynecol. 214, 720.e1–720.e17 (2016).
+56. S. Bert, E. J. Ward, S. nadkarni, neutrophils in pregnancy: new insights into innate and 79. P. K. narang, R. c. lewis, J. R. Bianchine, Rifabutin absorption in humans: Relative
+adaptive immune regulation. Immunology 164, 665–676 (2021). bioavailability and food effect. Clin. Pharmacol. Ther. 52, 335–341 (1992).
+57. n. Gomez- lopez, v. Garcia- Flores, P. Y. chin, h. M. Groome, M. t. Bijland, K. R. diener, 80. R. dolores, n. Antunes, R. Moreno, P. di vaio, E. Magli, G. de nucci, comparative
+R. Romero, S. A. Robertson, Macrophages exert homeostatic actions in pregnancy to bioavailability study of two 81 mg coated tablet formulations of acetylsalicylic acid in
+protect against preterm birth and fetal inflammatory injury. JCI Insight 6, e146089 (2021). fasting healthy volunteers. J. Bioequiv. Availab. 9, 477–483 (2017).
+58. n. Köstlin, h. Kugel, B. Spring, A. leiber, A. Marmé, M. henes, n. Rieber, d. hartl, c. F. Poets, 81. X.- h. Zheng, l.- Y. Jiang, l.- t. Zhao, Q.- Y. Zhang, l. ding, Simultaneous quantitation of folic
+c. Gille, Granulocytic myeloid derived suppressor cells expand in human pregnancy and acid and 5- methyltetrahydrofolic acid in human plasma by hPlc–MS/MS and its
+modulate t- cell responses. Eur. J. Immunol. 44, 2582–2591 (2014). application to a pharmacokinetic study. J. Pharm. Anal. 5, 269–275 (2015).
+59. t. Weichhart, G. costantino, M. Poglitsch, M. Rosner, M. Zeyda, K. M. Stuhlmeier, t. Kolbe,
+t. M. Stulnig, W. h. hörl, M. hengstschläger, M. Müller, M. d. Säemann, the tSc-m tOR Acknowledgments: We thank all individuals for their participation in this study. We thank
+signaling pathway regulates the innate inflammatory response. Immunity 29, 565–577 (2008). Y. El Sayed for his thoughtful input and guidance on the analyses. Funding: this work was
+60. t. Weichhart, M. hengstschläger, M. linke, Regulation of innate immune cell function by supported by the Stanford Maternal and child health Research institute; the March of dimes
+mtOR. Nat. Rev. Immunol. 15, 599–614 (2015). Prematurity Research center at Stanford University #22FY19343 (to B.G., d.K.S., and n.A.); the
+61. A. itakura, O. J. t. Mccarty, Pivotal role for the mtOR pathway in the formation of March of dimes Prematurity Research center at UcSF; the center for human Systems
+neutrophil extracellular traps via regulation of autophagy. Am. J. Physiol. Cell Physiol. 305, immunology at Stanford (to B.G.); the Robertson Foundation (to B.G., n.A., and d.K.S.); the
+c348–c354 (2013). national institute of health P01hd106414 (to B.G., l.G., M.Si., and d.K.S.), K99hd115829 (to d.F.),
+62. h. hu, Y. Peng, c. c. Wang, J. chen, X. Yu, X. chen, h. Ouyang, Q. huang, J. Ma, Q. Yin, l. Ma, and 1K99hd105016 (i.S.); and the Society for Reproductive investigation Bayer discovery/
+Z. ding, M. Zhang, h. Ren, J. Zheng, W. chen, Z. tao, R. liu, l. chen, X. Wang, t. Zhang, innovation Grant (to d.F.). Author contributions: conceptualization: J.E., M.Sat., A.S.t., v.B.,
+M. Zhong, neutrophil extracellular traps induce trophoblasts pyroptosis via enhancing d.K.G., K.A., i.A.S., n.A., B.G., M.Si., l.G., and d.K.S. investigation: J.E., M.Sat., S.A., K.M., A.S.t., v.B.,
+nlRP3 lactylation in SlE pregnancies. J. Autoimmun. 153, 103411 (2025). E.A.G., K.A., d.F., n.A., R.J.W., B.G., and M.Si. Formal analysis: J.E., P.n., O.F., J.n.A., v.B., M.Sab.,
+63. A. tong, J. huang, G. Wolf, d. v. dijk, S. Krishnaswamy, trajectorynet: A dynamic optimal E.A.G., i.A.S., R.J.W., and B.G. Methodology: J.E., A.S.t., J.h., v.B., d.K.S., G.M.S., t.t.O., M.Sab., K.A.,
+transport network for modeling cellular dynamics, in Proceedings of the 37th International i.A.S., n.A., and B.G. data curation: J.E., M.Sat., A.S.t., v.B., E.A.G., K.A., i.A.S., O.F., and B.G.
+Conference on Machine Learning (PMlR, 2020), pp. 9526–9536. validation: J.E., M.Sat., S.A., A.S.t., v.B., M.Sab., R.J.W., O.F., P.n., and B.G. Resources: M.Sat., S.A.,
+64. S. Zhang, A. Afanassiev, l. Greenstreet, t. Matsumoto, G. Schiebinger, Optimal transport A.S.t., A.c., E.A.G., K.A., v.B., R.J.W., G.M.S., i.A.S., M.Si., l.G., d.K.S., and B.G. Software: J.E., O.F., A.M.,
+analysis reveals trajectories in steady-s tate systems. PLoS Comput. Biol. 17, e1009466 (2021). J.n.A., v.B., M.Sab., R.l., P.n., and B.G. visualization: J.E., P.n., O.F., A.M., J.n.A., v.B., M.Sab., E.O.K.,
+65. c. Bunne, l. Papaxanthos, A. Krause, M. cuturi, Proximal Optimal transport Modeling of R.J.W., and B.G. Funding acquisition: A.S.t., G.M.S., M.Si., l.G., d.K.S., and B.G. Supervision: K.A.,
+Population dynamics, in Proceedings of The 25th International Conference on Artificial M.Si., l.G., d.K.S., and B.G. Project administration: J.E., M.Sat., S.A., A.S.t., l.G., and B.G. Writing—
+Intelligence and Statistics (PMlR, 2022), pp. 6511–6528. original draft: J.E., P.n., O.F., M.Sat., A.S.t., d.K.G., i.A.S., M.Si., l.G., and B.G. Writing—review and
+66. J. Ryu, c. Bunne, l. Pinello, A. Regev, R. lopez, cross- modality matching and prediction of editing: J.E., P.n., O.F., M.Sat., S.A., K.M., J.n.A., K.A., v.B., d.K.G., M.Sab., d.F., M.d., A.S.t., A.c.,
+perturbation responses with labeled Gromov- Wasserstein optimal transport. E.A.G., R.l., E.O.K., i.A.S., J.h., R.J.W., Y.J.B., d.J.l., G.M.S., t.t.O., M.Si., l.G., d.K.S., n.A., and B.G.
+arXiv:2405.00838 [q- bio.Gn] (2024). Competing interests: d.K.G., B.G., and J.h. are advisory board members at Surgecare. J.h. is
+67. A. demir, E. Solovyeva, J. Boylan, M. Xiao, F. Serluca, S. hoersch, J. Jenkins, M. devarakonda, cEO of Surgecare. J.E., d.K.S., M.Si., t.t.O., and B.G. are inventors on a patent application related
+B. Kiziltan, sc- OtGM: Single- cell perturbation modeling by solving optimal mass transport to this work filed by Stanford University (no. Pct/US2026/017168, filed 27 February 2026). the
+on the manifold of Gaussian mixtures. arXiv:2405.03726 [q- bio.Gn] (2024). authors declare that they have no other competing interests. Data, code, and materials
+68. M. dong, B. Wang, J. Wei, A. h. de O, Fonseca, c. J. Perry, A. Frey, F. Ouerghi, E. F. Foxman, availability: All data and code needed to evaluate and reproduce the results in the paper are
+J. J. ishizuka, R. M. dhodapkar, d. van dijk, causal identification of single- cell present in the paper and/or the Supplementary Materials. All materials used in this study are
+experimental perturbation effects with cinEMA- Ot. Nat. Methods 20, 1769–1779 commercially available, as specified in the supplementary tables. this study did not generate
+(2023). new materials. the preprocessed data of the perturbation dataset can be found as pre- gated
+69. l. Fainboim, l. Arruvito, Mechanisms involved in the expansion of tregs during FcS files on dryad.com (https://doi.org/10.5061/dryad.sqv9s4ngm). the source code required
+pregnancy: Role of il- 2/StAt5 signalling. J. Reprod. Immunol. 88, 93–98 (2011). to reproduce analysis steps is publicly available on Github (https://github.com/ofondeur/
+70. B. liu, h. Wu, Q. huang, M. li, X. Fu, Phosphorylated StAt3 inhibited the proliferation and SiMcO/) and zenodo.com (10.5281/zenodo.20481641). Further information and requests for
+suppression of decidual treg cells in unexplained recurrent spontaneous abortion. Int. resources and reagents should be directed to and will be fulfilled by B.G. (gbrice@s tanford.e du).
+Immunopharmacol. 82, 106337 (2020).
+71. M. Romão- veiga, c. F. Bannwart- castro, v. t. M. Borges, M. A. Golim, J. c. Peraçoli, Submitted 22 October 2025
+M. t. S. Peraçoli, increased tlR4 pathway activation and cytokine imbalance led to Accepted 27 July 2026
+lipopolysaccharide tolerance in monocytes from preeclamptic women. Pregnancy Published 21 October 2026
+Hypertens. 21, 159–165 (2020). 10.1126/sciadv.aed2741
+Einhaus et al., Sci. Adv. 12, eaed2741 (2026) 21 October 2026 15 of 15
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026
+===== PAGE 16 =====
+Single-cell–level digital twins for preterm birth prevention strategies
+Jakob Einhaus, Peter Neidlinger, Olivier Fondeur, Masaki Sato, Sasha Anronikov, Kotaro Miyazaki, Antoine Maechler,
+Jonas N. Amar, Kazuo Ando, Valentin Badea, Dyani K. Gaudilliere, Maximilian Sabayev, Dorien Feyaerts, Maïgane Diop,
+Amy S. Tsai, Amelie Cambriel, Edward A. Ganio, Romain Lagarde, Emmeline O’Kelly, Ina A. Stelzer, Julien Hedou,
+Ronald J. Wong, Yair J. Blumenfeld, Deirdre J. Lyell, Gary M. Shaw, Tomiko T. Oskotsky, Marina Sirota, Linda C. Giudice,
+David K. Stevenson, Nima Aghaeepour, and Brice Gaudilliere
+Sci. Adv. 12 (43), eaed2741. DOI: 10.1126/sciadv.aed2741
+View the article online
+https://www.science.org/doi/10.1126/sciadv.aed2741
+Permissions
+https://www.science.org/help/reprints-and-permissions
+Use of this article is subject to the Terms of service
+Science Advances (ISSN 2375-2548) is published by the American Association for the Advancement of Science. 1200 New York Avenue
+NW, Washington, DC 20005. The title Science Advances is a registered trademark of AAAS.
+Copyright © 2026 The Authors, some rights reserved; exclusive licensee American Association for the Advancement of Science. No claim
+to original U.S. Government Works. Distributed under a Creative Commons Attribution License 4.0 (CC BY).
+Downloaded
+from
+https://www.science.org
+on
+October
+22,
+2026

@@ -1,0 +1,20 @@
+{
+  "entry_type": "horizon_selection",
+  "selection_id": "C01",
+  "selection_file": "/Users/xulei/项目/搜索/蓝图论文/选题池/2026-10-23_122727_首轮论文候选.json",
+  "topic": "1型糖尿病数字孪生按决策质量评价：预测最准的模型治疗排序接近随机",
+  "source_date": "2026-10-22",
+  "source_urls": [
+    "https://arxiv.org/abs/2610.30577v1"
+  ],
+  "inherited_context": {
+    "verified_facts": "作者在UVA/Padova模拟器的30个虚拟1型糖尿病患者、21种基础-餐时胰岛素方案上，比较6种数字孪生方法：以候选治疗排序与真实患者的一致性（Spearman）为决策质量指标。报告预测精度与决策质量背离——平均患者基线RMSE 63.6 mg/dL的方法Spearman 0.766，而RMSE最优（32.9 mg/dL）的黑箱神经网络Spearman仅0.049（排序接近随机）。",
+    "verification_scope": "仅评分阶段读取Horizon采集的标题与摘要；未读全文。写作时不能把模拟结果表述为真实患者验证。",
+    "next_check": "选定制作时读arXiv原文方法节，确认Spearman计算方式与6种方法清单；注意全部证据来自单一模拟器的回顾性in-silico实验。",
+    "content_type": "方法与评价研究",
+    "new_information": "提出按'下游治疗决策质量'而非血糖轨迹预测精度评价数字孪生，并给出6种方法的统一比较基线；指出仅按精度选型可能选出决策上无用的孪生。"
+  },
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "schema_version": 1,
+  "verification_status": "needs_source_review"
+}

@@ -1,0 +1,271 @@
+[
+  {
+    "page": 1,
+    "type": "cover",
+    "title": "单细胞级数字孪生\n模拟筛选早产预防用药",
+    "summary": "Stanford团队在Science Advances提出SIMCO：在独立孕妇队列模拟九种候选药对分娩时间的影响，叶酸代谢物与阿司匹林+兰索拉唑居前。"
+  },
+  {
+    "page": 2,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 0,
+        "type": "heading",
+        "start": 0,
+        "end": 3,
+        "page": 2,
+        "text": "创新点",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 1,
+        "type": "paragraph",
+        "start": 0,
+        "end": 229,
+        "page": 2,
+        "text": "Stanford团队10月21日在Science Advances发表SIMCO框架（Simulated Immunome Modeling of Clinical Outcomes）：把数字孪生做到单细胞分辨率，直接模拟免疫调节药物对\"距自然分娩时间\"这一临床结局的影响，为自发性早产（sPTL）的预防用药做计算筛选。孕期新药临床试验面临伦理与经费限制，已有数字孪生模型又缺乏单细胞分辨率、难以捕捉细胞类型特异机制与脱靶效应——SIMCO补的正是这个缺口。",
+        "line_tops": [
+          88,
+          156,
+          224,
+          292,
+          360,
+          428,
+          496,
+          564,
+          632
+        ]
+      },
+      {
+        "source_block_index": 2,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 2,
+        "text": "方法",
+        "line_tops": [
+          730
+        ]
+      },
+      {
+        "source_block_index": 3,
+        "type": "paragraph",
+        "start": 0,
+        "end": 120,
+        "page": 2,
+        "text": "框架分三步：用最优传输模型CellOT在单细胞扰动数据上学习\"药物+刺激\"如何改变各细胞类型的蛋白表达；把学到的行为投影到只有基线样本、但带临床结局的独立队列，为每名患者生成\"用药\"与\"不用药\"两个数字孪生；再用稀疏机器学习算法Stabl建",
+        "line_tops": [
+          816,
+          884,
+          952,
+          1020,
+          1088
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": false
+  },
+  {
+    "page": 3,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 3,
+        "type": "paragraph",
+        "start": 120,
+        "end": 166,
+        "page": 3,
+        "text": "模\"距自然分娩的时间\"，两个孪生的预测差即该药物的模拟效应。框架总览见论文Figure 1。",
+        "line_tops": [
+          4,
+          72
+        ]
+      },
+      {
+        "source_block_index": 5,
+        "type": "paragraph",
+        "start": 0,
+        "end": 124,
+        "page": 3,
+        "text": "训练数据是新建的质谱流式扰动图谱：8名非孕与11名孕20-27周女性，96孔外显全血免疫分析，共2.18亿个白细胞、80个扰动场景。9种候选药全部为FDA妊娠A/B类口服药（8种单药+1个组合），由已发表的计算药物重定位管线预选，实验浓度按口服标准",
+        "line_tops": [
+          744.22,
+          812.22,
+          880.22,
+          948.22,
+          1016.22
+        ]
+      }
+    ],
+    "image_blocks": [
+      4
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 4,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 5,
+        "type": "paragraph",
+        "start": 124,
+        "end": 153,
+        "page": 4,
+        "text": "剂量后的血浆水平设定，各药剂量与浓度见论文Table 2。",
+        "line_tops": [
+          4,
+          72
+        ]
+      },
+      {
+        "source_block_index": 7,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 4,
+        "text": "结果",
+        "line_tops": [
+          502.89
+        ]
+      },
+      {
+        "source_block_index": 8,
+        "type": "paragraph",
+        "start": 0,
+        "end": 173,
+        "page": 4,
+        "text": "模拟先过验证关：扰动图谱与独立临床数据集有13个功能蛋白重叠，两个研究的细胞类型用18个重叠表型标记、同一设门策略匹配。患者级拆分的四折交叉验证中，SIMCO对人群水平中位数的模拟在MAE、R2与MMD三项指标上均优于\"恒等\"与\"训练均值\"两个基线，模拟误差与患者间真实变异的相关达Spearman R=0.93。验证设计见论文Figure 4。",
+        "line_tops": [
+          588.89,
+          656.89,
+          724.89,
+          792.89,
+          860.89,
+          928.89,
+          996.89
+        ]
+      }
+    ],
+    "image_blocks": [
+      6
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 5,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 10,
+        "type": "paragraph",
+        "start": 0,
+        "end": 120,
+        "page": 5,
+        "text": "应用于独立纵向队列（Stelzer等采集的177份血样、63名孕妇，含5名sPTL患者）：SIMCO预测距分娩时间为Pearson R=0.64、RMSE 24.1天，区分早产与足月的AUROC为0.75（95%CI 0.59-0.88）。",
+        "line_tops": [
+          772.78,
+          840.78,
+          908.78,
+          976.78
+        ]
+      },
+      {
+        "source_block_index": 11,
+        "type": "paragraph",
+        "start": 0,
+        "end": 57,
+        "page": 5,
+        "text": "药物模拟排序：THF（叶酸活性代谢物）平均延长24.7天（IQR 11.4-45.9）居首，马普替林18.8天、阿",
+        "line_tops": [
+          1068.78,
+          1136.78
+        ]
+      }
+    ],
+    "image_blocks": [
+      9
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 6,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 11,
+        "type": "paragraph",
+        "start": 57,
+        "end": 162,
+        "page": 6,
+        "text": "司匹林+兰索拉唑组合（SALPZ）17.3天；THF、SALPZ、马普替林分别让90.5%、87.3%、82.5%的孕妇在模拟中延长孕周，单用阿司匹林代谢物SA只有46%。各药效应与机制见论文Figure 5。",
+        "line_tops": [
+          4,
+          72,
+          140,
+          208
+        ]
+      }
+    ],
+    "image_blocks": [
+      12
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 7,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 13,
+        "type": "paragraph",
+        "start": 0,
+        "end": 109,
+        "page": 7,
+        "text": "机制解释：THF与SALPZ主要通过抑制初始CD4+ T细胞的pSTAT3信号（JAK/STAT通路）与增强粒细胞pS6响应（mTOR通路）延迟分娩相关的免疫演变，两者对模型前10个关键特征中的7个产生期望方向的调节。",
+        "line_tops": [
+          4,
+          72,
+          140,
+          208,
+          276
+        ]
+      },
+      {
+        "source_block_index": 14,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 7,
+        "text": "结论",
+        "line_tops": [
+          374
+        ]
+      },
+      {
+        "source_block_index": 15,
+        "type": "paragraph",
+        "start": 0,
+        "end": 178,
+        "page": 7,
+        "text": "论文反复明确：全部药物效应来自in silico模拟，不是临床试验结果。局限包括训练图谱仅19人、集中于孕中期窗口、只取外周血；独立队列中早产患者仅5人；实验只测2小时内的急性磷酸化信号；单次给药模拟以患者内聚合近似重复用药。作者将SIMCO定位为概念验证：适合早期化合物优先级排序与机制假设生成，转化为预防策略还需跨孕周大队列、动物实验与前瞻性临床验证。",
+        "line_tops": [
+          460,
+          528,
+          596,
+          664,
+          732,
+          800,
+          868,
+          936
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": true
+  }
+]

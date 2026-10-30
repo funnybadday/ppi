@@ -1,0 +1,7 @@
+CDISC管线技能加载｜公众号解读与小红书图组来源
+1. PubMed记录（PMID 42901481，经NCBI E-utilities efetch回源；网页版有WAF质询，本地留存见 素材/PubMed摘要页.html 与 素材/PubMed记录_efetch.xml）：https://pubmed.ncbi.nlm.nih.gov/42901481/
+2. 期刊文章页（JMIR开放获取，浏览器过WAF后留存 素材/jmir_article.html）：https://formative.jmir.org/2026/1/e100769
+3. 论文PDF全文（已回源，用于事实核验与配图裁剪，存 素材/论文全文.pdf；DOI: 10.2196/100769）
+4. 作者复现包：CSP-Engine与eSubmission-Benchmark版本化快照 https://zenodo.org/records/21614975
+配图：论文首页、Figure 1、Table 1、Figure 3、Table 3，全部从PDF 300dpi渲染后按pdfplumber坐标裁剪，未作内容修改。
+候选来源：选题池/2026-10-23_122727_首轮论文候选.json C03（JMIR Form Res，首轮推荐）

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "review_file": "稿件/T1D数字孪生决策质量/制作记录/台账关联记录_v8.json",
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "events": [],
+  "history_review": [
+    {
+      "event_key": "evt-6da9217478626639d4ca",
+      "change_type": "repeat",
+      "status": "drafted",
+      "observed_at": "2026-10-23T15:50:00+08:00",
+      "article_directory": "稿件/T1D数字孪生决策质量",
+      "note": "按用户要求将小红书工作流固化为论文版默认：新增 scripts/crop_paper_figure.py（pdfplumber坐标定位+断言验证的图表裁剪工具，三表实测通过并以脚本产物重渲染v8）；SKILL.md文案与图组节改为八步论文版流程；production.md新增坐标裁剪流程与四章节结构规范（含三条教训记录）；使用说明.txt第四节更新；上一版归档 历史版本/七版_手工精裁",
+      "platform_outputs": {
+        "xiaohongshu": {
+          "directory": "稿件/T1D数字孪生决策质量/小红书",
+          "review_status": "awaiting_user_review",
+          "published": false,
+          "source_file": "公众号/公众号正文.txt",
+          "source_sha256": "d504d12a3f084907ea67cd812c7dfafcf23463a3610557f56d5aa84004aa97aa",
+          "image_count": 5,
+          "dimensions": [
+            1080,
+            1440
+          ],
+          "revision_note": "脚本化裁剪产物重渲染（渲染输入_v8）；工作流已固化为技能默认"
+        }
+      }
+    }
+  ]
+}

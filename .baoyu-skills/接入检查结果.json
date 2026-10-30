@@ -1,0 +1,299 @@
+{
+  "checked_at": "2026-10-21T14:05:37+08:00",
+  "checks": [
+    {
+      "name": "baoyu-xhs-images: SKILL installed",
+      "passed": true
+    },
+    {
+      "name": "SKILL.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: discovery metadata",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/config/preferences-schema.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/workflows/analysis-framework.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/workflows/prompt-assembly.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/workflows/outline-template.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/elements/canvas.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/elements/typography.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/elements/decorations.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: references/confirmation.md",
+      "passed": true
+    },
+    {
+      "name": "EXTEND.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: Chinese language",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: native OpenAI backend",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: two registered style adapters",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: no forced layout or palette",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: content-driven style",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: lab-editorial-infographic schema",
+      "passed": true
+    },
+    {
+      "name": "baoyu-xhs-images: lab-scientific schema",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: SKILL installed",
+      "passed": true
+    },
+    {
+      "name": "SKILL.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: discovery metadata",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: references/config/preferences-schema.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: references/workflow.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: references/prompt-construction.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: references/styles.md",
+      "passed": true
+    },
+    {
+      "name": "EXTEND.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: Chinese language",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: native OpenAI backend",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: two registered style adapters",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: no forced layout or palette",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: content-driven style",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: lab-editorial-infographic schema",
+      "passed": true
+    },
+    {
+      "name": "baoyu-article-illustrator: lab-scientific schema",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: SKILL installed",
+      "passed": true
+    },
+    {
+      "name": "SKILL.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: discovery metadata",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: references/config/preferences-schema.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: references/styles/editorial-infographic.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: references/styles/scientific.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: references/layouts.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: references/base-prompt.md",
+      "passed": true
+    },
+    {
+      "name": "EXTEND.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: Chinese language",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: native OpenAI backend",
+      "passed": true
+    },
+    {
+      "name": "baoyu-slide-deck: neutral custom starting point",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: SKILL installed",
+      "passed": true
+    },
+    {
+      "name": "SKILL.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: discovery metadata",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: references/config/preferences-schema.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: references/layouts/linear-progression.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: references/layouts/structural-breakdown.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: references/layouts/comparison-matrix.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: references/analysis-framework.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: references/structured-content-template.md",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: references/base-prompt.md",
+      "passed": true
+    },
+    {
+      "name": "EXTEND.md: UTF-8 frontmatter",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: Chinese language",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: native OpenAI backend",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: two registered style adapters",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: no forced layout or palette",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: content-driven style",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: lab-editorial-infographic schema",
+      "passed": true
+    },
+    {
+      "name": "baoyu-infographic: lab-scientific schema",
+      "passed": true
+    },
+    {
+      "name": "workflow entry: AGENTS.md",
+      "passed": true
+    },
+    {
+      "name": "workflow entry: 内容工作流与交付规范.txt",
+      "passed": true
+    },
+    {
+      "name": "workflow entry: 语气参考/配图选择与制作规范.txt",
+      "passed": true
+    },
+    {
+      "name": "workflow entry: 语气参考/语气偏好与参考状态.txt",
+      "passed": true
+    },
+    {
+      "name": "workflow entry: .baoyu-skills/接入说明.txt",
+      "passed": true
+    },
+    {
+      "name": "few-shot source: 林少楠GCP_Veeva发布StudyBuilderAgent.html",
+      "passed": true
+    },
+    {
+      "name": "few-shot source: 数字生命卡兹克_Anatomy科普视频.html",
+      "passed": true
+    },
+    {
+      "name": "no stale installation state in current workflow",
+      "passed": true
+    },
+    {
+      "name": "style palette is not globally fixed",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "scope": "Installed files, discovery metadata, YAML configuration, style adapters, references and workflow entry points. No news generation or publishing performed."
+}

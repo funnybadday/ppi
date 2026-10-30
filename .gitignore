@@ -1,0 +1,15 @@
+# 密钥与环境
+.env
+*.env
+
+# 依赖与运行时
+node_modules/
+Horizon/.venv/
+__pycache__/
+*.pyc
+
+# 压缩包（按用户要求不入库）
+*.zip
+
+# macOS 杂项
+.DS_Store

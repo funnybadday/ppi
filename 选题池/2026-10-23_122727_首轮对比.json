@@ -1,0 +1,3063 @@
+{
+  "schema_version": 1,
+  "run_id": "run-20261023T042727Z-53b4a346",
+  "generated_at": "2026-10-23T04:43:49.309062+00:00",
+  "source_run_directory": "/Users/xulei/项目/搜索/蓝图论文/Horizon/data/mcp-runs/run-20261023T042727Z-53b4a346",
+  "history_run_count": 4,
+  "raw_items_count": 241,
+  "counts": {
+    "new_url": 157,
+    "same_url_same_content": 84
+  },
+  "ledger_path": "/Users/xulei/项目/搜索/蓝图论文/选题池/事件台账.json",
+  "known_events": [],
+  "items": [
+    {
+      "item_id": "rss:export.arxiv.org_api_query?search_query=all:%22virtual+clinical+trial%22+OR+all:%22in+silico+clinical+trial%22+OR+all:%22in+silico+trials%22+OR+all:%22patient+digital+twin%22+OR+all:%22synthetic+control+arm%22+OR+all:%22virtual+patients%22&sortBy=submittedDate&sortOrder=descending&max_results=80:7b1c9e7bc7397610",
+      "title": "Evaluating Type-1 Diabetes Digital Twins by Decision Quality",
+      "url": "https://arxiv.org/abs/2610.30577v1",
+      "normalized_url": "https://arxiv.org/abs/2610.30577v1",
+      "content_fingerprint": "26cc677b2cf7c27352da42499dc1ab5a52d20f4bd73318880cca925a9f5f050c",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "rss:export.arxiv.org_api_query?search_query=all:%22virtual+clinical+trial%22+OR+all:%22in+silico+clinical+trial%22+OR+all:%22in+silico+trials%22+OR+all:%22patient+digital+twin%22+OR+all:%22synthetic+control+arm%22+OR+all:%22virtual+patients%22&sortBy=submittedDate&sortOrder=descending&max_results=80:ddca96477a2362c6",
+      "title": "Inverse domain uncertainty quantification in hemodynamics: sampling virtual patient cohorts under constraints",
+      "url": "https://arxiv.org/abs/2610.27869v1",
+      "normalized_url": "https://arxiv.org/abs/2610.27869v1",
+      "content_fingerprint": "69ced2da1acbd7df9ab1e00e516e224d418c415f466aff80c7bf5a1acb85bd53",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "rss:export.arxiv.org_api_query?search_query=%28cat:q-bio.QM+OR+cat:stat.AP+OR+cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.LG%29+AND+abs:%22clinical+trial%22+AND+%28abs:%22large+language+model%22+OR+abs:%22artificial+intelligence%22+OR+abs:%22machine+learning%22+OR+abs:%22deep+learning%22+OR+abs:agent+OR+abs:%22foundation+model%22%29&sortBy=submittedDate&sortOrder=descending&max_results=80:39b7054abb790ca1",
+      "title": "A general-purpose System One decision model for clinical records",
+      "url": "https://arxiv.org/abs/2610.27099v1",
+      "normalized_url": "https://arxiv.org/abs/2610.27099v1",
+      "content_fingerprint": "b65d460204c48af97100195d4e7bcbfc714326a41a0f640e5c7d732e6b7aae5e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42907936",
+      "title": "ACR lung-RADS: updates and future directions.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42907936/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42907936/",
+      "content_fingerprint": "2db7287429acdb7886ace410d63df2d5f64cccbf5bcba826239a8969bd8ecf05",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42907936",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "2db7287429acdb7886ace410d63df2d5f64cccbf5bcba826239a8969bd8ecf05"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42907264",
+      "title": "Reporting of Fairness and Equity in Studies of Regulator-cleared Commercial AI for Acute Stroke CT: A Systematic Review.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42907264/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42907264/",
+      "content_fingerprint": "4448c688916076ff62da84cc5866505447945f052a7bb4ce28a9e892b25bfeeb",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42907264",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "4448c688916076ff62da84cc5866505447945f052a7bb4ce28a9e892b25bfeeb"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42906147",
+      "title": "Test-Retest Reliability of Large Language Models and Their Concordance With Human Experts in Rubric-Based Scoring of Clinical Summary Statements: Experimental Comparative Study.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42906147/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42906147/",
+      "content_fingerprint": "e46c0150aede76f4e55877ea252eb364596f6a065fd33be8ce791ff8ed151f08",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42906147",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "e46c0150aede76f4e55877ea252eb364596f6a065fd33be8ce791ff8ed151f08"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42906079",
+      "title": "Safety and Performance Evaluation of a Clinical Decision Support System for Imatinib Therapeutic Drug Monitoring: In Silico Study.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42906079/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42906079/",
+      "content_fingerprint": "8e13383fb8e3e1805dd8e72d83aadb4d0feeff0d2936e506aff5d47e06241fcb",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42906079",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "8e13383fb8e3e1805dd8e72d83aadb4d0feeff0d2936e506aff5d47e06241fcb"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905910",
+      "title": "The future of PFA in cardiac ablation procedures.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905910/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905910/",
+      "content_fingerprint": "9e020b832ceb4ee56364ed0c012a2b155714796662a56308b1a749c0648f168a",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905910",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "9e020b832ceb4ee56364ed0c012a2b155714796662a56308b1a749c0648f168a"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905903",
+      "title": "AI Simulated Patients: Widening Access to Practice and Feedback.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905903/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905903/",
+      "content_fingerprint": "1a41a882e00c21057fc9d9f997f921ebbcd7b9cb12b54e62f3ce1b55985e9120",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905903",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "1a41a882e00c21057fc9d9f997f921ebbcd7b9cb12b54e62f3ce1b55985e9120"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905824",
+      "title": "Single-cell-level digital twins for preterm birth prevention strategies.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905824/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905824/",
+      "content_fingerprint": "50d31c8b8c659bed4956c17024dd76e708a9ac9fa61db097dddd1a8fdae3c106",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905824",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "50d31c8b8c659bed4956c17024dd76e708a9ac9fa61db097dddd1a8fdae3c106"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905769",
+      "title": "An advanced LLM-powered article extraction pipeline delivers a database of buffers for protein studies and protein expression conditions.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905769/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905769/",
+      "content_fingerprint": "c4c38f0e225e31a2084b8c7d44496b6fec8bc4f13d83bfe8d81247d44283c3d7",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905769",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "c4c38f0e225e31a2084b8c7d44496b6fec8bc4f13d83bfe8d81247d44283c3d7"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905368",
+      "title": "Machine learning algorithm of thermo-diffusion effects on 10W40 engine oil hybrid nanomaterial for automotive engine cooling.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905368/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905368/",
+      "content_fingerprint": "1b83c88a5c9bca758ab70dfaeb0557f5ef52c34996bac14ee6607f4012c1839e",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905368",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "1b83c88a5c9bca758ab70dfaeb0557f5ef52c34996bac14ee6607f4012c1839e"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905358",
+      "title": "Artificial intelligence computing of blood based nanofluid transport mechanism under thermal radiation influence.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905358/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905358/",
+      "content_fingerprint": "216ee780bfeba19b792371a91ecf8f5b33994263dded10f65b1659d2a4d1f8b0",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905358",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "216ee780bfeba19b792371a91ecf8f5b33994263dded10f65b1659d2a4d1f8b0"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905223",
+      "title": "Artificial intelligence for symptom assessment and patient-reported outcomes in neuro-oncology.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905223/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905223/",
+      "content_fingerprint": "8b07ab579e46ca14414793ab68a0a36b56d4b06489c5beb089737b734552a084",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905223",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "8b07ab579e46ca14414793ab68a0a36b56d4b06489c5beb089737b734552a084"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42905219",
+      "title": "Cardiovascular Toxicity Across the Cancer Immunotherapy Spectrum: Mechanisms and Management in Immune Checkpoint Inhibitor (ICI) and Chimeric Antigen Receptor T-Cell (CAR-T) Therapy.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905219/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42905219/",
+      "content_fingerprint": "d0777e8419ed6cb35ebd899d42d95b7cbb28197b38802e5ecafd9bfc38e7d40c",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42905219",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "d0777e8419ed6cb35ebd899d42d95b7cbb28197b38802e5ecafd9bfc38e7d40c"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42904142",
+      "title": "Intelligent immunotherapy: AI-driven optimization of CAR-T therapy in hematologic malignancies.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42904142/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42904142/",
+      "content_fingerprint": "f223db64fd51ea52b55c93697cb9c18c9c2524944f4467aa340fd3cbb10f1418",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42904142",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "f223db64fd51ea52b55c93697cb9c18c9c2524944f4467aa340fd3cbb10f1418"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42903943",
+      "title": "Synthetic data in rheumatology: a systematic literature review.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42903943/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42903943/",
+      "content_fingerprint": "1b4eec0a569c66928f300301791302c05c64e523ad5a59ba98f37a5ea1447441",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42903943",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "1b4eec0a569c66928f300301791302c05c64e523ad5a59ba98f37a5ea1447441"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42903521",
+      "title": "Gut microbiota dysbiosis in pediatric acute lymphoblastic leukemia: clinical consequences, mechanistic insights, and microbiota-targeted interventions.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42903521/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42903521/",
+      "content_fingerprint": "846b92231d2a38ae8d8f0b8af2835ee9399fc28e7188cb6a1c02b313d86ef5dc",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42903521",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "846b92231d2a38ae8d8f0b8af2835ee9399fc28e7188cb6a1c02b313d86ef5dc"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42903401",
+      "title": "Artificial intelligence-enabled deep clinical phenotyping in heart failure with preserved ejection fraction: from patient subtypes to precision care.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42903401/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42903401/",
+      "content_fingerprint": "d2fc82b4edef89a98a4ba9f20c0e0e4cd58fbddcdabd1a23de19a894f09e841d",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42903401",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "d2fc82b4edef89a98a4ba9f20c0e0e4cd58fbddcdabd1a23de19a894f09e841d"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42903262",
+      "title": "Left atrial appendage morphology and hemodynamics: potential new markers for individualized thromboembolic risk assessment in atrial fibrillation.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42903262/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42903262/",
+      "content_fingerprint": "8c80ba9a678c0eeb9430af9456f479a9bb586bc4cc0daf35d05ddf9165c54740",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42903262",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "8c80ba9a678c0eeb9430af9456f479a9bb586bc4cc0daf35d05ddf9165c54740"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42902325",
+      "title": "Analysis of barriers to self-monitoring of blood glucose among community-dwelling elderly patients with diabetes mellitus: a cross-sectional study integrating artificial intelligence-based risk prediction.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42902325/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42902325/",
+      "content_fingerprint": "0c0548264e427780ab047cd500f4255acd8978cee2cfd4d69f38d5d405fc562f",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42902325",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "0c0548264e427780ab047cd500f4255acd8978cee2cfd4d69f38d5d405fc562f"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42902311",
+      "title": "Preoperative prediction of positive margins in breast-conserving surgery using an ensemble model based on DCE-MRI: a multi-center retrospective and prospective study.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42902311/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42902311/",
+      "content_fingerprint": "eb2dd8835b499d63ecb46badd6e00cc071703ea3bb7ee8c5299b747c5ddf2126",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42902311",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "eb2dd8835b499d63ecb46badd6e00cc071703ea3bb7ee8c5299b747c5ddf2126"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42902254",
+      "title": "Outcome measures and monitoring framework in juvenile systemic sclerosis: bridging routine care and clinical trials.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42902254/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42902254/",
+      "content_fingerprint": "4c78e12ba6509ef171f86acfb2431e77afbd2d12b8744402670cf9c3e6c60109",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42902254",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "4c78e12ba6509ef171f86acfb2431e77afbd2d12b8744402670cf9c3e6c60109"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42902181",
+      "title": "A survey of explainable AI applications in infectious disease diagnosis.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42902181/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42902181/",
+      "content_fingerprint": "6fe8d3f0d84d89be1b3f69fae058613dce129a965000830a1b7aa483ab48658f",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42902181",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "6fe8d3f0d84d89be1b3f69fae058613dce129a965000830a1b7aa483ab48658f"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42902174",
+      "title": "Developing laboratory indicators to predict the probability of in-hospital progression to severe disease in elderly patients with influenza A virus infection.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42902174/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42902174/",
+      "content_fingerprint": "193b2f0a9167829af01a1bb2338f6d7fd9a527bbc8b9594a82784c082428bef6",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42902174",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "193b2f0a9167829af01a1bb2338f6d7fd9a527bbc8b9594a82784c082428bef6"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42902163",
+      "title": "The effect of artificial intelligence-driven, computed tomography-based assessment of body composition parameters on 28-day mortality of patients with severe fever with thrombocytopenia syndrome: a retrospective cohort study.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42902163/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42902163/",
+      "content_fingerprint": "336f43bc93b1d60b051e2e9580683d45155e972b6725e81ab5bd31d1a1362b5c",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42902163",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "336f43bc93b1d60b051e2e9580683d45155e972b6725e81ab5bd31d1a1362b5c"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42901819",
+      "title": "Cerebrospinal fluid amyloid and neurodegeneration biomarkers in the diagnosis and prognosis of amyotrophic lateral sclerosis: a multicohort observational study.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42901819/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42901819/",
+      "content_fingerprint": "a9782542ec939587d4ec31632c195094313575fb0849e12ea636f972a1a95148",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42901819",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "a9782542ec939587d4ec31632c195094313575fb0849e12ea636f972a1a95148"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42901481",
+      "title": "Workflow Topology-Guided Skill Loading for Agentic AI in Clinical Trial Data Pipelines: Sequential Exploratory Evaluation.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42901481/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42901481/",
+      "content_fingerprint": "cb33e508b60fb297eff23c2413a70249be6e4f22934b9ccd413b2b2ccb5e86dc",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42901481",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "cb33e508b60fb297eff23c2413a70249be6e4f22934b9ccd413b2b2ccb5e86dc"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42900665",
+      "title": "Evaluating the Automated Extraction of Radiation Oncology Trial Data at Scale from the ClinicalTrials.gov Database Using a Large Language Model.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42900665/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42900665/",
+      "content_fingerprint": "831fcbf2e88facb87107b062092ebee9be4683f50559bb4fa74809d578698b15",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42900665",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "831fcbf2e88facb87107b062092ebee9be4683f50559bb4fa74809d578698b15"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42900471",
+      "title": "Cost-Effectiveness of Perioperative Enfortumab Vedotin and Pembrolizumab for Bladder Cancer.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42900471/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42900471/",
+      "content_fingerprint": "aa321f6a391b55ae65f1e249a4aa728351b6ae94b58a079de9de31e0cda33217",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42900471",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "aa321f6a391b55ae65f1e249a4aa728351b6ae94b58a079de9de31e0cda33217"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42900072",
+      "title": "Physics-enhanced deep learning for dual-branch single-pixel vision via highly scattering media.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42900072/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42900072/",
+      "content_fingerprint": "76512bb912bca08004b0ac0ceb769f1f7dd1832ecb15e37476fa6897793a37b2",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42900072",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "76512bb912bca08004b0ac0ceb769f1f7dd1832ecb15e37476fa6897793a37b2"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42899676",
+      "title": "Nonlinear stability phenotypes and collapse dynamics of multi-organ radiomics in total-body PET imaging: toward digital twin-oriented robustness assessment.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42899676/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42899676/",
+      "content_fingerprint": "6ae2131a7104dbf63f3523af739c382773185fa778531f105e0a1ab24ac664ad",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42899676",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "6ae2131a7104dbf63f3523af739c382773185fa778531f105e0a1ab24ac664ad"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42898694",
+      "title": "Redefining drug discovery: AI-driven strategies for efficient cancer therapeutics.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42898694/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42898694/",
+      "content_fingerprint": "adab1c64887d83601a83c0ec2ff655249feca64431da807cf40fa9ab66691e47",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42898694",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "adab1c64887d83601a83c0ec2ff655249feca64431da807cf40fa9ab66691e47"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42898622",
+      "title": "Neuromelanin-sensitive magnetic resonance imaging in the diagnosis and assessment of Parkinson's disease.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42898622/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42898622/",
+      "content_fingerprint": "e45a27481e2d5d0cd2401af0f79a7ceca1b4bcab3521b77e7e9dda2efd7579cf",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42898622",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "e45a27481e2d5d0cd2401af0f79a7ceca1b4bcab3521b77e7e9dda2efd7579cf"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42897388",
+      "title": "The Ambulatory Patient Experience with Ambient Artificial Intelligence Scribes: A Qualitative Study.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42897388/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42897388/",
+      "content_fingerprint": "b62dfa3236df5ad6c6fa9dc60f42a14191423532bd850959b1bda2bc3b2a1c1f",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041629Z-174dfe7b",
+          "item_id": "pubmed:article:42897388",
+          "collected_at": "2026-10-23T04:16:29.621162+00:00",
+          "content_fingerprint": "b62dfa3236df5ad6c6fa9dc60f42a14191423532bd850959b1bda2bc3b2a1c1f"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42896603",
+      "title": "Designing evaluation rubrics for the development of virtual human twins in healthcare.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42896603/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42896603/",
+      "content_fingerprint": "1c0ab9702b76202378215df09ad0242156bae2d87f8aa80d20f789688f819316",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42896012",
+      "title": "From Accuracy to Adoption: A Clinical Readiness Framework for Artificial Intelligence in Orthopaedic Surgery (OSCAR).",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42896012/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42896012/",
+      "content_fingerprint": "cd47ee7f786879e2e593de5c8bec523cf326a1cdb6d7b19eff82f7d9efeccc9d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42895797",
+      "title": "Transforming Obesity Care With Digital Therapeutics: Mobile Health Apps, Clinical Evidence, and Regulatory Considerations.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42895797/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42895797/",
+      "content_fingerprint": "0d9c539d684f7912eec4866f8be9d0be6f194127a4c6138b007ccfc816f49667",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42895046",
+      "title": "Chronic kidney disease as a systemic disorder: filtration phenotypes, inflammation and cardiovascular risk in the cardio-kidney metabolic era.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42895046/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42895046/",
+      "content_fingerprint": "fe947d935c1230c6039682f8b2b00b07e943dad527c5a64eb05c6e9db14854f9",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42893738",
+      "title": "A randomized controlled trial of a novel AI-based prognostic decision support tool integrated into the electronic health record for ischemic heart disease: Rationale and design of the PM Heart trial.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42893738/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42893738/",
+      "content_fingerprint": "17f80fe551d147b3031e6230d6352763c4212895991ed76648e3bff92de0ec8d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42893544",
+      "title": "From data to personas: a multi-source approach to tailored online health information recommendation for ovarian cancer patients and caregivers.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42893544/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42893544/",
+      "content_fingerprint": "d759c56e15f7d03797e48b0dfb68868eb3893c26776c8faa2a7856fd31d68dea",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42893223",
+      "title": "Entity-aware pathology workflow informatics: Structured evidence mapping and a reference architecture for governed orchestration.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42893223/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42893223/",
+      "content_fingerprint": "ba514021aeb85adfc16d9d3129545513a6a3e163e22167687add81474041af15",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "pubmed:article:42892263",
+      "title": "Sustainable coagulant optimization via inverse filtration control and ensemble learning in a full-scale drinking water plant.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42892263/",
+      "normalized_url": "https://pubmed.ncbi.nlm.nih.gov/42892263/",
+      "content_fingerprint": "45f042d75da5af2d9aa5c202bf8e24b4eac4c95d92a93700cfcd8791dbd9bef5",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:ff1039fd93c07a0a",
+      "title": "Label-free, low-cost AI ranking for systematic review screening",
+      "url": "https://doi.org/10.64898/2026.10.09.26365173",
+      "normalized_url": "https://doi.org/10.64898/2026.10.09.26365173",
+      "content_fingerprint": "fbd10e36ab34c2c93156ea2be1dab1fe3dff124b442f919f5d221b880fb7eed6",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:b3bcb6093633c7eb",
+      "title": "Pharmacovigilance and Mechanistic Analysis of Adverse Reaction Differences Across EGFR Tyrosine Kinase Inhibitor Generations in Non-Small Cell Lung Cancer",
+      "url": "https://doi.org/10.64898/2026.10.16.26364955",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.26364955",
+      "content_fingerprint": "b61920a818af239b0c301aab0913fde4c0093911776017d68d2ac6fdc1247147",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:c3478ead86eabadd",
+      "title": "Beyond the Scribe: Using Nominal Group Technique to Co-Design an Evaluation Framework for Patient-Held AI",
+      "url": "https://doi.org/10.64898/2026.10.15.26365669",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.26365669",
+      "content_fingerprint": "af59e9857ea3f56a0736fa698a9dcee99ae1f963c28ecfe6defd9403abe675b7",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:cc3d176dd878b7f3",
+      "title": "Quality and transcript-grounded clinical-risk error burden of AI-generated vs allied health professional clinical notes: a paired simulation study across four disciplines",
+      "url": "https://doi.org/10.64898/2026.10.16.26365719",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.26365719",
+      "content_fingerprint": "f363e1a09cf4afad7b8917cadfaccf754cad3e075af0c3a9ffd0910a96a78a8f",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:dfb8678a19ee3cb4",
+      "title": "Network representations of digital clock drawings for cognitive impairment detection",
+      "url": "https://doi.org/10.64898/2026.10.15.26365699",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.26365699",
+      "content_fingerprint": "7d67af229014a10e80cd22625462adbcdc1d590128b74f734111852a20a46b42",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:83b13eb99c374c25",
+      "title": "Comorbidities of dementia in electronic health records: validation of a natural language processing app and comparison with data linkage",
+      "url": "https://doi.org/10.64898/2026.10.16.26365714",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.26365714",
+      "content_fingerprint": "ff99a6901bf3ac1aa74a9f0aaa24af5ed04cbab6526b34605f0bdb536fc7368e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:ff49be2aebbee304",
+      "title": "Counterfactual Policy Learning for Personalized Treatment Using SGLT2 Inhibitors",
+      "url": "https://doi.org/10.64898/2026.10.15.26365465",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.26365465",
+      "content_fingerprint": "1364b94b061fc15851d275c0e0ed87bee831654c06acde0930a1ef7ac431c3e5",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:220e688681dd03af",
+      "title": "Mapping Clinical Laboratory Signatures from Electronic Health Records in the Estonian Biobank",
+      "url": "https://doi.org/10.64898/2026.10.16.26365128",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.26365128",
+      "content_fingerprint": "fcd902630c3f68558a609a6ea9b76290b70e63c79e1d1135fbad01d7fa4aa11f",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f7755413f4be9724",
+      "title": "Prediagnosis Smoking and Survival in Lung, Bladder, Kidney, and Head and Neck Cancers: A Population-Based Data Linkage Study",
+      "url": "https://doi.org/10.64898/2026.10.15.26365694",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.26365694",
+      "content_fingerprint": "357d17ec6c359fc811f8f3389f0c83d9bbb5cd9c1575093c48b3f11b455fccf2",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4e19b0ab4987776f",
+      "title": "Cohort Versus Nested Case-Control Design for Prediction Models of Rare Outcomes Using Electronic Health Records",
+      "url": "https://doi.org/10.64898/2026.10.16.26365758",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.26365758",
+      "content_fingerprint": "ea09327d831f63b5326c4d109d367a4bf5da2e2664ffcb73ed4fa856f1116845",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:fefc3f3c3b3edfc6",
+      "title": "Sex-, age-, and BMI-specific patterns of visual and numerical body-size ideals in Japan: a large cross-sectional web-based survey",
+      "url": "https://doi.org/10.64898/2026.10.19.26365487",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365487",
+      "content_fingerprint": "2a123b294ca3df35f10f412b53594b4116fb0f9d053526ff90e0d64296123b66",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:58db1d5f2d117f33",
+      "title": "A foundation model of wearable pulse oximetry reveals physiological signatures of health and cardiometabolic risk",
+      "url": "https://doi.org/10.64898/2026.07.01.26356992",
+      "normalized_url": "https://doi.org/10.64898/2026.07.01.26356992",
+      "content_fingerprint": "b5253c119ddcd34f876d24d6693e630b9061aed5241032fd21bba3f292785870",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:b060af7ed82d1232",
+      "title": "Privacy-Preserving Large Language Model Deployment for Oncology Registry Abstraction: Structure-Aware Evaluation in a Real-World Clinical Setting",
+      "url": "https://doi.org/10.64898/2026.05.18.26353541",
+      "normalized_url": "https://doi.org/10.64898/2026.05.18.26353541",
+      "content_fingerprint": "fb762340aaa2ac23c818263d37e41e045a3bd5aeb7ea5fd1f392f93f0d948e0e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:56919c5e9cc0f391",
+      "title": "Interpretable Phenotype Discovery Using Temporal Risk-Aware Clustering",
+      "url": "https://doi.org/10.64898/2026.10.18.26365169",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.26365169",
+      "content_fingerprint": "7c52210a14d818ab11643d0b828d61a515e02be1f73c8657aa58af28c6e9b1da",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4f686aceebd3da27",
+      "title": "Variation in psychiatric diagnoses and use of psychotropic medication among children, adolescents, and young adults in Denmark",
+      "url": "https://doi.org/10.64898/2026.10.19.26365872",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365872",
+      "content_fingerprint": "a9e9776489a3560a0fe88b2531491f49bbe59b864b27df72171f549244d57da2",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d65230546114307f",
+      "title": "Long COVID undercoding and prediction from releasable electronic health record summaries in All of Us",
+      "url": "https://doi.org/10.64898/2026.10.18.26365858",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.26365858",
+      "content_fingerprint": "4cb5632d710117f2c0aa134875a266387ba7d72cb6dec18e6cd829f656997c61",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:745239eb265eb9f5",
+      "title": "Development and Validation of a Parsimonious Financial Well-Being Index in the Health and Retirement Study",
+      "url": "https://doi.org/10.64898/2026.10.18.26365842",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.26365842",
+      "content_fingerprint": "fc4345b294523ef891ff7a218217208354611518117985a531e184ae78bb4ee4",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f4e24b8a92ca17a9",
+      "title": "Self-reported diagnoses as training labels for finding uncoded chronic fatigue, fibromyalgia, and endometriosis in the All of Us Research Program",
+      "url": "https://doi.org/10.64898/2026.10.19.26365869",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365869",
+      "content_fingerprint": "55261ac36010c4324444b38e4e25f8428e9cbcd1d7e4682a4e2dff16bb079d13",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:b83257d186edb364",
+      "title": "Electronic Health Record Coding of Self-Reported Diagnoses in the All of Us Research Program",
+      "url": "https://doi.org/10.64898/2026.10.18.26365863",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.26365863",
+      "content_fingerprint": "0bd1f9886b83f588f09e562ccca101ce22c8f203804be6e3acae02a406463669",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:318cc881cb796182",
+      "title": "Quantifying Fine-scale Vegetation Associated with Ixodes scapularis Density to Inform Public Health Programming, Western Massachusetts",
+      "url": "https://doi.org/10.64898/2026.10.14.26363243",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.26363243",
+      "content_fingerprint": "7511f8e1f1644ac636bece9e1b583fbd2fa87d9630328bdd6533390b40c8bbef",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3adcc8b32a47d0c5",
+      "title": "Long Sleep and Insomnia are Associated with Reduced Global Cognitive Function across Diverse Populations",
+      "url": "https://doi.org/10.64898/2026.10.19.26365906",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365906",
+      "content_fingerprint": "ac360c020fefb0ac33eec9e1369e7de3b41cf29964e6bdda47ec87136aea3b74",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:8592bd93d7ef5f9e",
+      "title": "Natural Language Processing Based Solution for Labeling Brain Metastasis Identified in Radiology Reports",
+      "url": "https://doi.org/10.64898/2026.06.10.26355415",
+      "normalized_url": "https://doi.org/10.64898/2026.06.10.26355415",
+      "content_fingerprint": "feed0e097e9d6a4bdf4ed6c09e873737b44b34735a4c98acf449c0039d2e0992",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:2566661bbbbb6e78",
+      "title": "Multi-agent LLM diagnostic teams improve differential recall on curated cases and reverse on real emergency notes: a label-level reversal without a clinician-judged safety difference",
+      "url": "https://doi.org/10.64898/2026.09.24.26363897",
+      "normalized_url": "https://doi.org/10.64898/2026.09.24.26363897",
+      "content_fingerprint": "2867c68024ab4cd9b43f1ef789bd4cfefa7292238992efe9dacb8c14ec84becd",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:bb3d774f86efe172",
+      "title": "MULTIMODAL EEG WORLD MODEL: SELF-SUPERVISED LATENT TRANSITION LEARNING FOR WEARABLE EEG SEIZURE DETECTION",
+      "url": "https://doi.org/10.64898/2026.07.20.26358450",
+      "normalized_url": "https://doi.org/10.64898/2026.07.20.26358450",
+      "content_fingerprint": "9bafb1434020c618c85b89210a12e8a22443af270a0ac6253826fb22c7638939",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:e9cc942b275d5003",
+      "title": "Seeded Probes Do Not Identify a Reviewer's Miss Rate: One-Sided Misclassification in Distribution-Free Risk Control",
+      "url": "https://doi.org/10.64898/2026.10.01.26364465",
+      "normalized_url": "https://doi.org/10.64898/2026.10.01.26364465",
+      "content_fingerprint": "d586841922fc5f2a914404a745a27bc4164ed5e3f115f752328567ba85f98583",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:1a3454ab67abbf2e",
+      "title": "Outcome definition and index validity in cross-national comparisons of diet-attributable metabolic burden",
+      "url": "https://doi.org/10.64898/2026.07.25.26358918",
+      "normalized_url": "https://doi.org/10.64898/2026.07.25.26358918",
+      "content_fingerprint": "50e242b065471879acf4aa4632f3de906d7bf0ee40cc58a701f5b888191c6071",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:bc899f59d21273fd",
+      "title": "Biological age measured by DNA methylation clocks and mortality: A systematic review and meta-analysis",
+      "url": "https://doi.org/10.64898/2026.10.20.26365864",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26365864",
+      "content_fingerprint": "3092f989e384a459cb61b968a38ddacb6f3ca896945bcc3f824893f32a0efe73",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:71da5fa1fd55fd2a",
+      "title": "SARS-CoV-2 infection detection efficiency in Denmark before major vaccine impacts",
+      "url": "https://doi.org/10.64898/2026.10.16.26364986",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.26364986",
+      "content_fingerprint": "99a00c3aaffbdc93a3b39617c555528571887e64efb9092942a3d8b04f71c87e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:83abf8a011360353",
+      "title": "Glycemic patterns from continuous glucose monitoring devices among women with regular and irregular menstrual cycles",
+      "url": "https://doi.org/10.64898/2026.10.16.26365453",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.26365453",
+      "content_fingerprint": "91519afa33266403758aff464d1ce556c7d789632ba8188dd446bc15f65b5c98",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:2f091838a57fffda",
+      "title": "Patterns of Influenza Vaccine Uptake by Age Group and Product Type in Michigan, 2017-2021",
+      "url": "https://doi.org/10.64898/2026.10.19.26365920",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365920",
+      "content_fingerprint": "5aabc70019af339327232321d8d967ca2b912b3b5806b9ff0deace0e9f82e5b9",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:14ca1960492d91b0",
+      "title": "Normative Temperature, Demographic Categories, and the Limits of Infrared Thermometry",
+      "url": "https://doi.org/10.64898/2026.10.19.26365925",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365925",
+      "content_fingerprint": "55ffaedc7607d0f06c6032e6f93e0360143cfe1c1effc1253614d8056716a839",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f3c9de52af8f8895",
+      "title": "When Prescribing Diverges From Published Lactation Compatibility Guidance: A National Claims Analysis",
+      "url": "https://doi.org/10.64898/2026.10.19.26365940",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365940",
+      "content_fingerprint": "3bc615bcb00597b026ff13720363e8544d8bdd0954a2ccca10ef7acf3793183d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:011f3b7f89db7e21",
+      "title": "Design and Technical Evaluation of a Standards-Based System That Delivers Enclave-Derived Case-Finding Models to Patients and Clinicians",
+      "url": "https://doi.org/10.64898/2026.10.20.26365982",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26365982",
+      "content_fingerprint": "8a5cf0bfe19a5dcc820556ae95e9db3f3f79a922aa5c88742a7f235b62dc7364",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:2583c20e04b08059",
+      "title": "A Review of Suicide-Related Risks through Propensity Score Methods using the Maryland Suicide Data Warehouse",
+      "url": "https://doi.org/10.64898/2026.10.19.26364526",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26364526",
+      "content_fingerprint": "3e068cc60eedf0a037805d44fb5145923c0d274522b8d34f4dced2b5a9e8b092",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:963d7e57e4287c9c",
+      "title": "Parental Health Information Needs, Child-Health Literacy, and Use of Generative AI Among Parents of Children Aged 0 to 4 Years in France: A Cross-Sectional Study",
+      "url": "https://doi.org/10.64898/2026.10.20.26365983",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26365983",
+      "content_fingerprint": "79cbace4015609ce975c66330c5560bf1a020e7ca7d917c61066ff3dd85699e9",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:fd7f08748da4c36b",
+      "title": "Implicit reconstruction of gating strategies from sample-level flow cytometry annotations",
+      "url": "https://doi.org/10.64898/2026.10.20.26365931",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26365931",
+      "content_fingerprint": "6cfde025f9de07054d3840afa94996814fa97777a1d2fcb5fba7f742c357223f",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:efcf5f3e4f15b948",
+      "title": "AI-Empowered Multimodal Data Integration and Knowledge Discovery for Pharmacovigilance",
+      "url": "https://doi.org/10.64898/2026.10.20.26365969",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26365969",
+      "content_fingerprint": "df65a2562f98f7747b4e38ff0179b8a576c19561a6e51b31af720ea848dd0a46",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4e42a3f271cc0b37",
+      "title": "Changing COVID-19 vaccine eligibility could reshape disease burden for all",
+      "url": "https://doi.org/10.64898/2026.04.27.26351870",
+      "normalized_url": "https://doi.org/10.64898/2026.04.27.26351870",
+      "content_fingerprint": "405774ef1b985aa052688ec4933988559b79bf82c8e26040ce34ec095c885670",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:251224de453c2cfa",
+      "title": "Automated Interpretation of EEG Reports Using a Large Language Model with Structured Confidence Outputs",
+      "url": "https://doi.org/10.64898/2026.07.07.26357190",
+      "normalized_url": "https://doi.org/10.64898/2026.07.07.26357190",
+      "content_fingerprint": "f33c0898d850c9d0734c0475b164f82b6e5b44907e9d174b331cd46600551db6",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:5756e32ed9261a3f",
+      "title": "Adjusting for medication status in genome-wide association studies",
+      "url": "https://doi.org/10.1101/2024.02.19.24303028",
+      "normalized_url": "https://doi.org/10.1101/2024.02.19.24303028",
+      "content_fingerprint": "dc81634935aefd3f586dbd4e00a545e59e3944163444fd7a7157488ca42ff6d4",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:5756e32ed9261a3f",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "dc81634935aefd3f586dbd4e00a545e59e3944163444fd7a7157488ca42ff6d4"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:5756e32ed9261a3f",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "dc81634935aefd3f586dbd4e00a545e59e3944163444fd7a7157488ca42ff6d4"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f59168f663d796df",
+      "title": "From clinician review to measurable human oversight of AI-drafted paediatric discharge documents",
+      "url": "https://doi.org/10.64898/2026.10.20.26365977",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26365977",
+      "content_fingerprint": "65ac6f56b2a7ab710708b95069bd36d3b2f625a1d66986e4235377c851c3de55",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:f59168f663d796df",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "65ac6f56b2a7ab710708b95069bd36d3b2f625a1d66986e4235377c851c3de55"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:f59168f663d796df",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "65ac6f56b2a7ab710708b95069bd36d3b2f625a1d66986e4235377c851c3de55"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:9824ddc4e6e3d6f2",
+      "title": "Drug Safety Warnings in English, Russian, Arabic and Hebrew Wikipedia: A Cross-Sectional Audit of 33 Drugs Across Three Risk Domains",
+      "url": "https://doi.org/10.64898/2026.10.20.26366071",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26366071",
+      "content_fingerprint": "8ed707829a4ef25ab604e8c69d678d89b71092a6b79ba5c5d5f5775ef7daf30c",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:9824ddc4e6e3d6f2",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "8ed707829a4ef25ab604e8c69d678d89b71092a6b79ba5c5d5f5775ef7daf30c"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:9824ddc4e6e3d6f2",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "8ed707829a4ef25ab604e8c69d678d89b71092a6b79ba5c5d5f5775ef7daf30c"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d590525837bb12a2",
+      "title": "PFAS Exposure During Pregnancy Is Associated with Shorter Gestational Age at Birth and with Growth Trajectories During the First 2 Years of Life",
+      "url": "https://doi.org/10.64898/2026.10.20.26366022",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26366022",
+      "content_fingerprint": "14db7489051154afc34b746b988df070f56abd889912a8689caa0a13585a2398",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:d590525837bb12a2",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "14db7489051154afc34b746b988df070f56abd889912a8689caa0a13585a2398"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d2648824f54a2640",
+      "title": "A multiscale mathematical model integrating viral load improves reconstruction of transmission chains and epidemiological parameters in household studies",
+      "url": "https://doi.org/10.64898/2026.10.18.26364899",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.26364899",
+      "content_fingerprint": "bfc1d680e20aa8fff80dfaec0aa7d2b69b8199a75b8bd406d152985f06a8f227",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:d2648824f54a2640",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "bfc1d680e20aa8fff80dfaec0aa7d2b69b8199a75b8bd406d152985f06a8f227"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:9c239934691e1392",
+      "title": "Inequalities in self-rated health across European Union countries: a Simple-Means MAIHDA demonstration using the European Social Survey",
+      "url": "https://doi.org/10.64898/2026.10.20.26366006",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26366006",
+      "content_fingerprint": "97775497f014a9de4f36a7dccad0c7301574a111a02902cb03ba6f5049a1464f",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:9c239934691e1392",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "97775497f014a9de4f36a7dccad0c7301574a111a02902cb03ba6f5049a1464f"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:1ee377b15a9a492d",
+      "title": "Choosing the spatial scale of aggregation in epidemic models: compression versus distortion",
+      "url": "https://doi.org/10.64898/2026.10.20.26366033",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26366033",
+      "content_fingerprint": "5e3852fec4476baebfd4819885c4402e3180fc0df22fcb96fe897c9dbeef6e3a",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:1ee377b15a9a492d",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "5e3852fec4476baebfd4819885c4402e3180fc0df22fcb96fe897c9dbeef6e3a"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:71a5cf87f876cf2c",
+      "title": "A Clinical Atlas for Phenome-Wide Association Study of Obstructive Sleep Apnea Across Electronic Health Record Domains",
+      "url": "https://doi.org/10.64898/2026.10.20.26366073",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26366073",
+      "content_fingerprint": "b6b96857add21fd4c9fea03f5c0a4974231ae09996fc535e620c310f1e811af4",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:71a5cf87f876cf2c",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "b6b96857add21fd4c9fea03f5c0a4974231ae09996fc535e620c310f1e811af4"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a40ac41c4ec1c61a",
+      "title": "Association of Diet Quality and Physical Activity through Young Adulthood With Mid-Life Cardiovascular Health Trajectories: The Coronary Artery Risk Development in Young Adults (CARDIA) Study",
+      "url": "https://doi.org/10.64898/2026.10.19.26365962",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365962",
+      "content_fingerprint": "a192c8f61364c16c8dba629178a2b6527d236e4e0aa98e43eca63a8ff8f52ea1",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:a40ac41c4ec1c61a",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "a192c8f61364c16c8dba629178a2b6527d236e4e0aa98e43eca63a8ff8f52ea1"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d9701a9b08142dc6",
+      "title": "Individual-ecological triangulation of risk factors for peripheral artery disease: concordant evidence for smoking and diabetes, discordant evidence for kidney disease",
+      "url": "https://doi.org/10.64898/2026.10.19.26365959",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.26365959",
+      "content_fingerprint": "8af262d41a4ff5d2adcb94b94977ff39f6963898e2e2d61097618b935f8715aa",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:d9701a9b08142dc6",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "8af262d41a4ff5d2adcb94b94977ff39f6963898e2e2d61097618b935f8715aa"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d86e75cf05bf435b",
+      "title": "Are effects of drinking in pregnancy modified by ADH1B and ALDH2 genotype? A longitudinal analysis in the Norwegian Mother, Father and Child Cohort Study (MoBa)",
+      "url": "https://doi.org/10.64898/2026.10.20.26365709",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26365709",
+      "content_fingerprint": "360b2dd552a0e699b7f1357362323eb147ab22d31feacce7eb7cd4a08e8c91c3",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:d86e75cf05bf435b",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "360b2dd552a0e699b7f1357362323eb147ab22d31feacce7eb7cd4a08e8c91c3"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d998579f83713999",
+      "title": "Development and Preliminary Evaluation of the Patient-Artificial Intelligence Rating Instrument",
+      "url": "https://doi.org/10.64898/2026.10.20.26366053",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.26366053",
+      "content_fingerprint": "9c8ead190a1cc27d7be3b8a7a44c3c424a86ea090b6aefdd504001b7ed10ec05",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:d998579f83713999",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "9c8ead190a1cc27d7be3b8a7a44c3c424a86ea090b6aefdd504001b7ed10ec05"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:40ff0e8fd83eb2da",
+      "title": "Phase-Based Frequency Tracking and Analysis of Vocalisations in the Genus Saxicola",
+      "url": "https://doi.org/10.64898/2026.10.14.759137",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759137",
+      "content_fingerprint": "b202ff216590e58f87493cee52f359c98da98e30f010670d19af1d1ab27cadf3",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:0e3ddde25e1c7042",
+      "title": "ConforFlux: Particle-Guided Trunk Repulsion for Diverse Protein Conformations",
+      "url": "https://doi.org/10.64898/2026.05.16.725138",
+      "normalized_url": "https://doi.org/10.64898/2026.05.16.725138",
+      "content_fingerprint": "74582198a4265cb6e5c8e6569146bda064020f7d377ecacb65319e3806e80098",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:62045b60412c160a",
+      "title": "Relational Graph Convolutional Networks for Glioblastoma Biomarker Discovery via ceRNA and Copy Number Variation Analysis",
+      "url": "https://doi.org/10.64898/2026.08.16.744525",
+      "normalized_url": "https://doi.org/10.64898/2026.08.16.744525",
+      "content_fingerprint": "2d67762ea8d00ac3f3746933523f9a225b987944a0c3832d130994d61b1139e4",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:6489c819433c6343",
+      "title": "Kawasemi-Colours: an open end-to-end platform for structure-colour design based on avian structural colour",
+      "url": "https://doi.org/10.64898/2026.10.11.758316",
+      "normalized_url": "https://doi.org/10.64898/2026.10.11.758316",
+      "content_fingerprint": "77bc7db474a48a4104ac75199c28b550c1339ac41f8d419bcfc81f4ab2b5f0af",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:6fc2946906bd2aa6",
+      "title": "StainAI-Web: An Interactive Platform for Whole-Slide Microglial Morphology Analysis",
+      "url": "https://doi.org/10.64898/2026.10.17.759834",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759834",
+      "content_fingerprint": "2dbdf94211c9f8d0d475d57e1f2eddcf9d3fc0a186061011d636c1ff1d0aee13",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:0322509c6a8d4729",
+      "title": "Network organization of protein binding-site landscapes across scales",
+      "url": "https://doi.org/10.64898/2026.10.17.759831",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759831",
+      "content_fingerprint": "0c3323e5e5d0d32f54132f8eff5bd15050df29e9f08a7729531673354d40c739",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:bcf8261c91f3374c",
+      "title": "Beyond Segmentation Accuracy: Evaluating Biological Fidelity in Spatial Pathology",
+      "url": "https://doi.org/10.64898/2026.10.17.759841",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759841",
+      "content_fingerprint": "5ec71cc641d24e22b34413e275206c929dc8665a8fb6dc29396a030ebee03284",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:82b54da362681ca3",
+      "title": "muDM: A Queryable Multi-Resolution Data Model for Vector Geometry in Spatial Bioimaging",
+      "url": "https://doi.org/10.64898/2026.10.16.759449",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759449",
+      "content_fingerprint": "743bf25ca6193f21061cdd85bac0dfe11d3673fde18b319f59adca0148afd851",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:8c267b3d802aae6b",
+      "title": "Interactive Data Integrator for Uniform Data Processing in the MorPhiC Program",
+      "url": "https://doi.org/10.64898/2026.10.16.759756",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759756",
+      "content_fingerprint": "95f9f75fef895d17d9a3d82c3a7ea0e7f0d52e91bc03e6093647515c9e668486",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:56359c34f312469e",
+      "title": "A Sparse Modal Representation for Dolphin Echolocation Transients",
+      "url": "https://doi.org/10.64898/2026.10.14.759144",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759144",
+      "content_fingerprint": "1a1ecac663a019b3975a9436ced66919fe3a3b3a9509f3f6f731c29d22e41ffb",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a4958edce8ff991b",
+      "title": "Spatial proteomic profiling of cardiac stromal populations and microenvironments in systemic sclerosis-associated primary myocardial involvement",
+      "url": "https://doi.org/10.64898/2026.10.17.758293",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.758293",
+      "content_fingerprint": "6d70021a4d40317ec658e9ad31c60af5d312b043004047f7b9713091c85435e2",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d1a653e9b78e9014",
+      "title": "TiSAM: fusing spatial and histopathology foundation models for whole-slide image segmentation",
+      "url": "https://doi.org/10.64898/2026.10.16.759688",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759688",
+      "content_fingerprint": "25b5ce40dffb0fbfd004de171153dd06f4c3d89eaf2a3bd6af27f29cb3f389cd",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:31efd0f8a6fdf2b2",
+      "title": "HyARQ: a Snakemake workflow for allele-specific read counting and quality control in F1 hybrids",
+      "url": "https://doi.org/10.64898/2026.10.16.759667",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759667",
+      "content_fingerprint": "d86db85a6b2669a00fae4d54433f93aec59afbdd7cd84960d95f4d92152a6593",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:9625b62a7ef90403",
+      "title": "Advances in 16S Taxonomic Classification: Impacts on Species-Level Resolution of Female Bladder Microbiota",
+      "url": "https://doi.org/10.64898/2026.10.16.759675",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759675",
+      "content_fingerprint": "b3b533a8128ebdc70b206d97163ae4d15ac0be9344642b934cd1028bac620296",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a0a42f4e3db12199",
+      "title": "Predicting Lifespan-Extending Compounds Using Supervised Machine Learning",
+      "url": "https://doi.org/10.64898/2026.10.16.759743",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759743",
+      "content_fingerprint": "2c74f876d6c26fa7046abc5d355e0806ee7897e69eabf77b3b8f350f753bc57e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:7ffb1638f000bfde",
+      "title": "LineageFlow: Growth-Corrected State Dynamics for Probabilistic Cell-Fate Prediction",
+      "url": "https://doi.org/10.64898/2026.10.17.759846",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759846",
+      "content_fingerprint": "bede7523d7cb6f46652e37fe63983ed4c57fdf42c5a5f7313ec6b49a34a1330c",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a05b93200cb2e46e",
+      "title": "Robust geometric drift correction and identity reconstruction for biological 3D time-lapse point clouds",
+      "url": "https://doi.org/10.64898/2026.10.17.759823",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759823",
+      "content_fingerprint": "49e91c3333ed2724d9e445e3ead2eb4792ef86ec0715d29d28a0570f55138ca6",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:588b189d7bd88d61",
+      "title": "WispLab: open-source browser workbenches for laboratory image and qPCR analysis with reference-based verification",
+      "url": "https://doi.org/10.64898/2026.10.18.759898",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759898",
+      "content_fingerprint": "9f3c3200c07842b1bff25bb0287f5a4c0e0f29c6a244321301c4f61d9e096a1a",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:69adb23c609fd25c",
+      "title": "Enhancement of gut-microbiome-based classification of prodromal Parkinson's Disease cases by hyperparameter tuning, integration of multimodal data, and meta-analysis.",
+      "url": "https://doi.org/10.64898/2026.10.18.759928",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759928",
+      "content_fingerprint": "ab3a41fc5f2964a6dbb0b96ce996769af72c2b4d45ce7a2e34b1b58d3ae7fd75",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:56d208bc1c47c794",
+      "title": "U-Chrom: a unified framework for single-cell and spatial 3D genome data",
+      "url": "https://doi.org/10.64898/2026.10.18.759996",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759996",
+      "content_fingerprint": "adf04cd0319fba118ff75d8cfb4f0ac3fee5d484e2d1e2a9d464b1b02fb13428",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3458d8e44a47aa80",
+      "title": "PigGPA: A Domain-Constrained Agent for Porcine Genomic Breeding with Verifiable Tool Execution",
+      "url": "https://doi.org/10.64898/2026.10.18.759908",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759908",
+      "content_fingerprint": "74d0089b80ee664228026a447b2701d9b926c407a119e07212beff1da52ac0a6",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:eb7337833122462d",
+      "title": "N-Zinclopedia: A database of predicted transition metal-binding sites and metalloenzymes",
+      "url": "https://doi.org/10.64898/2026.10.18.759936",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759936",
+      "content_fingerprint": "bfd7b6e63a25eebc0ccbf53dd4dfab2a9db4833e83b19b3f5ecbd45392d505c9",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:56aca2e77c6955c1",
+      "title": "Auditing Confidence-Calibrated Benchmarking of Single-Cell Perturbation Models",
+      "url": "https://doi.org/10.64898/2026.10.12.758706",
+      "normalized_url": "https://doi.org/10.64898/2026.10.12.758706",
+      "content_fingerprint": "c1ddc367c048880b3df368e90fb61f1ed8197464fca742402cb6e4df7dea89c8",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:5755b04ce39f8f26",
+      "title": "The accessible human surfaceome",
+      "url": "https://doi.org/10.64898/2026.10.18.759859",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759859",
+      "content_fingerprint": "19c9508ae420f940606b65017c13302034565d056f43a9cf0f71c89401b8424d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4180d6bb42fef546",
+      "title": "Capturing α-synuclein polymorphism with AlphaFold 3 and rivals",
+      "url": "https://doi.org/10.64898/2025.12.05.692529",
+      "normalized_url": "https://doi.org/10.64898/2025.12.05.692529",
+      "content_fingerprint": "497aa4e312e8a18139c8b604c82af71b9415d5cd600bc8cacc5967b177b4d1ab",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:6fa11ddba6fda64c",
+      "title": "DCAF: Unifying Data Validity, Evaluation Validity and Predictive Modeling for Single-cell Perturbation Simulation",
+      "url": "https://doi.org/10.64898/2026.10.13.758713",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758713",
+      "content_fingerprint": "f94b084b16662f2b5b4c3f6b6f9429ec7db566d9d7207428b69ccb108eb47669",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a3cda2549e7889ef",
+      "title": "Determinants of cysteine coverage by chemoproteomics",
+      "url": "https://doi.org/10.64898/2026.10.12.758458",
+      "normalized_url": "https://doi.org/10.64898/2026.10.12.758458",
+      "content_fingerprint": "b9bdb73af088843edf63badcb4ffec6dc2d7e7fa80045871250657f9f6cf8820",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:715ec611bb0dce3f",
+      "title": "Trust, but Verify: Epistemic Uncertainty-Gated Pseudo-Labeling for Safer Semi-Supervised Malaria Screening",
+      "url": "https://doi.org/10.64898/2026.10.13.758712",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758712",
+      "content_fingerprint": "d4850dd6b4c9e81bd66e2583fc8d48d0559df4d500b955a9e1cd385320a572ba",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:72d9189ef5f10808",
+      "title": "MedMCP: An Open Agentic Ecosystem for Medical Imaging Workflows",
+      "url": "https://doi.org/10.64898/2026.10.12.758708",
+      "normalized_url": "https://doi.org/10.64898/2026.10.12.758708",
+      "content_fingerprint": "5baf4a823dc72cede4bbf5b54a8e36e6474ede83f5856a4c612547678cfa1db9",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:2c47e1391c1fb515",
+      "title": "Strain resolution and wide relative abundance quantification of bacterial microbiomes with nanopore sequencing of the ribosomal RNA operon",
+      "url": "https://doi.org/10.64898/2026.10.18.759976",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759976",
+      "content_fingerprint": "dc3f375fb9c537dfc6809808f0db192ba364786569740563f3a30410f4d06451",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3639032d37fc7f45",
+      "title": "CCTP-Atlas: Compartment-Resolved Ciliary Transcriptional Dysregulation in Tetralogy of Fallot, A Six-Dataset Integrative Meta-Analysis",
+      "url": "https://doi.org/10.64898/2026.10.12.758603",
+      "normalized_url": "https://doi.org/10.64898/2026.10.12.758603",
+      "content_fingerprint": "fe7626095e4eda58844ab5744462505a037059266a937a5b8413d3c14d7f1319",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:3639032d37fc7f45",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "fe7626095e4eda58844ab5744462505a037059266a937a5b8413d3c14d7f1319"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:bad9f12e92c002eb",
+      "title": "Benchmarking and integration of viral prediction tools to uncover viral dark matter across divergent low abundance metagenomes",
+      "url": "https://doi.org/10.64898/2026.10.14.759168",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759168",
+      "content_fingerprint": "17bc4910dc5bfb30023c20e0ddd4fa747ecbd9d1c0d97a64a447960ccf1a4edf",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:ffbc630aad4a3a6a",
+      "title": "ClonoDeconv: reference-based α - β paired recurrent clonotype proportion estimation from bulk-TCR sequencing",
+      "url": "https://doi.org/10.64898/2026.10.13.758550",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758550",
+      "content_fingerprint": "79a83236b6a393022376466983cd931bc45a77ea3f0cf2953d7c59f1ceea7df3",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f63731b4d9f9a21b",
+      "title": "Integrated 16S rRNA Bioinformatics Analysis of Gut Microbiota, Predicted Pathways, and Candidate Biomarkers in Inflammatory Bowel Disease",
+      "url": "https://doi.org/10.64898/2026.10.16.759573",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759573",
+      "content_fingerprint": "a70605a010b0221a646c2afd7581f02ba65a9bc812c38ca247c64b86e3f1bc49",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:b96aaec9fa2bb779",
+      "title": "DCSMAP: A Hybrid Linear-Pangenome Framework for Accurate and Efficient Read Alignment",
+      "url": "https://doi.org/10.64898/2026.10.18.759502",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759502",
+      "content_fingerprint": "4466a14e9a445e4d53adc6ee785883202f0bb741795272c8a5a7dd4bf6ddee85",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:33fca378968547f2",
+      "title": "Medians at the corners, anti-medians at the center: the geometry of breakpoint medians for random signed multichromosomal genomes",
+      "url": "https://doi.org/10.64898/2026.10.18.758743",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.758743",
+      "content_fingerprint": "bedd868c65e7b141d16ad93580c2e3520bac125d85426777d882acf08de9e80f",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:abbbe7f0caeb47f9",
+      "title": "Variable sparsity non-negative matrix and tensor factorization algorithms and their applications in cancer genomics",
+      "url": "https://doi.org/10.64898/2026.10.19.760022",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760022",
+      "content_fingerprint": "d4aa730bf9fa57c0b76422b85107c58daa3fe066b7bd726a617a04499ae65e1a",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:600e380f8346af65",
+      "title": "mixKIN: An ancestry-aware kinship estimation method for low coverage genomes",
+      "url": "https://doi.org/10.64898/2026.10.13.758828",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758828",
+      "content_fingerprint": "ae7d37616cec065f82a1735c320e9adc5b8136290823dee9d85b49e417f418ed",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d719ad917d4ca90f",
+      "title": "PeakLocus: A transcript-aware toolkit for RNA-Centric Genomic Annotation",
+      "url": "https://doi.org/10.64898/2026.10.17.759721",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759721",
+      "content_fingerprint": "683bfa495ad852dfc1519e4fde38fbdea13029eb668678d80a2e576b0c66b418",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f7377d308ad324c4",
+      "title": "scOmnom: scalable end-to-end single-cell RNA-seq analysis with auditable resolution selection",
+      "url": "https://doi.org/10.64898/2026.10.13.758797",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758797",
+      "content_fingerprint": "04f3a3d9dc69d62dad56b3278d1dd14cf92067a544cb3d0d14fbe1a4cd551cc0",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:1d7e7f7545804fc6",
+      "title": "How AlphaFold 3 helps with multiscale drug discovery",
+      "url": "https://doi.org/10.64898/2026.10.19.757941",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.757941",
+      "content_fingerprint": "41ee3fa48e60b60bcfcaaa296570cc70d4061c4afe9aa6acaf82f222885f5157",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:1d7e7f7545804fc6",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "41ee3fa48e60b60bcfcaaa296570cc70d4061c4afe9aa6acaf82f222885f5157"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:ce55593442b7c056",
+      "title": "RDEmbed: A Sentence-Embedding Framework for Rare Disease Phenotype Representation and Phenotypic Similarity Analysis",
+      "url": "https://doi.org/10.64898/2026.10.16.759399",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759399",
+      "content_fingerprint": "3a3f483776b9fcd926f73add362fe4df4befbc69cb3202c3ae34e853fb14dabb",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:64f1efd5df68e36b",
+      "title": "Metabolite-centric Knowledge Graph Unveils Predictive and Mechanistic Insights through Self-supervised Multimodal Learning",
+      "url": "https://doi.org/10.64898/2026.10.13.758464",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758464",
+      "content_fingerprint": "5f6ad1001b8369fa4a9aa183084ffd915c5ae0ec8692cb967cc1fb53bc3090fa",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:55bfe38f1e689398",
+      "title": "MIEN: a deep-learning model for pocket-conditioned glycan pose and conformation discrimination",
+      "url": "https://doi.org/10.64898/2026.10.13.758804",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758804",
+      "content_fingerprint": "a8a67dc9e4d88767d2521308ab300b0495aa43e482e8403baa4a9ba1536b0861",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:dda9bddaa2f7f6d1",
+      "title": "CROSS-PLATFORM CONCORDANCE ANALYSIS REVEALS ROBUST AND CLINICALLY RELEVANT GENE SIGNATURES IN BREAST CANCER",
+      "url": "https://doi.org/10.64898/2026.10.13.758788",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758788",
+      "content_fingerprint": "6d6511628a818b80f8927ea0707c73b9762cabc49854701ae1dd3b611a2bcaac",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d7a483100a54d8a5",
+      "title": "LongVerse: verified AI agents for Nanopore and PacBio DNA methylation analysis",
+      "url": "https://doi.org/10.64898/2026.10.13.758965",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758965",
+      "content_fingerprint": "0090aa3154cd9342788363fe48b6689f78dfcf114d900ae27d65843479b9af71",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:77107e63d733b699",
+      "title": "OFC-SV: Interpreting structural variants in African and Asian cohorts with non-syndromic orofacial clefts",
+      "url": "https://doi.org/10.64898/2026.10.13.757087",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.757087",
+      "content_fingerprint": "057345eec8bdeef0cc253ea6274378604b1ee44dd8ad3aa48f912dd89ef8c6c3",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:04aa88a2dc91247f",
+      "title": "Unsupervised source separation and clustering of soundscape recordings predicts avian richness in hyperdiverse systems",
+      "url": "https://doi.org/10.64898/2026.10.13.758826",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758826",
+      "content_fingerprint": "fae42ea9807365f5ab75ca1dc1a68f199fedf15abfb085f60f4605bb2577a593",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:90a963e6b175bfd7",
+      "title": "CytoRipple: Mapping Tissue Polarization through Subcellular Cytoskeleton Dynamics",
+      "url": "https://doi.org/10.64898/2026.10.13.755787",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.755787",
+      "content_fingerprint": "4c42edd5ff8615b981d130feb4a75156165fe1dde42a180d17150133ade813f1",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:82bc808a05716eb4",
+      "title": "GOLDEN: Gene expression and allele-informed decomposition for genetic heterogeneity in spatial transcriptomic data",
+      "url": "https://doi.org/10.64898/2026.10.18.759920",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759920",
+      "content_fingerprint": "ff5685912d9d8aef7aab429da4b6a193c5d46391a933a85fa06bb6109fce4099",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:19faabafcbc56808",
+      "title": "Mechanistic Insights into Adaptive Binding of Vitamins and Hormones at Hotspot-Enriched Interfaces of the Synaptotagmin 1 C2AB Domain",
+      "url": "https://doi.org/10.64898/2026.10.18.760018",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.760018",
+      "content_fingerprint": "45b9849c8b91870b615852cdd561242dc2c9e1149eb51956f964d0522bb12938",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:6e3581c5cbc47d0a",
+      "title": "BiHC: Protein domain segmentation by bidirectional hierarchical clustering using Voronoi tessellation and physical self-containment",
+      "url": "https://doi.org/10.64898/2026.10.18.759833",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759833",
+      "content_fingerprint": "acebaaaccf2690641f2a4b7004b07bf307d97807fad97e65a9695c1cbf565be6",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d23b5aacb55531fb",
+      "title": "MINT Block: multivariate integration across independent studies to identify multi-omics signatures",
+      "url": "https://doi.org/10.64898/2026.10.13.758954",
+      "normalized_url": "https://doi.org/10.64898/2026.10.13.758954",
+      "content_fingerprint": "24e2fe0cdcabe8bca99fa032be3046bffe4517e8b9e70e2dc4886354cd986632",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:8d6a154e98171709",
+      "title": "The impact of strain heterogeneity on genomic profiling accuracy in mixed-strain Escherichia coli metagenomes",
+      "url": "https://doi.org/10.64898/2026.10.19.760091",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760091",
+      "content_fingerprint": "39e4c3342d9507525f3e1e8c9755d1b5af6bca043354c021bafb529cf51bb10e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:61e31b19e06cbe08",
+      "title": "Integrating Multisource Target Evidence with Machine-Learning Potency Prediction for Alzheimer's Disease Drug Discovery",
+      "url": "https://doi.org/10.64898/2026.10.14.759026",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759026",
+      "content_fingerprint": "1b6b07f81971c9800ca96481e39ddc13548cc6767982bda6d2f22a66da1dcab5",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:91dfa1a685dc2435",
+      "title": "geoGraph: Connectivity modelling across geographic space with hexagonal discrete global grids",
+      "url": "https://doi.org/10.64898/2026.10.14.759071",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759071",
+      "content_fingerprint": "079f8d336168a448a384d12637557eff273a81b08901f5b7e6391d9554f9fe38",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:dec3b7e9b0f5b620",
+      "title": "ChEBI-N - Enrichment Analysis with the ChEBI Ontology",
+      "url": "https://doi.org/10.64898/2026.10.14.758784",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.758784",
+      "content_fingerprint": "f429a0f5f9170f46108642529818e71519d66f9db0922ff0b8e520d8c6cceaa9",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:906480ed81296881",
+      "title": "multiomeR: a pipeline for reproducible analysis of large-scale single-nucleus Epi Multiome datasets",
+      "url": "https://doi.org/10.64898/2026.10.14.759117",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759117",
+      "content_fingerprint": "527334014d3bc5f8c913a22ea6fbf1df393ff2b946f0affafd202a8df0406e98",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:b107666051ab0345",
+      "title": "Hybrid Semantic-Lexical Retrieval for Source-to-CDE Mapping in the NCI caDSR",
+      "url": "https://doi.org/10.64898/2026.10.14.758967",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.758967",
+      "content_fingerprint": "a435420ee8910e5bf61f837f4bf035001a7e313a79703693a096183a7e8bf5e8",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:c4a9d707778303ee",
+      "title": "XplainTDA: Explaining the topological structure of single-cell multi-omics data through perturbation",
+      "url": "https://doi.org/10.64898/2026.10.14.759129",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759129",
+      "content_fingerprint": "b23782680314182ed05451545aa3ebea4813a549b8aae275b48821d679c04e30",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4edf1c6812fcd1e8",
+      "title": "PHANES: an integrated resource of protein features for the human proteome",
+      "url": "https://doi.org/10.64898/2026.10.14.756639",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.756639",
+      "content_fingerprint": "a3877a5a034a55a9c62d10a696a1d18aa08c510cf4e01f75acf1048c272a3b32",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:e67b1a52111c2aa9",
+      "title": "ALLCAPS: a scalable and accurate deep-learning method for in silico pneumococcal serotyping",
+      "url": "https://doi.org/10.64898/2026.10.14.759107",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759107",
+      "content_fingerprint": "0427a844860262d3131a33c7e2019f665dab8e6801894761a0b97818038e8514",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3b09a73b7fdc687d",
+      "title": "GlyEnzEA: reaction-informed enrichment of enzyme-centered glycan sets from glycomics data",
+      "url": "https://doi.org/10.64898/2026.10.14.759156",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759156",
+      "content_fingerprint": "8fbf3bf68d3d331d4d5d596ad05f42f894c5c06bfd9d04eb37655763524372d2",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a6d43652c64fa414",
+      "title": "A Multidimensional Arithmetical Ontology for High-Parameter Cytometry: Gaussian Primes and Cryptographic Hashing for Cell Population Standardization",
+      "url": "https://doi.org/10.64898/2026.10.14.758936",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.758936",
+      "content_fingerprint": "b2ab949ed4db4664652447d606f3497be214a7677a795605f421ac78c1a847f6",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:36c7f37fb18ebae9",
+      "title": "ALSmiR: a curated evidence resource for ALS-associated microRNAs for biomarker discovery",
+      "url": "https://doi.org/10.64898/2026.10.16.759728",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759728",
+      "content_fingerprint": "d7459105fbe15657f8ed301c7b3b42abf39d485577a56280953f451ce5aa110d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:ae6c294ef8d7ffa7",
+      "title": "Single-nucleus chromatin accessibility time course of excisional wound repair in rat skin",
+      "url": "https://doi.org/10.64898/2026.10.15.759293",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759293",
+      "content_fingerprint": "f5c8b526a3ba489a50bb583e7f47ec0b8fd8335305aec1c2895fadeaa4c15ad0",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:5f389feb8d7b1e2f",
+      "title": "A data model for longitudinal multi-modal biomedical cohorts",
+      "url": "https://doi.org/10.64898/2026.10.14.759237",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759237",
+      "content_fingerprint": "f21e6c628500f0a43f684a0897298aeacd4595279c418da4fb09c4deb65d1a8c",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:c9906b72ec4273ca",
+      "title": "In Other Words: Learning When to Trust Generated Protein Function Descriptions",
+      "url": "https://doi.org/10.64898/2026.10.15.757758",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.757758",
+      "content_fingerprint": "49d490f043d24ed488b51e48931434d979b2261511bc01f94eda67b94a436336",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:388154eb2276ab07",
+      "title": "Optimal transport reveals unresolved cells in single cell multi-omics",
+      "url": "https://doi.org/10.64898/2026.10.15.759426",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759426",
+      "content_fingerprint": "aa2d9405e3c4b5b83dba14ea892aea34cb9b2bc67be19da961f44557765d17a0",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:7b16f2f9bf05651c",
+      "title": "Bypassing Current Biosecurity Screens with AI Designed Proteins and Closing the Gap with Edge-AI Functional Screening",
+      "url": "https://doi.org/10.64898/2026.10.14.759233",
+      "normalized_url": "https://doi.org/10.64898/2026.10.14.759233",
+      "content_fingerprint": "18733ed9a6051d5e6fd707bf3cac978b64c45bcd3e631ae1aa1567fd5730825e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3b9a00d64303a34f",
+      "title": "Dawnn: single-cell differential abundance with neural networks for common and rare cell populations",
+      "url": "https://doi.org/10.1101/2023.05.05.539427",
+      "normalized_url": "https://doi.org/10.1101/2023.05.05.539427",
+      "content_fingerprint": "d126e999392187d2802c3e8b164e1feb18a43d00ffdccc70e499035192307930",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:df65025ccef4ebe7",
+      "title": "Lineage-specific X chromosome inactivation escape and skew underlie sex-biased immune gene dosage and deleterious variant exposure",
+      "url": "https://doi.org/10.64898/2026.08.26.739472",
+      "normalized_url": "https://doi.org/10.64898/2026.08.26.739472",
+      "content_fingerprint": "cfba0b712b7a0d13573cc4fde950cca0abb3cddfbf97a67e498b5c2a0dec7bcb",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d0937c72bb893917",
+      "title": "Fast and accurate resolution of ecDNA sequence using Cycle-Extractor",
+      "url": "https://doi.org/10.64898/2026.03.10.710955",
+      "normalized_url": "https://doi.org/10.64898/2026.03.10.710955",
+      "content_fingerprint": "55a0cf7665e01623e5b8882f991e0714c98ed18a50a5e2fe5af909ceadf8735a",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:bf4d0aec7963a7c2",
+      "title": "Learning Protein-Protein Interaction Interfaces from Multimodal Representations",
+      "url": "https://doi.org/10.64898/2026.05.29.728739",
+      "normalized_url": "https://doi.org/10.64898/2026.05.29.728739",
+      "content_fingerprint": "a24bfd2a56bb0e3566a6292e3cdcbdad941c22b4806da10d2382cdccaca68cd2",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:ad01042a41ebf602",
+      "title": "The RdRp Thumb-1 Pocket is a Conserved Target for Broad-Spectrum Antiviral Development",
+      "url": "https://doi.org/10.1101/2024.03.29.587401",
+      "normalized_url": "https://doi.org/10.1101/2024.03.29.587401",
+      "content_fingerprint": "e02101bcdda3dd5ab6c4b5384ccd892ff460a89ac86156c4f73e81dc13a57467",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3cb331570c6a3477",
+      "title": "Metagenomic contextualization of proteins with state space models",
+      "url": "https://doi.org/10.64898/2026.07.07.736993",
+      "normalized_url": "https://doi.org/10.64898/2026.07.07.736993",
+      "content_fingerprint": "b23541b25c6dd813830e841625da094b34fcd4950f23928c9facd6581bbe5b37",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:fa89d970255f4e35",
+      "title": "HiChIA-Rep quantifies the similarity between enrichment-based chromatin interactions datasets",
+      "url": "https://doi.org/10.64898/2026.02.01.703086",
+      "normalized_url": "https://doi.org/10.64898/2026.02.01.703086",
+      "content_fingerprint": "070bc9122b73603ba2dcea414d9b41282c382c4c83f33981d73d38b2a85f8f5d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:aa37fcb18c329246",
+      "title": "CompleteBin: A transformer-based framework unlocks microbial dark matter through improved short contig binning",
+      "url": "https://doi.org/10.1101/2025.04.20.649691",
+      "normalized_url": "https://doi.org/10.1101/2025.04.20.649691",
+      "content_fingerprint": "790e875c6a1f2f022d18869c13199a2302edeb47f483eacef2efea1843262826",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3f08316e9a32c401",
+      "title": "When do hybrid models help? Combining mechanistic modelling and machine learning to predict gene regulatory network dynamics",
+      "url": "https://doi.org/10.64898/2026.10.20.758482",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.758482",
+      "content_fingerprint": "208c00bf9af8dcf7ddbde81ccd18d2285c3663fb69c7bb02820c99fc6f4d6027",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f78b8ce3cd79eea6",
+      "title": "RiboTxAlign maps and quantifies ribosome footprints using sample-specific transcript references",
+      "url": "https://doi.org/10.64898/2026.10.20.760332",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.760332",
+      "content_fingerprint": "283890acbd8467d0d6fbc9ab3a5f46937cb1e81e3a92518d6cc4bdae9cebdca3",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:19ce13f7a9867546",
+      "title": "hvantk: an agentic multi-omics framework for variant annotation and analysis",
+      "url": "https://doi.org/10.64898/2026.10.19.760196",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760196",
+      "content_fingerprint": "ba1efc4c85cea371f344d5eae835df756a452dcb2a4ea559e3f9b74a9c852974",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4c9086e7e7cd9923",
+      "title": "Direct RNA sequencing of beet yellows virus replicative intermediates reveals diverse deletion containing RNAs and break point patterns",
+      "url": "https://doi.org/10.64898/2026.10.19.760187",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760187",
+      "content_fingerprint": "ea9a58cccdf99549a58ea4b058e16921eb45969f0c6fb8ce7fe6f0ee820b5a27",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:ad87da58b3f2f19d",
+      "title": "Contextual Biomedical Language Models for Imbalance-Aware Drug-Food Interaction Classification",
+      "url": "https://doi.org/10.64898/2026.10.19.760076",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760076",
+      "content_fingerprint": "1fe1156d26a5a423ac64aafa380f65aaaec10a82f8b11d4cbf3552232e2b70a0",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:5da036779f94e02f",
+      "title": "An immune world model with multi-agent orchestration for peptide vaccines",
+      "url": "https://doi.org/10.64898/2026.10.19.760096",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760096",
+      "content_fingerprint": "74640e6662e650157a2f970f429ff300570b0996c9ec00f818dd56aceb83ec58",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:784123bcfbfd57c4",
+      "title": "Evaluation of object detection neural networks to find topologically associated domains in bulk Hi-C data",
+      "url": "https://doi.org/10.64898/2026.10.20.760189",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.760189",
+      "content_fingerprint": "98b8ca345eda8d8e5f43bb5f19f145427c080435106dcc107b1f84e529b4a962",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4cb87b411eeac1a2",
+      "title": "BiNVaST: niche boundary-preserving and synthetic data-guided variational autoencoders for concordant inference across high-resolution spatial transcriptomic platforms",
+      "url": "https://doi.org/10.64898/2026.10.15.759369",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759369",
+      "content_fingerprint": "7d0dd26fba38d062765b65c3fd7bd048751197c1a549cf8cd3b125bffac2755d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f1b90f583de809f3",
+      "title": "Combining RNA-seq and proteomics boosts sensitivity to detect differentially expressed genes by rpMeta",
+      "url": "https://doi.org/10.64898/2026.10.15.758995",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.758995",
+      "content_fingerprint": "27c80dd7376407352843bac4532a0e13ad346da58e59d75a0b9c71fd1cb1653f",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:22e82df4e40bc8b1",
+      "title": "GEO-BERT: A Retrieval augmented LLM Framework for Intelligent Dataset Retrieval from the Gene Expression Omnibus",
+      "url": "https://doi.org/10.64898/2026.10.15.759430",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759430",
+      "content_fingerprint": "5c11f918d9ee922749dfe539dcb9c48b255ac36d1954215ba91635b105c1bc3d",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:69114438d7f2429d",
+      "title": "LoCoFlow: Local-Context Flow Matching for Single-Cell Dynamics and Fate Inference",
+      "url": "https://doi.org/10.64898/2026.10.15.758594",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.758594",
+      "content_fingerprint": "79be90ae29989b0984d5e1cdf73af43a3ae052047326d66ff8c84fca6e83676e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:22a4d696176be2f4",
+      "title": "The Role of Environmental Information and the Limitations of Predictability with Transformer-based Time-Series Models for complex Astrocyte Trajectories",
+      "url": "https://doi.org/10.64898/2026.10.15.759300",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759300",
+      "content_fingerprint": "2618967fa38a79befa700f51606b43bac4229d9719d2aa49f3e3754ee9bd13f9",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:c8da6285eb4e052b",
+      "title": "DEEP: Extracting Latent Energetic Landscapes from Protein Structure Predictors",
+      "url": "https://doi.org/10.64898/2026.10.15.759389",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759389",
+      "content_fingerprint": "fb2b27fa8c997bf6f48540095ae4fcb95c9cf805ba02c98b4de496932681b49f",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:43a52adf15e862da",
+      "title": "G-ALN: a GPU-accelerated BWA-aln algorithm for palaeogenomics",
+      "url": "https://doi.org/10.64898/2026.10.18.759956",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759956",
+      "content_fingerprint": "7edf376c2670772dea564ac1ba0ffb6fdfab9e3c77cc1c9d684ea4457408095e",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:74399a9413249ba7",
+      "title": "Going beyond labels: Semi-supervised learning for enzyme kinetic parameter prediction",
+      "url": "https://doi.org/10.64898/2026.10.15.759462",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759462",
+      "content_fingerprint": "e6915917241db04cbe59fc3aaea04e8a0026ee6f3d4dd8cfc0220099d515f684",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f2296a1046d3458b",
+      "title": "A computable probability landscape for T cell receptor repertoire sampling and comparison",
+      "url": "https://doi.org/10.64898/2026.10.15.759459",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759459",
+      "content_fingerprint": "ceeb86147801247ea9208990c77698b1dd70f3f2e090a75d7d82569475e7d823",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a6b30040a5554661",
+      "title": "CnidoSite: A Multi-Omics Database for Cnidarians",
+      "url": "https://doi.org/10.64898/2026.10.15.758670",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.758670",
+      "content_fingerprint": "f3282b5f4704aaa890bc3f14077e12aba4428743e6d81c2f8fc8314b635d2441",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:5d813ed7588b5ca6",
+      "title": "GENOAR: Global Engine for Navigating the Omnicell space via Agent-based Research",
+      "url": "https://doi.org/10.64898/2026.10.15.759380",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759380",
+      "content_fingerprint": "5882acabf74725f34cc5c6fd0a51dedf9ee3541d12c78f047be697c22f19ac81",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:024e5f566017e930",
+      "title": "Differential sensitivity of k-mer based identification tools using closely related database sequences affects relative abundance estimation",
+      "url": "https://doi.org/10.64898/2026.10.15.759282",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759282",
+      "content_fingerprint": "8e362829c1e9fb67cc1a63117abb0d3dbed7e0f9a178c9c380a19497092782b2",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4ffc371d92c8a3fc",
+      "title": "CPMsi: a data-driven Computational Pipeline for fast, large-scale Mass Spectrometry Imaging analysis",
+      "url": "https://doi.org/10.64898/2026.10.15.758756",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.758756",
+      "content_fingerprint": "d8248af073c8adafe3b7cdb6575cfafb89b86e2e5ac9c805cd6d4283060a2181",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:e5418e8ed36e6697",
+      "title": "Robust Identification of Drug Mechanism of Action Associated Genes Across Heterogeneous Drug Treated Datasets",
+      "url": "https://doi.org/10.64898/2026.10.15.759469",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759469",
+      "content_fingerprint": "42048a76395c089fd49ee8a5cb4921e198c020381cb6cf60ed3925d15012fd31",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a925592ba9a82a6c",
+      "title": "PhyloScore: Improved covariation score for RNA alignments using phylogeny",
+      "url": "https://doi.org/10.64898/2026.10.20.760377",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.760377",
+      "content_fingerprint": "c4010e5c988d600124f9aef6f465b6db8c48754bc689969a4faa40b5352da9cb",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:c572790696174cca",
+      "title": "Reinforcement learning with evolutionary priors unlocks multi-site enzyme optimization from sparse experimental feedback",
+      "url": "https://doi.org/10.64898/2026.10.19.760152",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760152",
+      "content_fingerprint": "b970a5ad1a6163be8997d7fe189fe628827297ce736ec365f9078b4c830e9a56",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:8f226192e796d2db",
+      "title": "Helix Design Studio: designing antimicrobial peptide candidates for membrane environments",
+      "url": "https://doi.org/10.64898/2026.10.20.760466",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.760466",
+      "content_fingerprint": "83ee6b7292caa26e8f6cd69560f5b27172ad9c5773021874e23c97eda40b32de",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:b2f4f4ce7ac81ce5",
+      "title": "Locally deployed AI agents for CRISPR guide discovery from outbreak reports",
+      "url": "https://doi.org/10.64898/2026.10.20.760479",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.760479",
+      "content_fingerprint": "ab97a96afd19ae53fd5a3cd4a654d6c83b242f93637a0123de9708e43a981225",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:fde1ea6137203d24",
+      "title": "T2G: fast and accurate transcriptome to genome BAM liftover for short and long read RNA sequencing",
+      "url": "https://doi.org/10.64898/2026.10.20.760397",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.760397",
+      "content_fingerprint": "1a534833c5cfac8b16821a5b8023e4ad5605148e4c65feaf9e1473a8dd7897ba",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3e5bb9dfdb032d8f",
+      "title": "A High-Quality Acetylation Dataset Reveals Modest Data Requirements for Transfer Learning to Identify Little Studied Post-Translational Modifications",
+      "url": "https://doi.org/10.64898/2026.06.25.733353",
+      "normalized_url": "https://doi.org/10.64898/2026.06.25.733353",
+      "content_fingerprint": "70ae750d13a0177fa89d0ba08417d42141cb6bcb04d12e5c6b2442b918daf55c",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d2ba67325d87ace1",
+      "title": "LKOM: Longitudinal Knockoff with Masked Likelihood Ratio for FDR-Controlled Association Discovery",
+      "url": "https://doi.org/10.64898/2026.10.15.759368",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759368",
+      "content_fingerprint": "7ab5b1c663a0c9082809485d0f44dfd63d687a16c45242a9ce6e54708e530ac3",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:91112f472e433f43",
+      "title": "Sequence-only prediction of VHH nanobody epitopes and paratopes on HER2 with a frozen protein language model ( ESM2) and a structure-derived residue prior",
+      "url": "https://doi.org/10.64898/2026.10.15.759522",
+      "normalized_url": "https://doi.org/10.64898/2026.10.15.759522",
+      "content_fingerprint": "b24487fd03f6a31c6dfb15182e08a2d306898ea4fe984fc0a5af8db1274e110f",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d7de4f95f71d412c",
+      "title": "DNA methylation subtypes inferred from transcriptomes guide sunitinib and immunotherapy selection in renal cancer",
+      "url": "https://doi.org/10.1101/2024.11.05.622095",
+      "normalized_url": "https://doi.org/10.1101/2024.11.05.622095",
+      "content_fingerprint": "7c7950b56f65f777244cb6ce9a478ee04c4769055a8c4a80e1ab226f7fd39a94",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:16fb2587b447dea5",
+      "title": "MERIT: Mechanism driven model predicts drug outcomes and nominates indications for failed drugs",
+      "url": "https://doi.org/10.64898/2026.08.09.743088",
+      "normalized_url": "https://doi.org/10.64898/2026.08.09.743088",
+      "content_fingerprint": "f3d0cac22884041ba64a459166f36f36cee41bac9872e5b3568f434447f377b6",
+      "history_status": "new_url",
+      "previous_matches": [],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:59b880dbc266b8f0",
+      "title": "Pose: a pure-NumPy, chirality-aware, structural engine for building and manipulating the molecular structures of proteins, nucleic acids, and small organic molecules",
+      "url": "https://doi.org/10.64898/2026.10.19.760100",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760100",
+      "content_fingerprint": "72a8fe00f347bc16073c7fed3809340986a5d7962d18d8a066aab6bb3b358c43",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:59b880dbc266b8f0",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "72a8fe00f347bc16073c7fed3809340986a5d7962d18d8a066aab6bb3b358c43"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:59b880dbc266b8f0",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "72a8fe00f347bc16073c7fed3809340986a5d7962d18d8a066aab6bb3b358c43"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:82200b0c364d5f89",
+      "title": "LiverHomo: An Integrated and Interactive Human Liver Single-Cell Atlas with Protein Interaction and Cell-Cell Communication Networks",
+      "url": "https://doi.org/10.64898/2026.10.20.755227",
+      "normalized_url": "https://doi.org/10.64898/2026.10.20.755227",
+      "content_fingerprint": "26d7f51f0a743d4f4042f08b74231ec3ac855dedde92e09bfdb77b0014f07f35",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:82200b0c364d5f89",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "26d7f51f0a743d4f4042f08b74231ec3ac855dedde92e09bfdb77b0014f07f35"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:82200b0c364d5f89",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "26d7f51f0a743d4f4042f08b74231ec3ac855dedde92e09bfdb77b0014f07f35"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:6cd249dc50eb29f0",
+      "title": "Using Arabian Sea Coastal Water as a Model to Study Plasmid-mediated AMR Dissemination driven by Anthropogenic Impacts",
+      "url": "https://doi.org/10.64898/2026.10.21.760660",
+      "normalized_url": "https://doi.org/10.64898/2026.10.21.760660",
+      "content_fingerprint": "e861022b0eb4451b641d3a77814d90a128f2e7cc3296938e86fbdd940ab9c38a",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:6cd249dc50eb29f0",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "e861022b0eb4451b641d3a77814d90a128f2e7cc3296938e86fbdd940ab9c38a"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:6cd249dc50eb29f0",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "e861022b0eb4451b641d3a77814d90a128f2e7cc3296938e86fbdd940ab9c38a"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:87341ebed4fc90df",
+      "title": "CDSeq2 integrates individual-level cell-type expression deconvolution with recoverability-guided prioritization",
+      "url": "https://doi.org/10.64898/2026.09.14.751599",
+      "normalized_url": "https://doi.org/10.64898/2026.09.14.751599",
+      "content_fingerprint": "8b57181ca0aff5e6e87d453120d2e89a35e7b42a4e78ffec0eda7fd1b42dc6f4",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:87341ebed4fc90df",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "8b57181ca0aff5e6e87d453120d2e89a35e7b42a4e78ffec0eda7fd1b42dc6f4"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:87341ebed4fc90df",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "8b57181ca0aff5e6e87d453120d2e89a35e7b42a4e78ffec0eda7fd1b42dc6f4"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:213b84f7788487d9",
+      "title": "A prediction-interval framework for identifying outlier control cohorts in lifespan studies",
+      "url": "https://doi.org/10.64898/2026.10.21.760720",
+      "normalized_url": "https://doi.org/10.64898/2026.10.21.760720",
+      "content_fingerprint": "20ad05e17936b4a84f74b4be5dd8d030fb3ec0ae5efa283b6fac0160bffd611d",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T041655Z-93893bc7",
+          "item_id": "biorxiv:article:213b84f7788487d9",
+          "collected_at": "2026-10-23T04:16:55.288061+00:00",
+          "content_fingerprint": "20ad05e17936b4a84f74b4be5dd8d030fb3ec0ae5efa283b6fac0160bffd611d"
+        },
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:213b84f7788487d9",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "20ad05e17936b4a84f74b4be5dd8d030fb3ec0ae5efa283b6fac0160bffd611d"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:7c6178a542c11128",
+      "title": "Foundation Models Improve Perturbation Response Prediction",
+      "url": "https://doi.org/10.64898/2026.02.18.706454",
+      "normalized_url": "https://doi.org/10.64898/2026.02.18.706454",
+      "content_fingerprint": "25aa9bc16f1cf2ee9ce811bbf7b6cacccf9e326ced87695350e6abfea5fe1c14",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:7c6178a542c11128",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "25aa9bc16f1cf2ee9ce811bbf7b6cacccf9e326ced87695350e6abfea5fe1c14"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:0bf776829b4b6023",
+      "title": "Signature Recontextualization: Mapping perturbational signatures across biological contexts",
+      "url": "https://doi.org/10.64898/2026.08.14.744937",
+      "normalized_url": "https://doi.org/10.64898/2026.08.14.744937",
+      "content_fingerprint": "b58f51226f145e2e5a069339b123bb4f86005320f306cfe148dcbe954aa41794",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:0bf776829b4b6023",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "b58f51226f145e2e5a069339b123bb4f86005320f306cfe148dcbe954aa41794"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:5bc7d43452a2f182",
+      "title": "Unimeth: A unified transformer framework for accurate DNA methylation detection from nanopore reads",
+      "url": "https://doi.org/10.64898/2025.12.05.692231",
+      "normalized_url": "https://doi.org/10.64898/2025.12.05.692231",
+      "content_fingerprint": "e3a79c77ac75752d10b5a6f13364768cc6a25cc14b2710ea5f27f0ca2bca67c7",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:5bc7d43452a2f182",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "e3a79c77ac75752d10b5a6f13364768cc6a25cc14b2710ea5f27f0ca2bca67c7"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:21e347bc5478a929",
+      "title": "A moving target: non-stationary selection governs unsupervised prediction of viral fitness",
+      "url": "https://doi.org/10.64898/2026.09.17.752359",
+      "normalized_url": "https://doi.org/10.64898/2026.09.17.752359",
+      "content_fingerprint": "83a06c88529bc286a481fc5bf18c146abd3bb458cc6744765731e232c081e33d",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:21e347bc5478a929",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "83a06c88529bc286a481fc5bf18c146abd3bb458cc6744765731e232c081e33d"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:1edbbddb213bdfcb",
+      "title": "Characterization of selective pressures acting on protein sites with Deep Learning",
+      "url": "https://doi.org/10.1101/2025.07.01.662578",
+      "normalized_url": "https://doi.org/10.1101/2025.07.01.662578",
+      "content_fingerprint": "f6896d3560708df926b5eefaac36763cbbadf86c419a9dc219db190dac9fe881",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:1edbbddb213bdfcb",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "f6896d3560708df926b5eefaac36763cbbadf86c419a9dc219db190dac9fe881"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d67e475dea63ed30",
+      "title": "A translational transcriptomic signature of vaccine reactogenicity for the evaluation of novel formulations",
+      "url": "https://doi.org/10.1101/2025.11.20.689650",
+      "normalized_url": "https://doi.org/10.1101/2025.11.20.689650",
+      "content_fingerprint": "7a5e2e25aa12c3f8c72d89a6d93fc89f576ead5de0b697774f18814d9da18972",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:d67e475dea63ed30",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "7a5e2e25aa12c3f8c72d89a6d93fc89f576ead5de0b697774f18814d9da18972"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:9dda812e862d6de5",
+      "title": "De novo transformer modeling improves recovery of genetic cell types from sparse single-cell RNA sequencing",
+      "url": "https://doi.org/10.64898/2026.08.03.742620",
+      "normalized_url": "https://doi.org/10.64898/2026.08.03.742620",
+      "content_fingerprint": "9ee0dbf76f95d9b133f2832ecc6ad9259442df412f2bdc5fd461ea29cc1315f8",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:9dda812e862d6de5",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "9ee0dbf76f95d9b133f2832ecc6ad9259442df412f2bdc5fd461ea29cc1315f8"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:9aee29ad7b48af8d",
+      "title": "CellWHISPER disentangles direct cell-cell communication from structural proximity",
+      "url": "https://doi.org/10.64898/2026.01.07.697982",
+      "normalized_url": "https://doi.org/10.64898/2026.01.07.697982",
+      "content_fingerprint": "8e335a2bb2ecf4402a2ed5011fe66f5ce68804e5f08a8f9cdad827abbdff295f",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:9aee29ad7b48af8d",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "8e335a2bb2ecf4402a2ed5011fe66f5ce68804e5f08a8f9cdad827abbdff295f"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:271ae6715b43b644",
+      "title": "Differential Gene Expression in the Tropical House Cricket and Its Iridovirus in Healthy versus Diseased Specimens",
+      "url": "https://doi.org/10.64898/2026.05.19.726264",
+      "normalized_url": "https://doi.org/10.64898/2026.05.19.726264",
+      "content_fingerprint": "5ca085d2118af9939572d80408b05c9b93e1b6a376df45962ea07ecff47d2afb",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:271ae6715b43b644",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "5ca085d2118af9939572d80408b05c9b93e1b6a376df45962ea07ecff47d2afb"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:41e44d587aa22f8a",
+      "title": "Predicting Pre-treatment Resistance or Post-treatment Effect? A Systematic Benchmarking of Single-Cell Drug Response Models",
+      "url": "https://doi.org/10.64898/2026.04.10.717709",
+      "normalized_url": "https://doi.org/10.64898/2026.04.10.717709",
+      "content_fingerprint": "46f03629d75c3cb4b50efff0fe7565bd54fdd04c4be34e9e7b362cde17c2774d",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:41e44d587aa22f8a",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "46f03629d75c3cb4b50efff0fe7565bd54fdd04c4be34e9e7b362cde17c2774d"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:2f36d7502441c7aa",
+      "title": "msallsearchpy: Universal Search Engine with Enhanced Performance for High-Flow Quantitative LC-MS Proteomics",
+      "url": "https://doi.org/10.64898/2026.10.16.759407",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759407",
+      "content_fingerprint": "f5f126f0e5458167e5d8e7a1078d2351aa8f240cbaa5940891c24f140f653fcb",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:2f36d7502441c7aa",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "f5f126f0e5458167e5d8e7a1078d2351aa8f240cbaa5940891c24f140f653fcb"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:71c9c5b2841c7ead",
+      "title": "TP53 status aligns with morphology and metaplastic programs in colorectal cancer organoids, and MDM2 P2 promoter usage reflects p53 activity",
+      "url": "https://doi.org/10.64898/2026.09.21.753357",
+      "normalized_url": "https://doi.org/10.64898/2026.09.21.753357",
+      "content_fingerprint": "8e9972d2aafc901765e4f95a08935fa99d1ba25d67e8919c0267023fc642c258",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:71c9c5b2841c7ead",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "8e9972d2aafc901765e4f95a08935fa99d1ba25d67e8919c0267023fc642c258"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:93c328ac00b7f16b",
+      "title": "Benchmarking normalisation methods for differential binding analysis in CUT&RUN",
+      "url": "https://doi.org/10.64898/2026.05.24.727463",
+      "normalized_url": "https://doi.org/10.64898/2026.05.24.727463",
+      "content_fingerprint": "3a481adf9482f38f13772bb8c5bc81e158c1048d712840ab28fa4f32367c1fc9",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:93c328ac00b7f16b",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "3a481adf9482f38f13772bb8c5bc81e158c1048d712840ab28fa4f32367c1fc9"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:7789b5612e60d105",
+      "title": "msmu: a computational framework for provenance-aware mass spectrometry-based proteomics analysis",
+      "url": "https://doi.org/10.64898/2026.01.07.698308",
+      "normalized_url": "https://doi.org/10.64898/2026.01.07.698308",
+      "content_fingerprint": "f83ccbccb0d2c173038aa1d3cc6d0669918ccc87e9747918eea12ccd89bb2aff",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:7789b5612e60d105",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "f83ccbccb0d2c173038aa1d3cc6d0669918ccc87e9747918eea12ccd89bb2aff"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:85652c7103a18830",
+      "title": "MorphoDeep enables fast 3D cell instance segmentation by learning cell interfaces and junctions",
+      "url": "https://doi.org/10.64898/2026.10.16.759622",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759622",
+      "content_fingerprint": "68f01b806db0ceeae26a09edc1c9007804ed7ad16b5fa228dbb25edb9dbad1e7",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:85652c7103a18830",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "68f01b806db0ceeae26a09edc1c9007804ed7ad16b5fa228dbb25edb9dbad1e7"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:c7eeb7ec9fcc7259",
+      "title": "Benchmarking Molecular Methods of Protein Engineering and Surveying Protein Search Space to Bolster Artificial Intelligence-Based Designs",
+      "url": "https://doi.org/10.64898/2026.10.16.759664",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759664",
+      "content_fingerprint": "35000d153609bc42b134865dbc3f43f2f6f75dd142fd7d072c1fd5ef5d405f86",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:c7eeb7ec9fcc7259",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "35000d153609bc42b134865dbc3f43f2f6f75dd142fd7d072c1fd5ef5d405f86"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:fbde4cc0033a4fb5",
+      "title": "SpacePath enables pathway and molecular-family analysis beyond annotation ambiguity in spatial metabolomics and lipidomics",
+      "url": "https://doi.org/10.64898/2026.10.16.759546",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759546",
+      "content_fingerprint": "fb4e8de51dd02ced90262f7f8448ab75b0f628f5ebfb32e38e387f13d0cb916e",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:fbde4cc0033a4fb5",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "fb4e8de51dd02ced90262f7f8448ab75b0f628f5ebfb32e38e387f13d0cb916e"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4077485192180825",
+      "title": "Re-evaluating the benefit of training scale in cell foundation models",
+      "url": "https://doi.org/10.64898/2026.06.04.730272",
+      "normalized_url": "https://doi.org/10.64898/2026.06.04.730272",
+      "content_fingerprint": "a3ed1cefd41facdd2dccafc9660e0be7d14b445510b6535da81f0c6d9c538739",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:4077485192180825",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "a3ed1cefd41facdd2dccafc9660e0be7d14b445510b6535da81f0c6d9c538739"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f3a24372fe60965b",
+      "title": "Population-scale drug target and variant prioritization with Varformer",
+      "url": "https://doi.org/10.64898/2026.10.16.759653",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759653",
+      "content_fingerprint": "216698b090f43b6efbf700dee100abc510e3d3048864f37b76fa488f7a8258ed",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:f3a24372fe60965b",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "216698b090f43b6efbf700dee100abc510e3d3048864f37b76fa488f7a8258ed"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:45cc2aeb7f20b72a",
+      "title": "ISP Platform powered by Geneformer: Framework for Cross-Species, State-feedback, and Multi-Gene In Silico Perturbation Screens with Application to iPS Cell State Transitions",
+      "url": "https://doi.org/10.64898/2026.09.17.752497",
+      "normalized_url": "https://doi.org/10.64898/2026.09.17.752497",
+      "content_fingerprint": "5ecc647246b17877efffb940a39822aed0fd3f0b7aeadbe2a908ef009b7785ea",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:45cc2aeb7f20b72a",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "5ecc647246b17877efffb940a39822aed0fd3f0b7aeadbe2a908ef009b7785ea"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:d051a4fcdf6b6bf4",
+      "title": "General Purpose AI for Public Data Analysis and Experimental Hypothesis Generation",
+      "url": "https://doi.org/10.64898/2026.10.16.759709",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759709",
+      "content_fingerprint": "6b018275b9d945d60c7519910cf50e4845ee40307a317f0c19aa4986048c5f04",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:d051a4fcdf6b6bf4",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "6b018275b9d945d60c7519910cf50e4845ee40307a317f0c19aa4986048c5f04"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:39785009afcc00ad",
+      "title": "Cell-level integration of gene expression and B cell receptor data captures complementary B cell information",
+      "url": "https://doi.org/10.64898/2026.10.16.759689",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759689",
+      "content_fingerprint": "fbc43bcc93b30f87e767544a835cd53488f03b2077bccff0439d9d1730fa8f74",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:39785009afcc00ad",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "fbc43bcc93b30f87e767544a835cd53488f03b2077bccff0439d9d1730fa8f74"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4857fc5f98760192",
+      "title": "Optimizing Cognitive Phenotyping for Genetic Discovery in Alzheimer's Disease: A Simulation-Based Evaluation of Mini-Mental State Examination-Based Decline Measures",
+      "url": "https://doi.org/10.64898/2026.10.16.759741",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759741",
+      "content_fingerprint": "e4904b7fe8e5a423a7c79295b8faa7ee96b03ef094e3c22833dcea0396224800",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:4857fc5f98760192",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "e4904b7fe8e5a423a7c79295b8faa7ee96b03ef094e3c22833dcea0396224800"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:0e7e450aa658d102",
+      "title": "NuFold RNA Structure Database: Large-Scale RNA Tertiary Structure Prediction with Confidence Metrics",
+      "url": "https://doi.org/10.64898/2026.10.21.760778",
+      "normalized_url": "https://doi.org/10.64898/2026.10.21.760778",
+      "content_fingerprint": "67d9bf041335646a18aecea8617bc3ccd5632d508e2233b1627ead95bb3dd5de",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:0e7e450aa658d102",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "67d9bf041335646a18aecea8617bc3ccd5632d508e2233b1627ead95bb3dd5de"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:4b61b28bafe69a27",
+      "title": "MutaStruct: Revisiting Benchmarks for Single-Site Mutation-Induced Structural Change Prediction",
+      "url": "https://doi.org/10.64898/2026.10.21.760837",
+      "normalized_url": "https://doi.org/10.64898/2026.10.21.760837",
+      "content_fingerprint": "106206f12b2949fd07d9d53744522927aff61e8cde9d4bcb95122f86902247d5",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:4b61b28bafe69a27",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "106206f12b2949fd07d9d53744522927aff61e8cde9d4bcb95122f86902247d5"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:f3804c36594d3c65",
+      "title": "Computational Profiling and Pathogenicity Assessment of VHL Missense Mutations",
+      "url": "https://doi.org/10.64898/2026.10.17.759794",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759794",
+      "content_fingerprint": "dfd0c4ad2c54bccaf96abd5a9f3b51be63797c9da8d8901d19307dae33b64422",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:f3804c36594d3c65",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "dfd0c4ad2c54bccaf96abd5a9f3b51be63797c9da8d8901d19307dae33b64422"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3bed7f37eea574df",
+      "title": "GeoSinkhorn Flow: Geometry-Aware Flow Matching for Perturbation-Conditioned Dynamics in Single cell Data Phenoscapes",
+      "url": "https://doi.org/10.64898/2026.10.16.759724",
+      "normalized_url": "https://doi.org/10.64898/2026.10.16.759724",
+      "content_fingerprint": "7c44d81884eb48221cc376d1dab21f445061fd116811174415e30e57e825ccbe",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:3bed7f37eea574df",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "7c44d81884eb48221cc376d1dab21f445061fd116811174415e30e57e825ccbe"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:6c87154caa3b33b2",
+      "title": "Widespread Recruitment of ParA-like NTPases into Prokaryotic Immunity reveals a diversity of anti-selfish element strategies",
+      "url": "https://doi.org/10.64898/2026.10.19.760177",
+      "normalized_url": "https://doi.org/10.64898/2026.10.19.760177",
+      "content_fingerprint": "de654ef3d2bdbda28592dd1e8183bf7f09a69c2fdc879b854530b9f0d4963ab0",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:6c87154caa3b33b2",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "de654ef3d2bdbda28592dd1e8183bf7f09a69c2fdc879b854530b9f0d4963ab0"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:5f6b479cea70a293",
+      "title": "TACTIC: hybrid denoising and clustering for robust 16S amplicon diversity estimates",
+      "url": "https://doi.org/10.64898/2026.10.17.759814",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759814",
+      "content_fingerprint": "91811ad7de6b7cec72d630301bcb4bf854e61698a3b1ac2abc6a3fd386879afc",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:5f6b479cea70a293",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "91811ad7de6b7cec72d630301bcb4bf854e61698a3b1ac2abc6a3fd386879afc"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:3d10b9ca59e9d302",
+      "title": "Active Learning framework for Antibody Binding Affinity Prediction",
+      "url": "https://doi.org/10.64898/2026.10.17.759787",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759787",
+      "content_fingerprint": "5f09b1bd1105b38cefa3d9e90f562849ce59e8351b11a2d40df7ba7934e1d7cf",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:3d10b9ca59e9d302",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "5f09b1bd1105b38cefa3d9e90f562849ce59e8351b11a2d40df7ba7934e1d7cf"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:e243455b89792545",
+      "title": "An Interpretable Machine Learning Framework for Early- versus Late-Stage Classification of Breast Cancer from Gene Expression, with Co-expression Network Analysis",
+      "url": "https://doi.org/10.64898/2026.10.18.759962",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759962",
+      "content_fingerprint": "0a6c477076c7c74182df8222aa191c8940f9e9476c614de26711269c0c5b6821",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:e243455b89792545",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "0a6c477076c7c74182df8222aa191c8940f9e9476c614de26711269c0c5b6821"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:a9c4038192a2bad6",
+      "title": "Decoding Cell-level Circadian Phase and Rhythm-state Remodeling in Single-cell Transcriptomes With scRhythmBayes",
+      "url": "https://doi.org/10.64898/2026.10.18.759931",
+      "normalized_url": "https://doi.org/10.64898/2026.10.18.759931",
+      "content_fingerprint": "b92ef3457c4d72ee75e4aad0da25a03d43e5d89980499a7f2f74fe72c62e1a82",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:a9c4038192a2bad6",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "b92ef3457c4d72ee75e4aad0da25a03d43e5d89980499a7f2f74fe72c62e1a82"
+        }
+      ],
+      "matched_event_keys": []
+    },
+    {
+      "item_id": "biorxiv:article:cf133bb11f274177",
+      "title": "EG-BINN: Parameter-Efficient Ensembling of Gated Biologically Informed Neural Networks for Epigenetic Age Estimation",
+      "url": "https://doi.org/10.64898/2026.10.17.759869",
+      "normalized_url": "https://doi.org/10.64898/2026.10.17.759869",
+      "content_fingerprint": "f25a6b1dd89c3647eff84e19ea3cd0fcb1f6fe9f008d912b51131dc8a03e1f57",
+      "history_status": "same_url_same_content",
+      "previous_matches": [
+        {
+          "run_id": "run-20261023T042446Z-55056a76",
+          "item_id": "biorxiv:article:cf133bb11f274177",
+          "collected_at": "2026-10-23T04:24:46.589808+00:00",
+          "content_fingerprint": "f25a6b1dd89c3647eff84e19ea3cd0fcb1f6fe9f008d912b51131dc8a03e1f57"
+        }
+      ],
+      "matched_event_keys": []
+    }
+  ],
+  "scope": "Exact URL/content context only; editorial event decisions remain required."
+}

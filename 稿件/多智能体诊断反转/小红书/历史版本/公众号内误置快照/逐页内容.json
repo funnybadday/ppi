@@ -1,0 +1,245 @@
+[
+  {
+    "page": 1,
+    "type": "cover",
+    "title": "五个AI专家综合问诊\n诊断准确率竟输给了\n直接向AI提问",
+    "summary": "协和团队实测：整理好的病例上“会诊”诊断清单更全，换到真实急诊却输给直接向AI提问——问题出在让AI扮演专科专家。"
+  },
+  {
+    "page": 2,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 0,
+        "type": "heading",
+        "start": 0,
+        "end": 3,
+        "page": 2,
+        "text": "创新点",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 1,
+        "type": "paragraph",
+        "start": 0,
+        "end": 89,
+        "page": 2,
+        "text": "“让AI分角色讨论”如今很流行，但“多视角”其实混着两件事：五个专家在同一个对话里依次发言（互相看得见），还是五个AI各看各的、最后有人汇总。这篇论文第一次把两者拆开、单独比较。",
+        "line_tops": [
+          88,
+          156,
+          224,
+          292
+        ]
+      },
+      {
+        "source_block_index": 2,
+        "type": "paragraph",
+        "start": 0,
+        "end": 112,
+        "page": 2,
+        "text": "团队在同一个大模型上对比三种方式——直接问一次、单对话五角色、五个独立AI加主持人汇总——并进一步追问：改善到底来自“专科专家”这个身份，还是来自“独立判断再汇总”这个流程。答案是后者：专家角色可有可无，独立加汇总才是关键。",
+        "line_tops": [
+          384,
+          452,
+          520,
+          588,
+          656
+        ]
+      },
+      {
+        "source_block_index": 3,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 2,
+        "text": "方法",
+        "line_tops": [
+          754
+        ]
+      },
+      {
+        "source_block_index": 4,
+        "type": "paragraph",
+        "start": 0,
+        "end": 143,
+        "page": 2,
+        "text": "三种方式都要求给出前五位鉴别诊断：直接问一次（1次调用）；一个对话里依次给出主治医师、病理生理、影像与检验、流行病学与暴露、怀疑者五个视角（1次）；五个AI互相看不到彼此答案、各自独立分析，再由一个“主持人”AI汇总（6次调用）。三种方式的设计与两个补充对比见论文Figure 1。全部",
+        "line_tops": [
+          840,
+          908,
+          976,
+          1044,
+          1112,
+          1180
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": false
+  },
+  {
+    "page": 3,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 4,
+        "type": "paragraph",
+        "start": 143,
+        "end": 187,
+        "page": 3,
+        "text": "测试用同一款开源大模型（qwen3.8-flash，1760亿参数），每份病例重复五次。",
+        "line_tops": [
+          4,
+          72
+        ]
+      },
+      {
+        "source_block_index": 6,
+        "type": "paragraph",
+        "start": 0,
+        "end": 141,
+        "page": 3,
+        "text": "测试用了三套数据：87例已发表的疑难病例、406例外部基准病例、364份真实急诊记录——模型只能看到接诊医生下笔之前的记录，“标准答案”就是医生当天写下的工作诊断。评分由一个AI裁判完成，规则在分析前锁定、不告知答案来自哪种方式，并请两位资深临床医生盲核100对样本，判断高度一致。",
+        "line_tops": [
+          774.02,
+          842.02,
+          910.02,
+          978.02,
+          1046.02,
+          1114.02
+        ]
+      }
+    ],
+    "image_blocks": [
+      5
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 4,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 7,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 4,
+        "text": "结果",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 8,
+        "type": "paragraph",
+        "start": 0,
+        "end": 133,
+        "page": 4,
+        "text": "整理好的病例上，“会诊”确实有用：外部基准上，前三位诊断包含正确答案的比例高出3.0个百分点、前五位高出3.9个百分点，但首位诊断没有差别——改善在“想得全”，不在“猜得准”（内部87例改善更大，作者注明含调试病例、偏乐观）。三个数据集的对比见论文Figure 2。",
+        "line_tops": [
+          88,
+          156,
+          224,
+          292,
+          360,
+          428
+        ]
+      }
+    ],
+    "image_blocks": [
+      9
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 5,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 10,
+        "type": "paragraph",
+        "start": 0,
+        "end": 190,
+        "page": 5,
+        "text": "真实急诊记录上方向反转：直接问一次全面占优，首位准确率40.1%对34.3%，差距近6个百分点；把化验、影像等结果补给模型，各组同步变好、名次不变——不是资料太少的错。拆解显示：把“主持人”套在五个普通回答上，反转完全消失——拖后腿的是专科角色扮演，不是多问几次。论文举了一个例子：真实诊断为肠梗阻（ileus）的一例，五个AI“专家”全聚到动力障碍方向，前五位没有一条指向梗阻。",
+        "line_tops": [
+          4,
+          72,
+          140,
+          208,
+          276,
+          344,
+          412,
+          480,
+          548
+        ]
+      },
+      {
+        "source_block_index": 11,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 5,
+        "text": "结论",
+        "line_tops": [
+          646
+        ]
+      },
+      {
+        "source_block_index": 12,
+        "type": "paragraph",
+        "start": 0,
+        "end": 175,
+        "page": 5,
+        "text": "部署上的取舍很清楚：要“最可能是什么”，直接问一次仍是默认选择；要“鉴别清单够宽”（罕见病提示、转诊、教学起步清单），独立判断加一次汇总才值得多花的计算成本。成本差距不小：每例直接问一次约2,846个token（字词量），五专家会诊约19,422个；五个普通回答加主持人只要17,419个，效果相同。每例调用次数与token用量见论文Table 3。",
+        "line_tops": [
+          732,
+          800,
+          868,
+          936,
+          1004,
+          1072,
+          1140
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": false
+  },
+  {
+    "page": 6,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 14,
+        "type": "paragraph",
+        "start": 0,
+        "end": 92,
+        "page": 6,
+        "text": "证据边界：真实急诊只截取到医生决策前的记录，不能外推到完整病历；“反转”是与工作诊断比对得出，未经医生盲法临床评定；研究未公开注册，部分对比为事后分析；预印本未经同行评审，代码已公开。",
+        "line_tops": [
+          879,
+          947,
+          1015,
+          1083,
+          1151
+        ]
+      }
+    ],
+    "image_blocks": [
+      13
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 7,
+    "type": "article",
+    "fragments": [],
+    "image_blocks": [],
+    "source_visible": true
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "review_file": "稿件/T1D数字孪生决策质量/制作记录/台账关联记录_v4.json",
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "events": [],
+  "history_review": [
+    {
+      "event_key": "evt-6da9217478626639d4ca",
+      "change_type": "repeat",
+      "status": "drafted",
+      "observed_at": "2026-10-23T14:20:00+08:00",
+      "article_directory": "稿件/T1D数字孪生决策质量",
+      "note": "用户反馈3：图表位置配合文字描述出现，不固定在章末（Table2移至协议段后、Table6移至成本句段后）；两条结构规则（封面=论文首页截图；四章节+图随文字）已写入小红书偏好.txt作为论文版默认；上一版归档 历史版本/三版_章末固定图",
+      "platform_outputs": {
+        "xiaohongshu": {
+          "directory": "稿件/T1D数字孪生决策质量/小红书",
+          "review_status": "awaiting_user_review",
+          "published": false,
+          "source_file": "公众号/公众号正文.txt",
+          "source_sha256": "375d883138e6bf096cc321601aac09748368d0c53f94718e9449e7b75a960cb1",
+          "image_count": 6,
+          "dimensions": [
+            1080,
+            1440
+          ],
+          "revision_note": "图随文字走（渲染输入_v4）；结构规则已定为论文版默认"
+        }
+      }
+    }
+  ]
+}

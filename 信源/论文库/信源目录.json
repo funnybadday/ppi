@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "prepared_date": "2026-10-23",
+  "profile_id": "clinical-papers",
+  "scope_note": "论文版项目仅接入 arXiv、PubMed、bioRxiv、medRxiv 四个论文库；新闻类信源由蓝图宣传项目负责，不在本目录维护。",
+  "configured_channels": {
+    "arxiv_atom_feeds": 3,
+    "pubmed_queries": 1,
+    "biorxiv_servers": 2,
+    "total": 6
+  },
+  "sources": [
+    {
+      "id": "arxiv-virtual-trials",
+      "name": "arXiv｜虚拟试验与数字孪生",
+      "kind": "arxiv_atom_query",
+      "url": "http://export.arxiv.org/api/query?search_query=all:%22virtual+clinical+trial%22+OR+all:%22in+silico+clinical+trial%22+OR+all:%22in+silico+trials%22+OR+all:%22patient+digital+twin%22+OR+all:%22synthetic+control+arm%22+OR+all:%22virtual+patients%22&sortBy=submittedDate&sortOrder=descending&max_results=80",
+      "focus": ["virtual clinical trial", "in silico trial", "patient digital twin", "synthetic control arm", "virtual patients"],
+      "connection": "verified-2026-10-23（需本地代理 127.0.0.1:6864；直连被干扰）",
+      "notes": "Atom API 查询作为 RSS 通道接入，feedparser 解析；sortBy=submittedDate 只取新提交；限速约1请求/3秒，偶发429重试"
+    },
+    {
+      "id": "arxiv-ai-clinical-tasks",
+      "name": "arXiv｜AI与临床试验任务",
+      "kind": "arxiv_atom_query",
+      "url": "http://export.arxiv.org/api/query?search_query=%28cat:q-bio.QM+OR+cat:stat.AP+OR+cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.LG%29+AND+abs:%22clinical+trial%22+AND+%28abs:%22large+language+model%22+OR+abs:%22artificial+intelligence%22+OR+abs:%22machine+learning%22+OR+abs:%22deep+learning%22+OR+abs:agent+OR+abs:%22foundation+model%22%29&sortBy=submittedDate&sortOrder=descending&max_results=80",
+      "focus": ["q-bio.QM", "stat.AP", "cs.AI", "cs.CL", "cs.LG", "clinical trial × AI/LLM/agent"],
+      "connection": "verified-2026-10-23（需本地代理）",
+      "notes": "分类网+摘要短语网；与虚拟试验查询可能重叠，同 URL 由 Horizon 轮内去重合并"
+    },
+    {
+      "id": "arxiv-trial-operations",
+      "name": "arXiv｜试验提效与招募匹配",
+      "kind": "arxiv_atom_query",
+      "url": "http://export.arxiv.org/api/query?search_query=abs:%22clinical+trial%22+AND+%28abs:%22patient+recruitment%22+OR+abs:%22eligibility+criteria%22+OR+abs:%22trial+design%22+OR+abs:%22protocol+design%22+OR+abs:%22patient+matching%22+OR+abs:%22medical+coding%22%29&sortBy=submittedDate&sortOrder=descending&max_results=80",
+      "focus": ["patient recruitment", "eligibility criteria", "trial design", "protocol design", "patient matching", "medical coding"],
+      "connection": "verified-2026-10-23（需本地代理）",
+      "notes": "试验任务网，不限 AI 词；统计方法类论文按 clinical-papers 规则评分（match.md 核心方向第4条）"
+    },
+    {
+      "id": "pubmed-ai-clinical",
+      "name": "PubMed｜AI临床试验检索",
+      "kind": "pubmed_eutils",
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+      "term_summary": "两分支检索式：①虚拟试验/数字孪生/合成对照/虚拟患者[tiab]；②（试验任务词）×（AI/LLM/ML/agent词）[tiab]",
+      "focus": ["virtual clinical trial", "digital twin", "synthetic control", "clinical trial × AI", "recruitment", "eligibility"],
+      "connection": "verified-2026-10-23（可直连，亦可走代理）",
+      "notes": "原生抓取器 src/scrapers/pubmed.py：esearch(reldate窗口, edat)→efetch(XML)；匿名限速3请求/秒，批内0.4s间隔，429/503重试一次；datetype=edat 按收录时间取新论文"
+    },
+    {
+      "id": "medrxiv-informatics-epi",
+      "name": "medRxiv｜健康信息学与流行病学方法",
+      "kind": "biorxiv_api",
+      "server": "medrxiv",
+      "url": "https://api.biorxiv.org/details/medrxiv/{from}/{to}/{cursor}/json",
+      "subjects": ["health informatics", "epidemiology"],
+      "focus": ["health informatics", "epidemiology"],
+      "connection": "verified-2026-10-23（需本地代理；api.biorxiv.org，注意 .org 不是 .com）",
+      "notes": "subject 白名单本地过滤（API 无服务端主题筛选）；单日约40—60条；API 返回逐版本记录，抓取器按 DOI 去重保留最新版；旧 connect.biorxiv.com 主题RSS端点已404废弃"
+    },
+    {
+      "id": "biorxiv-bioinformatics",
+      "name": "bioRxiv｜生物信息学",
+      "kind": "biorxiv_api",
+      "server": "biorxiv",
+      "url": "https://api.biorxiv.org/details/biorxiv/{from}/{to}/{cursor}/json",
+      "subjects": ["bioinformatics"],
+      "focus": ["bioinformatics"],
+      "connection": "verified-2026-10-23（需本地代理）",
+      "notes": "subject 白名单本地过滤；单日约40—60条，基因组学比重高，AI临床试验相关密度中等；量控第一候选：超量时先收窄此处"
+    }
+  ],
+  "maintenance_note": "实际运行配置为 Horizon/data/config.json，本目录为目录与证据记录，不能覆盖主配置。修改检索式/主题后同步更新本文件与 horizon.sources-papers.json。"
+}

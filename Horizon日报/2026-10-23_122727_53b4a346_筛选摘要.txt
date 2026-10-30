@@ -1,0 +1,1100 @@
+Horizon筛选结果与摘要｜2026-10-23
+采集时间：2026-10-23T12:27:27.549958+08:00（Asia/Shanghai）
+回看起点：2026-10-19T12:27:27.550185+08:00；运行ID：run-20261023T042727Z-53b4a346
+抓取状态：success；导出状态：complete
+原始条目241；已评分241；未评分0；筛选保留81。
+阈值：以本次配置为准，未记录统一覆盖值
+数量按链接计，不代表全量已按事件去重。订阅日期不等于原始事件日期。
+重叠窗口可能包含往日条目；跨日重复与实质更新在候选复核阶段结合事件台账判断。
+以下为Horizon原始评分与摘要，不是OpenAI复筛或全面回源结论。
+覆盖以实际fetch_report为准，RSS Feeds汇总成功不证明各订阅均成功。
+待复核队列保留未进入简报且不少于3分的条目；全量附件保留全部低分与未评分。
+
+筛选保留条目
+1. Evaluating Type-1 Diabetes Digital Twins by Decision Quality
+条目ID：rss:export.arxiv.org_api_query?search_query=all:%22virtual+clinical+trial%22+OR+all:%22in+silico+clinical+trial%22+OR+all:%22in+silico+trials%22+OR+all:%22patient+digital+twin%22+OR+all:%22synthetic+control+arm%22+OR+all:%22virtual+patients%22&sortBy=submittedDate&sortOrder=descending&max_results=80:7b1c9e7bc7397610
+订阅记录的发布时间：2026-10-22T01:14:55Z
+评分：8.0
+Horizon摘要：作者在UVA/Padova模型的30个虚拟1型糖尿病患者、21种基础-餐时胰岛素方案上，提出并按“候选治疗排序是否与真实患者一致”评价数字孪生，作者报告6种方法的预测精度与决策质量出现背离（最准的神经网络排序接近随机）。
+理由：核心方向（数字孪生、虚拟患者）的方法学评价研究。新增点在于提出以“下游治疗排序决策质量”（Spearman）而非血糖轨迹预测精度评价T1D数字孪生，并在UVA/Padova模型30个虚拟患者×21种基础-餐时方案上，对6种方法做统一定量比较（平均患者基线RMSE 63.6 mg/dL但Spearman 0.766；黑箱神经网络RMSE 32.9 mg/dL但Spearman 0.049），给出了可评价的基线比较与指标，并明确指出仅按预测精度选型可能选出接近随机排序的孪生。不足：证据完全来自单一模拟器（UVA/Padova）的回顾性in-silico实验，无真实患者数据或外部/前瞻验证，样本仅30个虚拟患者；arXiv预印本，尚未同行评审。因此适合重点选题，但未达优先深度跟进档。
+标签：数字孪生、虚拟患者、决策质量评估、1型糖尿病、预印本
+订阅：arXiv｜虚拟试验与数字孪生
+来源：https://arxiv.org/abs/2610.30577v1
+
+2. A general-purpose System One decision model for clinical records
+条目ID：rss:export.arxiv.org_api_query?search_query=%28cat:q-bio.QM+OR+cat:stat.AP+OR+cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.LG%29+AND+abs:%22clinical+trial%22+AND+%28abs:%22large+language+model%22+OR+abs:%22artificial+intelligence%22+OR+abs:%22machine+learning%22+OR+abs:%22deep+learning%22+OR+abs:agent+OR+abs:%22foundation+model%22%29&sortBy=submittedDate&sortOrder=descending&max_results=80:39b7054abb790ca1
+订阅记录的发布时间：2026-10-19T18:00:51Z
+评分：8.0
+Horizon摘要：作者在 arXiv 预印本中提出并评估 Clinical System One (CS1-4B) 临床记录决策模型及其语言模型智能体框架，并在多医院留出患者、21 个外部数据集和 17 项注册临床试验入组筛选中报告性能与效率结果。
+理由：该 arXiv 预印本属于 AI 医疗与临床试验提效方向：提出 4B 参数临床记录决策模型 CS1-4B 及两种与通用语言模型协作的智能体框架；摘要报告使用 360 万患者、1240 万问答训练，在 963,408 名留出患者上 14 项任务中 13 项优于最大 27B 开放决策模型，并在 21 个外部数据集上接近最强 27B 模型且推理快 6.4 倍；在 17 项注册试验入组筛选中，作者称其 top-20 候选的判定合格患者数为关键词搜索的 4 倍、语言模型 token 少 690 倍。证据规模与外部比较较充分，但为未经同行评审的预印本，摘要未披露前瞻性/真实流程部署、判定合格的金标准与校准/偏倚细节，故评为 8 分。
+标签：临床决策模型、试验入组筛选、试验智能体、外部验证、预印本
+订阅：arXiv｜AI与临床试验任务
+来源：https://arxiv.org/abs/2610.27099v1
+
+3. Reporting of Fairness and Equity in Studies of Regulator-cleared Commercial AI for Acute Stroke CT: A Systematic Review.
+条目ID：pubmed:article:42907264
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：8.0
+Horizon摘要：这项系统综述系统检索并评价了13项关于监管机构已批准商业AI用于成人急性卒中CT任务的研究，按8项预设公平性报告条目提取数据，发现仅1项研究报告了社会人口学亚组性能，且无纳入的同行评审研究描述工具训练数据的人口构成。
+理由：该研究属于AI医疗补充方向中的方法学与证据评价研究，而非虚拟临床试验或数字孪生核心方向。其价值在于用PROSPERO注册的系统综述流程、双人独立筛选与偏倚评估，以及基于CLAIM 2024和TRIPOD+AI的8项预设报告条目，审查13项研究（覆盖9家厂商、4类CT任务）对监管已批准商业急性卒中AI工具公平性的报告情况。可见结果具体：仅1项研究报告社会人口学亚组性能，另1项报告站点/扫描仪/流程差异，且无同行评审研究描述训练数据人口构成。该综述能揭示公平性评价的关键报告缺口，但证据基础仅13项研究、主要评价“是否报告”而非独立验证性能，摘要也未提供各研究完整质量细节；因此适合重点选题但不宜进入最高档。
+标签：系统综述、算法公平性、亚组性能报告、商业AI医疗器械、急性卒中CT
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42907264/
+
+4. Workflow Topology-Guided Skill Loading for Agentic AI in Clinical Trial Data Pipelines: Sequential Exploratory Evaluation.
+条目ID：pubmed:article:42901481
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：8.0
+Horizon摘要：Yan等在一项采用顺序探索性设计的合成基准中测试：用45节点7层工作流拓扑图引导59个规则文件（SKILL.md）的技能加载；与领域提示、非路由策展上下文及BM25检索相比，该方法在词法无法识别依赖关系的压力任务上提高了必需证据召回，并可用更少上下文维持质量；但并未优于扁平或随机加载，且作者称仍需独立析因验证。
+理由：核心方向（试验提效智能体与工具研究）：针对CDISC SDTM/ADaM数据管线中LLM生成伪影问题，提出以45节点7层工作流DAG引导59个模块化SKILL.md文件的选择。该研究新增的是“检索/路由先验”方法，并在同一合成基准上，用4个证据区组（10–24个任务、90–324次运行，任务为推断单元）与领域提示、扁平/随机加载、BM25检索等多个基线比较，采用bootstrap 95% CI、exact sign-flip与Holm校正，并由一名执业统计程序员盲评60条输出（加权κ=0.61，ICC=0.60）；这些都是可评价的实证结果。关键不足在摘要中已明确：这是合成基准，使用单一生成骨干和单一专家评分；拓扑引导相对扁平/随机加载没有优势，“词法可达时不增益、依赖型任务上提升证据召回0.50→1.000”的结论也尚未在真实试验管线中前瞻验证。发表状态为PubMed收录期刊论文，材料未给出发表时间。
+标签：试验智能体、临床试验数据管线、CDISC/SDTM、上下文路由与技能加载、合成基准与消融评价、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42901481/
+
+5. Multi-agent LLM diagnostic teams improve differential recall on curated cases and reverse on real emergency notes: a label-level reversal without a clinician-judged safety difference
+条目ID：biorxiv:article:2566661bbbbb6e78
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：8.0
+Horizon摘要：作者在整理病例与真实急诊记录上比较多智能体诊断流程与单次LLM调用，报告整理病例的top-3召回提升在真实急诊笔记上反转为下降，并称盲法医生未发现两种策略的错误危险度差异。
+理由：AI医疗补充方向的方法学评价研究：在同一流程中比较单次直接调用、单上下文多角色和隔离多智能体+主持人整合，使用87例CPC、406例MedCaseReasoning、364份真实急诊记录及392例冻结核验队列，并做因子归因和第二模型家族复现。核心发现是整理病例上的鉴别诊断召回提升在真实急诊文本上反转为下降，且盲法医生未判出安全性差异，对智能体评测的外推边界有实际方法学价值。主要不足是预印本尚未同行评审，安全性比较仅对大效应有把握度，剂量反应为事后分析，且未涉及临床试验流程或提效任务。
+标签：多智能体LLM、诊断支持、真实急诊笔记、评测方法、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.09.24.26363897
+
+6. Auditing Confidence-Calibrated Benchmarking of Single-Cell Perturbation Models
+条目ID：biorxiv:article:56aca2e77c6955c1
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：8.0
+Horizon摘要：作者在 Norman 2019 和 Replogle 2022 单细胞扰动基准上构建并审计了一个包含 scVI、CPA、Ridge 及 MC dropout、分位数回归、split conformal 的评估框架，发现多数指标受身份预测器、划分泄漏、标签合并等六类失效模式影响，并报告跨细胞系 conformal 覆盖不足这一有限存活结果。
+理由：属于 AI 医疗补充方向中的方法学与验证研究，而非虚拟临床试验核心方向。作者在 Norman 2019 与 Replogle 2022 两个单细胞扰动数据集、六种数据集-划分组合、三种模型和三种不确定性方法上审计评估框架，并加入此前缺失的零基线，量化了身份预测器回声上限、批次留出、标签合并、负对照哨兵和约定敏感性等六类失效模式，还给出可迁移的诊断流程；同时报告 split conformal 在跨细胞系时覆盖不足这一有边界条件的存活结果。材料为 bioRxiv 预印本，证据基于摘要所述的多数据集审计而非独立外部验证，且与临床试验流程无直接关联；但方法贡献和可评价结果足以支持重点选题。
+标签：单细胞扰动、基准审计、不确定性校准、conformal prediction、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.12.758706
+
+7. MERIT: Mechanism driven model predicts drug outcomes and nominates indications for failed drugs
+条目ID：biorxiv:article:16fb2587b447dea5
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：8.0
+Horizon摘要：作者在预印本中提出并回顾性评估MERIT，用分子和疾病特征及机制相互作用网络预测临床试验结局并为失败药物提名适应症；在753个药物、3133项试验上报告AUROC 0.770，并登记了55个III期药-适应症对的盲法前瞻预测。
+理由：该研究的核心方法方向是AI试验结局预测和失败药物适应症提名：MERIT用分子、疾病特征及药物-蛋白/代谢/免疫相互作用网络预测结局，避免依赖相似化合物的成败信息。可见证据为预印本（尚未同行评审）：753个药物、3133项试验的结构留出AUROC 0.770，优于两个用相同试验与折重训的已发表方法；在预选的60个化合物中，83%将已批准适应症排在失败适应症之前。关键不足是适应症排序集为预选队列，55个III期药-适应症对的盲法锁定预测仅有登记、尚无前瞻结果，摘要也未报告校准与不确定性评价。
+标签：试验结局预测、药物重定位、机制建模、结构留出评估、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.08.09.743088
+
+8. Test-Retest Reliability of Large Language Models and Their Concordance With Human Experts in Rubric-Based Scoring of Clinical Summary Statements: Experimental Comparative Study.
+条目ID：pubmed:article:42906147
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者在一项实验比较研究中，用 6 个内科虚拟患者病例的 122 条量表评分临床总结，测试 4 个 LLM 在 4 种提示策略和 5 次重复下的重测信度及与 2 名人类专家的一致性，发现大型闭源模型信度较高、few-shot+CoT 提示的人机一致性最佳，而三元推理维度表现更不稳定。
+理由：属于 AI 医疗补充方向中的方法学与验证研究，而非虚拟临床试验核心方向。摘要显示一项实验比较研究：用 6 个内科虚拟患者病例的 122 条评分量表式临床总结，比较 4 个 LLM 在 4 种提示策略、5 次重复下的重测信度及与 2 名人类专家的评分一致性，并报告 ICC、Fleiss κ、准确率和 Gwet AC1/AC2 及置信区间，证据可评价。关键不足是医学教育场景、病例和专家数量有限，且与真实临床试验流程无直接关联；目前仅见摘要，不能核验全文细节。PubMed 收录论文。
+标签：大语言模型、虚拟患者、评分可靠性、人机一致性、提示策略
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42906147/
+
+9. Safety and Performance Evaluation of a Clinical Decision Support System for Imatinib Therapeutic Drug Monitoring: In Silico Study.
+条目ID：pubmed:article:42906079
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者利用已有伊马替尼群体药代动力学模型构建60名虚拟患者并注入数据质量错误，在in silico环境中比较规则型CDSS与TDM专家在错误检测、剂量优化和安全性上的表现，报告CDSS靶目标达成率更高但不良结局更多。
+理由：PubMed期刊论文，属临床决策支持与虚拟患者模拟的AI医疗补充方向。摘要报告在60名虚拟患者、单一人群药代动力学模型上，以TDM专家为基线进行in silico压力测试，给出错误检测敏感性/特异性、靶目标达成率（55% vs 37%）及不良结局（5 vs 1）等可评价结果；但仅为概念验证，无外部或前瞻性验证，规则型系统与试验提效智能体尚有距离。
+标签：治疗药物监测、临床决策支持系统、虚拟患者、in silico、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42906079/
+
+10. Single-cell-level digital twins for preterm birth prevention strategies.
+条目ID：pubmed:article:42905824
+订阅记录的发布时间：2026-10-23T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出并训练SIMCO——一个基于孕期免疫组单细胞质谱流式图谱（9个候选药物暴露）的单细胞级数字孪生框架，在独立孕妇队列中模拟免疫调节治疗对分娩时机的影响，并据模拟结果将四氢叶酸及阿司匹林联合兰索拉唑列为早产预防的优先候选药物。
+理由：核心方向（数字孪生/虚拟试验）论文：提出SIMCO单细胞级数字孪生框架，用新生成的孕期免疫组质谱流式图谱（9个候选药物）训练与验证，并在独立孕妇队列中模拟药物对孕周的影响，给出机制层面的解释（mTOR、JAK/STAT）。选题与方法路径明确，且包含独立队列应用，属于可重点选题的一档。关键不足：摘要未报告任何量化预测性能（如校准、误差、与真实妊娠结局的一致性）与不确定性分析，候选药物排序（四氢叶酸、阿司匹林+兰索拉唑）完全来自模拟，尚无前瞻性或真实试验验证；材料仅为PubMed摘要，发表状态与同行评审情况在可见信息中不明确。
+标签：数字孪生、单细胞模拟、虚拟患者、药物候选筛选、独立队列验证
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42905824/
+
+11. Preoperative prediction of positive margins in breast-conserving surgery using an ensemble model based on DCE-MRI: a multi-center retrospective and prospective study.
+条目ID：pubmed:article:42902311
+订阅记录的发布时间：2026-07-25T00:00:00Z
+评分：7.0
+Horizon摘要：作者团队基于DCE-MRI开发并测试了一个融合临床特征、ResNet-34深度学习与影像组学三基模型的加权投票集成模型，用三家中国中心887例患者（含188例外部测试与67例前瞻性测试）回顾性与前瞻性评估其对保乳手术切缘阳性的术前预测性能，作者报告验证集AUC 0.931、外部与前瞻测试AUC分别为0.762和0.861。
+理由：AI医疗补充方向（医学影像预测模型），不属于虚拟患者/数字孪生/试验提效智能体核心方向。选题针对乳腺癌保乳手术切缘阳性这一具体临床决策问题，方法明确：临床特征（32项）、ResNet-34深度学习与影像组学三个基模型加权投票集成，并设有基模型比较；证据类型为期刊论文（PubMed 收录，附 ChiCTR2400083298 注册），887例来自三家中国中心，含188例独立外部测试与67例前瞻性测试，验证设计强于多数单中心回顾性影像研究。关键不足：摘要未报告集成的权重确定方式、校准度与决策曲线，前瞻性队列仅67例，外部测试AUC降至0.762，提示泛化存在边界；预后分析基于公共数据集，属次要证据。综合方法与验证设计可进入重点选题，但非核心方向且证据细节有限，不给更高分。
+标签：影像组学、深度学习、集成模型、外部验证、前瞻性验证、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42902311/
+
+12. Evaluating the Automated Extraction of Radiation Oncology Trial Data at Scale from the ClinicalTrials.gov Database Using a Large Language Model.
+条目ID：pubmed:article:42900665
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：7.0
+Horizon摘要：这项经PubMed收录的研究使用data-element-extractor库和3个开源LLM，从ClinicalTrials.gov的94项放射肿瘤试验中提取45个结构化变量，并以人工真值评估，报告Qwen-3.6-27B总体准确率最高达92.0%，但复杂分类和数值变量仍具挑战。
+理由：该研究属于AI辅助临床试验数据整理与试验工具方向，不是虚拟试验或数字孪生，但直接涉及试验数据结构化提取。研究使用3个开源LLM和data-element-extractor库，在94项放射肿瘤试验的人工真值上评估45个分类问题，报告总体准确率92.0%、Boolean F1 82.6%等可评价结果，方法与结果均较明确。主要不足是仅覆盖放射肿瘤单病种、对既有注册记录做提取评价、未提供全量数据规模及相对人工流程的耗时/成本比较，也缺少外部验证，因此适合重点选题但未达优先深度跟进。
+标签：临床试验数据提取、大语言模型、ClinicalTrials.gov、放射肿瘤学、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42900665/
+
+13. Nonlinear stability phenotypes and collapse dynamics of multi-organ radiomics in total-body PET imaging: toward digital twin-oriented robustness assessment.
+条目ID：pubmed:article:42899676
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：7.0
+Horizon摘要：Azimi等在550次多中心全身PET扫描中通过列表模式子采样模拟减剂量，提出非线性稳定性表型框架并用ICC评估多器官放射组学特征的稳健性与塌缩阈值，作者称结果可支持未来数字孪生导向的稳健性评估。
+理由：AI医疗/定量影像补充方向：论文以多中心550次全身PET扫描和DRF 2–100列表模式减剂量模拟，提出非线性稳定性表型框架，用ICC和稳定性分数分析每器官107个放射组学特征，报告器官依赖的塌缩阈值及纹理特征脆弱性，方法与数据规模支持选题解读。数字孪生仅为未来应用表述，未实际构建数字孪生或试验模拟；且为回顾性模拟、缺少独立外部验证和下游效用证据，当前仅有PubMed摘要、日期未提供。
+标签：放射组学、全身PET、数字孪生、稳健性评估、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42899676/
+
+14. Label-free, low-cost AI ranking for systematic review screening
+条目ID：biorxiv:article:ff1039fd93c07a0a
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出无标签、低成本的AI排序模型Jev，在128篇系统综述共169,982条记录上开发调参，并在23篇held-out综述及31篇Cochrane综述上评估其对符合标准文献的排序与筛选提效，作者称其AUC优于最佳免费排序器、接近Claude Opus 5.5且成本约1/700，但安全停止仍需筛选决策。
+理由：补充/方法学方向：面向系统综述标题摘要筛选的低成本AI排序工具，属于提升医学研究流程效率的方法学研究，而非虚拟临床试验或数字孪生核心方向。证据较充分：128篇综述、169,982条记录，23篇held-out综述一次性评估（mean AUC 0.966 vs 最佳免费排序器0.831），并与Claude Opus 5.5在1999条记录上比较（AUC差0.011、约1/700成本），含主动学习与统计停止分析。关键不足：为bioRxiv预印本，未经同行评审；31篇Cochrane综述为post hoc分析；停止规则本身仍需筛选标签，即无标签排序无法安全停止；未涉及试验场景。
+标签：预印本、文献筛选、系统综述、主动学习、基准比较
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.09.26365173
+
+15. Quality and transcript-grounded clinical-risk error burden of AI-generated vs allied health professional clinical notes: a paired simulation study across four disciplines
+条目ID：biorxiv:article:cc3d176dd878b7f3
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者在一项覆盖四个辅助医疗学科的配对模拟研究中，比较了Heidi生成的未编辑首稿与专业人员笔记的质量及转录文本支撑的临床风险错误，报告AI笔记PDQI-9略高、总体错误密度较低，但严重错误证据不确定。
+理由：属AI医疗补充方向，聚焦辅助医疗临床文书质量与安全，而非虚拟试验核心。研究采用四学科20对模拟咨询、40份笔记的配对设计，以PDQI-9、转录文本支撑的错误密度和临床风险分级比较AI与专业人员笔记，并报告置信区间，具备可评价的方法与结果。主要不足是样本小、单一AI文书系统、模拟环境、ground truth不完整，且Critical+High错误差异置信区间跨0，不能支持安全性或学科优越性结论；作为预印本，方法与结果尚可评价，适合重点选题但需后续复核。
+标签：AI临床文书、辅助医疗、配对模拟研究、临床风险错误、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.16.26365719
+
+16. Comorbidities of dementia in electronic health records: validation of a natural language processing app and comparison with data linkage
+条目ID：biorxiv:article:83b13eb99c374c25
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：该预印本在3,543名痴呆患者中评估MedCAT Comorbidity NLP应用从电子健康记录文本提取共病的效度，并以链接的初级保健和住院数据及死亡预测进行外部比较。
+理由：属AI医疗补充方向的工具验证研究：在3,543名痴呆患者中评估MedCAT Comorbidity NLP应用从电子病历文本提取共病的效度，包含人工复核的内部精确度、与链接初级保健/住院数据的外部交叉验证，以及死亡预测比较。方法与结果指标较明确，样本量和外部链接设计支持有内容的解读；但这是预印本（未同行评审）、回顾性验证，外部验证的召回率低且随病种差异大，摘要未显示前瞻性或临床工作流验证，也不直接涉及虚拟试验或试验提效。
+标签：自然语言处理、电子健康记录、外部验证、痴呆共病、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.16.26365714
+
+17. Cohort Versus Nested Case-Control Design for Prediction Models of Rare Outcomes Using Electronic Health Records
+条目ID：biorxiv:article:4e19b0ab4987776f
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者在电子健康记录中比较队列与巢式病例对照设计，用三种机器学习模型预测早发性胃肠道癌，并在时间留出队列中评估判别力、校准和特征排序，发现模型性能与设计选择随算法和指标日期定义而变。
+理由：属于AI医疗补充方向中的EHR预测建模方法学研究，而非虚拟试验核心方向。作者系统比较2种队列设计与5种巢式病例对照设计，使用LASSO、XGBoost和MLP，在25万—41万患者数据上做嵌套交叉验证与时间留出评估，并报告AUROC、AUPRC、校准及特征排序相似性，具备可评价的方法与结果。关键不足是：预印本尚未同行评审；仅针对早发性胃肠道癌这一罕见结局；时间留出评估不等同于多中心前瞻性外部验证；AUPRC整体较低（约0.07—0.09）；摘要未提供临床效用或决策曲线分析。
+标签：EHR预测建模、巢式病例对照、模型校准、时间外部验证、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.16.26365758
+
+18. A foundation model of wearable pulse oximetry reveals physiological signatures of health and cardiometabolic risk
+条目ID：biorxiv:article:58db1d5f2d117f33
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出并训练了基于约 700 万段睡眠脉氧信号的 PulseOx-FM 基础模型，报告其在外部分布外队列、ICU 生存预测及心血管代谢和神经精神表型上具有预测价值（预印本，摘要层面结果）。
+理由：该研究属于 AI 医疗补充方向，并非虚拟试验、数字孪生或试验智能体核心方向。预印本报告 PulseOx-FM：使用 10,704 名参与者的约 700 万段可穿戴 PPG 信号进行自监督训练，作者称其在外部分布外队列中具有泛化能力，并在 3,721 名 ICU 患者中改善生存预测、预测 71 个表型及追踪次日血糖。摘要显示了较大数据规模和独立队列评价，但未给出具体性能数值、校准与不确定性、完整基线或模型细节，也没有临床试验流程或前瞻性临床效用证据，因此适合进入重点候选，尚未达到深度优先。
+标签：可穿戴PPG、生理基础模型、自监督学习、外部验证、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.07.01.26356992
+
+19. Privacy-Preserving Large Language Model Deployment for Oncology Registry Abstraction: Structure-Aware Evaluation in a Real-World Clinical Setting
+条目ID：biorxiv:article:b060af7ed82d1232
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者报告在单家新加坡癌症中心本地部署无任务微调的开源 Llama 3.3 70B 流水线，从 6,700 份肿瘤笔记中抽取 50 余个登记变量，并在 200 份经双人临床裁定的笔记上用结构感知框架评估，关键变量 F1 为 88%—97%，另以 50 份外部笔记做初步迁移测试。
+理由：属 AI 医疗补充方向（临床数据抽取与登记自动化），非虚拟试验或数字孪生核心方向。作者在单中心真实临床环境部署本地 Llama 3.3 70B 流水线，无任务微调，从 6,700 份肿瘤笔记中抽取 50 余个变量；以 200 份双人裁定笔记做结构感知评价，报告诊断、组织学、分期、生物标志物和治疗等关键变量 F1 为 88.1%—97.2%，另在 50 份外部笔记上做初步迁移测试。方法、任务指标和数据规模足以支持选题解读；主要不足是 bioRxiv 预印本、单中心、缺少与人工或既有流程的基线比较，外部验证样本小且为初步。
+标签：肿瘤登记数据抽取、隐私保护大模型、结构感知评估、本地部署、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.05.18.26353541
+
+20. Long COVID undercoding and prediction from releasable electronic health record summaries in All of Us
+条目ID：biorxiv:article:d65230546114307f
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：7.0
+Horizon摘要：作者利用 All of Us 中 23,790 名有 COVID-19 的成人比较编码 Long COVID 与 Household Pulse Survey 患病率以估计编码不足，并在 23,300 名第 90 天未编码者中用公开释放计数在 enclave 外重建朴素贝叶斯/线性判别模型预测第 455 天前首次 U09.9 编码，与内部 elastic net 在随机患者测试集和 18 个留出站点上比较，报告中等区分度及站点外风险高估。
+理由：属于 AI 医疗补充方向（EHR 预测与编码偏倚），并非虚拟临床试验核心。作者在 All of Us 中估计 Long COVID 编码不足，并比较从公开释放计数在 enclave 外重建的朴素贝叶斯/LDA 模型与内部 elastic net；提供了明确基线、随机患者测试集、18 个留出 EHR 站点及 AUROC/AUPRC 和区间。主要不足是预测目标为后续 U09.9 编码而非临床 Long COVID，编码不足估计依赖调查可比性假设，事件数较少，外部站点概率存在高估，且为预印本。证据足以支持重点选题解读。
+标签：电子健康记录、Long COVID、预测模型、外部验证、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.18.26365858
+
+21. Self-reported diagnoses as training labels for finding uncoded chronic fatigue, fibromyalgia, and endometriosis in the All of Us Research Program
+条目ID：biorxiv:article:f4e24b8a92ca17a9
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：7.0
+Horizon摘要：作者在 All of Us 研究项目中，针对慢性疲劳、纤维肌痛和子宫内膜异位症，用回顾性队列比较了以自报诊断和以随后出现的诊断编码为标签训练的案件发现模型（朴素贝叶斯汇总计数分数与个体级弹性网），作者称自报标签更能把“无编码的自报者”排在高位，但尚需独立临床验证。
+理由：属于 AI 医疗补充方向（EHR 病例发现模型），而非虚拟试验/数字孪生/试验智能体核心方向；与临床试验提效无直接关联。新增点明确：比较“自报诊断”与“后续诊断编码”两类训练标签对模型排序的影响，并在 All of Us 大样本（如慢性疲劳 149,860 名受访者、7,770 名自报者）上给出带 95%CI 的 AUROC 对比，同时设置了仅用公开汇总计数与个体级弹性网的基线对照，属于可解读的方法学比较。关键不足：仅有单一数据源内的 20% 随机划分验证，无外部或前瞻性/临床验证，未报告校准与不确定性细节，子宫内膜异位症判别力低（0.61 vs 0.53，且对后续编码无判别 0.50）；bioRxiv 预印本，尚未同行评审。
+标签：病例发现、电子健康记录、训练标签、自报诊断、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.19.26365869
+
+22. MULTIMODAL EEG WORLD MODEL: SELF-SUPERVISED LATENT TRANSITION LEARNING FOR WEARABLE EEG SEIZURE DETECTION
+条目ID：biorxiv:article:bb3d774f86efe172
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者在 SeizeIT2 可穿戴 EEG 数据上提出并评估了一种自监督多模态世界模型：以同步 ECG、EMG 和运动信号为条件预测下一段 EEG 的潜在表示，并用冻结编码器加线性探针进行患者级划分的癫痫检测。
+理由：属于 AI 医疗补充方向（可穿戴 EEG 癫痫检测），不是虚拟临床试验或数字孪生研究。方法上提出自监督多模态 EEG 世界模型：用同步 ECG、EMG 和运动信号条件化预测下一段 EEG 的潜在表示，下游仅用冻结编码器加线性探针。摘要给出 SeizeIT2 严格按患者划分的评估及 AUPRC 0.3748、ROC-AUC 0.8025、平衡准确率 0.7308，并与数据库官方基线、DSAINet 和 NeuroLM 比较，另有相对随机初始化编码器 14.4% 的 AUPRC 消融增益，证据可评价。关键不足是 bioRxiv 预印本、单一数据集、摘要未说明样本规模，缺少外部或前瞻性验证，临床工作流收益尚不明确。
+标签：可穿戴EEG、癫痫检测、自监督学习、多模态生理信号、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.07.20.26358450
+
+23. Seeded Probes Do Not Identify a Reviewer's Miss Rate: One-Sided Misclassification in Distribution-Free Risk Control
+条目ID：biorxiv:article:e9cc942b275d5003
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者针对以人类复核者作为参考标准、为 AI 临床问答系统做无分布风险控制的做法，论证并未通过实证解决：种子探针无法识别复核者的漏检率，因此现有风险证书可能偏乐观；并给出模拟复核者画像、检验所需样本量估算，以及在公开医师评分语料中约 26.3% 的缺陷被单个评分者放行的描述性证据。
+理由：属于 AI 医疗补充方向中偏向评测与监管的方法学研究，而不是虚拟试验或数字孪生核心方向。新增发现明确：在无分布风险控制中，如果人类复核者作为不完美的参考标准，其漏检只朝一个方向发生，即漏检的缺陷会被当成安全标签，这会使已登记的风险系统性偏低，导致证书不再保守；而植入已知缺陷的种子探针（seeded probes）依赖设计者选取的可检测性分布，因此无法识别系统自身缺陷上的漏检率，只能给出下界。摘要给出了可评价的证据：理论论证、四个模拟复核者画像中有限样本标签噪声校正所需独立性假设均不成立、检验该假设所需裁决病例数（漏检 85% 时需 185 例，漏检 3% 时需 147,938 例）、用第二名审阅者直接查找漏检时约 498 例可达 95% 置信度，以及公开语料中一名医师通过了其他评分者一致认定缺陷的 26.3%（95% 区间 21.6%–31.7%，个体 8.0%–54.5%）。最关键的不足是：这是预印本，尚未经过同行评审；仅见摘要，无法核对形式化推导和模拟细节；并且与临床试验本身没有直接关联，临床价值限于 AI 临床建议的发布与验证环节。
+标签：无分布风险控制、人类复核参考标准、误分类偏倚、样本量估算、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.01.26364465
+
+24. Implicit reconstruction of gating strategies from sample-level flow cytometry annotations
+条目ID：biorxiv:article:fd7f08748da4c36b
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出弱监督多示例学习框架IMPGAT，从样本级细胞类型频率中反推单细胞门控策略，并在ALL与AML共711次流式测量（268人、2.4亿单细胞）的回顾性队列中，与人类专家间差异及一项监督SOTA模型进行比较评估。
+理由：这篇稿件属于AI医疗补充方向，与虚拟临床试验、数字孪生或试验提效智能体均无直接关联，因此不应被解释为临床试验方法学研究。其方法有实质内容并涉及医学应用：IMPGAT采用弱监督多示例学习和诱导集合注意力，仅用样本级细胞类型频率作为监督信号，重建单细胞门控策略，无需单细胞标签，也无需聚类。可见证据为回顾性归档数据分析：ALL与AML两个队列共711次测量、268人、2.4亿单细胞；ALL的细胞类型丰度量化与人类专家间差异无统计学意义，AML的原始细胞定量与依赖显式单细胞标注的监督SOTA相当，并附有错误分析，指出分歧主要来自专家标注的非细胞事件。不足：bioRxiv预印本，尚未同行评审；未明确多中心或独立外部验证，SOTA比较仅限AML原始细胞定量，也缺乏临床工作流或试验场景中的前瞻性评价。方法明确且有两队列比较，故归入7—8分重点选题档，未达9—10分。
+标签：流式细胞术、弱监督多示例学习、细胞门控策略、血液肿瘤、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.20.26365931
+
+25. Automated Interpretation of EEG Reports Using a Large Language Model with Structured Confidence Outputs
+条目ID：biorxiv:article:251224de453c2cfa
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者在去标识化自由文本 EEG 报告上开发并评估了一个语法约束的 Mistral-7B 流水线，用于提取四类异常的结构化标签和四级置信度，并与认证 EEG 技师标注及经典 NLP 基线比较，还将同一任务迁移到 MedGemma。
+理由：属于 AI 医疗补充方向：研究用语法约束的 Mistral-7B 从自由文本 EEG 报告中提取结构化异常标签和置信度，并非虚拟临床试验、数字孪生或试验提效研究，也未展示临床试验流程证据。可见材料提供了明确任务、双认证技师标注参照、经典 NLP 基线、Core Agreement 与 Certainty-Adjusted Agreement 指标，并做了 MedGemma 可移植性测试；总体异常一致率 96%（第二标注者 98%），但条件确定性一致率约 80%，低于第二标注者的 90%—94%。摘要未给出报告数量/数据集规模，结论也明确不成立诊断金标准、外部验证或临床部署准备；作为预印本（未同行评审）的工具验证研究，证据可评价但外部效度有限。
+标签：医学大语言模型、EEG报告、结构化信息抽取、标注者一致性、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.07.07.26357190
+
+26. From clinician review to measurable human oversight of AI-drafted paediatric discharge documents
+条目ID：biorxiv:article:f59168f663d796df
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：7.0
+Horizon摘要：作者在儿科急诊单中心随机试验中比较了本地开放权重 LLM 起草、临床医生审核的出院文件与常规模板组装，发现随访时家庭对记录一致性的理解无差异，并探索性报告临床医生修改了多数草稿、删除了多数无依据新增内容但仅纠正少数错误缩写扩展。
+理由：属于 AI 医疗补充方向中的 LLM 临床文档与人机复核研究，而非虚拟试验或数字孪生核心方向。可见证据包括在儿科急诊开展的单中心随机对照试验：153 例随机、117 例纳入分析，报告了主要结局随访时的记录一致性理解无差异（差值 -0.01，95% CI -0.12 至 0.10），并用探索性比较统计临床医生对草稿的修改及错误拦截情况，方法、比较设计和结果均有摘要支撑。关键不足是预印本尚未同行评审、单中心、分析样本有流失，错误拦截分析为探索性且严重不良事件为零，不能据此推断广泛临床安全性。
+标签：LLM临床文档、人机复核、随机对照试验、儿科急诊、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.20.26365977
+
+27. Beyond Segmentation Accuracy: Evaluating Biological Fidelity in Spatial Pathology
+条目ID：biorxiv:article:bcf8261c91f3374c
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者在 3 张多重免疫荧光切片的 31,924 个专家复核细胞上，按留一切片协议比较了领域自监督编码器与监督、显微专用、提示型通用和通用视觉模型的分割输出，并让所有方法经过同一套下游流程，评估从细胞分割到肿瘤-免疫空间互作的四级生物保真度，报告称常规分割质量与肿瘤-CD8+ 接触恢复相关性很弱（ρ=0.18），而界面错误与接触保真度强相关（ρ=-0.80）。
+理由：属于 AI 医疗补充方向（计算病理学/方法学评测），并非虚拟临床试验或试验提效研究，与试验流程无直接关联，也不能把它强行解读为与试验有关。新增贡献明确：作者用 3 张切片、31,924 个专家复核细胞和留一切片（leave-slide-out）协议，将领域自监督编码器与监督模型、显微专用模型、提示型通用模型和通用视觉模型放在同一套下游流程中比较，并按细胞分割、表型、邻域结构、组织层面这四级评估“生物保真度”，指出常规分割指标（Panoptic Quality）对肿瘤-CD8+ 接触恢复的预测很弱（ρ=0.18），而肿瘤-免疫界面处的错误与接触保真度强相关（ρ=-0.80）。这是一项预印本（bioRxiv），尚未见同行评审；可见证据是回顾性的单数据集 benchmark，只有 3 张切片，没有外部队列或前瞻验证，保真度指标也属于对下游生物关系的代理度量。局限清楚，但方法与定量结果足以支持有内容的选题解读，因此列入重点选题档，未达到 9—10 分所需的独立外部验证或多数据集证据。
+标签：空间病理学、细胞分割、多重免疫荧光、评测基准、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.17.759841
+
+28. TiSAM: fusing spatial and histopathology foundation models for whole-slide image segmentation
+条目ID：biorxiv:article:d1a653e9b78e9014
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者在预印本中提出 TiSAM，将 SAM3 空间特征与 UNI2-h 病理基础模型特征在多尺度解码器中融合用于全切片图像组织分割，并在四个公开数据集、自建 MegaMouse 数据集和 11 类人胰腺数据集上与其他 CNN、ViT 及 SAM-病理模型整合方案比较，作者称其在多组织类别、极少标注和 8 台扫描仪条件下表现更优。
+理由：属于 AI 医疗补充方向（计算病理全切片图像分割），与虚拟临床试验、数字孪生或试验提效智能体无直接关联，不能当作试验方法学研究。新增内容明确：将 SAM3 空间特征与 UNI2-h 病理基础模型特征在多尺度解码器中融合，并配套发布 MegaMouse（12 个小鼠器官、52 类、36,833 条标注）与 11 类人胰腺数据集。可见证据类型为 bioRxiv 预印本（未同行评审），仅摘要级材料：与 CNN、ViT 及既有 SAM+病理基础模型整合方案在四个公开数据集上比较，并在 5 例标注 WSI 的低标注条件与 8 台扫描仪跨扫描仪一致性上评测。评测设计（多基线、多数据集、低标注与跨扫描仪）足以支撑有内容的选题解读，但摘要未给出任何具体指标数值，'最高总体性能'等主张仍需全文核验；临床落地与前瞻性验证未涉及。
+标签：医学图像分割、病理基础模型、全切片图像、跨扫描仪验证、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759688
+
+29. The accessible human surfaceome
+条目ID：biorxiv:article:5755b04ce39f8f26
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者报告了一套智能体LLM文献挖掘管线，用于整理人类可及表面蛋白组，并在147个蛋白的SurfaceBench及保留的临床和病毒进入靶点上与现有数据库比较，声称回收了98%—100%的已知表面抗原并产生1,783个经典表面蛋白记录。
+理由：属于AI医疗补充方向：用智能体LLM从文献中构建可用于药物靶点筛选的“可及表面蛋白组”数据库，而非虚拟临床试验或试验提效研究。新增方法明确（LLM triage + deep-dive管线），并给出可评价证据：147个蛋白的SurfaceBench人工基准、与五个参考数据库比较、在保留的临床/病毒进入靶点上98%—100%的回收率，以及1,108个新候选蛋白和可查询注释记录。关键不足是：目前仅为bioRxiv预印本、摘要级信息，缺少独立功能验证与前瞻性应用评估，且作者明确指出性能受全文文献获取限制；因此适合作为重点选题跟进，但尚不足以进入最高档。
+标签：LLM智能体、表面蛋白组、医学数据库、基准评测、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.18.759859
+
+30. Trust, but Verify: Epistemic Uncertainty-Gated Pseudo-Labeling for Safer Semi-Supervised Malaria Screening
+条目ID：biorxiv:article:715ec611bb0dce3f
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：7.0
+Horizon摘要：作者在bioRxiv预印本中提出一种基于MC dropout预测熵门控与置信度加权的半监督伪标签方法，并在公开疟疾细胞图像数据集上以仅20%标签进行离线实验，作者称其较FixMatch 0.80降低静默失败率而未损失准确率或AUC。
+理由：AI医疗补充方向；提出将MC dropout归一化预测熵阈值与置信度加权结合的门控伪标签方法，在公开Malaria Cell Images数据集（27,558张细胞图像，仅20%训练标签，6个随机种子）进行离线比较，对比监督基线和FixMatch 0.95/0.80，报告静默失败率由2.28%降至1.52%且准确率/AUC基本不变。方法、基线、指标和统计比较可评价；关键不足是单一公开数据集、细胞级划分、缺少患者级或外部全切片验证，且为未同行评审预印本。
+标签：AI医疗补充、半监督学习、不确定性门控、疟疾筛查、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.13.758712
+
+31. Hybrid Semantic-Lexical Retrieval for Source-to-CDE Mapping in the NCI caDSR
+条目ID：biorxiv:article:b107666051ab0345
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：7.0
+Horizon摘要：作者在NCI caDSR上构建约69,000条专家标注的源数据元到CDE映射基准，并测试结合语义双编码器、关键词检索、交叉编码器打分与监督重排的混合检索系统，作者称其在内部及五个分布偏移留出集上取得0.802–0.972的Recall@5并在六个数据集中的五个优于其他评估方法。
+理由：属于AI医疗补充方向（生物医学元数据标准化与数据元映射），非虚拟试验/数字孪生核心方向，也未直接涉及临床试验执行提效。新增内容明确：构建约69,000条专家关联的源数据元→CDE映射基准，并提出语义双编码器+关键词检索+交叉编码器打分+监督重排的混合检索系统；证据包含内部与五个分布偏移留出集上的Recall@5（0.802–0.972）及与其他方法的比较，五/六个数据集占优，具备可评价的方法与结果。关键不足：为bioRxiv预印本、尚未同行评审；摘要未报告精确率/校准、专家标注一致性、检索延迟与人工复核成本，也未说明在真实试验数据提交或CDISC流程中的落地评价。
+标签：CDE映射、医学元数据标准化、混合检索、基准数据集、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.14.758967
+
+32. hvantk: an agentic multi-omics framework for variant annotation and analysis
+条目ID：biorxiv:article:19ce13f7a9867546
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出并应用 hvantk——一个扩展 Hail MatrixTable 和 AnnData、以插件集成 21 个公共多组学数据源并用智能体技能驱动工作流的变异注释分析框架——对 CHD、Epi25 和 SCHEMA 三个病例对照队列进行回顾性再分析，报告多组学重排序提高了 top decile 中已知疾病基因的回收率。
+理由：属 AI 医疗补充方向（基因组变异注释与分析），并非虚拟临床试验、数字孪生或试验提效智能体的核心方向。框架提出统一数据模型、21 个公共多组学数据源插件和智能体工作流，并在 CHD、Epi25、SCHEMA 三个病例对照队列中做回顾性重排序评估，报告相比 burden、gene constraint 和 publication count 基线改善了 top decile 中已知疾病基因的回收率；任务指标和基线比较较清楚。关键不足是摘要未给队列样本量、外部或前瞻性验证，也未单独评估智能体层自身的性能，且为 bioRxiv 预印本。
+标签：变异注释、多组学整合、智能体工作流、疾病基因优先排序、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.19.760196
+
+33. Sequence-only prediction of VHH nanobody epitopes and paratopes on HER2 with a frozen protein language model ( ESM2) and a structure-derived residue prior
+条目ID：biorxiv:article:91112f472e433f43
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出一种仅用序列的方法：以冻结 ESM2 650M 为特征提取器，配合轻量跨注意力模块与表位/旁位/binder 三个预测头，并联合 SAbDab2、HER2 竞争实验数据和晶体结构训练，在序列簇级密封测试集上报告 binder 头 PR-AUC 0.999、旁位头 0.659，而新抗原残基级表位预测仍接近基线（0.070）；另用 25 个 HER2–抗体复合物构建残基先验，经留一验证达到 0.26–0.29 PR-AUC。
+理由：属于 AI 医疗补充方向（抗体/蛋白工程中的AI方法），与虚拟临床试验、数字孪生或试验提效智能体无直接关联，因此不作为核心方向高分依据。可评价之处较明确：使用冻结的 ESM2 650M 作为特征提取器，搭配约 12.2M 可训练参数的跨注意力模块，在序列簇级三向划分、测试集只打开一次的设置下报告 binder 头 PR-AUC 0.999、paratope 头 0.659，并给出关键负结果——新抗原上的残基级表位预测仅 0.070，接近基线；基于 25 个复合物挖掘的 HER2 残基先验，经留一验证达到 0.26–0.29 PR-AUC，约为语言模型头的 3.6 倍，构成可解读的基线与增益对比。主要不足：仅限 HER2 单一抗原与 VHH，泛化性未知；AVIDa hHER2 数据作者无权公开，复现受限；binder 头 0.999 可能反映任务本身易于区分，论文未说明其实际工程价值；没有湿实验或前瞻验证。这是 bioRxiv 预印本，尚未同行评审。
+标签：蛋白质语言模型、表位与旁位预测、纳米抗体工程、泄漏安全评估、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.15.759522
+
+34. A moving target: non-stationary selection governs unsupervised prediction of viral fitness
+条目ID：biorxiv:article:21e347bc5478a929
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：7.0
+Horizon摘要：Aris-Brosou 与 Vilain 提出并基准测试了一个模块化无监督病毒适应度预测流程，在 21 项 ProteinGym 深度突变扫描及 SARS-CoV-2、H3N2 序列上比较蛋白语言模型与比对模型，作者称蛋白比对信息比模型规模更关键且选择呈病毒特异的非平稳性。
+理由：属于 AI 医疗补充方向而非虚拟临床试验核心：作者提出模块化、无监督的病毒适应度预测流程，并在 ProteinGym 的 21 项深度突变扫描数据及 SARS-CoV-2 与 H3N2 的 dated sequences 上比较单序列蛋白语言模型、比对模型和简单位点独立模型。可见证据支持“比对信息比模型规模更重要”和选择非平稳、病毒特异等结论，方法、基线和数据规模足以形成选题解读。关键不足是预印本尚未同行评审，摘要未给出具体指标、校准与外部前瞻验证细节，且与临床试验提效无直接关联。
+标签：病毒适应度预测、蛋白质语言模型、无监督学习、非平稳选择、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.09.17.752359
+
+35. CellWHISPER disentangles direct cell-cell communication from structural proximity
+条目ID：biorxiv:article:9aee29ad7b48af8d
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出并演示CellWHISPER，一种从空间转录组数据推断接触介导细胞通讯的统计与潜变量建模框架，并在小鼠脑、人结肠和皮肤中评估，作者称免疫染色验证了小鼠脑内预测的Connexin 43介导界面。
+理由：属于AI/计算方法补充方向，而非虚拟临床试验或数字孪生核心方向。作者提出从空间转录组推断接触依赖细胞通讯的框架，包含控制细胞类型表达与空间组织混杂的统计程序及潜变量模型；在Stereo-seq、Xenium两种技术、两种物种和三种组织上演示，并用免疫染色验证小鼠脑内Connexin 43相关界面。关键不足是摘要未提供与现有工具的系统定量基准或开放代码/数据情况，且为预印本，未涉及临床或试验流程应用。
+标签：空间转录组学、细胞通讯推断、潜变量模型、实验验证、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.01.07.697982
+
+36. Predicting Pre-treatment Resistance or Post-treatment Effect? A Systematic Benchmarking of Single-Cell Drug Response Models
+条目ID：biorxiv:article:41e44d587aa22f8a
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：7.0
+Horizon摘要：预印本作者在 26 个 scRNA-seq 数据集、超过 76 万个细胞、12 种癌症和 21 种治疗药物上，系统基准评测代表性单细胞药物反应预测模型，并利用谱系追踪数据与 PDAC 类器官数据考察治疗前耐药和治疗后效应的预测表现。
+理由：本文属于 AI 医疗补充方向中的精准肿瘤学与单细胞药物反应预测，而非虚拟临床试验或数字孪生。作者系统基准评测了代表性模型，覆盖 26 个数据集、超过 76 万个细胞、12 种癌症和 21 种治疗药物，并纳入类别不平衡、谱系追踪治疗前预测及独立 PDAC 类器官应用分析，具备明确的方法学评价价值。关键不足是摘要未给出具体性能指标或数值化基线结果，类器官部分只是关联分析而非预测准确性验证；该预印本也未见与临床试验提效的直接证据。
+标签：单细胞药物反应预测、系统基准评测、scRNA-seq、治疗前耐药、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.04.10.717709
+
+37. Population-scale drug target and variant prioritization with Varformer
+条目ID：biorxiv:article:f3a24372fe60965b
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出Varformer多模态Transformer，在四个遗传祖先群体的临床验证药物靶点上训练以进行基因和变异优先排序，并在三个基准及Genes & Health的1,164对携带者-变异上报告排序表现（预印本，作者称）。
+理由：属于AI医疗补充方向（药物靶点与变异优先排序），并非虚拟临床试验或试验提效研究；提出多模态Transformer，将错义变异表征与基因特征通过跨模态注意力整合，并用阳性-未标注学习在四个遗传祖先群体的临床验证靶点上训练。摘要报告了三个难度递增基准上的precision@20（0.95、0.86、0.48）、较逻辑回归和DrugnomeAI的基准比较，以及在Genes & Health 1,164对携带者-变异中57%将已知致病变异排入前20，并称开源。属预印本，基准构成、独立验证、校准和不确定性等细节未在摘要中给出，与临床试验仅有间接关联。
+标签：药物靶点优先排序、变异效应预测、多模态Transformer、跨祖先验证、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759653
+
+38. EG-BINN: Parameter-Efficient Ensembling of Gated Biologically Informed Neural Networks for Epigenetic Age Estimation
+条目ID：biorxiv:article:cf133bb11f274177
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：7.0
+Horizon摘要：作者提出并测试了EG-BINN——一种带样本特异性门控、参数高效的生物学知情神经网络集成，在93个多组织数据集上训练，并在五折交叉验证与8个留出GEO数据集上相对匹配的线性/非线性基线取得更低年龄预测误差（据作者称），同时用门控与SHAP分析跨组织及TCGA肿瘤-正常情境下的通路节点关联。
+理由：AI医疗补充方向（生物衰老/表观遗传时钟），非虚拟试验或数字孪生核心方向，与临床试验仅通过“衰老终点/生物标志物”间接相关。方法上有明确新增：样本特异性门控的生物学知情神经网络集成，参数高效且可解释；证据类型为预印本（bioRxiv，未同行评审），采用93个多组织数据集训练、五折交叉验证、并在8个留出GEO数据集做外部验证，与匹配的线性/非线性基线比较，另有11个TCGA队列的肿瘤-正常残差分析及SHAP节点解释。关键不足：摘要未给出具体误差数值与队列样本量，外部验证为回顾性数据而非前瞻或真实试验终点验证，门控-年龄关联属于探索性分析。选题价值在于提供可解释、跨组织的衰老时钟方法学与外部验证范式，可用于试验中的衰老相关终点评估，但不能据此推断临床或试验提效收益。
+标签：表观遗传时钟、外部验证、可解释性、神经网络、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.17.759869
+
+39. Inverse domain uncertainty quantification in hemodynamics: sampling virtual patient cohorts under constraints
+条目ID：rss:export.arxiv.org_api_query?search_query=all:%22virtual+clinical+trial%22+OR+all:%22in+silico+clinical+trial%22+OR+all:%22in+silico+trials%22+OR+all:%22patient+digital+twin%22+OR+all:%22synthetic+control+arm%22+OR+all:%22virtual+patients%22&sortBy=submittedDate&sortOrder=descending&max_results=80:ddca96477a2362c6
+订阅记录的发布时间：2026-10-20T08:50:43Z
+评分：6.0
+Horizon摘要：Alfonso Caiazzo提出一个贝叶斯逆问题框架，用条件LDDMM随机插值生成主动脉几何，并结合有限元Navier–Stokes求解器，在合成数据上比较EAKI、aBUS与WFR序列蒙特卡洛三种策略，并引入可微分流匹配代理模型，用于生成匹配指定压力降的主动脉缩窄虚拟患者队列。
+理由：属于虚拟患者/队列这一核心方向：论文把心血管几何的高维潜变量与有限元血流动力学模型结合，构成贝叶斯逆问题，用于生成满足指定压力降约束的主动脉缩窄虚拟队列。方法较明确，比较了EAKI、aBUS和WFR序列蒙特卡洛三种集成策略，并提出可微分流匹配代理模型以降低前向映射成本；但这是arXiv预印本，摘要只说明在合成数据上做验证与比较，未给出队列规模、误差/校准、成功率等定量结果，也未涉及真实患者或前瞻性验证，且作者明确指出代理模型会带来分布偏移。新增方法有价值，但当前可见证据有限。
+标签：虚拟患者队列、不确定性量化、血流动力学、代理模型、预印本
+订阅：arXiv｜虚拟试验与数字孪生
+来源：https://arxiv.org/abs/2610.27869v1
+
+40. Intelligent immunotherapy: AI-driven optimization of CAR-T therapy in hematologic malignancies.
+条目ID：pubmed:article:42904142
+订阅记录的发布时间：2026-11-20T00:00:00Z
+评分：6.0
+Horizon摘要：作者在一篇PubMed收录的综述中，将CAR-T治疗相关的AI与统计建模工具分为已可部署的风险分层模型、技术上有前景但缺多中心外部验证的影像/病理/多模态工具，以及尚未在CAR-T中验证的数字孪生、LLM和闭环自适应治疗原型，并称汇总比较了18个已发表工具。
+理由：属于AI医疗补充方向，而非虚拟临床试验或试验提效智能体的核心研究。该文按证据成熟度梳理CAR-T全流程中的AI应用：已外部验证的风险分层模型、尚缺多中心验证的深度学习/多模态工具，以及仍处原型的数字孪生、LLM和闭环治疗；摘要称比较18个工具并跨三类血液肿瘤比较数据与建模范式，具有实质方法梳理价值。但这是PubMed收录的综述，摘要未展示系统检索方案、比较表内容或原始验证数据，数字孪生与自适应治疗仅被描述为未验证原型，不能据此推断临床或试验获益。
+标签：CAR-T治疗、AI医疗、数字孪生、风险分层、综述
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42904142/
+
+41. Synthetic data in rheumatology: a systematic literature review.
+条目ID：pubmed:article:42903943
+订阅记录的发布时间：2026-01-01T00:00:00Z
+评分：6.0
+Horizon摘要：作者系统检索 PubMed/MEDLINE、Embase 与 arXiv（2016年1月至2026年1月），纳入 228 项医疗合成数据研究（其中风湿病学专项 13 项），用 10 项清单评估质量，梳理六类生成方法与五类主题（含数字孪生、隐私保护、验证框架），并指出合成数据可用于扩充低患病率小队列、隐私保护登记数据共享与模拟临床试验人群，同时报告验证标准不一致、隐私与可复现性评估严重不足。
+理由：核心方向相关：合成数据是虚拟患者/数字孪生与试验模拟的基础方法，本综述明确讨论数字孪生、隐私保护共享和模拟临床试验人群。证据类型为系统综述（PubMed 收录期刊论文，具体期刊未提供）：检索 PubMed/MEDLINE、Embase、arXiv（2016.01—2026.01），最终纳入 228 项研究，并用 10 项清单对 13 项风湿病学专项研究做质量评估，量化出隐私评估仅 2/13、代码共享仅 1/13 等方法学缺口，属有实质比较与开放问题梳理的综述。主要不足：非原始研究、无自身实验或外部验证；风湿病学落地证据仅 13 项，且试验人群模拟停留在“有潜力”层面而非被评价；摘要未提供各生成方法的性能比较数据。故列为可进入候选池，而非重点选题。
+标签：合成数据、系统综述、数字孪生、验证框架、风湿病学
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42903943/
+
+42. The effect of artificial intelligence-driven, computed tomography-based assessment of body composition parameters on 28-day mortality of patients with severe fever with thrombocytopenia syndrome: a retrospective cohort study.
+条目ID：pubmed:article:42902163
+订阅记录的发布时间：2026-07-23T00:00:00Z
+评分：6.0
+Horizon摘要：作者在单中心 234 例重症发热伴血小板减少综合征患者中，回顾性使用 AI 驱动的 CT 身体成分分割评估肌内脂肪指数等参数，并构建含 T12-IMFI 的 28 天死亡风险预测模型。
+理由：属于 AI 医疗补充方向：研究将已验证的 AI CT 分割模型用于测量身体成分，并在 234 例 SFTS 患者中回顾性评估其与 28 天死亡率的关联及预后价值。方法、指标和模型评价（AUC、校准、DCA、NRI）较明确，但为单中心回顾性研究、仅 32 例死亡事件，摘要未报告外部验证；AI 是测量工具而非新方法核心贡献，且与临床试验提效或虚拟试验无直接关联。因此可进入候选池，但证据与选题深度有限。
+标签：AI医疗影像、CT身体成分分析、回顾性队列、预后模型、单中心
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42902163/
+
+43. Designing evaluation rubrics for the development of virtual human twins in healthcare.
+条目ID：pubmed:article:42896603
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：6.0
+Horizon摘要：作者团队通过PRISMA系统综述分析了26项虚拟人体孪生（VHT）研究，将其对齐到既有5级VHT路线图并分为黑箱/灰箱/替代模型三类，提出一套用于评估VHT模型成熟度的rubric，发现多数研究处于Level 2而Level 4/5各仅3项。
+理由：核心方向（数字孪生/虚拟人体孪生）相关：该研究按PRISMA做系统综述，纳入26项VHT研究，映射到既有的5级VHT路线图，并据此提出成熟度评价量表（rubric），报告各等级分布（Level 2最多，Level 4/5各3项），得出VHT发展碎片化的判断。属于方法学/评价框架类工作，方向直接相关，方法路径可核实；但摘要未报道量表自身的验证（评分者一致性、条目效度）、检索与纳排细节，也未在独立队列或实际开发评估中应用该量表，故新增证据有限，评为可进入候选池。来源为PubMed收录，发表状态与日期在可见材料中未明确。
+标签：虚拟人体孪生、数字孪生、系统综述、成熟度评价量表、方法学框架
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42896603/
+
+44. Mapping Clinical Laboratory Signatures from Electronic Health Records in the Estonian Biobank
+条目ID：biorxiv:article:220e688681dd03af
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：6.0
+Horizon摘要：作者在爱沙尼亚生物库的211,994名参与者的约20年EHR实验室数据上训练LightGBM模型并提取SHAP特征重要性，按实验室特征相似性对1,995个ICD-10诊断码做层次聚类与自组织映射聚类，并用Cohen's d与匹配对照比较来区分真实生物信号与检测频率造成的 ascertainment bias，作者称该流程可在规模上重建基于实验室特征的疾病分组。
+理由：属于AI医疗补充方向而非核心方向：使用LightGBM与SHAP对常规EHR实验室指标做ICD-10诊断码的特征重要性聚类，规模较大（211,994名爱沙尼亚生物库参与者、约20年数据、1,995个ICD-10码、三种分辨率、两种聚类方法），并以Cohen's d对诊断/匹配未诊断个体做验证、明确标记检测频率导致的 ascertainment bias，方法可评价、结果具体。关键不足：为bioRxiv预印本未经同行评审；仅单一生物库内部数据，无外部或前瞻性验证；33个层次聚类中仅8个在两个方法与全部分辨率下稳健，聚类稳定性和生物学可解释性仍有限；与临床试验、虚拟患者或数字孪生无直接关联，选题价值在于疾病分组与EHR数据方法学，而非试验提效。
+标签：电子健康记录、机器学习、疾病聚类、确诊偏倚、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.16.26365128
+
+45. Natural Language Processing Based Solution for Labeling Brain Metastasis Identified in Radiology Reports
+条目ID：biorxiv:article:8592bd93d7ef5f9e
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：6.0
+Horizon摘要：作者在加拿大阿尔伯塔癌症登记队列的脑/头部放射报告上训练并验证了一个Bio_ClinicalBERT双段集成NLP流程，用于识别脑转移，并在艾伯塔、安大略、不列颠哥伦比亚三省报告上做内部与外部验证（内部敏感度0.888、精确率0.499；外部敏感度0.837与0.726），作者称拟将其纳入艾伯塔与不列颠哥伦比亚的监测工作流。
+理由：补充方向（AI医疗）而非核心方向：本文不是虚拟患者、数字孪生或试验提效智能体研究，而是把临床NLP用在癌症登记的人群级脑转移监测上，属于AI医疗工具验证选题，不强行嫁接试验关联。可见证据较具体：基于加拿大阿尔伯塔人群登记队列（2012–2019诊断，随访至2022），人工标注1,879份报告训练两个Bio_ClinicalBERT（Findings/Impressions）并取最大概率融合，内部验证1,833份报告/357例患者，外部验证另做安大略与不列颠哥伦比亚两省，代码公开。但方法为既有临床BERT微调+双段集成，属增量式方法；比较仅为单段模型消融，未与规则式/其他报告标注基线对照；阈值0.4下精确率仅0.499，摘要未给F1、特异度、校准或不确定性分析，却称已达登记运行要求，落地价值需复核。bioRxiv预印本，未见同行评审，回顾性标注验证，非前瞻性。
+标签：医学NLP、放射报告标注、外部验证、癌症登记监测、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.06.10.26355415
+
+46. Design and Technical Evaluation of a Standards-Based System That Delivers Enclave-Derived Case-Finding Models to Patients and Clinicians
+条目ID：biorxiv:article:011f3b7f89db7e21
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：6.0
+Horizon摘要：作者提出并技术评估了一套从 All of Us 研究数据飞地导出的汇总计数在飞地外拟合病例发现模型、再经 FHIR、SMART on FHIR 和 CDS Hooks 交付给患者与临床医生的系统；在合成记录上验证了评分可复现性，真实记录互操作性、可用性和前瞻性临床性能尚待评估。
+理由：属于 AI 医疗补充方向而非虚拟临床试验核心方向：提出并技术评估了从研究数据飞地汇总计数在飞地外拟合病例发现模型、再通过 FHIR/SMART on FHIR/CDS Hooks 交付的系统。可见证据包括摘要报告的模型区分度（Long COVID AUROC 0.67；8个自报模型 0.61–0.82）、162个参考输出完全复现和437项自动测试通过，并列出5类失败及修复；但验证仅限合成 FHIR 记录、随机划分和公开沙盒，缺少真实记录互操作性、可用性及前瞻性临床性能评价。作为预印本方法与结果较充分，但临床与部署证据仍属早期。
+标签：病例发现模型、FHIR、SMART on FHIR、合成数据验证、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.20.26365982
+
+47. AI-Empowered Multimodal Data Integration and Knowledge Discovery for Pharmacovigilance
+条目ID：biorxiv:article:efcf5f3e4f15b948
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：6.0
+Horizon摘要：作者在药物警戒任务上提出并构建了一个结合 LLM 信息抽取、本体归一化、跨源证据评估和机器学习优先排序的多源知识整合框架，生成带置信度的药物-ADE 知识资源，并报告其在下游 LLM 药物 ADE 综合与临床 ADE 关系抽取中改善表现（摘要未给具体数值）。
+理由：属于 AI 医疗补充方向中的药物警戒知识资源研究，与虚拟试验、数字孪生等核心方向无直接关联。作者提出整合 FAERS、文献、临床试验和 EHR 的证据感知框架，构建了规模明确、带置信度的药物-ADE 知识资源，并进行了下游 LLM 综合与关系抽取验证；但摘要未给出具体性能数值、基线设置、外部验证或人工评估细节，且为预印本，当前可评价证据有限。
+标签：药物警戒、知识图谱、LLM信息抽取、证据评估、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.20.26365969
+
+48. DCAF: Unifying Data Validity, Evaluation Validity and Predictive Modeling for Single-cell Perturbation Simulation
+条目ID：biorxiv:article:6fa11ddba6fda64c
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：6.0
+Horizon摘要：作者在预印本中提出统一单细胞扰动模拟框架DCAF，整合数据重建、评价准则与JEPA调控动力学预测，并报告其在多种跨域基准及成年小鼠脑Dgcr8敲低数据上优于深度学习和简单基线。
+理由：该预印本属于单细胞扰动模拟这一AI/计算生物学补充方向，而非虚拟临床试验、数字孪生或试验提效智能体核心方向。其新增点较明确：用熵正则最优传输重建扰动前后状态，提出基于非沉默基因log fold change的评价准则，并以JEPA结合调控动力学建模进行预测；摘要报告了跨基因、跨细胞类型、跨区域基准比较及小鼠脑Dgcr8敲低案例。但仅见摘要，缺少数据集规模、量化指标、基线细节和独立外部验证信息，且尚未同行评审，因此只能进入候选池而非重点选题。
+标签：单细胞扰动模拟、评估基准、最优传输、JEPA、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.13.758713
+
+49. RDEmbed: A Sentence-Embedding Framework for Rare Disease Phenotype Representation and Phenotypic Similarity Analysis
+条目ID：biorxiv:article:ce55593442b7c056
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：6.0
+Horizon摘要：作者在 bioRxiv 预印本中提出 RDEmbed 句子嵌入框架，直接从罕见病病例报告文本学习患者表型向量以量化表型相似度，并在模拟数据、已发表病例报告及含 156 份摘要的六类罕见病策划队列中与 OWLSim、simGIC 等 HPO 本体方法比较，作者称其 AUROC/AUPRC 提升超过 5%，并公开了代码。
+理由：属于 AI 医疗补充方向：用句子嵌入从罕见病病例报告的自由文本中学习表型表征，用于患者匹配、诊断与基因发现，与临床试验的患者招募/匹配有间接关联，但摘要未涉及试验招募或虚拟试验场景。方法新增点明确（嵌入表征 + 检索增强嵌入细化 RAER，推理时引入外部知识、无需任务微调），且提供了可评价的比较：以 OWLSim、simGIC 等 HPO 本体方法为基线，在模拟数据、已发表病例报告和 156 份摘要、6 个罕见病组的精选队列上报告 AUROC/AUPRC 提升 >5%、t-SNE 聚类更分离、真阳性罕见病对 8 vs 4，并公开代码。关键不足：bioRxiv 预印本、尚未同行评审；精选队列规模小且仅此一个策划队列，缺少独立外部或前瞻性验证，模拟数据与已发表病例集的规模、切分和统计细节在摘要中未说明，也没有与传统表型匹配流程或人工复核的对照，因此实际临床或招募提效收益尚不能确认。
+标签：罕见病表型、句子嵌入、患者匹配、表型相似度、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759399
+
+50. MIEN: a deep-learning model for pocket-conditioned glycan pose and conformation discrimination
+条目ID：biorxiv:article:55bfe38f1e689398
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：6.0
+Horizon摘要：作者提出并测试了一种基于等变图网络的MIEN模型，用于在固定蛋白口袋中给糖链构象打分；该模型在5,241个实验复合物上训练，并在260个蛋白不相交基准及AutoDock-GPU、GlycanDock候选池中报告了优于对接引擎的top-1低RMSD选择表现。
+理由：该文属于AI结构生物学/分子对接的邻近补充方向，而非虚拟临床试验、数字孪生或试验提效研究；方法较明确：最小界面等变图网络、5,241个实验复合物训练、260个蛋白不相交基准，并在AutoDock-GPU与GlycanDock候选池中做外部计算评价，作者报告top-1低RMSD选择改善。关键不足是仅有计算基准评价，无湿实验、临床或试验流程验证；且为bioRxiv预印本，未经同行评审。对本题读者有方法参考价值，但临床试验/医疗研究关联有限，适合进入候选池。
+标签：蛋白-糖相互作用、分子对接、等变图网络、结构生物学、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.13.758804
+
+51. GOLDEN: Gene expression and allele-informed decomposition for genetic heterogeneity in spatial transcriptomic data
+条目ID：biorxiv:article:82bc808a05716eb4
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：6.0
+Horizon摘要：作者提出 GOLDEN——一种等位基因感知的多任务网络，用于空间转录组中个体间遗传异质性的解卷积，并在基于半同基因单细胞谱的合成 ST 数据上报告高相关性（r=0.977）和低 MAE（0.045），同时称真实 ST 数据预测获得遗传验证，但摘要未给出基线比较和数据规模。
+理由：属于 AI 医疗补充方向：将等位基因感知的多任务网络用于空间转录组中遗传异质性的解卷积，而非虚拟临床试验、数字孪生或试验提效智能体。方法描述较清楚，摘要报告了基于半同基因单细胞谱构建的合成 ST 基准结果（Pearson r=0.977、MAE=0.045），并称在真实 ST 数据中预测一致且获得遗传验证，代码已开放；但作为 bioRxiv 预印本尚未同行评审，摘要缺少基线比较、数据规模和真实世界验证细节，临床或试验场景关联间接。
+标签：预印本、空间转录组、解卷积、多任务学习、遗传异质性
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.18.759920
+
+52. ALLCAPS: a scalable and accurate deep-learning method for in silico pneumococcal serotyping
+条目ID：biorxiv:article:e67b1a52111c2aa9
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：6.0
+Horizon摘要：作者提出免数据库、免规则的深度学习工具ALLCAPS，用34,125株带表型数据的肺炎链球菌基因组训练，并在AllTheBacteria的119,424株基因组上回顾性血清分型，作者称其预测准确性优于多个现有in silico工具并能标记需实证验证的潜在新型非分型cps变异。
+理由：属于AI医疗补充方向（病原体基因组深度学习），与虚拟试验、数字孪生、试验提效智能体等核心方向无实质关联，其价值在于支持疫苗配方更新与全球血清型监测，而非临床试验方法学。方法描述较明确（免数据库、免规则的深度学习血清分型），基于34,125株有表型数据的基因组训练，并与多个现有in silico工具做比较，应用到AllTheBacteria 119,424株基因组（作者称最大规模血清分型工作），属回顾性大规模评价而非前瞻验证。关键不足：摘要未给出比较的量化指标（准确率、错误率、各类别性能）、未说明校准与不确定性；对“潜在新血清型”的判定明确需要经验性验证；‘首个’‘最大规模’为作者主张。稿件为bioRxiv预印本，尚未同行评审；元数据中的日期格式异常，发表日期无法核实。
+标签：深度学习、血清分型、病原体基因组监测、疫苗研发、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.14.759107
+
+53. A computable probability landscape for T cell receptor repertoire sampling and comparison
+条目ID：biorxiv:article:f2296a1046d3458b
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：6.0
+Horizon摘要：作者提出BEAM——一种对TCRβ CDR3氨基酸序列进行局部依赖建模并精确归一化的概率模型，在38,538个人类repertoire及外部队列中评估序列预测和publicness，并声称其可用于深度感知的采样计算与可解释的repertoire比较。
+理由：属于计算免疫学/医学数据建模的补充方向，而非虚拟临床试验、数字孪生或试验提效智能体的核心方向。BEAM提出可精确归一化的TCRβ CDR3局部序列概率模型，并用38,538个人类repertoire构建参考，在held-out预测、外部队列publicness排序及跨研究CD4/CD8比较中报告了结果；方法贡献和数据规模可评价。但摘要未给出具体性能数值、不确定性分析和开放程度，且与临床试验流程或AI试验方法无直接论述，尚为未同行评审的bioRxiv预印本，故列为候选池而非重点选题。
+标签：TCR repertoire、计算免疫学、概率模型、采样偏倚、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.15.759459
+
+54. Foundation Models Improve Perturbation Response Prediction
+条目ID：biorxiv:article:7c6178a542c11128
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：6.0
+Horizon摘要：The authors report, in a bioRxiv preprint, a large-scale comparative analysis of pretrained embeddings (including but not limited to biological foundation models) across more than 600 embedding-task pairs for predicting cellular responses to genetic and chemical perturbations, and propose methods for combining multiple pretrained embeddings; they state that some foundation models fail to beat simple baselines while others improve consistently, and that prior-knowledge-derived embeddings perform best.
+理由：Supplementary AI-medical direction (biological foundation-model evaluation), not a core virtual-trial/digital-twin/trial-agent study. Value lies in a systematic benchmark of pretrained embeddings for perturbation response prediction (over 600 embedding-task pairs) plus proposed multi-embedding integration methods, addressing contradictory published claims about foundation models versus simple baselines. Evidence boundary: bioRxiv preprint (not peer reviewed) and only title/abstract visible, so datasets, baselines, metrics and effect sizes cannot be checked; the abstract reports direction of results ('some fail', 'others consistent improvements', prior-knowledge embeddings strongest) without numbers. Relevance to clinical trials is indirect — cellular perturbation simulation for drug research rather than trial design or patient-level virtual cohorts.
+标签：基础模型、扰动响应预测、嵌入评测、预印本、计算生物学
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.02.18.706454
+
+55. GeoSinkhorn Flow: Geometry-Aware Flow Matching for Perturbation-Conditioned Dynamics in Single cell Data Phenoscapes
+条目ID：biorxiv:article:3bed7f37eea574df
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：6.0
+Horizon摘要：作者提出 GeoSinkhorn Flow，一种基于热扩散几何与扰动嵌入的条件化流匹配框架，用于把单细胞表型景观从静态条件映射扩展为可预测未见过细胞、扰动和药物组合的动态转运轨迹，并在合成流形、类器官药物反应、Perturb-seq 与时程 CyTOF 数据中报告了测试结果。
+理由：属于 AI 医疗补充方向而非虚拟临床试验/数字孪生核心方向：论文提出面向单细胞扰动数据的几何感知、扰动条件化流匹配方法，将静态 phenoscape 转为可泛化的动态转运轨迹，并以合成流形、患者来源类器官药物反应、Perturb-seq 和时程 CyTOF 等多类数据报告泛化结果。可见材料显示明确的新方法与多数据集验证，但摘要未给出基线比较、量化指标、样本规模或不确定性分析，也未涉及真实临床试验或前瞻性医疗流程评价；且为 bioRxiv 预印本，尚未同行评审。
+标签：单细胞扰动、流匹配、几何感知、表型景观、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759724
+
+56. Artificial intelligence-enabled deep clinical phenotyping in heart failure with preserved ejection fraction: from patient subtypes to precision care.
+条目ID：pubmed:article:42903401
+订阅记录的发布时间：2026-01-01T00:00:00Z
+评分：5.0
+Horizon摘要：作者在一篇综述中提出，用AI整合临床轨迹、影像、血流动力学、生物标志物、多组学与数字生理数据对HFpEF进行深度表型分析，据此提出七类临床可解释的患者亚型家族，并主张这些亚型标签须经前瞻性外部人群验证、并用于表型富集试验和分层治疗决策，作者称目前它们只是主导机制的过渡性替代指标。
+理由：AI医疗补充方向（AI与深度表型分析）的期刊综述，与临床试验方法有间接关联：文中把亚型划分与“表型富集试验”、试验设计改进联系起来，并提出七类临床可解释的HFpEF亚型框架，还明确警示统计聚类不等于疾病内型，给出可复现性、生物学锚定、病程关联、决策价值等评价标准，属于有开放问题与方法梳理价值的选题。但这是叙述性综述：摘要未说明文献检索与纳入方式、未提供任何数据或定量比较，AI方法只是被概述而未评价，且作者本人指出动态亚型分配尚需前瞻性外部验证。故证据层级有限，仅进候选池，不作为已核验的方法学成果。
+标签：深度表型分析、患者亚型、HFpEF、综述、试验设计
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42903401/
+
+57. Left atrial appendage morphology and hemodynamics: potential new markers for individualized thromboembolic risk assessment in atrial fibrillation.
+条目ID：pubmed:article:42903262
+订阅记录的发布时间：2026-01-01T00:00:00Z
+评分：5.0
+Horizon摘要：作者通过叙述性文献综述评估左心耳形态、血流动力学、CFD/FSI与数字孪生证据，并据此提出房颤血栓栓塞风险的两层个体化评估框架，但尚未进行前瞻性验证。
+理由：PubMed收录的叙述性综述，属于数字孪生/计算建模与AI医疗补充方向：汇总左心耳形态、CFD/FSI及数字孪生证据，并提出两层个体化风险评估框架。可见结果多为纳入研究的OR值和数字孪生高风险表型描述，缺少系统评价方法、独立验证或前瞻性测试；数字孪生部分的方法细节与样本规模也未在摘要中说明，因此仅适合进入候选池。
+标签：数字孪生、计算流体力学、左心耳形态、房颤血栓风险、叙述性综述
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42903262/
+
+58. A survey of explainable AI applications in infectious disease diagnosis.
+条目ID：pubmed:article:42902181
+订阅记录的发布时间：2026-07-23T00:00:00Z
+评分：5.0
+Horizon摘要：作者对2023—2025年XAI在COVID-19、结核、疟疾、猴痘和登革热等传染病诊断中的应用进行范围综述，按数据模态和SHAP/LIME/Grad-CAM等技术归类，并指出泛化性、计算开销及解释与临床效用脱节等挑战。
+理由：属于AI医疗补充方向：这是一篇2023—2025年可解释AI（XAI）用于传染病诊断的范围综述，覆盖COVID-19、结核、疟疾、猴痘和登革热，并按影像/表格等数据模态及SHAP、LIME、Grad-CAM等技术归类；摘要称XAI能识别实验室关键生物标志物和影像病理区域，同时指出小样本单中心泛化性差、后置解释计算开销大、技术解释与临床效用存在差距。作为专题综述可进入候选池，但仅见摘要，未提供检索策略、纳入研究数量、质量评价或定量综合，也无原始验证；与虚拟临床试验/数字孪生/试验提效无直接关联。
+标签：可解释AI、传染病诊断、范围综述、临床转化、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42902181/
+
+59. The Ambulatory Patient Experience with Ambient Artificial Intelligence Scribes: A Qualitative Study.
+条目ID：pubmed:article:42897388
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：5.0
+Horizon摘要：作者在一项环境AI记录员实施务实随机试验的背景下，对20名门诊患者进行定性访谈，探索患者对环境AI记录员的体验及舒适度影响因素；患者报告了沟通、记录完整性和问诊时间方面的感知改善。
+理由：属于AI医疗补充方向，而非虚拟临床试验、数字孪生或试验提效智能体核心方向。研究在学术医学中心的务实随机试验背景下，对20名门诊患者进行半结构化访谈，报告环境AI记录员可能通过改善沟通、记录完整性和问诊时间提升患者体验，并归纳舒适度影响因素。方法透明且主题饱和，但样本小、单中心、纯定性、无对照或量化结果，摘要未提供对临床试验效率或临床结局的评估，因此仅适合进入候选池。
+标签：环境AI记录员、患者体验、定性研究、随机试验嵌套、医学文档
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42897388/
+
+60. A randomized controlled trial of a novel AI-based prognostic decision support tool integrated into the electronic health record for ischemic heart disease: Rationale and design of the PM Heart trial.
+条目ID：pubmed:article:42893738
+订阅记录的发布时间：2026-10-18T00:00:00Z
+评分：5.0
+Horizon摘要：丹麦研究者提出PM Heart多中心前瞻性随机对照试验方案，将基于临床、注册与生化数据计算一年生存的PMHeartIHD（PMHNet）算法嵌入EPIC电子健康档案，在缺血性心脏病患者冠脉造影后1:1随机向治疗医生显示或隐藏该预后，拟评估其对30天再入院与一年生存复合终点的影响，目前尚未报告结果。
+理由：属于AI医疗补充方向：一项将AI预后算法（PMHeartIHD/PMHNet）嵌入EPIC电子健康档案的前瞻性、多中心、开放标签随机对照试验的设计与理由论文。可见证据类型为期刊发表的研究方案（非预印本），设计要素明确：冠脉造影后自动入组并1:1随机（显示/隐藏一年生存预测）、丹麦两地区心脏科、复合主要终点（30天再入院+一年生存）、2023年9月开始入组、随访预计2026年结束。这提供了可评价的试验流程与结局定义，属于直接相关且可核实的研究方案，故列入候选池。最关键不足：摘要未报告任何结局或中期数据，也未提供算法性能/校准指标、样本量、统计假设与基线比较细节；作为AI工具临床落地的实证价值目前仅为设计层面，需等待结果。
+标签：AI决策支持、随机对照试验、电子健康档案整合、预后模型、研究方案
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42893738/
+
+61. From data to personas: a multi-source approach to tailored online health information recommendation for ovarian cancer patients and caregivers.
+条目ID：pubmed:article:42893544
+订阅记录的发布时间：2026-10-18T00:00:00Z
+评分：5.0
+Horizon摘要：作者团队开发并经由专家评审，整合论坛、访谈、病例笔记和专家输入构建了15个卵巢癌患者/照护者计算型persona，旨在为HELPeR在线健康信息推荐系统缓解冷启动问题，但尚未报告推荐效果或前瞻性验证。
+理由：该文属于AI医疗补充方向，而非虚拟临床试验、数字孪生或试验提效智能体核心方向。其新增内容是：用论坛457条帖子（60名用户）、20例访谈、照护项目病例笔记及妇科肿瘤护士专家输入，通过k-modes聚类和主题分析构建15个卵巢癌患者/照护者计算型persona，用于HELPeR推荐系统缓解冷启动。可见验证仅为专家对临床真实性的评审，摘要未报告推荐准确率、用户研究、基线比较或外部/前瞻性验证；所称“近似数字孪生”也缺少试验模拟证据。作为早期方法开发可进入候选池，但证据有限。
+标签：计算型患者画像、健康信息推荐、冷启动缓解、多源数据整合、专家评审
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42893544/
+
+62. Beyond the Scribe: Using Nominal Group Technique to Co-Design an Evaluation Framework for Patient-Held AI
+条目ID：biorxiv:article:c3478ead86eabadd
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：5.0
+Horizon摘要：DesRoches等人在bioRxiv预印本中，通过结构化虚拟会议对33名患者/照护者和10名临床医生使用名义群体技术，共设计患者持有型AI个人健康助手的评价框架，并报告患者优先关注沟通与尊重、纵向照护协调以及临床医生信任和知情同意。
+理由：AI医疗补充方向，而非虚拟临床试验、数字孪生或试验提效智能体研究。作者用名义群体技术（NGT）与33名患者/照护者和10名临床医生共设计患者持有型AI Personal Health Assistant的评价框架，方法交代较明确，并报告了患者优先结局（沟通与尊重、纵向照护与就诊后协调、临床医生信任与知情同意）。但这是定性早期框架研究，未测试工具性能，也无临床、工作流程或试验层面的比较验证；且为未同行评审的bioRxiv预印本，证据有限。
+标签：患者持有AI、评估框架、名义群体技术、患者优先结局、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.15.26365669
+
+63. Network representations of digital clock drawings for cognitive impairment detection
+条目ID：biorxiv:article:dfb8678a19ee3cb4
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：5.0
+Horizon摘要：作者在3,362名Framingham心脏研究参与者的数字时钟绘图数据上构建组件级空间关系网络，并用随机森林与图卷积网络分类认知障碍，作者称其AUC与既有汇总特征基线相当，并识别出认知状态间空间组织差异最大的钟面区域，但尚缺乏外部验证。
+理由：AI医疗补充方向：将数字时钟绘图测试（dCDT）重构为结构网络（节点为钟面组件、边为空间关系），用随机森林与图卷积网络做认知障碍分类。材料为预印本（bioRxiv，未同行评审），摘要给出了可评价的数据规模（3,362名Framingham心脏研究参与者）和明确的对照基线（人口学基线、既有汇总特征基线），方法可读。但关键结果显示网络模型的AUC仅与既有汇总特征基线相当，预测层面的增量价值有限，主要新增贡献在于可解释的空间组织差异描述（右上区域数字1、2、指针与钟面）。局限：单一队列、无外部验证（作者明确将外部验证列为后续工作）、回顾性分析、摘要未报告具体AUC数值与置信区间或不确定性估计。整体属于可进入候选池的早期方法探索，与临床试验/虚拟试验核心方向无实质关联。
+标签：认知筛查、数字时钟绘图测试、图神经网络、网络表示、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.15.26365699
+
+64. Counterfactual Policy Learning for Personalized Treatment Using SGLT2 Inhibitors
+条目ID：biorxiv:article:ff49be2aebbee304
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：5.0
+Horizon摘要：Sandor 等提出一种反事实结构因果模型（结合 Gumbel-Max 采样），利用观察性电子健康记录估计 SGLT2 抑制剂的个体化治疗效果，并在摘要中称经双重稳健价值估计器评估后其预测治疗价值优于真实处方。
+理由：属于 AI 医疗补充方向（因果推断/个体化治疗），而非虚拟临床试验、数字孪生或试验提效智能体。作者提出反事实结构因果模型并结合 Gumbel-Max 采样估计 SGLT2 抑制剂的个体疗效，摘要称用双重稳健价值估计器在观察性电子健康记录上评估，预测治疗价值优于真实处方。但未见队列规模、外部验证、临床终点或与其他个体疗效估计方法的比较；“预测价值优于真实处方”不等同于临床获益。预印本，尚未同行评审。
+标签：因果推断、个体化治疗、SGLT2抑制剂、电子健康记录、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.15.26365465
+
+65. Interpretable Phenotype Discovery Using Temporal Risk-Aware Clustering
+条目ID：biorxiv:article:56919c5e9cc0f391
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：5.0
+Horizon摘要：作者提出 TRACE 纵向表型发现方法，并在 ADNI 回顾性队列上报告其诊断预测和表型发现优于其他时间表型基线；摘要未提供样本量、具体指标或外部验证细节。
+理由：属 AI 医疗补充方向的方法研究，非虚拟临床试验、数字孪生或试验提效智能体。TRACE 提出轨迹与结局感知对比目标、概率预测表型层及双注意力解释，并在 ADNI 单队列上与时间表型基线比较；但摘要未给出样本量、具体评价指标、效应量或外部/前瞻性验证，作为预印本方法线索可进入候选池，证据尚不足以重点选题。
+标签：医学表型发现、纵向临床轨迹、对比学习、可解释性、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.18.26365169
+
+66. Parental Health Information Needs, Child-Health Literacy, and Use of Generative AI Among Parents of Children Aged 0 to 4 Years in France: A Cross-Sectional Study
+条目ID：biorxiv:article:963d7e57e4287c9c
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：5.0
+Horizon摘要：Gavaland等通过法国12,634名0–47月龄儿童家长的在线横断面调查，描述了家长的健康信息需求、儿童健康素养以及生成式AI用于儿童健康问题的频率、趋势和信任条件。
+理由：属AI医疗补充方向的家长生成式AI使用调查，而非虚拟试验、数字孪生或试验提效方法研究。样本量大（12,634人），覆盖AI使用频率、趋势、障碍与披露，但为横断面自报数据，存在数字招募选择偏倚且父亲占比很低，未评估AI回答质量或临床/流程结局；预印本尚未同行评审，故列为候选而非重点选题。
+标签：生成式AI、儿童健康信息、横断面调查、健康素养、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.20.26365983
+
+67. Development and Preliminary Evaluation of the Patient-Artificial Intelligence Rating Instrument
+条目ID：biorxiv:article:d998579f83713999
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者在预印本中开发患者-AI沟通质量量表，并由14名有LLM健康查询经验的成人对46次既往AI健康对话进行横断面评分，初步评估其内部一致性和对话间变异，但尚未验证结构效度或效标效度。
+理由：属于AI医疗补充方向，而非虚拟临床试验或数字孪生核心方向；开发了患者自评的12项AI健康对话质量量表及独立伤害条目，并报告Cronbach α=0.88、ICC=0.45等初步心理测量结果。但该研究为bioRxiv预印本，样本为14名便利样本、共46次评分，缺少结构效度、效标效度、临床基线比较和外部验证，作者也明确称需在更大样本人群中验证，因此目前仅适合进入候选池。
+标签：AI健康对话、患者报告评价、量表开发、初步验证、预印本
+订阅：medRxiv｜健康信息学与流行病学方法
+来源：https://doi.org/10.64898/2026.10.20.26366053
+
+68. Relational Graph Convolutional Networks for Glioblastoma Biomarker Discovery via ceRNA and Copy Number Variation Analysis
+条目ID：biorxiv:article:62045b60412c160a
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：5.0
+Horizon摘要：作者在胶质母细胞瘤生物标志物发现任务中，将关系图卷积网络应用于 ceRNA 和拷贝数变异知识图谱并进行晚期融合，通过 10 折交叉验证与多种图网络基线比较，报告了内部交叉验证性能和五个待实验验证的计算候选位点。
+理由：属于 AI 医疗补充方向，而非虚拟临床试验或试验提效核心方向。作者将关系图卷积网络（RGCN）用于 ceRNA 与拷贝数变异知识图谱，并以决策级晚期融合筛选胶质母细胞瘤生物标志物；摘要报告了 10 折交叉验证及与 GCN、GAT、关系注意力网络的比较（最佳 AUCROC 0.874±0.070，融合后 0.883±0.072），方法与结果可评价。但证据限于单一数据集内部交叉验证，缺少外部或前瞻性验证；PR-AUC 仅 0.208±0.152 且方差较大，融合带来的精确率—召回率提升经多重比较校正后不显著；五个候选位点均为计算预测，尚无实验验证。作为预印本，新增方法主要是将已有图网络与晚期融合用于该任务，验证深度有限，适合进入候选池而非重点选题。
+标签：图神经网络、生物标志物发现、ceRNA、拷贝数变异、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.08.16.744525
+
+69. How AlphaFold 3 helps with multiscale drug discovery
+条目ID：biorxiv:article:1d7e7f7545804fc6
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者在预印本中，用获批药物和人类蛋白库，将 AlphaFold 3 的 ipTM 置信分数与实验信息驱动的 BANDOCK+ 在 1,103 个匹配蛋白的疾病排序表现上进行比较，并评估两者在预测性能与可扩展性之间的权衡。
+理由：这是一篇预印本，属于 AI 药物发现与方法学基准研究，不是虚拟临床试验、数字孪生或试验提效智能体的核心方向。作者在 1,103 个匹配蛋白上比较 AF3 ipTM 与 BANDOCK+ 的疾病排序聚合表现，并报告 BANDOCK+ 覆盖 20,158 个蛋白且计算需求更低，因此提供了可评价的基线和大规模比较；但摘要只给出“略高”的聚合结果，缺少具体指标、外部验证和失败案例分析，且与临床试验提效的关联较间接。按 AI 医疗补充方向评为 5 分。
+标签：AlphaFold 3、蛋白-配体预测、药物发现、基准评测、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.19.757941
+
+70. MINT Block: multivariate integration across independent studies to identify multi-omics signatures
+条目ID：biorxiv:article:d23b5aacb55531fb
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：5.0
+Horizon摘要：作者提出MINT Block框架，用于跨独立研究整合多组学数据并同时校正研究特异变异；作者称在bulk和单细胞多组学数据上相比序贯方法提高了预测准确性并得到更稳定的分子特征。
+理由：属于AI医疗补充方向的多组学机器学习方法研究，而非虚拟临床试验核心方向。作者提出MINT Block框架，在拟合多变量回归/分类模型的同时校正研究间不需要的变异，避免先校正后建模可能扭曲生物信号；并在人类疾病与海洋生物的bulk及单细胞多组学数据上评估，声称相比序贯方法获得更稳定、可解释的特征并提高预测准确性。可见证据仅为预印本摘要，未给出数据集数量、样本量、具体性能指标、基线设置和外部验证设计，验证细节不足以支撑更高档评分。
+标签：多组学整合、研究间异质性、批次效应校正、预测建模、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.13.758954
+
+71. Integrating Multisource Target Evidence with Machine-Learning Potency Prediction for Alzheimer's Disease Drug Discovery
+条目ID：biorxiv:article:61e31b19e06cbe08
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：5.0
+Horizon摘要：作者团队在bioRxiv预印本中提出一个可追溯的AD靶点证据到模型平台，整合多源证据与化合物活性数据，并在PIK3CA等数据集上测试Boltz-2亲和力头微调及多模型随机划分筛选的效果。
+理由：AI医疗补充方向（药物发现中的机器学习效价预测与靶点证据整合），不属于虚拟临床试验/数字孪生/试验智能体核心方向。可见证据为bioRxiv预印本（未同行评审）：平台汇总967个靶点、452,249个化合物、1,430,260条测量；在PIK3CA curated数据集上对Boltz-2 affinity head做靶点特异微调，469个留出化合物上Pearson r由0.248升至0.560、MAE由0.900降至0.706；并对10个中等规模靶点数据集做42个回归模型×50次随机划分的筛选（XDH随机森林平均R²=0.815）。优点是资源规模与评测流程可追溯，且作者明确区分随机划分性能与对新化学骨架的泛化、区分背景证据与治疗主张；关键不足是主要为随机划分的回顾性计算评估，未见骨架外推/外部独立验证或实验验证，AD特异性也主要来自证据整合而非药效验证，故仅进入候选池。
+标签：预印本、药物靶点证据整合、机器学习效价预测、医学数据集、适用边界
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.14.759026
+
+72. An immune world model with multi-agent orchestration for peptide vaccines
+条目ID：biorxiv:article:5da036779f94e02f
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：5.0
+Horizon摘要：作者提出并测试了一个用于肽疫苗候选筛选的免疫世界模型，通过疫苗/肿瘤双分支和多智能体编排整合分子预测与天然识别约束，并在公开树突状细胞数据、扰动情景和合成条件实验中报告了排序与系数恢复结果。
+理由：该论文属于 AI 医疗与计算疫苗设计这一补充方向，而非虚拟临床试验或试验提效智能体的核心方向。作者提出免疫世界模型，用疫苗与肿瘤双分支、终点特异证据和多智能体编排，把分子预测、天然识别约束与条件免疫动态连接起来；目前可见的证据包括公开树突状细胞数据上的留出排序结果（Recall@20 0.483/0.333）、扰动实验和合成条件实验，属于早期回顾性/模拟验证。关键不足在于：该文是未经同行评审的预印本，摘要未给出数据规模、基线比较、校准与不确定性分析以及前瞻性验证，因此不足以支持临床或试验提效结论。
+标签：免疫世界模型、多智能体编排、肽疫苗候选筛选、计算免疫学、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.19.760096
+
+73. BiNVaST: niche boundary-preserving and synthetic data-guided variational autoencoders for concordant inference across high-resolution spatial transcriptomic platforms
+条目ID：biorxiv:article:4cb87b411eeac1a2
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：5.0
+Horizon摘要：作者提出并在一项跨四个空间转录组平台、六个组织样本的基准测试中评估了 BiNVaST——一种结合统计模拟器与双分支变分自编码器的细胞类型注释方法，声称可改善跨平台一致性和肿瘤微环境细胞状态识别。
+理由：属于 AI 医疗补充方向：面向高分辨率空间转录组的细胞类型注释，而非虚拟临床试验或数字孪生。作者提出 BiNVaST 双分支变分自编码器与统计模拟器，用查询空间谱和预注释单细胞参考生成平台适配的合成训练数据，并结合分子相似性与空间邻近性推断细胞标签。摘要称在 Xenium、CosMx、Stereo-seq、Visium HD 四个平台、四类组织共六个样本上与现有方法基准比较，但未给出准确率等量化指标、基线列表或独立外部验证细节，因此方法虽明确、证据仍偏定性。该工作为预印本，尚未同行评审；其价值在于跨平台空间细胞注释方法，不能据此推断临床试验提效。
+标签：空间转录组学、细胞类型注释、变分自编码器、跨平台基准、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.15.759369
+
+74. GENOAR: Global Engine for Navigating the Omnicell space via Agent-based Research
+条目ID：biorxiv:article:5d813ed7588b5ca6
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：5.0
+Horizon摘要：作者在 bioRxiv 预印本中提出 GENOAR，一个基于两个 AI 智能体和并行计算的单细胞转录组数据引擎，作者称其整合约 5400 万个人/鼠细胞，在检索任务上与人专家比较，并用于视网膜母细胞瘤祖细胞相关签名分析及按需构建单细胞图谱。
+理由：属于 AI 医疗补充方向的生物医学数据与智能体资源工作，而非虚拟临床试验、数字孪生或试验提效智能体。作者提出用于单细胞转录组数据的命名与检索 AI 智能体及并行预处理流程，摘要称覆盖约 5400 万个人/鼠细胞，检索表现与人类专家比较，并用于视网膜母细胞瘤相关签名分析和按需图谱构建。可见材料为 bioRxiv 预印本；摘要未给出检索基准规模、专家比较设计、加速幅度及独立验证细节，也无临床试验或医疗流程提效证据，需全文复核。
+标签：预印本、单细胞转录组、AI智能体、生物医学数据资源、专家比较
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.15.759380
+
+75. LiverHomo: An Integrated and Interactive Human Liver Single-Cell Atlas with Protein Interaction and Cell-Cell Communication Networks
+条目ID：biorxiv:article:82200b0c364d5f89
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者团队整合公开人类肝脏单细胞RNA测序数据构建LiverHomo跨疾病细胞图谱，叠加蛋白互作与细胞间通讯网络，并提供含自然语言助手Ask LiverHomo的交互式网页门户供探索；摘要未报告数据规模、与现有图谱的比较或助手与网络推断的验证结果。
+理由：AI医疗补充方向中的医学数据/资源类工作：作者团队整合公开人类肝脏scRNA-seq数据（覆盖健康与多种肝病）构建LiverHomo图谱，新增蛋白互作网络与细胞间通讯整合，并开放交互门户（liverhomo.org）及自然语言助手Ask LiverHomo，开放程度与可访问性可核实。但摘要未给出数据集/样本/细胞数量、疾病覆盖清单、与已有肝脏单细胞资源的定量比较，也未报告Ask LiverHomo的回答准确性或PPI/通讯推断的任何验证，属于方法与结果细节不足的资源发布；资源发布不等同于方法或临床验证。与临床试验/虚拟试验无直接关联，价值在医学数据资源层面。预印本，尚未同行评审。
+标签：医学数据集、单细胞图谱、蛋白互作网络、自然语言助手、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.20.755227
+
+76. Signature Recontextualization: Mapping perturbational signatures across biological contexts
+条目ID：biorxiv:article:0bf776829b4b6023
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者在bioRxiv预印本中提出并开源了跨生物情境扰动签名预测（定义为signature recontextualization）的基准框架，在“仅对照”“低覆盖”“高覆盖”三种目标情境数据条件下，用细胞系CRISPR敲低与药物扰动及DrugMatrix大鼠组织化学扰动数据，比较新提出的projectCor、netProp与scGPT、STACK等基础模型及统计基线，作者称投影与网络传播方法在部分任务上可匹敌或超过深度学习方法。
+理由：属于AI医疗补充方向而非核心虚拟试验/数字孪生方向：这是计算扰动转录组学的基准评测框架研究，与临床试验执行、虚拟患者或试验模拟无直接关联，但方法学内容实质（明确的任务定义、三种目标情境数据条件、跨细胞系CRISPR/药物扰动与DrugMatrix大鼠组织体内扰动多数据集、与scGPT/STACK等基础模型及统计基线的比较、开源R包sigRecon），可作为AI方法评价与可复现基准的参考。关键不足：摘要只给定性结论（投影/网络方法“部分任务匹敌或超过”深度学习），无具体数值或效应量；全部为回顾性计算评测，无临床或前瞻验证；bioRxiv预印本，尚未同行评审。
+标签：预印本、扰动转录组、基准评测框架、基础模型评估、跨情境预测
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.08.14.744937
+
+77. Re-evaluating the benefit of training scale in cell foundation models
+条目ID：biorxiv:article:4077485192180825
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者在不同预训练语料规模下比较第一代和第二代单细胞基础模型，采用常规微调、全冻结微调与零样本分析，称全冻结评测尤其能显现第二代模型的训练数据规模效应。
+理由：属于 AI 医疗补充方向中的医学/生物基础模型方法学研究，与虚拟临床试验、数字孪生或试验提效智能体无直接关联。作者重新评估单细胞基础模型的预训练数据规模效应，提出全冻结表征评测能揭示常规微调所掩盖的规模收益，属于有价值的评测方法学再评估；但当前仅有预印本摘要，未给出具体模型数量、语料规模、任务指标和定量比较结果，证据细节不足以进入重点选题档。
+标签：单细胞基础模型、表征评估、预训练规模、冻结表征评测、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.06.04.730272
+
+78. ISP Platform powered by Geneformer: Framework for Cross-Species, State-feedback, and Multi-Gene In Silico Perturbation Screens with Application to iPS Cell State Transitions
+条目ID：biorxiv:article:45cc2aeb7f20b72a
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者发布基于Geneformer的ISP Platform，在无需编程的图形界面中实现跨物种、多基因和状态反馈的in silico扰动，并在人和小鼠iPSC单细胞转录组中计算模拟多能性调控因子筛选及Yamanaka因子顺序效应，作者称其结果可指导实验验证。
+理由：该工作属于AI医疗补充方向中的计算扰动/虚拟遗传筛选工具，而非虚拟临床试验或数字孪生研究。其新增内容包括无需编程的ISP平台、跨物种Geneformer模型切换、多基因扰动和状态反馈式扰动；并在人/小鼠iPSC单细胞转录组中做了全基因组敲低和过表达模拟。但这是bioRxiv预印本，摘要未给出与基线方法的定量比较、校准/不确定性评估或湿实验验证，筛选优先级和因子顺序效应主要是模型输出，证据深度适合进入候选池而非重点选题。
+标签：预印本、虚拟扰动、Geneformer、跨物种、iPSC
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.09.17.752497
+
+79. General Purpose AI for Public Data Analysis and Experimental Hypothesis Generation
+条目ID：biorxiv:article:d051a4fcdf6b6bf4
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：Jin 与 Bao 在 bioRxiv 预印本中报告，用通用 AI 分析公共单细胞、蛋白组和 CRISPR 数据以生成实验假设，在独立患者数据中检验部分假设并对胰腺癌候选靶点排序，同时记录后续实验未支持 Apelin 效应的阴性结果。
+理由：属于 AI 医疗补充方向，而非虚拟临床试验或试验提效智能体的核心方向：该预印本用通用 AI 对公共单细胞、蛋白组和 CRISPR 筛选数据做假设生成与靶点排序，并报告了多发性骨髓瘤和 PDAC 的多轮分析、匿名肺单细胞数据中 8 个问题获得独立患者数据统计支持，以及 Apelin 后续实验未获支持的阴性结果。但摘要未说明所用模型、提示与流程、人工基线、定量评价和可复现性，且不直接关联临床试验流程；作为尚未同行评审的预印本，证据有限，可进入候选池。
+标签：AI医疗、公共数据再分析、实验假设生成、单细胞分析、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759709
+
+80. Optimizing Cognitive Phenotyping for Genetic Discovery in Alzheimer's Disease: A Simulation-Based Evaluation of Mini-Mental State Examination-Based Decline Measures
+条目ID：biorxiv:article:4857fc5f98760192
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者在基于真实 AD 队列参数构建的 500 人 10 年 MMSE 模拟队列中，比较 7 种认知下降表型在不同缺失数据情景下的遗传关联检验效能，报告基线 MMSE 校正和较简单的 Slope、dMMSE/dt、Time-to-MMSE10 表现较好。
+理由：该预印本属于虚拟队列/模拟方法在医学研究中的应用，而非 AI 或临床试验研究；它基于真实 AD 队列参数模拟 500 人 10 年 MMSE 轨迹，比较 7 种认知下降表型在缺失数据情景下的遗传关联检验效能，并报告基线 MMSE 校正及较简单表型表现更优。证据仅为模拟研究，未在真实遗传队列中外部验证，与临床试验提效也无直接关联；可作为方法学候选，但新增信息与验证深度有限。
+标签：虚拟队列、模拟研究、遗传关联研究、认知表型、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759741
+
+81. Active Learning framework for Antibody Binding Affinity Prediction
+条目ID：biorxiv:article:3d10b9ca59e9d302
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：5.0
+Horizon摘要：作者在八个公开 AbBiBench 抗体-抗原数据集（流感 HA 抗体 CR6261/CR9114 与 SARS-CoV-2 Spike HR2 的 AAYL scFv 库）上，用 ESM-2 650M 嵌入 + 高斯过程代理模型，在统一 10% 标注预算下基准测试了 Tanimoto+UCB 等 kernel/采集函数组合，报告其平均 Recall@2% 为 57.8%（随机选择 9.6%），并附带表征消融与结构归因分析。
+理由：补充方向（偏药企早期研发的 AI 方法学）而非核心方向：研究做的是抗体亲和力预测的主动学习基准，与虚拟临床试验、数字孪生、试验提效智能体无直接关联，也不能强行解读为试验方法学。方法学证据相对扎实且可评价：8 个公开 AbBiBench 数据集、统一 10% 标注预算、5 个随机种子、配对 Wilcoxon 检验（p=0.0078）、与随机选择及其他 kernel/acquisition 配置对比，并报告了 ESM-2/ProtBert/AntiBERTy 等表征消融和 BindingGYM 上与 ALLM-Ab 的比较；同时作者自述 IG/KernelSHAP 的残基级 AUROC 判别力不强，属于诚实的边界说明。主要不足：摘要自述部分消融“未在评估修正后重跑”，关键结果存在协议不一致；预印本未见同行评审；且与临床试验/医疗流程的关联需要读者自行判断，选题价值限于 label-efficient 实验设计与药物研发提效。
+标签：主动学习、高斯过程、抗体亲和力预测、蛋白质语言模型、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.17.759787
+
+待复核队列
+
+1. Artificial intelligence for symptom assessment and patient-reported outcomes in neuro-oncology.
+条目ID：pubmed:article:42905223
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：3.0
+Horizon摘要：作者在一篇叙述性综述中检索并筛选出53篇文献，梳理神经肿瘤学中患者报告结局与神经精神症状评估所用的机器学习与大语言模型工具，以及真实世界落地与伦理考量，摘要未报告新的实证或验证结果。
+理由：属于 AI 医疗补充方向：聚焦神经肿瘤学中患者报告结局(PRO)与症状评估的 AI 应用，而非虚拟临床试验、数字孪生或试验提效方法。文章是叙述性综述，摘要报告了检索库(PubMed/MEDLINE、Embase、Google Scholar)、时间窗(2015年1月—2026年4月)、78篇初筛至53篇入选标准及两位资深作者复核，方法透明度尚可，但未见系统化数据提取、偏倚评估、定量或比较性综合，结论停留在“ML/LLM 或可帮助建模症状轨迹、抽取自由文本症状、嵌入决策支持”等一般性表述，也未讨论具体工具的性能证据与适用边界。发表状态为 PubMed 收录期刊论文，但原始发表日期未在材料中给出。属可保留线索，但当前可见信息不足以支撑更高选题价值判断。
+标签：叙述性综述、患者报告结局、症状监测、AI医疗、神经肿瘤学
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42905223/
+
+2. Analysis of barriers to self-monitoring of blood glucose among community-dwelling elderly patients with diabetes mellitus: a cross-sectional study integrating artificial intelligence-based risk prediction.
+条目ID：pubmed:article:42902325
+订阅记录的发布时间：2026-08-10T00:00:00Z
+评分：4.0
+Horizon摘要：Wang等在单中心横断面研究中调查200例社区老年糖尿病患者的自我血糖监测障碍，并训练随机森林、XGBoost和SVM模型预测高风险个体；作者报告随机森林准确率88.5%、AUC 0.921，并用SHAP解释预测因素。
+理由：属于AI医疗补充方向，而非虚拟临床试验、数字孪生或试验提效智能体核心方向。研究将随机森林、XGBoost和SVM用于单中心200例老年糖尿病患者自我血糖监测障碍的横断面风险预测，报告随机森林准确率88.5%、AUC 0.921及SHAP解释；方法可见，但属于标准模型的初步应用，采用便利抽样和80/20内部划分，无外部或前瞻性验证，也未评估临床工作流收益。摘要中“AI接受度”未在列出的量表中说明，预测变量的来源仍需核实。
+标签：AI医疗、风险预测、糖尿病自我管理、横断面研究、可解释AI
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42902325/
+
+3. Outcome measures and monitoring framework in juvenile systemic sclerosis: bridging routine care and clinical trials.
+条目ID：pubmed:article:42902254
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：3.0
+Horizon摘要：作者在一篇关于幼年系统性硬化症结局指标与监测框架的叙述性综述中，梳理了可用于日常诊疗并有望改编为未来临床试验终点的疾病活动/严重度指标、患者与医生报告结局及 J4S 等评分，并在专家观点中提出未来 AI 定量影像与居家数字健康工具可能提升试验准备度（尚无实证评价）。
+理由：这是一篇幼年系统性硬化症（jSSc）结局指标的叙述性综述，属于临床试验方法学的外围材料：系统梳理了整体与器官特异性结局、PROMs/ClinROs、J4S 严重度评分及 Hamburg 共识指标，并讨论成人指标在儿科队列中的适用性，对试验终点设计有一定参考价值。但材料中没有提出新的方法学框架，也没有数据、比较设计或验证结果；AI 仅出现在“专家观点”中作为未来方向（AI 定量影像、居家数字工具、分子标志物），没有可评价的方法或证据。因此，按“临床试验方法学相关但新增信息与方法证据不足”评为 3 分；这并非 AI 医疗研究，也不能解读为与虚拟试验或数字孪生有关。发表状态：PubMed 收录的期刊综述（Expert Opinion 栏目），具体发表时间未提供。
+标签：结局指标、临床试验设计、叙述性综述、幼年系统性硬化症、AI 展望
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42902254/
+
+4. Developing laboratory indicators to predict the probability of in-hospital progression to severe disease in elderly patients with influenza A virus infection.
+条目ID：pubmed:article:42902174
+订阅记录的发布时间：2026-07-23T00:00:00Z
+评分：3.0
+Horizon摘要：作者在上海一家医院198例老年甲型流感住院患者的单中心回顾性队列中，用弹性网络筛选白细胞计数、降钙素原、IL-6和肌红蛋白，初步构建并随机拆分验证了预测院内进展为重症的实验室模型，报告训练集C-index 0.851、验证集0.819，但未做外部验证。
+理由：该研究不属于虚拟临床试验、数字孪生或试验提效智能体等核心方向，只能算与AI医疗补充方向弱相关：它用弹性网络筛选实验室指标并构建重症进展预测模型。可见证据为单中心回顾性队列（198例、50个事件）、7:3随机拆分验证，训练集C-index 0.851、验证集0.819，并报告第14天校准；但缺少外部或时间验证，样本和事件数有限，研究方案在试验完成后才回顾性注册，整体属于初步探索，方法创新与试验方法学价值有限。
+标签：临床预测模型、机器学习变量选择、甲型流感、单中心回顾性队列、缺乏外部验证
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42902174/
+
+5. Cerebrospinal fluid amyloid and neurodegeneration biomarkers in the diagnosis and prognosis of amyotrophic lateral sclerosis: a multicohort observational study.
+条目ID：pubmed:article:42901819
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：3.0
+Horizon摘要：Obara等在一项纳入264例ALS患者和164例疾病对照的多队列观察性研究中评估脑脊液NfL、Aβ、pTau和GFAP，并测试机器学习模型辅助ALS分类，作者报告联合标志物使AUC由0.85升至0.90，且Aβ状态修饰NfL与疾病进展/生存的关联，生存结果另在153例外部队列中分析。
+理由：属于AI医疗补充方向而非虚拟临床试验/数字孪生/试验提效核心方向：这是一项ALS脑脊液生物标志物观察性研究，机器学习仅作为联合诊断工具，摘要未给出模型类型、特征选择、训练/验证划分等可评价的方法细节；主要价值在生物标志物与预后关联，且有外部ALS队列生存分析，但AI方法贡献有限。PubMed来源，发表状态与日期未在材料中明确。
+标签：肌萎缩侧索硬化、脑脊液生物标志物、机器学习诊断、外部验证、观察性研究
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42901819/
+
+6. Redefining drug discovery: AI-driven strategies for efficient cancer therapeutics.
+条目ID：pubmed:article:42898694
+订阅记录的发布时间：2026-01-01T00:00:00Z
+评分：3.0
+Horizon摘要：作者以叙述性综述形式概述了 AI 在从靶点识别、虚拟筛选、ADMET 预测到临床试验优化与制剂开发等药物研发环节中的潜在应用，但未报告具体方法、数据或验证结果。
+理由：这是一篇综述（PubMed 收录，具体期刊与发表日期在可见材料中不明），主题是 AI 在药物发现与开发链条中的总体作用，属于与本领域关系较近的邻近方向，而非虚拟临床试验、数字孪生或试验提效智能体的核心方向。文中仅在列举 AI 应用场景时提及“临床试验优化”“生物标志物发现”等，没有给出试验模拟方法、队列或试验数量、基线比较、验证设计或任何可评价结果；对工具与挑战的讨论也只是概述性描述。按政策，仅罗列进展、缺少实质方法梳理与系统比较的叙述性综述应评为低分；因此只能作为泛背景材料，无法据此判断具体方法学或试验提效价值。
+标签：叙述性综述、AI药物发现、临床试验优化、药物研发流程
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42898694/
+
+7. From Accuracy to Adoption: A Clinical Readiness Framework for Artificial Intelligence in Orthopaedic Surgery (OSCAR).
+条目ID：pubmed:article:42896012
+订阅记录的发布时间：2026-10-01T00:00:00Z
+评分：4.0
+Horizon摘要：作者提出并描述了用于骨科手术人工智能的OSCAR六阶段临床就绪度概念框架，并以示意性应用说明技术验证与临床证据如何对应不同阶段，但该框架尚未经过共识、信度或前瞻性验证。
+理由：属于AI医疗补充方向中的方法学与临床转化框架研究：提出OSCAR六阶段骨科AI临床就绪度框架，用于衔接开发、内外部验证、早期临床评价、比较性临床验证与监测部署。但摘要仅给出概念框架和示意性应用，明确说明尚未验证，缺少共识形成、判定标准、评分者间信度及前瞻性评价；也未涉及虚拟试验、数字孪生或试验提效智能体。PubMed来源提示为期刊文献，但仅凭标题与摘要无法判断同行评审细节。
+标签：骨科AI、临床就绪度框架、方法学、概念框架、PubMed收录
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42896012/
+
+8. Transforming Obesity Care With Digital Therapeutics: Mobile Health Apps, Clinical Evidence, and Regulatory Considerations.
+条目ID：pubmed:article:42895797
+订阅记录的发布时间：2026-01-01T00:00:00Z
+评分：3.0
+Horizon摘要：作者团队在肥胖管理这一医学任务上综述了数字疗法（可穿戴传感器、移动应用与 AI 个性化）的临床证据与监管考量，作者称其可提升患者参与和短期行为改变，但长期依从性与显著减重仍是挑战。
+理由：AI医疗补充方向的叙述性综述（期刊论文，PubMed 摘要）：讨论数字疗法用于肥胖管理，涉及可穿戴传感器、移动应用与 AI 个性化，并泛泛提及临床试验与真实世界证据、算法偏倚、数据隐私与监管碎片化。摘要未提供系统检索或比较方法、具体研究数量、效应量或验证设计，属于对已有进展的概述，新增方法学信息有限；与虚拟临床试验、数字孪生或试验提效智能体等核心方向无实质方法关联，与临床试验的关联仅为泛泛引用证据。
+标签：数字疗法、肥胖管理、移动健康应用、叙述性综述、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42895797/
+
+9. Chronic kidney disease as a systemic disorder: filtration phenotypes, inflammation and cardiovascular risk in the cardio-kidney metabolic era.
+条目ID：pubmed:article:42895046
+订阅记录的发布时间：2026-09-01T00:00:00Z
+评分：3.0
+Horizon摘要：作者在叙述性综述中总结CKD作为系统性疾病与心血管风险的机制，并用5000例虚拟患者的模拟分析示意eGFR、白蛋白尿等风险因素的非线性交互，但未报告模拟模型、数据来源或验证细节。
+理由：领域相关性有限：这是CKD/CKM的临床叙述性综述，不是AI医疗或临床试验方法研究；摘要虽提到5000例虚拟患者模拟，但仅用于可视化风险因素交互，未给模型、数据来源、比较基线、校准或验证，无法据此评价虚拟方法。作为PubMed收录综述，具体期刊与发表日期未提供，且叙述性综述新增方法信息少。
+标签：慢性肾病、心血管风险、虚拟患者、叙述性综述、风险分层
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42895046/
+
+10. Entity-aware pathology workflow informatics: Structured evidence mapping and a reference architecture for governed orchestration.
+条目ID：pubmed:article:42893223
+订阅记录的发布时间：2026-11-01T00:00:00Z
+评分：4.0
+Horizon摘要：The authors conducted a structured evidence mapping (purposive horizon scanning; 98 records, 1993–2026; single-reviewer D1–D4 coding with a blinded 50-record verification) of pathology workflow representation and automation autonomy, and then derived an evidence-informed reference architecture for governed orchestration that they explicitly describe as not deployed or validated.
+理由：This is an informatics methods/architecture paper rather than an AI-in-clinical-trials study. It is only tangentially related to the profile: it addresses pathology laboratory workflow representation, automation autonomy levels (D1–D4), and governance of actuation — not virtual patients, trial simulation, or trial-efficiency agents — so it would count as an AI-medical/healthcare-workflow supplement, and the abstract makes no claim of trial relevance. Its verifiable content is a structured evidence map: 98 records (74 primary from Scopus/PubMed/IEEE Xplore plus 24 supplementary), spanning 1993–2026, with study-defined capability filters showing 8/74 meeting all four conditions and 1/74 combining full autonomy with real-world deployment. Limited validation: coding was done by a single reviewer; only the 50-record inclusion check was blinded and independent (81.6% agreement, κ=0.627, 80.0% exact D1–D4 field agreement); historical search details were not retained (an acknowledged reproducibility constraint); and the proposed reference architecture is explicitly an unvalidated design target, not a deployed system. It is worth retaining as a candidate for the automation-governance taxonomy and the gaps it maps, but not as evidence of AI or trial-performance gains.
+标签：病理工作流、自主性分级D1-D4、证据图谱、参考架构、期刊论文
+订阅：PubMed｜AI临床试验检索
+来源：https://pubmed.ncbi.nlm.nih.gov/42893223/
+
+11. StainAI-Web: An Interactive Platform for Whole-Slide Microglial Morphology Analysis
+条目ID：biorxiv:article:6fc2946906bd2aa6
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：3.0
+Horizon摘要：作者推出 StainAI-Web 云端平台，用于全切片免疫组化图像中的小胶质细胞形态自动检测、ROI 区域定量和交互式可视化，但摘要未报告验证数据或性能评估。
+理由：属于 AI 医疗补充方向（AI 病理/全切片图像分析工具），但与虚拟临床试验、数字孪生或试验提效无直接关联。摘要介绍了一个云端全切片小胶质细胞形态检测与 ROI 定量平台，提供交互式预处理、可视化和结果下载；但未说明模型方法、数据规模、检测准确率、基线比较或外部/前瞻性验证，当前仅能视为工具演示，证据不足以评价实际性能与可复现性。来源为 bioRxiv，按预印本处理。
+标签：AI病理、全切片图像、形态学分析、工具平台、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.17.759834
+
+12. Predicting Lifespan-Extending Compounds Using Supervised Machine Learning
+条目ID：biorxiv:article:a0a42f4e3db12199
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：4.0
+Horizon摘要：作者在 bioRxiv 预印本中，用基于 STITCH 的化合物-蛋白互作特征和随机森林/XGBoost，在秀丽隐杆线虫数据上通过 10 折交叉验证比较三种特征表示对延长寿命化合物预测性能及可解释性的影响。
+理由：属 AI 药物发现/衰老研究补充方向，与虚拟临床试验、数字孪生或试验提效智能体无直接关联。方法较明确（三种化合物-蛋白互作特征表示、随机森林/XGBoost、10 折交叉验证及多种解释方法），但仅有秀丽隐杆线虫上的内部交叉验证，缺少外部、前瞻或湿实验验证，AUROC 约 0.74–0.76、AUPRC 约 0.52–0.53，贡献偏增量，适合作为低优先级候选线索。
+标签：预印本、机器学习、化合物筛选、衰老研究、可解释性
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759743
+
+13. Enhancement of gut-microbiome-based classification of prodromal Parkinson's Disease cases by hyperparameter tuning, integration of multimodal data, and meta-analysis.
+条目ID：biorxiv:article:69adb23c609fd25c
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：3.0
+Horizon摘要：作者在一项预印本研究中利用公共肠道微生物组数据，结合超参数调优、特征选择和多模态临床特征，构建并评估前驱期帕金森病的分类模型，摘要报告最高平均AUC 0.917。
+理由：属AI医疗补充方向，而非虚拟临床试验、数字孪生或试验提效智能体等核心方向。研究把常规机器学习分类流程用于肠道微生物组识别前驱期帕金森病，报告AUC 0.849—0.917并筛出SCFA相关菌属，但摘要未给样本量、队列构成、基线比较或外部验证，且称在测试集上调参（若按字面理解存在数据泄漏风险），meta分析细节也未报告，故仅为低置信度候选。
+标签：肠道微生物组、帕金森病、机器学习分类、多模态数据、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.18.759928
+
+14. MedMCP: An Open Agentic Ecosystem for Medical Imaging Workflows
+条目ID：biorxiv:article:72d9189ef5f10808
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：4.0
+Horizon摘要：作者团队在bioRxiv预印本中提出MedMCP——一个面向医学影像工作流的开放智能体生态框架，作者描述了本地模型编排、工具服务器分发、人在回路授权与溯源设计原则，但尚未报告任何实验评估或结果。
+理由：AI医疗补充方向：面向医学影像分析的智能体框架（本地语言模型编排 + 领域工具服务器、人在回路权限门、溯源记录、可复用确定性工作流）。领域相关性成立，但摘要明确说明本文仅介绍总体构想与设计原则，未提供任何数据规模、基线比较、任务数量或实测结果，无法评估其提效与安全性主张；也未涉及临床试验或虚拟试验场景。作为设计/愿景类预印本（bioRxiv，未同行评审），可作为工具基础设施线索进入候选池，但当前可见证据不足以支持更高分。
+标签：医学影像工作流、智能体框架、人在回路、可重复性与溯源、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.12.758708
+
+15. Variable sparsity non-negative matrix and tensor factorization algorithms and their applications in cancer genomics
+条目ID：biorxiv:article:abbbe7f0caeb47f9
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：3.0
+Horizon摘要：作者提出并描述了可变稀疏非负矩阵分解（vsNMF）及其张量扩展（vsNTF），拟用于癌症基因组数据的低维表示与样本分型，但摘要未报告实验评估结果。
+理由：属于 AI 医疗补充方向的癌症基因组学计算方法，而非虚拟临床试验、数字孪生或试验提效智能体核心方向。作者提出按分量/维度显式控制稀疏度的 vsNMF 与 vsNTF，方法设计有新意；但摘要仅描述算法，未提供数据规模、基线比较、定量结果或外部验证，且为 bioRxiv 预印本，当前材料不足以评价其实际效果与适用边界。
+标签：非负矩阵分解、张量分解、癌症基因组学、可调稀疏性、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.19.760022
+
+16. Metabolite-centric Knowledge Graph Unveils Predictive and Mechanistic Insights through Self-supervised Multimodal Learning
+条目ID：biorxiv:article:64f1efd5df68e36b
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：3.0
+Horizon摘要：作者开发了代谢物中心知识图谱 MetaKG 及自监督多模态嵌入 MetaKGE，称在12个外部数据集上优于现有模型，并在G6PD缺乏症和结直肠癌案例中生成可检验的生化假设，但摘要未说明具体评价设计与验证细节。
+理由：属于 AI 医疗补充方向中的代谢组知识图谱与自监督多模态学习方法，与虚拟临床试验、数字孪生或试验提效智能体无直接关联，仅远期指向生物标志物与治疗研发。摘要称在标准表示学习指标及12个外部数据集上优于现有模型，并能在G6PD缺乏症和结直肠癌中产生可检验假设，但未给出具体任务、基线、指标、数据规模、外部验证设计或湿实验验证细节；bioRxiv预印本，证据边界有限。
+标签：代谢组学、知识图谱、自监督多模态学习、AI医疗、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.13.758464
+
+17. LongVerse: verified AI agents for Nanopore and PacBio DNA methylation analysis
+条目ID：biorxiv:article:d7a483100a54d8a5
+订阅记录的发布时间：2026-10-19T00:00:00Z
+评分：3.0
+Horizon摘要：作者提出 LongVerse，将一句英文指令经智能体映射到固定流程，从 Nanopore/PacBio reads 生成单倍型解析的 DNA 甲基化；作者称在 HG002 参考基因组上与人工专家输出逐字节一致、与亚硫酸氢盐测序相关（r=0.943、0.884），并报告共识智能体较最佳已发表 caller 误差降低 10.7%。
+理由：预印本（bioRxiv，未经同行评审）。方向相关但不在核心范围：LongVerse 是面向 Nanopore/PacBio 测序的 DNA 甲基化流程智能体，属基因组生物信息学工具，非虚拟临床试验、数字孪生或试验提效智能体，也未给出临床场景或患者人群。方法上可评价：智能体只读取数据并为固定流程提供参数、不写代码，在 HG002 参考基因组上与人工专家结果逐字节一致，并与亚硫酸氢盐测序相关（r=0.943、0.884），作者报告每次运行对话成本 0.12–0.54 美元，共识智能体较最佳已发表 caller 误差降低 10.7%。但验证限于单一参考基因组，摘要未说明独立样本或前瞻验证，且其“可验证智能体”设计对试验智能体仅有间接方法学参考价值。
+标签：AI智能体、DNA甲基化分析、测序流程自动化、基准验证、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.13.758965
+
+18. A Multidimensional Arithmetical Ontology for High-Parameter Cytometry: Gaussian Primes and Cryptographic Hashing for Cell Population Standardization
+条目ID：biorxiv:article:a6d43652c64fa414
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：3.0
+Horizon摘要：作者提出基于高斯素数与 SHA-256 哈希的高参数细胞术细胞群/门控命名本体，并在 UniProt 参考释放上报告 53,296 个无冲突标识符分配；该预印本未展示与现有本体的比较或 AI/临床试验工作流验证。
+理由：该文是 bioRxiv 预印本，主题为高参数细胞术细胞群与门控命名的算数本体，属于医学数据标准化/生物信息学方法，并非 AI 或虚拟临床试验方法；与 AI 医疗的联系主要是作者声称可促进机器学习互操作，尚未实际验证。摘要报告在 UniProt 参考释放上分配 53,296 个无冲突标识符，但未提供与现有命名体系的比较、外部验证或临床试验/ML 工作流中的实证评价，代码与数据开放程度也未说明。按本领域选题标准，方向关联较弱且证据有限。
+标签：预印本、高参数细胞术、细胞群本体、数据标准化、SHA-256
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.14.758936
+
+19. Optimal transport reveals unresolved cells in single cell multi-omics
+条目ID：biorxiv:article:388154eb2276ab07
+订阅记录的发布时间：2026-10-20T00:00:00Z
+评分：3.0
+Horizon摘要：作者在单细胞多组学数据上提出基于最优传输的软耦合矩阵方法，用于量化每个细胞配对的不确定性并改进既有整合与标签迁移工具，在78对数据集、6种模态组合上以匹配随机剔除为对照进行回顾性评测，作者称标记为模糊的细胞在多数数据集中配对质量更差、剔除后优于随机剔除。
+理由：方向相关度弱：该研究属于计算生物学/生物信息学方法，用最优传输显式化单细胞多组学中细胞配对，解决模态整合、标签迁移与不确定性识别，不涉及临床试验、虚拟患者/队列、数字孪生或试验提效智能体，也无临床诊疗或流程评价，难以直接支撑本领域选题。方法侧证据相对扎实：摘要报告78对数据集、6种模态组合、10个整合工具与10个标签迁移工具的评测，并以匹配随机剔除作为对照，模糊度评分与剔除策略在98%整合测试和91%标签迁移比较中优于随机剔除；这些是可评价的比较设计，但属预印本（bioRxiv，未同行评审），且摘要未给出具体指标数值与不确定性量化细节。综合：方法学本身可读，但与AI医疗/临床试验方法学的连接为间接，故按低档候选记录而非重点选题。
+标签：单细胞多组学、最优传输、数据整合、基准评测、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.15.759426
+
+20. Contextual Biomedical Language Models for Imbalance-Aware Drug-Food Interaction Classification
+条目ID：biorxiv:article:ad87da58b3f2f19d
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：4.0
+Horizon摘要：作者提出并测试了一种基于BioBERT、结合类别加权与焦点损失的不平衡感知分类器，用于将规则标注文本数据中的药物-食物相互作用分为安全、中性和不安全三类，并报告了内部实验结果。
+理由：属于AI医疗补充方向（医学NLP/患者安全），与虚拟试验、数字孪生或临床试验提效无直接关联。作者将BioBERT与类别加权和焦点损失结合用于药物-食物相互作用三分类，报告准确率85%、宏平均F1 0.77、少数类F1 0.56；但摘要未提供数据集规模、基线比较、外部验证或数据开放情况，且标签由规则启发式生成，方法主要是现有组件的组合，证据和新增信息有限。该文为BioRxiv预印本，尚未见同行评审信息。
+标签：AI医疗、药物-食物相互作用、医学NLP、类别不平衡、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.19.760076
+
+21. GEO-BERT: A Retrieval augmented LLM Framework for Intelligent Dataset Retrieval from the Gene Expression Omnibus
+条目ID：biorxiv:article:22e82df4e40bc8b1
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：4.0
+Horizon摘要：作者在 bioRxiv 预印本中提出并展示 GEO-BERT：一个基于 GEO 元数据、采用检索增强生成与分层混合字段感知检索的聊天机器人，用于辅助检索基因表达数据集，并称其优于现有 AI 聊天机器人和 GEO 传统搜索，但摘要未报告量化评价细节。
+理由：这是一篇 bioRxiv 预印本，属于 AI 医疗补充方向：它面向 GEO 基因表达数据集的检索，提出了基于检索增强生成（RAG）和分层混合字段感知检索的聊天机器人；该工具可本地安装，并提供测试数据子集。它与虚拟临床试验、数字孪生或试验提效智能体没有直接关联；摘要仅笼统称其提升了语义搜索与 GEO 传统搜索性能，未给出数据集规模、基线系统、评价指标或量化结果，因此当前材料只能支持初步工具演示的判断。
+标签：检索增强生成、医学数据集检索、GEO、生物医学信息学、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.15.759430
+
+22. Locally deployed AI agents for CRISPR guide discovery from outbreak reports
+条目ID：biorxiv:article:b2f4f4ce7ac81ce5
+订阅记录的发布时间：2026-10-21T00:00:00Z
+评分：4.0
+Horizon摘要：作者在 bioRxiv 预印本中提出一个本地部署的领域特定智能体框架，用于把疫情报告转化为 CRISPR guide 发现流程的输入与分析启动，并在 NVIDIA DGX Spark 上用三种开源权重模型测试，作者称工作流可完成、疾病与病原识别跨运行一致，而基因选择与候选产出存在差异。
+理由：属于 AI 医疗补充方向中的研究/试验流程智能体工具研究：作者提出一个领域特定的智能体编排框架（agent harness），用本地部署的开源权重模型驱动 CRISPR guide 发现流程，并在一台 NVIDIA DGX Spark 上比较了 Gemma 4 31B、Nemotron 3.5 Super VL、Qwen 3.8 27B 三种模型的表现。可见证据仅为摘要层面的可行性观察：工作流能够跑完，疾病与病原识别跨运行一致，基因选择、毒株覆盖与候选产出存在波动，并报告了时长差异；关键不足在于未给出测试的疫情报告数量、缺少与人工流程或前沿模型的基线比较、也没有对候选 guide 质量的真值验证或外部验证，因此“提效”只能算工作流完成度而非可量化的研究产出改进。与临床试验本身无直接关联，属邻近的诊疗研发流程自动化。预印本（bioRxiv），尚未同行评审。
+标签：研究智能体、本地部署开源模型、CRISPR指南设计、工作流自动化、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.20.760479
+
+23. De novo transformer modeling improves recovery of genetic cell types from sparse single-cell RNA sequencing
+条目ID：biorxiv:article:9dda812e862d6de5
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：4.0
+Horizon摘要：作者提出样本特异性Transformer基因型填补模型ssSTICI，并在一个模拟和两个实证肿瘤单细胞RNA测序数据集中报告其可预测缺失碱基、使同一遗传类型的细胞在推断系统发育中更接近。
+理由：属于AI医疗补充方向中的计算方法研究，但与临床试验、虚拟患者或数字孪生无直接关联。作者提出样本特异性Transformer填补模型ssSTICI，并在1个模拟和2个实证肿瘤scRNA-seq数据集上测试；摘要仅给出高填补概率和系统发育树中细胞更聚集等定性结果，缺少遗传类型恢复的定量指标、与现有方法的系统比较及独立外部验证。该文为预印本，尚未同行评审。
+标签：预印本、单细胞RNA测序、Transformer、基因型填补、肿瘤进化
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.08.03.742620
+
+24. TP53 status aligns with morphology and metaplastic programs in colorectal cancer organoids, and MDM2 P2 promoter usage reflects p53 activity
+条目ID：biorxiv:article:71c9c5b2841c7ead
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：3.0
+Horizon摘要：作者在63个结直肠癌类器官（来自21例患者）中用VGG16深度学习形态分类、MDM2启动子使用评估和TP53测序，并在多个外部队列中分析TP53状态与形态/胃化生程序及P2指数与p53活性的关系，称P2使用反映p53活性，但能否改进MDM2抑制剂选择尚待测试。
+理由：AI医疗补充方向的边缘选题：VGG16深度学习仅用于类器官形态分类，论文核心是结直肠癌中TP53状态、形态/胃化生程序及MDM2 P2启动子与p53活性的关联；摘要报告63个类器官、21例患者及多个外部队列，但未提供深度学习模型的训练/验证设计、性能或基线，且与临床试验方法、虚拟试验或试验提效智能体无直接关联。作为预印本尚未同行评审，当前更适合作为低优先级候选线索。
+标签：预印本、结直肠癌类器官、深度学习形态分类、TP53、MDM2启动子
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.09.21.753357
+
+25. Cell-level integration of gene expression and B cell receptor data captures complementary B cell information
+条目ID：biorxiv:article:39785009afcc00ad
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：4.0
+Horizon摘要：作者在预印本中比较了单细胞B细胞分析中基于语言模型嵌入与工程序列特征的BCR表示及多种GEX-BCR整合策略，并利用独立细胞表面蛋白测量评估，称将GEX与同型、体细胞超突变频率和CDRH3长度等BCR特征拼接可保留转录及表面蛋白相关结构。
+理由：属于AI医疗补充方向中较外围的计算免疫学数据整合方法：有明确的方法比较和独立表面蛋白测量验证，但研究对象是B细胞生物学表示，未涉及临床试验、虚拟患者、数字孪生或临床工作流，且摘要未给数据规模和量化结果，选题价值因此有限。
+标签：单细胞分析、B细胞受体、语言模型嵌入、数据整合、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.16.759689
+
+26. Computational Profiling and Pathogenicity Assessment of VHL Missense Mutations
+条目ID：biorxiv:article:f3804c36594d3c65
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：3.0
+Horizon摘要：作者用AlphaMissense致病性评分、FoldX稳定性模拟与分子动力学，对VHL错义突变进行回顾性计算分类，作者称部分结构上稳定但被预测致病的变异可能源于细微功能损伤，摘要中未见湿实验或临床验证。
+理由：属于较边缘的AI医疗补充方向：作者并未提出新的AI方法或数据集，而是把已有的AlphaMissense致病性打分与FoldX、分子动力学等结构模拟组合起来，用于单一基因VHL的错义变异解读。摘要只给出定性描述（高风险区间、脯氨酸/色氨酸替换造成去稳定、VHL单体较VHL-HIF复合物更不稳定），没有给出评分阈值、变异数量、与实验或临床数据的比较设计；“validated in the literature”只是提及，未见具体验证规模与结果。与临床试验、虚拟患者、数字孪生或试验提效均无实质关联，也不能当作方法学验证研究。来源标为bioRxiv预印本（DOI中日期信息不明确），发表状态未同行评审。作为变异致病性计算的初步应用可留作低优先线索，但难以支持有内容的选题解读。
+标签：AlphaMissense、变异致病性预测、分子动力学模拟、计算结构生物学、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.17.759794
+
+27. An Interpretable Machine Learning Framework for Early- versus Late-Stage Classification of Breast Cancer from Gene Expression, with Co-expression Network Analysis
+条目ID：biorxiv:article:e243455b89792545
+订阅记录的发布时间：2026-10-22T00:00:00Z
+评分：4.0
+Horizon摘要：Biswas 与 Huda 在 TCGA-BRCA 单队列回顾性分析中测试 65 个癌症相关基因的表达谱联合常规机器学习分类器能否区分早期与晚期乳腺癌，报告最佳测试 AUC 为 0.618，且 FDR 校正后无显著差异表达基因。
+理由：属 AI 医疗补充方向：基于 TCGA-BRCA 单队列回顾性数据，用四种常规分类器区分早期与晚期乳腺癌，方法透明但无新方法、无外部验证；最佳测试 AUC 仅 0.618，且重要性排序因模型置信区间含 0.5 仅属探索性。对临床试验提效、虚拟试验或数字孪生的直接价值有限，属于增量式应用研究。预印本，尚未同行评审。
+标签：AI医疗、乳腺癌、基因表达、TCGA-BRCA、预印本
+订阅：bioRxiv｜生物信息学
+来源：https://doi.org/10.64898/2026.10.18.759962
+
+全量数据与运行记录（保留在原运行目录）
+/Users/xulei/项目/搜索/蓝图论文/Horizon/data/mcp-runs/run-20261023T042727Z-53b4a346/raw_items.json
+/Users/xulei/项目/搜索/蓝图论文/Horizon/data/mcp-runs/run-20261023T042727Z-53b4a346/scored_items.json
+/Users/xulei/项目/搜索/蓝图论文/Horizon/data/mcp-runs/run-20261023T042727Z-53b4a346/filtered_items.json
+/Users/xulei/项目/搜索/蓝图论文/Horizon/data/mcp-runs/run-20261023T042727Z-53b4a346/meta.json

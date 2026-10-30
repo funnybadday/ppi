@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "article": {
+    "title": "CDISC数据管线里给智能体按“工序”加载技能：拓扑什么时候有用，什么时候没用",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "创新点"
+      },
+      {
+        "type": "paragraph",
+        "text": "这篇论文处理的是CDISC试验数据管线里LLM的“伪影”问题：生成的SDTM/ADaM产物看似合理，却漏掉必需变量、误用受控术语、编造派生逻辑。做法是把整条管线建成45节点、7层的工作流DAG，59个模块化SKILL.md规则文件绑定到节点上，按拓扑在8000 token预算内路由加载。架构总览见论文Figure 1。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/公众号/配图/论文Figure1_CSP架构.png",
+        "caption": "论文Figure 1：CSP-Engine架构——45节点7层工作流DAG引导59个SKILL.md技能文件选择（JMIR Form Res 2026;10:e100769）"
+      },
+      {
+        "type": "paragraph",
+        "text": "创新点在评价而非系统本身：用受控对比把“领域提示词”“拿到规则语料”“拓扑路由”三个因素拆开，问拓扑是不是只值语料获取的钱，并测了它真正起作用的边界条件。"
+      },
+      {
+        "type": "heading",
+        "text": "方法"
+      },
+      {
+        "type": "paragraph",
+        "text": "顺序探索式四个证据区组：域上下文（10任务90次运行）、组件与效率（180+120次运行）、词法可达（24任务288次运行）、拓扑依赖压力（18任务324次运行），推断以任务为单位。四阶段的任务与运行设计见论文Table 1。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/公众号/配图/论文Table1_证据阶段.png",
+        "caption": "论文Table 1：四个顺序证据阶段的任务、运行数与各自能识别的问题（JMIR Form Res 2026;10:e100769）"
+      },
+      {
+        "type": "paragraph",
+        "text": "生成端统一走Claude Code命令行框架配GLM-5骨干；自适应优先级调度器按当前节点与前驱、后继、全局带宽加权排序候选规则文件。统计用任务级配对bootstrap 95% CI、精确符号翻转检验加Holm校正，另有一名10年经验的统计程序员盲态复评60个输出。"
+      },
+      {
+        "type": "heading",
+        "text": "结果"
+      },
+      {
+        "type": "paragraph",
+        "text": "组件对比：路由上下文4.63高于仅领域提示的4.20（差0.43，Holm校正P=.01），但没有超过扁平加载4.58与随机加载4.44——标准任务上“加载哪些精选规则”并不敏感。三个区组的主对比汇总见论文Figure 3。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/公众号/配图/论文Figure3_整合证据.png",
+        "caption": "论文Figure 3：三区组整合证据——(A)路由对比、(B)词法可达面板、(C)拓扑依赖压力面板（JMIR Form Res 2026;10:e100769）"
+      },
+      {
+        "type": "paragraph",
+        "text": "边界条件很清晰：任务措辞已点名证据时，图+BM25与纯BM25等价（0.593对0.584，差0.009，P=.67），此时BM25本身已召回95.8%必需证据；证据藏在依赖链、与措辞刻意低重叠时，纯图选择0.715对0.367大胜BM25，必需证据召回从0.500补到1.000。完整六臂数字见论文Table 3。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/公众号/配图/论文Table3_压力面板.png",
+        "caption": "论文Table 3：拓扑依赖压力面板——图选择0.715/召回1.000，全库BM25 0.367/召回0.500（JMIR Form Res 2026;10:e100769）"
+      },
+      {
+        "type": "paragraph",
+        "text": "工程收益：低上下文调度器少用28.82%规则上下文（5684对7986 token）而得分持平；全部559个注入片段有来源记录，120份manifest全部精确复现。"
+      },
+      {
+        "type": "heading",
+        "text": "结论"
+      },
+      {
+        "type": "paragraph",
+        "text": "工作流拓扑是一个条件性检索先验：词法检索已到达证据时它增益很小，任务措辞找不到证据时它沿依赖链把证据找回来。对试验数据智能体的操作启发是按任务区组选检索策略——直接点名的工作用词法检索即可，依赖链上的多阶段任务才值得拓扑路由。"
+      },
+      {
+        "type": "paragraph",
+        "text": "边界也要如实记：证据全部来自合成基准，单一GLM-5骨干、单一评分专家，图/语料/任务/判据均由单作者构建；压力面板不是干净因子设计（两臂上下文量2157对4000 token不等）。作者定位为形成性研究，呼吁独立构建的2×2因子验证。"
+      }
+    ],
+    "sources": [
+      {
+        "label": "论文：Workflow Topology-Guided Skill Loading for Agentic AI in Clinical Trial Data Pipelines",
+        "publisher": "JMIR Formative Research（Harrisburg University，Jaime Yan）",
+        "date": "2026-10-20",
+        "url": "https://formative.jmir.org/2026/1/e100769"
+      }
+    ]
+  },
+  "copy": {
+    "cover_title": "拓扑引导技能加载\n何时有用、何时无用",
+    "cover_summary": "JMIR Formative Research单作者研究：45节点CDISC工作流DAG引导59个SKILL.md技能加载，把拓扑的价值从语料获取里分离出来。",
+    "post_title": "按工序给AI加载规则：工作流拓扑何时有用、何时无用",
+    "post_body": "Harrisburg University的Jaime Yan 10月20日在JMIR Formative Research发表研究，针对CDISC SDTM/ADaM管线里LLM生成“看似合理”的伪影（漏变量、错术语、编派生逻辑），把管线建成45节点、7层的工作流DAG，59个模块化SKILL.md规则文件绑定到节点上，在8000 token预算内按拓扑路由加载。\n\n结论是条件性的：任务措辞已点名证据时，图+BM25与纯BM25等价（差0.009），此时BM25已召回95.8%必需证据；证据藏在依赖链、措辞找不到时，纯图选择0.715对0.367大胜BM25，必需证据召回从0.500补到1.000。拓扑路由没有全面超过扁平或随机加载，但低上下文调度器少用28.82%上下文仍保持质量，559个注入片段全有来源记录、120份manifest全部复现。\n\n证据来自合成基准、单一GLM-5骨干与单一评分专家，作者定位为形成性研究，待独立因子验证。",
+    "source_line": "来源：JMIR Form Res 2026;10:e100769（Harrisburg University，Jaime Yan，2026-10-20发表，DOI: 10.2196/100769）。",
+    "hashtags": [
+      "AI临床试验",
+      "CDISC",
+      "智能体",
+      "大语言模型",
+      "论文解读"
+    ],
+    "content_basis": "本轮从PubMed记录与JMIR期刊PDF回源核验后新制；图表坐标级裁剪自论文PDF。",
+    "status": "awaiting_user_review"
+  },
+  "cover": {
+    "mode": "image",
+    "image": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/公众号/配图/论文首页_标题与作者.png"
+  },
+  "source": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/公众号/公众号正文.txt",
+    "sha256": "1b8606c28ade8319be4474d0dd51e186fb11aded8414821213232373152084a0"
+  }
+}

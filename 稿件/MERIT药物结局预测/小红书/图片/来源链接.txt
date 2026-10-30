@@ -1,0 +1,4 @@
+论文：MERIT: Mechanism driven model predicts drug outcomes and nominates indications for failed drugs
+bioRxiv（Omic Inc.，Koh-Tan等）
+2026-08-14
+https://www.biorxiv.org/content/10.64898/2026.08.09.743088v1

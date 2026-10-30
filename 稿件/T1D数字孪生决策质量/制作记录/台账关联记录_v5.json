@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "review_file": "稿件/T1D数字孪生决策质量/制作记录/台账关联记录_v5.json",
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "events": [],
+  "history_review": [
+    {
+      "event_key": "evt-6da9217478626639d4ca",
+      "change_type": "repeat",
+      "status": "drafted",
+      "observed_at": "2026-10-23T14:40:00+08:00",
+      "article_directory": "稿件/T1D数字孪生决策质量",
+      "note": "用户反馈4两项：①成本数字纠错——Table 6表头序为MCMC|SBI|UKF|Prior|Neural|Linear，公众号正文/Word与小红书同步更正（神经网络2.4s、线性0.1s，补Prior 175s）；②行文改为图文引用式（'见论文Table N/Figure N'引出图表，不再突兀插图）；小红书偏好已同步'图文引用式'默认；上一版归档 历史版本/四版_图夹中间",
+      "platform_outputs": {
+        "wechat": {
+          "directory": "稿件/T1D数字孪生决策质量/公众号",
+          "review_status": "awaiting_user_review",
+          "published": false,
+          "source_file": "公众号/公众号稿件.docx",
+          "source_sha256": "2ef595c69ac958c8c6086c9eb85ffaa2b7f33b671a6692b4104f7394475da925",
+          "revision_note": "成本数字纠错+图表引用句（Word重新生成）"
+        },
+        "xiaohongshu": {
+          "directory": "稿件/T1D数字孪生决策质量/小红书",
+          "review_status": "awaiting_user_review",
+          "published": false,
+          "source_file": "公众号/公众号正文.txt",
+          "source_sha256": "d504d12a3f084907ea67cd812c7dfafcf23463a3610557f56d5aa84004aa97aa",
+          "image_count": 6,
+          "dimensions": [
+            1080,
+            1440
+          ],
+          "revision_note": "图文引用式+成本纠错（渲染输入_v5）"
+        }
+      }
+    }
+  ]
+}

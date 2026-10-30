@@ -1,0 +1,19 @@
+{
+  "read_at": "2026-10-23T13:20:00+08:00",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2610.30577v1",
+      "saved": "素材/arXiv摘要页.html",
+      "status": "已读，提取标题/作者/日期/摘要/备注"
+    },
+    {
+      "url": "https://arxiv.org/pdf/2610.30577v1",
+      "saved": "素材/论文全文.pdf",
+      "status": "已读，全文文本提取至 素材/论文全文提取.txt；核验六方法清单（MCMC/SBI/UKF/Linear/Neural/Prior）、Spearman定义（风险核打分后排序一致性）、成本表（MCMC约8h/患者，Linear 2.4s，Neural 0.1s）"
+    }
+  ],
+  "fact_check": "候选阶段全部数字（RMSE 63.6/32.9、Spearman 0.766/0.049、30患者×21方案、p=0.39）与摘要页及全文一致；作者机构Emory University（CS+医学院）取自PDF首页",
+  "open_questions": "SBI 0.728与Prior无显著差异的p=0.3931取自全文敏感性分析；成本表六值与方法顺序的对应按表格行序推断（8h18m=MCMC、尾部2.4s/0.1s=Linear/Neural），同事复核时可对照原文Table 6",
+  "correction_20261023": "用户复核发现成本数字错误：Table 6表头顺序为 MCMC|SBI|UKF|Prior|Neural|Linear，正确对应 MCMC=8h18m、SBI=245s、UKF=181s、Prior=175s、Neural=2.4s、Linear=0.1s；原文误写'线性2.4秒、神经网络0.1秒'，已在公众号正文/Word与小红书同步更正为'神经网络约2.4秒、线性约0.1秒'并补Prior=175s。",
+  "crop_correction_20261023": "用户发现图表裁剪错误，pdfplumber坐标级核查证实：Table1标题实际在第3页68.8%（旧裁剪16%-74%主体为正文+表格拦腰截断）；Table2标题在8.9%（旧裁剪缺标题行）；Figure1图形本体71.4%-82.3%+caption至93%（旧裁剪59.5%-87.5%上混正文下截caption）；Table6底部混入两行正文。四图已按坐标重裁（67-82.5%/7.5-58%/70.3-93.5%/60-78.5%）并经坐标+视觉双重验证。教训：视觉模型定位不可靠，图表裁剪一律先做pdfplumber坐标定位。"
+}

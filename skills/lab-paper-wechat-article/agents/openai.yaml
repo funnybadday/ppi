@@ -1,0 +1,4 @@
+interface:
+  display_name: "实验室论文解读公众号制作"
+  short_description: "从已选论文或手动论文网页/DOI回源核实并制作论文解读公众号图文与可编辑Word"
+  default_prompt: "使用 $lab-paper-wechat-article 将我选定的论文或提供的论文网页制作成公众号解读图文。"

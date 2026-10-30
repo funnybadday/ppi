@@ -1,0 +1,85 @@
+{
+ "created_at": "2026-10-23T13:00:00+08:00",
+ "completed_at": "2026-10-23T13:20:00+08:00",
+ "status": "completed_awaiting_user_review",
+ "input": {
+  "entry": "C01",
+  "file": "选题池/2026-10-23_122727_首轮论文候选.json",
+  "resolved": "制作记录/输入记录.json"
+ },
+ "source_check": {
+  "arxiv_abs": "素材/arXiv摘要页.html（已读）",
+  "arxiv_pdf": "素材/论文全文.pdf（已读，全文提取核验六方法/Spearman定义/成本表/机构）",
+  "fact_check": "候选阶段全部数字与原文一致；Emory机构取自PDF首页"
+ },
+ "few_shots": {
+  "file": "语气参考/公众号原文/原文索引.json",
+  "read": [
+   "林少楠GCP_Veeva发布StudyBuilderAgent",
+   "数字生命卡兹克_Anatomy科普视频"
+  ]
+ },
+ "writing_review": {
+  "title": "1型糖尿病数字孪生评价的一个反直觉结果：预测最准的模型，治疗排序接近随机",
+  "body_chars": null,
+  "note": "按林少楠样例的分节事实驱动写法；预印本边界如实标注"
+ },
+ "images": [
+  {
+   "file": "公众号/配图/论文原图_Figure1_决策质量对比.png",
+   "source": "论文PDF第7页300dpi渲染裁剪（Figure 1+caption），视觉核验两轮（先200dpi定位，后精修裁剪）"
+  }
+ ],
+ "word": {
+  "file": "公众号/公众号稿件.docx",
+  "east_asian_font": "Songti SC",
+  "checks": {
+   "paragraphs": 18,
+   "key_numbers_present": true,
+   "embedded_images": 1,
+   "visual_check": "qlmanage首页渲染+视觉模型核查：中文无乱码、标题居中加粗、首行缩进正常"
+  }
+ },
+ "xiaohongshu": {
+  "pages": 6,
+  "dimensions": [
+   1080,
+   1440
+  ],
+  "text_exact_match": true,
+  "checks": "渲染器逐字重组/孤悬标题/跨页检查通过；封面、图表页(第4页含图注)、末页(来源保留)逐张视觉核查通过",
+  "renderer_fix": "render_pages.cjs 行尾空格贴边容差修复（justify下行尾不可见空格被误判越界），契约测试通过后使用"
+ },
+ "deviations": "documents技能在本环境不可用，Word由python-docx生成并程序化+视觉双重核查；宝玉图像技能未装（本次用真实论文图表，未需图解）",
+ "human_acceptance": "pending",
+ "revisions": [
+  {
+   "revision": "wechat_full_rewrite_v3",
+   "date": "2026-10-28",
+   "trigger": "用户要求对项目全部6篇论文按完整流程重新生成公众号稿件（此前2026-10-28上午另一会话已按PFA样例做过一轮样式改写但未回源核验、未记录台账）；本次回到各案例素材全文提取逐项核验事实后重写，并补全记录。",
+   "changes": [
+    "正文全文重写（PFA样例结构：主标题+——副标题、读者痛点开头、三个加粗追问路线图、判断句加粗小标题、[1]引用、参考文献节、按主题定制的斜体免责声明）",
+    "事实逐项回源：草稿中每个数字/专名在素材/论文全文提取.txt中找到对应原文行，未核验主张删除（详见制作记录/公众号正文_重写草稿_20261028.txt随附核验报告，报告正文存于当次会话交付摘要）",
+    "历史未核验主张（多智能体案例392例队列、盲法医生安全性差异）确认未写入",
+    "图文引用式配图：配图标记与配图/清单文件一一对应；多智能体案例启用此前备用Table 2",
+    "Word重建：宋体/Songti SC，标题16pt居中加粗、副标题12pt、小标题13pt、正文11pt、图6.1英寸+9pt来源题注、表格Table Grid 10pt、数据来源注9pt斜体、参考文献10pt",
+    "上午版正文与docx存历史版本/公众号正文_上午版20261028.txt、公众号稿件_上午版20261028.docx"
+   ],
+   "verification": {
+    "content_completeness": "6/6通过：docx全文与正文TXT规范化比对，仅markdown表格对齐行（语法行）不入文，无内容缺漏",
+    "visual_check": "6/6通过：qlmanage原生渲染首页逐张核查（无豆腐块乱码、无重叠截断、标题居中加粗、正文两端对齐、图片完整）；MERIT首页可见表格边框表头完整与自然分页",
+    "image_fit": "全部嵌入图高≤7.36英寸（页可用高8.9英寸），无跨页异常",
+    "limitations": "本机Word版本AppleScript不支持save as导出PDF、screencapture无屏幕录制权限，第2页起未做逐页目检；分页正常性由同版式参数（与已交付上午版一致）+无超高元素+首页自然分页佐证"
+   },
+   "human_acceptance": "pending",
+   "files": {
+    "article": "公众号/公众号正文.txt",
+    "article_sha256": "4e5a237b4ac879003d6a45454e31a759c8f6d3696ab167f1193e0e43a80f9155",
+    "docx": "公众号/公众号稿件.docx",
+    "docx_sha256": "d5b82ed307be2658b1c1f87aa7080b7f4af176dd6fecdb6d08d405caef5a48e2",
+    "draft_with_verification": "制作记录/公众号正文_重写草稿_20261028.txt"
+   },
+   "chars_nospace": 4727
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+  "case": "SystemOne入组筛选",
+  "event_key": "C02",
+  "paper": {
+    "title": "A general-purpose System One decision model for clinical records",
+    "arxiv": "https://arxiv.org/abs/2610.27099v1",
+    "pdf": "https://arxiv.org/pdf/2610.27099v1",
+    "submitted": "2026-10-19 (v1, Mon, 19 Oct 2026 18:00:51 UTC)",
+    "authors_short": "Andrew Zhang、Trinh T.L. Vuong、Sophia J. Wagner等17位作者，通讯Faisal Mahmood",
+    "institutions": "Mass General Brigham AI Institute、Harvard Medical School、MIT",
+    "pages": 36,
+    "status": "预印本，未经同行评审"
+  },
+  "sourcing": {
+    "date": "2026-10-23",
+    "method": "curl -sL -x http://127.0.0.1:6864 抓取arXiv摘要页与PDF全文（代理必用）；pypdf提取全文文本到 素材/论文全文提取.txt（162,816字符）",
+    "files": ["素材/arXiv摘要页.html", "素材/论文全文.pdf", "素材/论文全文提取.txt"],
+    "verification": "选题池C02的verified_facts逐项回源核对一致：4B参数、Klaros-12M（12,416,448问答/3,643,798患者）、MGBQA-1M 963,408留出患者14项独立键任务13项领先、21个外部数据集86.7对88.6且快6.4倍、17项试验top-20判定合格3.5±2.9对0.8±0.9、token 610对421,136（690倍）。机构与日期以原文页为准（MGB/HMS/MIT，2026-10-19提交，cs.AI）。",
+    "next_check_resolution": "①筛选设置：1,000名MIMIC-IV测试患者、21,866份文档（7,695记录单元）、17项ClinicalTrials.gov试验519个试验问题、约400万答案；②'判定合格'金标准：盲法GLM-5.3评判读全记录两遍打分（加权κ=0.84，663对患者-试验对），与写题为同一家模型，作者自述自偏好风险；③无真实入组结果，未前瞻验证，权重待机构审批后凭证发布。"
+  },
+  "wechat_article": {
+    "path": "公众号/公众号正文.txt",
+    "sha256": "3870576ffec7a7c51c5bd85a12378c839512c139090916cbbef313252736c04a",
+    "length_note": "约1800汉字；含预印本状态、证据边界与图文引用句。修正记录：初稿曾把外部时间线类对基座提升误写为图2e中的28.2分，已按主文原文改为12.6分并重新prepare/render（v3）"
+  },
+  "figure_crops": [
+    {"name": "论文首页_标题与作者.png", "source_page": 1, "method": "pdftoppm 300dpi渲染第1页 + PIL按宽:高=1080:800从页顶裁剪", "bounds": "整页宽 x 页顶至页高57.2%", "size": "2550x1888", "check": "标题、17位作者、三个机构完整（坐标核验：标题y0.058起，作者及通讯至y0.285；坐标与视觉双确认）"},
+    {"name": "论文Fig1_模型设计.png", "source_page": 4, "method": "pdfplumber词坐标+图形对象边界（等价坐标法，图体在上题注在下），顶=图体最上对象0.055，底=题注Fig. 1|起点0.646减边距", "bounds": "垂直0.055-0.640，水平0.040-0.960", "size": "2346x1931", "check": "锚点断言（Training data/12.4 M QA pairs等在区、题注不在区）+视觉抽查：面板a-f完整、无题注与正文混入"},
+    {"name": "论文Fig2b_留出患者表现.png", "source_page": 6, "method": "面板b粗体字母坐标（top=0.237）与下邻面板c（0.348）定界；初裁0.040-0.960后按视觉建议放宽", "bounds": "垂直0.233-0.340，水平0.032-0.968", "size": "2387x354", "check": "锚点断言（Parameters/CS1-4B/Best open decision model at each size等）+视觉抽查：六个参数量对比小图与图例完整"},
+    {"name": "论文Fig5a_筛选流程.png", "source_page": 11, "method": "页面图形对象顶0.055至面板b/d行字母（0.347）定界", "bounds": "垂直0.055-0.345，水平0.040-0.960", "size": "2346x957", "check": "锚点断言（VITC-SHOCK/Decompose/Rank/P(eligible)等）+视觉抽查：五步流程完整、无题注"},
+    {"name": "论文Fig5d_筛选排序结果.png", "source_page": 11, "method": "面板d字母（x0=0.387, top=0.347）与轴标签底（nDCG@20/Judged in top 20，bottom≈0.601）定界；左侧避开面板b/c（右缘≤0.351）", "bounds": "垂直0.340-0.610，水平0.365-0.965", "size": "1530x891", "check": "锚点断言（PARAGLIDE-HF/0.64/0.11/nDCG@20/2.9等；面板b词不混入）+视觉抽查：13试验点图与top-20条图完整"},
+    {"name": "论文EDTable2_速度与成本.png", "source_page": 33, "method": "项目脚本 crop_paper_figure.py --caption 'Extended Data Table 2' --bottom 0.53（脚本自带断言通过）", "bounds": "垂直0.222-0.530（题注起至面板a表末行Vega-27B），水平0.040-0.960", "size": "2346x1017", "check": "脚本断言（首行=表题、末行=Decision2.0Vega-27B 4,559 6,042 11,540 3.5 3,206 6.4）+视觉抽查：题注与7行速度表完整"}
+  ],
+  "chapter_image_mapping": {
+    "创新点": "论文Fig1_模型设计.png（设计与训练数据）",
+    "方法": "论文Fig5a_筛选流程.png（智能体筛选协议）",
+    "结果": ["论文Fig2b_留出患者表现.png（内部基准）", "论文Fig5d_筛选排序结果.png（筛选主结果）"],
+    "结论": "论文EDTable2_速度与成本.png（成本）"
+  },
+  "render": {
+    "tool": "prepare_input.py + render_pages.cjs（Chrome）",
+    "manifest": "制作记录/渲染输入_v3.json",
+    "output": "图片/（渲染输出_v3，7页1080x1440）",
+    "status": "passed（text_exact_match=true，来源仅末页可见，段落按完整行跨页，小标题与后文相连）",
+    "versions": [
+      {"dir": "历史版本/初版_第2页留白", "reason": "第2页底部留白597px偏大", "disposition": "为创新点补充校准概率段（论文ECE 0.012-0.052对0.033-0.139）后重渲"},
+      {"dir": "历史版本/二版_源稿数字修正前", "reason": "公众号源稿修正28.2→12.6后manifest哈希过期", "disposition": "重新prepare/render为v3；v2与v3布局逐页一致，图像区像素差最大1/255（Chrome缩放栅格噪声），内容相同"},
+      {"dir": "图片/", "reason": "当前交付版（v3），各页留白165-303px", "disposition": "交付；图片总览.jpg与小红书图文.zip由v3页面重建"}
+    ],
+    "page_whitespace_px": {"2": 233, "3": 233, "4": 285, "5": 188, "6": 303, "7": 165}
+  },
+  "visual_inspection": {
+    "cover_crops": "封面与5张论文图裁剪均已逐张用视觉模型抽查：封面标题/作者/机构完整；Fig1面板a-f完整无题注混入；Fig2b六图与图例完整；Fig5a五步流程完整；Fig5d点图与条图完整；ED表2题注与7行完整。注：封面首次线上抽查因CDN同名缓存返还参考案例旧图误报为另一论文，改用唯一文件名+像素扰动重新上传后确认为本篇论文首页，本地SHA256与参考案例文件不同。",
+    "rendered_pages": "7页PNG逐张视觉抽查（每页加2x2红色标记副本单独上传，规避CDN同名/感知哈希缓存返还参考案例旧图的问题；本地SHA256与逐页内容JSON先已确认渲染内容为本案例）",
+    "rendered_page_checks": [
+      "01_封面：论文首页截图完整，中文标题两行无孤字，摘要一行完整，无重叠截断",
+      "02_正文：创新点章3段纯文字页，小标题底纹+下划线正常，无乱码无截断，留白合理",
+      "03_正文：Fig.1完整、方法标题+2行相连正常",
+      "04_正文：续段+Fig.5a与Fig.5d两张图完整、图文无重叠",
+      "05_正文：整页检查视觉模型误报图被裁；裁取图区(1080x310)特写复核：六小图、图例、图注完整",
+      "06_正文：Fig.5d完整+结论标题相连+成本段；'Vega-27B'在连字符处跨行断开（英文复合词连字符断行为常规排版，非截断，text_exact_match=true）",
+      "07_正文：ED表2完整+边界段5行无乱码；末页来源行可见，HTML核实文本为'来源：arXiv:2610.27099v1（Mass General Brigham、哈佛医学院、MIT，2026-10-19提交）。'（视觉模型小字误读为乱码，以HTML与manifest为准）"
+    ]
+  },
+  "deliverables": ["图片/（7页PNG与排版证据）", "图片总览.jpg（3列拼图）", "发布标题与正文.txt", "来源链接.txt", "小红书图文.zip（PNG+文案+来源）"],
+  "review_status": "awaiting_user_review",
+  "notes": "数字均出自论文原文并逐项核对表头列序（ED Table 2速度表列序：ms/doc(1q/10q/40q)、Answers/s(40q)、GB10-h/10^6 docs、Ratio）。主文正文写Vega-27B为3,210 GB10-h，表内为3,206；引用表时按表内3,206。"
+}

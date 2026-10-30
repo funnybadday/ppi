@@ -1,0 +1,652 @@
+Evaluating Type-1 Diabetes Digital Twins by Decision
+Quality
+Victor Li1 Owen Tucker1 Michael S. Hughes2
+Temiloluwa Prioleau1 Shengpu Tang1
+1Department of Computer Science and 2School of Medicine, Emory University
+{victor.li, owen.tucker, michael.s.hughes,
+temiloluwa.prioleau, shengpu.tang}@emory.edu
+Abstract
+A digital twin (DT) for type 1 diabetes (T1D) can predict how an individual’s
+blood glucose will respond to different insulin treatments without actually trying
+them. For each treatment, downstream statistics of predicted glucose trajectories,
+such as glycemic risk, can be computed to guide clinical decisions. However, the
+quality of DTs is usually measured by the accuracy of their predicted glucose tra-
+jectories, which may not reflect the quality of the downstream treatment decisions
+they inform. In this work, we directly evaluate DTs by this decision quality on
+downstream treatment ranking, i.e., whether a DT predicts glucose trajectories that
+can be used to rank candidate treatments as the real patient would. We present an
+evaluation protocol over 30 virtual patients from the FDA-accepted UV A/Padova
+model, each simulated under 21 different basal-bolus treatments. For each patient,
+a DT is fitted under one treatment and then produces glucose trajectories for the
+remaining 20 treatments. Our results show that prediction accuracy and decision
+quality disagree. A baseline that models the average patient, never seeing the
+individual’s glucose data, has the lowest prediction accuracy of all six methods
+(RMSE: 63.6 mg/dL) but ranks treatments with the second-highest mean Spear-
+man (0.766), while a black-box neural network that predicts glucose nearly twice
+as accurately (RMSE: 32.9 mg/dL) ranks them no better than a random ordering
+of the 20 treatments (0.049 Spearman). Therefore, selecting a DT based on pre-
+diction accuracy alone can prefer one that recommends treatments at chance, and
+decision quality must be evaluated directly rather than assumed to follow from
+prediction accuracy.
+1 Introduction
+Type 1 diabetes (T1D) is an autoimmune condition in which the body stops producing insulin, requir-
+ing lifelong insulin therapy and frequent monitoring of blood glucose [9]. Management of glucose
+must therefore replicate the control loop that a healthy pancreas runs, usually through a constant
+basal dose covering fasting needs, meal boluses proportional to carbohydrate content, and correc-
+tion boluses proportional to how far glucose sits above target. In practice, this basal-bolus treatment
+is specified by parameters such as the basal rate, carbohydrate ratio, and correction factor [18]. For a
+fixed insulin formulation and delivery method, it is these patient-specific parameters that constitute
+a treatment in our work. Choosing the treatment well is both difficult and extremely consequential
+to the patient’s health. The right setting differs across patients and changes with physical activity,
+illness, and time of day [9, 12, 18]. Continuous glucose monitoring (CGM) has improved mat-
+ters considerably, but treatment selection still relies heavily on patient-specific parameters identified
+through an empirical loop: make an adjustment, observe prospective glucose values, and adjust
+again.
+Preprint.
+arXiv:2610.30577v1  [cs.LG]  22 Oct 2026
+A digital twin (DT) is a computational model that acts as the virtual stand-in for the patient [15].
+For T1D, it is a personalized model that predicts how the patient’s blood glucose will respond to
+insulin and carbohydrate intake, fit from their own glucose, insulin, and meal trace recorded under
+the treatment they are currently on [5, 13]. Rather than testing candidate treatments directly on the
+patient, the DT generates simulated glucose trajectories by applying these candidate treatments to
+itself. Each trajectory is then scored by glycemic risk, which summarizes how far and how long
+glucose strays from the target range [17]. Ranking the candidates by this score can give clinicians a
+basis for choosing among treatment options. In other words, the DT exists to answer the counterfac-
+tual question: what would happen under new treatments?
+Published works evaluate DTs for T1D by prediction accuracy: how closely the predicted glucose
+trajectory matches the observed one, measured by root mean squared error (RMSE) or mean absolute
+relative difference (MARD) [5, 13]. However, neither measures what a DT is built to do. What
+matters is decision quality: whether the trajectories a DT generates rank the candidate treatments in
+the right order [1]. In fact, clinical targets are set on glycemic outcomes such as time in range [2], so
+the question is whether an adjustment moves the patient in the right direction and how much better
+the best alternative would have been, rather than the pointwise accuracy of a glucose forecast. High
+prediction accuracy gives no guarantee that a DT’s ranking of the candidate treatments matches the
+patient’s own ranking [1].
+In this work, we propose an evaluation protocol that scores a DT on the decisions it supports rather
+than solely on the trajectories it produces, and implement it as a benchmark on three published
+methods [5, 13, 11] and three proposed baselines. The protocol is designed for DT developers
+rather than for clinicians, giving evidence that a DT supports the treatment decisions a clinician
+would make with it and exposing DTs that predict glucose accurately while ranking treatments
+inaccurately. Each DT is fit to a patient’s glucose trajectory under a single baseline treatment and
+predicts glucose under 20 counterfactual treatments. A glycemic risk kernel scores each predicted
+trajectory, yielding the DT’s ranking over the 20 candidates. We utilize a cohort of virtual patients,
+so that the true ranking is obtained by running every candidate on the same patient in the simulator
+and applying the same kernel. Decision quality is the agreement between these rankings, measured
+by Spearman correlation and regret, and is reported alongside prediction accuracy for every method.
+Our contributions are:
+• An evaluation protocol that scores a DT for T1D by how well its ranking of candidate treatments
+agrees with the patient’s true ranking.
+• A benchmark implementing this protocol on 30 UV A/Padova virtual patients and 20 counterfactual
+treatments, with three published DT methods, each kept consistent with its original implementa-
+tion, and three baselines.
+• Evidence that the two families of metrics disagree. Methods significantly separated on prediction
+accuracy are not separated on decision quality, a baseline that never reads the patient’s CGM has
+the second-highest mean Spearman, and a black-box baseline that predicts glucose nearly twice
+as accurately ranks treatments at chance.
+2 Related Work
+Digital twins for T1D.Personalized models of a patient’s glucose response are identified from
+their own CGM, insulin and meal record. Physiological models are fit by Bayesian MCMC in
+ReplayBG [5], by neural posterior estimation [13], or by recursive filtering [11], while black-box
+models learn the map from inputs to glucose directly from data. Cappon et al. [4] compare individu-
+alized black-box predictors with a physiological model and find the black-box approaches preferable
+for glucose prediction, which is why our benchmark includes two black-box baselines. These works
+validate a model by how closely its predictions match held-out measurements. Del Favero et al. [7]
+argue that pointwise error should weigh clinically consequential mistakes more heavily and propose
+a glucose-specific metric for assessing predictors, but it remains a property of a single predicted
+trajectory rather than of the decision a set of trajectories supports.
+Decision-aware learning.Decision-focused learning trains a predictor through the downstream
+optimization so that its errors are weighted by their effect on the decision [10, 21], starting from
+the observation that the most accurate predictor need not yield the best decision. Amad and van der
+2
+Schaar [1] carry this argument to digital twins, targeting the twin at the decisions it informs. These
+works change how a model is trained. We hold training fixed at each method’s published procedure
+and change only how the resulting DT is evaluated, so the protocol applies to existing T1D DT
+methods without retraining them.
+3 Evaluation Protocol
+3.1 Setup
+Let a treatmentπbe a setting of the parameters that determine a patient’s insulin delivery, letπ 0 be
+the patient’s own baseline treatment, and letΠbe the set of candidate treatments, whereπ 0 /∈Π.
+Running treatmentπon patientpproduces trajectory IG p,π, which a glycemic risk kernel maps to
+a scalar rewardR(IG p,π). The output trajectory is defined to be noise-free interstitial glucose (IG),
+rather than noisy CGM, because sensor noise describes the device rather than the patient. Ranking
+ΠbyR(IG p,π)gives the patient’s ranking over the candidate treatments. With a simulated patient
+cohort, we run everyπ∈Πon the same patient under the same conditions.
+3.2 Digital Twins
+A DT methodφ∈ Fmaps a patient’s noisy CGM, recorded under the baseline treatmentπ 0, to a
+DTτ p ∈ T, soφ: CGM p,π0 7− →τp. A DT is itself a function, mapping the carbohydrate rate
+dand the insulin rateu π delivered under some treatmentπto a predicted noise-free IG trajectory,
+τ p : (d, u π)7− →cIGp,π. Using data recorded only underπ 0, each DT is fit once and used to
+simulate glucose trajectories for every candidate treatmentπ∈Π. These two definitions are also
+the only assumptions required for defining a DT method. They do not need to have specific states or
+underlying physiological models, so mechanistic and black-box DT methods are scored identically.
+3.3 Metrics
+We evaluate a DT on the two families of metrics defined in Table 1, all computed per patient and
+test day on the noise-free IG. Prediction accuracy metrics are the classic RMSE and MARD scores
+between predicted and true trajectories, averaged overΠ. Decision quality metrics score the ordering
+a DT induces overΠwhen its predicted trajectories are passed through the glycemic risk kernelR.
+Spearman is the rank correlation between the DT’s ordering and the patient’s true ordering. Regret
+scores only the top treatment that the DT recommends as the true reward it gives up against the true
+best treatment, reported in both reward units and normalized acrossΠso that patients with easy
+and hard decision problems are comparable. Which decision quality metric to prefer depends on
+how the DT is deployed. Regret is better when a single recommended treatment goes straight to
+the patient, while Spearman is better for global ranking alignment, and we choose Spearman as the
+primary metric.
+Table 1: Metric definitions.Tis the number of samples andbπ= arg max π∈Π R(cIGp,π).
+Prediction accuracy Decision quality
+RMSE 1|Π| Pπ∈Π
+s
+1
+T
+TP
+k=1
+
+cIGp,πk −IG p,πk 2
+MARD 100|Π| Pπ∈Π 1T TPk=1
+cIGp,πk −IG p,πk 
+IGp,πk
+Spearmancorr
+ 
+rank(R(IGp,π)),rank(R( cIGp,π))π∈Π
+Regretmax
+π∈Π
+R(IGp,π)−R(IG p,bπ)
+Regret Norm Regret
+ 
+max
+π
+R(IGp,π)−min
+π
+R(IGp,π)
+3.4 Statistical Analysis
+Metrics are first averaged across test days within a patient and compared to remove the varying
+difficulty of treatment selection across the cohort. We follow Demšar’s protocol [8] and run an
+omnibus Friedman test per metric withα= 0.05, ranking the methods per patient. Since the
+3
+Table 2: Benchmark summary. The last column names the source of each choice, either asimglucose
+default, a published protocol, or our own design.
+Component Choice Source
+Simulatorsimglucose(UV A/Padova), 1 min dopri5
+integration
+simglucosedefault [22]
+CGM Breton–Kovatchev noise model, 5 min interval
+⇒288 samples per 24 h day
+simglucoseGuardianRT sensor [22]
+Subjects 30 built-in virtual patients: 10 adults, 10
+adolescents, 10 children
+simglucosedefault [22]
+MealsRandomScenario, one independent draw per
+day (Appendix A.1)
+simglucosedefault [22]
+Bolus formula BBController meal bolus with a correction
+above 150 mg/dL (Equation 1)
+simglucosedefault [22]
+Correction bolus computed from noise-free IG rather than CGM,
+so delivered insulin is deterministic given the
+patient, meals and treatment
+ours; ReplayBG [5] instead replays
+a fixed insulin record
+Candidate
+treatments
+20 counterfactuals: bolus or basal scaled by
+−50%to+50%in10%steps, each beginning
+at the window open
+ReplayBG Scenarios 1 and 3 [5];
+the window start is ours
+Risk kernel negative total Magni risk over the scored
+window, glucose clipped to[40,400]mg/dL
+(Equation 2)
+Magni et al. [17]; clip range
+from [20]
+Identification
+window
+22 h at 5 min (264 samples) for MCMC, SBI
+and UKF; all 30 days for Linear and Neural;
+none for Prior
+Hoang et al. [13], after the
+ReplayBG implementation; UKF
+matched to MCMC; baselines ours
+Priors the published ReplayBG prior for MCMC, SBI,
+and Prior
+Cappon et al. [5]
+Training data 30 independent identification days under the
+training treatment
+ours
+Test data 10 independent identification days×20
+treatments
+ours
+Friedman test does not identify which pair produced the rejection, we run pairwise Wilcoxon signed-
+rank tests with a Holmαcorrection [3]. We present the outcome as critical difference diagrams [8,
+14] for the primary metric of each family, RMSE and Spearman. Each method is placed at its mean
+rank across patients, joined by a bar when the Holm-corrected pairwise test does not separate them.
+4 Benchmark Design
+Our benchmark evaluates DT methods for T1D following the evaluation protocol defined above.
+Every design choice follows asimglucosedefault [22] or a published protocol unless marked as
+ours, and Table 2 attributes each choice to its source. Each method is kept consistent with its original
+implementation.
+4.1 Simulator and Patient Cohort
+We use thesimglucosesimulator, an open-source Python implementation of the FDA-accepted
+UV A/Padova T1D model [6, 22]. It has 13 states and about 30 patient-specific parameters and is
+treated as a black box, mirroring real clinical scenarios where the true dynamics of blood glucose
+are unknown. We extract noisy CGM for training and noise-free IG for ground truth, so measure-
+ment noise is present only in training, not in evaluation. Our patient cohort consists of the 30 virtual
+patients that ship withsimglucose: 10 adults, 10 adolescents, and 10 children [22]. Each patient
+carries its own parameters and baseline treatment, including basal rate, carbohydrate ratio, and cor-
+rection factor.
+4.2 Candidate Treatments and Risk Kernel
+Each candidate treatment is a pair of multipliersπ= (r bolus, rbasal)on the patient’s baseline basal-
+bolus treatment, where the baseline isπ 0 = (1,1). The meal bolus followssimglucose’s BBCon-
+4
+troller formula [22], given in Equation 1, whered(t)is the carbohydrate rate,∆is the sample
+interval, CR is the patient’s carbohydrate ratio, and CF is the patient’s correction factor. Boluses
+only fire during meals, with a correction added when IG is above 150 mg/dL, and the correction
+term only acts upwards.r bolus multiplies the sum of the meal bolus and correction bolus, andr basal
+multiplies the basal rate.
+bolus(t) =r bolus ·
+h d(t)∆
+CR| {z }
+carb
++1[d(t)>0]·1[IG(t)>150]· IG(t)−140CF| {z }
+correction
+i
+(1)
+The original BBController computes the correction term from the CGM reading, which lets measure-
+ment noise enter the delivered insulin and, from there, the trajectory and the true ranking. Cappon
+et al. [5] scale the originally delivered doses, so every counterfactual replays a fixed insulin record,
+which removes the feedback loop rather than de-noising it. We instead keep the loop closed and
+compute the correction from the noise-free IG, so the true ranking is a deterministic property of the
+patient, the meals and the treatment, regardless of the sensor seed. The set of candidate treatments
+also follows Cappon et al. [5]. Either the meal bolus or the basal infusion rate is scaled by−50%to
++50%in steps of10%, excluding0%, while the other is left unchanged. Furthermore, each candidate
+treatment begins at the start of the identification window rather than at the start of the simulation.
+Every run spends its first five hours on the patient’s own baseline treatmentπ 0 and switches to the
+candidate at 5am, so every treatment enters the scored window from the same state.
+We instantiate the rewardRas the negative total Magni risk [17] in Equation 2, whereg t is the
+glucose at samplet.
+f(g) = 3.550313
+
+(lng) 0.835334 −3.793357  ,risk(g) = 10f(g) 2, R=− X
+t
+risk(gt)(2)
+The kernel is near zero across the euglycemic range and grows in both directions, but asymmetrically:
+its constants are fixed by risk(70) =risk(280) = 25and risk(50) =risk(400)[17]. This is what
+separates the reward from RMSE and MARD, which weigh a mg/dL of error the same wherever it
+falls. The reward of a trajectory is the negative sum of that risk over every sample in the scored
+window. Glucose is clipped to[40,400]mg/dL before the kernel is applied, reflecting the reportable
+range of the Dexcom G6 CGM [20].
+4.3 Scenario and Data
+Meals are drawn fromsimglucose’s default RandomScenario: three main meals at probability0.95
+and three snacks at probability0.30, yielding 1 to 6 eating occasions and196±30g of carbohydrate
+intake per day. Each identification day covers 24 hours starting from 5am and CGM is sampled
+every 5 minutes. Appendix A.1 provides a listing of all parameters used. Each scenario is drawn
+independently and cached, so all 21 treatments and benchmarked methods see the same meals on
+the same day. Differences between treatments are therefore never confounded by noise in what the
+patient ate.
+Training data consists of 30 independent identification days under the training treatment. We cap
+it at 30 days, about one month of CGM, as a realistic amount of recent data for a single patient
+and more than twice the 14 days the international consensus recommends for assessing glycemic
+control [2]. We first create 29 hour trajectories, each with an independent scenario draw. The first 5
+hours of each trajectory are dropped and never scored or handed to a method:simglucosetruncates
+breakfast times to 5:00am–9:00am, so 5am is the earliest instant at which any meal can be drawn.
+No method is required to use all 30 days, and each uses the amount its original implementation
+prescribes. Evaluation data consists of 10 additional independent identification days, each starting
+from the baseline treatmentπ 0 until 5am and then switching to the candidate treatment afterwards.
+4.4 Methods
+We evaluate six DT methods: three published DT methods for T1D, all run here on the same simpli-
+fied, nine-state, eight-parameter physiological ordinary differential equation (ODE) model of Cap-
+pon et al. [5], and three baselines we propose. Each method uses the amount of training data its
+original implementation prescribes, so the data requirement is part of the method being evaluated.
+MCMC and SBI identify from a single 22 hour window (264 CGM samples), the setting Hoang
+5
+et al. [13] adopt from the ReplayBG implementation and the exact input of their network, and UKF
+is matched to the same window. Extending them to all 30 days is computationally expensive as every
+MCMC likelihood evaluation simulates the ODE over the whole window. The single-day require-
+ment is therefore a property, and a limitation, of these methods rather than of the benchmark. The
+Linear and Neural baselines have no published setting, so we give them all 30 training days (8640
+samples). The Prior baseline uses no training data.
+•Markov chain Monte Carlo (MCMC)[5]. The ReplayBG method: Bayesian identification
+of a nine-state, eight-parameter physiological ODE by adaptive single-component Metropolis–
+Hastings, followed by a multivariatet-copula over the marginals. It is identified from a single 22
+hour window and replays candidate treatments from an assumed steady state.
+•Simulation-based inference (SBI)[13]. A masked autoregressive flow trained by neural posterior
+estimation to map a CGM trace directly to a posterior over the same ODE model, extended to infer
+the nine initial conditions jointly. The flow conditions on CGM alone, so the insulin and meal
+record enters only through its training set, which the original paper generates under one fixed
+profile. Each patient’s record differs, so we train a fresh network per patient: 5,000 parameter-
+trace pairs are simulated from the published prior under that patient’s own 22 hour record, the
+flow is fit to them once, and it is then conditioned on the observed CGM to draw 1,000 posterior
+samples. Nothing is shared across patients, so the benchmark evaluates the estimator rather than
+the cross-patient amortization that is the original paper’s headline; its own future work targets the
+same limitation by training on varied meal and insulin profiles.
+•Unscented Kalman filter (UKF)[11]. In T1D, the UKF has been used to estimate plasma insulin
+concentration under the Hovorka model, as a real-time estimator for artificial pancreas systems.
+We apply the same joint state-parameter filtering idea to the simplified ODE and estimate glucose
+rather than plasma insulin. The filter runs over the recorded inputs of the same 22 hour window,
+and candidate treatments are then replayed through the same path MCMC uses.
+•Linear response model (Linear). A ridge regression of CGM on lagged insulin and carbohydrate
+rates, with four hours of insulin memory and three hours of carbohydrate memory. It has no
+physiological model, no states, and no parameter that means anything. It regresses on the input
+record alone, with no autoregressive CGM terms, because a DT must generate a full day under a
+treatment whose CGM is never observed.
+•Neural response model (Neural). A multilayer perceptron with two hidden layers of 64 units
+over the same lagged features, training days and covariate as Linear, so the pair differs only in
+model complexity and Linear’s behavior cannot be attributed to linearity. Both are black-box
+models, the family that outperformed an individualized physiological model at 30 to 60 minute
+glucose forecasting [4].
+•Average patient (Prior). The MCMC pipeline with the identification step removed: candidate
+treatments are replayed over an ensemble drawn from the published ReplayBG prior, so its identi-
+fication window is empty and the DT reads no patient CGM at all. It shares the ODE, steady-state
+initial condition, batched replay and ensemble median with MCMC, so it ablates exactly one in-
+put. It still uses the patient’s basal insulin and body weight, without which the model cannot be
+instantiated, so it isolates CGM-based identification rather than all patient information.
+5 Results
+We run the evaluation protocol on all six methods over one shared set of cached trajectories. Table 3
+reports every metric over the full cohort as the mean±standard deviation across the 30 virtual
+patients. The omnibus Friedman test rejects on all five metrics (Table 4), and the Holm-corrected
+pairwise Wilcoxon tests that follow it are given in full in Appendix C. Figure 1 plots the critical
+difference diagrams for the primary metric of each family, RMSE and Spearman. In the pairwise
+tests, four pairs of methods show the three ways in which the two families can disagree: MCMC
+versus SBI and SBI versus Prior are separated on RMSE but not on Spearman, UKF versus Neural is
+separated on Spearman but not on RMSE, and Neural versus Prior is separated on both, in opposite
+directions.
+The two families of metrics do not order the methods the same way. Ordering Table 3 by RMSE
+leaves the Spearman order at 1, 3, 5, 4, 6, 2. Prior sits at the bottom of the prediction accuracy panel
+6
+Table 3: Results over the full cohort, ordered by RMSE. Parenthesized numbers are ranks on each
+family’s primary metric, and∆rank is the move from the accuracy rank to the decision rank, positive
+meaning better on decisions than on accuracy.
+Prediction Accuracy Decision Quality
+Method RMSE (mg/dL) MARD (%) Spearman Regret Regret Norm∆rank
+MCMC23.0±9.1(1)21.0±16.2 0.861±0.111(1)370±470 0.083±0.113 0
+SBI29.2±11.3(2)32.4±31.5 0.728±0.368(3)584±858 0.137±0.208−1
+Neural32.9±9.0(3)31.5±17.6 0.049±0.466(5)3222±2888 0.541±0.327−2
+UKF35.6±20.6(4)42.5±55.3 0.492±0.614(4)1297±1979 0.215±0.278 0
+Linear36.6±8.7(5)36.8±23.5 −0.207±0.524(6)4068±3801 0.654±0.342−1
+Prior63.6±31.4(6)52.7±38.2 0.766±0.156(2)876±1324 0.174±0.151 +4
+Table 4: Omnibus Friedman test. Mean within-patient rank (n= 30patients,k= 6methods, rank
+1 = best) and the omnibus Friedmanpper metric.
+Metric MCMC SBI UKF Linear Neural Prior Friedmanp
+RMSE 1.47 2.67 3.37 4.60 3.37 5.53<10 −4
+MARD 1.57 2.83 3.27 4.63 3.33 5.37<10 −4
+Spearman 1.87 2.57 3.37 5.27 4.83 3.10<10 −4
+Regret 2.10 2.77 3.03 4.88 4.88 3.33<10 −4
+Regret Norm 2.07 2.77 3.00 4.92 4.92 3.33<10 −4
+with 63.6 mg/dL RMSE, while also near the top of the decision quality panel with 0.766 Spearman,
+which we cannot distinguish from SBI’s 0.728 (p= 0.3931). Since Prior carries the population’s
+average physiology, this suggests that rankings over these 20 treatments are largely set by the direc-
+tion of the average dose response and that personalization refines the ordering rather than defining it.
+Without reading patient CGM at all, a prior-based DT can therefore be the worst trajectory predic-
+tor by construction and still be among the best at the decision task DTs are built for. Furthermore,
+MCMC and SBI are statistically different on the prediction accuracy metric, RMSE difference of
+6.25 mg/dL (p= 0.0002), while we cannot distinguish them on the decision quality metric, 0.133
+Spearman difference (p= 0.1706). A user choosing a DT method by prediction accuracy might
+confidently take MCMC over SBI, even though we cannot distinguish the two in decision quality.
+Likewise, the Neural and Prior baselines invert between the two families: Neural is 30.65 mg/dL
+better on RMSE and 0.717 worse on Spearman (p <10 −4 for both), so choosing between them on
+prediction accuracy alone leads to a DT that is essentially random in its downstream recommenda-
+tions.
+Interestingly, the two black-box baselines do not behave as expected. Neural saw a significant
+improvement over Linear on RMSE (p <10 −4), but Spearman moved from inverting the ranking
+to carrying no information about it at all. At 0.049 Spearman, the Neural baseline shows that a DT
+whose RMSE we cannot distinguish from that of the published method UKF (p= 0.9515) can carry
+1 2 3 4 5 6
+MCMC (1.47)
+SBI (2.67)
+UKF (3.37)
+Prior (5.53)
+Linear (4.60)
+Neural (3.37)
+RMSE
+1 2 3 4 5 6
+MCMC (1.87)
+SBI (2.57)
+Prior (3.10)
+Linear (5.27)
+Neural (4.83)
+UKF (3.37)
+Spearman
+Figure 1: Critical difference diagrams for RMSE and Spearman. Each method sits at its mean rank
+over the 30 patients (1 is best). A bar joins methods that the Holm-corrected pairwise Wilcoxon tests
+of Table 7 cannot separate atα= 0.05. A filled circle marks a member of the group, and an open
+circle marks a method the bar passes over but does not include.
+7
+no decision quality at all. We also cannot distinguish UKF from Linear on RMSE (p= 0.5602), so
+prediction accuracy separates it from neither black-box baseline while decision quality separates it
+from both (p <10−4 against Linear,p= 0.0061against Neural).
+Sensitivity.To check that these conclusions do not hinge on individual patients, we repeated the
+entire analysis 30 times, each time leaving out one patient and recomputing every test on the remain-
+ing 29. Every comparison stated in this section holds in all 30 repetitions. We also tested leaving out
+a whole age group of 10 patients, under which the MCMC versus SBI, SBI versus Prior, and Neural
+versus Prior comparisons still hold, while some finer orderings among the other methods change.
+6 Discussion
+The decision quality metrics make room for this dissociation by construction. Regret evaluatesR
+on true trajectories in both of its terms, so a DT’s prediction enters only through which treatmentbπ
+it selects. A DT whose predicted glucose is uniformly biased is therefore not penalized for the bias
+unless the bias changes its choice, while RMSE and MARD charge for it at every sample. Spearman
+extends the same property to the whole ranking: any prediction error that preserves the order of the
+predicted rewards costs nothing. Prior is the extreme case. It is the least accurate predictor by a wide
+margin, yet its ranking agrees with the patient’s at 0.766 Spearman, so most of its error leaves the
+order of the predicted rewards intact.
+The intended benefit of our work is to lower the chance of deploying a DT that predicts glucose
+accurately and still recommends the wrong insulin dose. The corresponding risk is that a strong
+score on this benchmark is mistaken for clinical validation, which it is not. All code is available at
+https://github.com/Veeeeeee7/T1D-Digital-Twin-Benchmark.
+6.1 Limitations
+Glucose is clipped to[40,400]mg/dL so that regret is not dominated by a single deep excursion,
+which means 39 and 15 mg/dL score identically. Of the 6000 ground-truth runs, 205 (3.4%), con-
+centrated in 8 patients and almost entirely on the increased-insulin treatments, left the simulator’s
+safe range and were terminated early and padded at the terminal value. The ReplayBG prior comes
+from earlier studies and ReplayBG was assessed on virtual adults [5], so the 20 adolescent and child
+subjects may carry extra prior mismatch. The candidate set moves a single dose axis at a time and
+contains only insulin adjustments, whereas clinical adjustments may move basal and prandial doses
+jointly and sometimes in opposite directions. Finally, every result is for one candidate set, one risk
+kernel and a 24 hour horizon, and we do not know how much of the dissociation survives a different
+objective such as time in range or a longer horizon.
+7 Conclusion
+We proposed evaluating T1D digital twins by the treatment decisions they support. On 30 virtual pa-
+tients, prediction accuracy and decision quality disagree on which of the six methods are better, and
+selecting a DT by prediction accuracy alone can prefer one that recommends treatments at chance, as
+the Neural and Prior baselines show. Decision quality must therefore be reported alongside RMSE
+and MARD rather than assumed to follow from them.
+References
+[1] Harry Amad and Mihaela van der Schaar. DT2: Decision-targeted digital twins. In Tong Zhang,
+Miroslav Dudik, Martin Jaggi, Alekh Agarwal, Sharon Li, Dale Schuurmans, Jerry Zhu, Felix
+Berkenkamp, Hanze Dong, and Alberto Bietti, editors,Proceedings of the 43rd International
+Conference on Machine Learning, volume 306 ofProceedings of Machine Learning Research,
+pages 2207–2233. PMLR, 06–11 Jul 2026. URLhttps://proceedings.mlr.press/v306/
+amad26a.html.
+[2] Tadej Battelino, Thomas Danne, Richard M. Bergenstal, Stephanie A. Amiel, Roy Beck, Tor-
+ben Biester, Emanuele Bosi, Bruce A. Buckingham, William T. Cefalu, Kelly L. Close, Claudio
+8
+Cobelli, Eyal Dassau, J. Hans DeVries, Kim C. Donaghue, Klemen Dovc, Francis J. Doyle, III,
+Satish Garg, George Grunberger, Simon Heller, Lutz Heinemann, Irl B. Hirsch, Roman Hov-
+orka, Weiping Jia, Olga Kordonouri, Boris Kovatchev, Aaron Kowalski, Lori Laffel, Brian
+Levine, Alexander Mayorov, Chantal Mathieu, Helen R. Murphy, Revital Nimri, Kirsten Nør-
+gaard, Christopher G. Parkin, Eric Renard, David Rodbard, Banshi Saboo, Desmond Schatz,
+Keaton Stoner, Tatsuiko Urakami, Stuart A. Weinzimer, and Moshe Phillip. Clinical targets for
+continuous glucose monitoring data interpretation: Recommendations from the international
+consensus on time in range.Diabetes Care, 42(8):1593–1603, 2019. ISSN 0149-5992. doi:
+10.2337/dci19-0028. URLhttps://doi.org/10.2337/dci19-0028.
+[3] Alessio Benavoli, Giorgio Corani, and Francesca Mangili. Should we really use post-hoc
+tests based on mean-ranks?Journal of Machine Learning Research, 17(5):1–10, 2016. URL
+http://jmlr.org/papers/v17/benavoli16a.html.
+[4] Giacomo Cappon, Francesco Prendin, Andrea Facchinetti, Giovanni Sparacino, and Simone
+Del Favero. Individualized models for glucose prediction in type 1 diabetes: Comparing
+black-box approaches to a physiological white-box one.IEEE Transactions on Biomedical
+Engineering, 70(11):3105–3115, 2023. doi: 10.1109/TBME.2023.3276193.
+[5] Giacomo Cappon, Martina Vettoretti, Giovanni Sparacino, Simone Del Favero, and An-
+drea Facchinetti. ReplayBG: A digital twin-based methodology to identify a personalized
+model from type 1 diabetes data and simulate glucose concentrations to assess alternative
+therapies.IEEE Transactions on Biomedical Engineering, 70(11):3227–3238, 2023. doi:
+10.1109/TBME.2023.3286856.
+[6] Chiara Dalla Man, Francesco Micheletto, Dayu Lv, Marc Breton, Boris Kovatchev, and Clau-
+dio Cobelli. The UV A/PADOV A type 1 diabetes simulator: New features.Journal of Dia-
+betes Science and Technology, 8(1):26–34, 2014. doi: 10.1177/1932296813514502. URL
+https://doi.org/10.1177/1932296813514502. PMID: 24876534.
+[7] Simone Del Favero, Andrea Facchinetti, and Claudio Cobelli. A glucose-specific metric to
+assess predictors and identify models.IEEE Transactions on Biomedical Engineering, 59(5):
+1281–1290, 2012. doi: 10.1109/TBME.2012.2185234.
+[8] Janez Demšar. Statistical comparisons of classifiers over multiple data sets.Journal of Machine
+Learning Research, 7(1):1–30, 2006. URLhttp://jmlr.org/papers/v7/demsar06a.
+html.
+[9] Linda A DiMeglio, Carmella Evans-Molina, and Richard A Oram. Type 1 diabetes.The
+Lancet, 391(10138):2449–2462, 2018. doi: 10.1016/S0140-6736(18)31320-5.
+[10] Adam N. Elmachtoub and Paul Grigas. Smart “Predict, then Optimize”.Management Science,
+68(1):9–26, 2022. doi: 10.1287/mnsc.2020.3922.
+[11] Iman Hajizadeh, Mudassir Rashid, Sediqeh Samadi, Jianyuan Feng, Mert Sevil, Nicole Hobbs,
+Caterina Lazaro, Zacharie Maloney, Rachel Brandt, Xia Yu, Kamuran Turksoy, Elizabeth Lit-
+tlejohn, Eda Cengiz, and Ali Cinar. Adaptive and personalized plasma insulin concentration
+estimation for artificial pancreas systems.Journal of Diabetes Science and Technology, 12
+(3):639–649, 2018. doi: 10.1177/1932296818763959. URLhttps://doi.org/10.1177/
+1932296818763959. PMID: 29566547.
+[12] Ling Hinshaw, Chiara Dalla Man, Debashis K. Nandy, Ahmed Saad, Adil E. Bharucha,
+James A. Levine, Robert A. Rizza, Rita Basu, Rickey E. Carter, Claudio Cobelli, Yogish C.
+Kudva, and Ananda Basu. Diurnal pattern of insulin action in type 1 diabetes: Implica-
+tions for a closed-loop system.Diabetes, 62(7):2223–2229, 2013. ISSN 0012-1797. doi:
+10.2337/db12-1759. URLhttps://doi.org/10.2337/db12-1759.
+[13] Trung-Dung Hoang, Alceu Bissoto, Vihangkumar V . Naik, Tim Flühmann, Artemii Shlychkov,
+Jose Garcia-Tirado, and Lisa M. Koch. A real-time digital twin for type 1 diabetes using
+simulation-based inference. In Lei Li, Viktor Jirsa, Jianfeng Feng, Jun Deng, Luca Dede’,
+Sora An, Yilin Lyu, and Xiaoyue Liu, editors,Digital Twin for Healthcare, volume 16193 of
+Lecture Notes in Computer Science, pages 35–46, Cham, 2026. Springer Nature Switzerland.
+ISBN 978-3-032-07694-6. doi: 10.1007/978-3-032-07694-6_4.
+9
+[14] Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-
+Alain Muller. Deep learning for time series classification: a review.Data Mining and
+Knowledge Discovery, 33(4):917–963, 2019. doi: 10.1007/s10618-019-00619-1. URL
+https://doi.org/10.1007/s10618-019-00619-1.
+[15] Evangelia Katsoulakis, Qi Wang, Huanmei Wu, Leili Shahriyari, Richard Fletcher, Jinwei
+Liu, Luke Achenie, Hongfang Liu, Pamela Jackson, Ying Xiao, Tanveer Syeda-Mahmood,
+Richard Tuli, and Jun Deng. Digital twins for health: a scoping review.npj Digital Medicine,
+7(1):77, 2024. doi: 10.1038/s41746-024-01073-0. URLhttps://doi.org/10.1038/
+s41746-024-01073-0.
+[16] Boris P. Kovatchev, Marc Breton, Chiara Dalla Man, and Claudio Cobelli. In silico preclinical
+trials: A proof of concept in closed-loop control of type 1 diabetes.Journal of Diabetes
+Science and Technology, 3(1):44–55, 2009. doi: 10.1177/193229680900300106. URLhttps:
+//doi.org/10.1177/193229680900300106. PMID: 19444330.
+[17] Lalo Magni, Davide M. Raimondo, Luca Bossi, Chiara Dalla Man, Giuseppe De Nicolao,
+Boris Kovatchev, and Claudio Cobelli. Model predictive control of type 1 diabetes: An in
+silico trial.Journal of Diabetes Science and Technology, 1(6):804–812, 2007. doi: 10.1177/
+193229680700100603. URLhttps://doi.org/10.1177/193229680700100603. PMID:
+19885152.
+[18] Signe Schmidt and Kirsten Nørgaard. Bolus calculators.Journal of Diabetes Science and
+Technology, 8(5):1035–1041, 2014. doi: 10.1177/1932296814532906. URLhttps://doi.
+org/10.1177/1932296814532906. PMID: 24876436.
+[19] Alvaro Tejero-Cantero, Jan Boelts, Michael Deistler, Jan-Matthis Lueckmann, Conor Durkan,
+Pedro J. Gonçalves, David S. Greenberg, and Jakob H. Macke. sbi: A toolkit for simulation-
+based inference.Journal of Open Source Software, 5(52):2505, 2020. doi: 10.21105/joss.
+02505. URLhttps://doi.org/10.21105/joss.02505.
+[20] U.S. Food and Drug Administration. Evaluation of automatic class III designation for Dexcom
+G6 continuous glucose monitoring system: Decision summary.https://www.accessdata.
+fda.gov/cdrh_docs/reviews/DEN170088.pdf, 2018. De Novo request DEN170088,
+granted March 27, 2018.
+[21] Bryan Wilder, Bistra Dilkina, and Milind Tambe. Melding the data-decisions pipeline:
+Decision-focused learning for combinatorial optimization. InProceedings of the AAAI Confer-
+ence on Artificial Intelligence, volume 33, pages 1658–1665, 2019. doi: 10.1609/aaai.v33i01.
+33011658.
+[22] Jinyu Xie. Simglucose v0.2.1 (2018) [Online]. Available:https://github.com/jxx123/
+simglucose. Accessed on: Oct. 20, 2026.
+10
+A Benchmark Details
+A.1 Scenario
+Table 5 summarizes the RandomScenario implemented insimglucose[22].
+Table 5: Scenario Table.pis the probability of a given meal or snack occurring.
+Horizon 24 h starting at 5am after a steady-state start at midnight
+CGM Interval 5 min⇒288 samples per test day
+Simglucose Default RandomScenario
+Main Meals breakfast / lunch / dinner atp= 0.95, mealtimes atN(07:00,
+12:00, 18:00;σ= 60min) truncated to[05,09],[10,14],
+[16,20], amounts ofN(45g, 70g, 80g;σ= 10g)
+Snacks three atp= 0.30, mealtimes atN(09:30, 15:00, 21:30;σ=
+30min), amounts ofN(10g;σ= 5g)
+Measured 1–6 eating occasions per day,196±30g/day
+A.2 Existing assets
+The simulator, the 30 virtual subjects, the Breton–Kovatchev CGM noise model and
+RandomScenariocome fromsimglucosev0.2.11 (MIT license) [22], an independent open-source
+Python implementation of the 2008 UV A/Padova simulator [16] distributed for research use. Neu-
+ral posterior estimation uses thesbitoolkit v0.26.1 (Apache-2.0) [19] on PyTorch v2.12 (BSD-3-
+Clause), with NumPy, SciPy and pandas (BSD-3-Clause), Gymnasium (MIT) and Matplotlib (PSF-
+based Matplotlib license). The ReplayBG model, its published prior and its MCMC procedure [5],
+the NPE setup of Hoang et al. [13], and the unscented Kalman filter of Hajizadeh et al. [11] are
+re-implemented from the published descriptions and those papers are credited as specifications.
+B Compute Resources
+Every experiment runs on CPU only. All runs were submitted to an internal SLURM cluster of
+64-core, 512 GB nodes, each job requesting 30 cores and 128 GB with one worker per patient, so
+the cohort is fit and scored concurrently. Table 6 gives the measured cost of fitting one patient and
+scoring all 20 candidate treatments on a single core, as the median over the 30 patients.
+Table 6: Per-patient fit-and-score cost on one core, median over the 30 subjects.
+MCMC SBI UKF Prior Neural Linear
+Cost per patient 8 h 18 m 245 s 181 s 175 s 2.4 s 0.1 s
+The five fast methods ran as a single job in 861 s of wall clock, 5.5 core-hours in total. MCMC ran
+separately in 8 h 30 m of wall clock, 249 core-hours. Generating the shared trajectory cache, 30
+patients×30 training days plus 10 test days×20 treatments, costs a further 1182 s of wall clock,
+9.9 core-hours, and is done once and reused by every method.
+C Statistical Tests
+The omnibus Friedman tests are in Table 4, and every one rejects. Table 7 shows the pairwise
+Wilcoxon signed-rank tests with Holm correction for each pair of methods on RMSE, MARD, Spear-
+man and Regret Norm. Both tables are computed on the within-patient means,n= 30patients,
+following the protocol of Section 3.
+11
+Table 7: Pairwise Wilcoxon signed-rank tests with Holm correction within each metric.∆is the
+mean within-patient difference.
+Metric A vs B∆(A−B) rawpHolmpsignificant at0.05
+RMSE MCMC vs SBI−6.25<10 −4 0.0002yes
+MCMC vs UKF−12.61<10 −4 <10 −4 yes
+MCMC vs Linear−13.58<10 −4 <10 −4 yes
+MCMC vs Neural−9.97<10 −4 <10 −4 yes
+MCMC vs Prior−40.62<10 −4 <10 −4 yes
+SBI vs UKF−6.36 0.0262 0.0787no
+SBI vs Linear−7.33<10 −4 <10 −4 yes
+SBI vs Neural−3.72 0.0022 0.0088yes
+SBI vs Prior−34.37<10 −4 <10 −4 yes
+UKF vs Linear−0.97 0.2801 0.5602no
+UKF vs Neural+2.65 0.9515 0.9515no
+UKF vs Prior−28.00<10 −4 <10 −4 yes
+Linear vs Neural+3.62<10 −4 <10 −4 yes
+Linear vs Prior−27.03<10 −4 <10 −4 yes
+Neural vs Prior−30.65<10 −4 <10 −4 yes
+MARD MCMC vs SBI−11.40<10 −4 <10 −4 yes
+MCMC vs UKF−21.51<10 −4 <10 −4 yes
+MCMC vs Linear−15.77<10 −4 <10 −4 yes
+MCMC vs Neural−10.52<10 −4 <10 −4 yes
+MCMC vs Prior−31.72<10 −4 <10 −4 yes
+SBI vs UKF−10.11 0.0732 0.2930no
+SBI vs Linear−4.36 0.0006 0.0037yes
+SBI vs Neural+0.88 0.1519 0.4208no
+SBI vs Prior−20.31<10 −4 <10 −4 yes
+UKF vs Linear+5.74 0.1403 0.4208no
+UKF vs Neural+10.99 0.8553 0.8553no
+UKF vs Prior−10.21 0.0137 0.0683no
+Linear vs Neural+5.25<10 −4 <10 −4 yes
+Linear vs Prior−15.95<10 −4 0.0004yes
+Neural vs Prior−21.20<10 −4 <10 −4 yes
+Spearman MCMC vs SBI+0.133 0.0427 0.1706no
+MCMC vs UKF+0.369 0.0030 0.0149yes
+MCMC vs Linear+1.069<10 −4 <10 −4 yes
+MCMC vs Neural+0.812<10 −4 <10 −4 yes
+MCMC vs Prior+0.095 0.0001 0.0010yes
+SBI vs UKF+0.236 0.0732 0.2197no
+SBI vs Linear+0.936<10 −4 <10 −4 yes
+SBI vs Neural+0.679<10 −4 <10 −4 yes
+SBI vs Prior−0.038 0.3931 0.3931no
+UKF vs Linear+0.700<10 −4 <10 −4 yes
+UKF vs Neural+0.443 0.0009 0.0061yes
+UKF vs Prior−0.274 0.1909 0.3819no
+Linear vs Neural−0.257 0.0011 0.0068yes
+Linear vs Prior−0.974<10 −4 <10 −4 yes
+Neural vs Prior−0.717<10 −4 <10 −4 yes
+Regret Norm MCMC vs SBI−0.054 0.0835 0.4176no
+MCMC vs UKF−0.132 0.0389 0.2335no
+MCMC vs Linear−0.571<10 −4 <10 −4 yes
+MCMC vs Neural−0.458<10 −4 <10 −4 yes
+MCMC vs Prior−0.091 0.0002 0.0014yes
+SBI vs UKF−0.078 0.2943 0.5886no
+SBI vs Linear−0.517<10 −4 0.0004yes
+SBI vs Neural−0.404<10 −4 <10 −4 yes
+SBI vs Prior−0.037 0.0964 0.4176no
+UKF vs Linear−0.439<10 −4 0.0002yes
+UKF vs Neural−0.326 0.0003 0.0018yes
+UKF vs Prior+0.041 0.7375 0.7375no
+Linear vs Neural+0.113 0.0974 0.4176no
+Linear vs Prior+0.480<10 −4 0.0002yes
+Neural vs Prior+0.367<10 −4 <10 −4 yes
+12

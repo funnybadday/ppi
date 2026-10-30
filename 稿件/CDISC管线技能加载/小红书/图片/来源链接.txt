@@ -1,0 +1,4 @@
+论文：Workflow Topology-Guided Skill Loading for Agentic AI in Clinical Trial Data Pipelines
+JMIR Formative Research（Harrisburg University，Jaime Yan）
+2026-10-20
+https://formative.jmir.org/2026/1/e100769

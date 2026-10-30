@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>PubMed 42901481 - 本地留存</title></head>
+<body style="font-family: Georgia, serif; max-width: 860px; margin: 24px auto; line-height: 1.6;">
+<h2>PubMed 记录本地留存（PMID 42901481）</h2>
+<p style="background:#f6f2fa; border-left:4px solid #8064A8; padding:8px 12px; font-size:14px;">
+说明：pubmed.ncbi.nlm.nih.gov 网页版对非浏览器客户端返回AWS WAF JS质询页（5590字节，无法以curl直存原始HTML）。
+本文件是按同一PMID调用NCBI官方 E-utilities efetch 接口所得记录（<code>素材/PubMed记录_efetch.xml</code>）生成的本地呈现，
+字段与PubMed网页一致，生成时间2026-10-23，制作案例C03（CDISC管线技能加载）。</p>
+<h3>Workflow Topology-Guided Skill Loading for Agentic AI in Clinical Trial Data Pipelines: Sequential Exploratory Evaluation.</h3>
+<p><i>JMIR formative research</i>. 10, e100769; 2026-10-20. PMID 42901481. DOI: 10.2196/100769</p>
+<p>Yan Jaime</p>
+<h4>Abstract</h4>
+<p><b>BACKGROUND:</b> Clinical trial data pipelines must follow Clinical Data Interchange Standards Consortium (CDISC) standards, including the study data tabulation model (SDTM) and analysis data model (ADaM). General-purpose large language models (LLMs) can produce plausible artifacts that omit required variables, misuse terminology, or invent derivation logic. Curated context may reduce these errors, but the value of organizing that context by workflow topology has not been separated from corpus access alone.</p>
+<p><b>OBJECTIVE:</b> This study aimed to examine when workflow topology-guided skill loading adds value beyond a domain prompt, nonrouted curated context, or lexical retrieval, and whether bounded scheduling retains quality with less injected context.</p>
+<p><b>METHODS:</b> A 45-node, 7-layer directed acyclic workflow graph was linked to 59 modular rule files (SKILL.md). A sequential exploratory evaluation examined 4 evidence regimes spanning domain-context, component isolation, lexically reachable, and topology-dependent conditions (10 tasks, 90 runs; 10 tasks, 180 and 120 runs; 24 tasks, 288 runs; and 18 tasks, 324 runs; the task, not the agent run, was the inferential unit). End points included LLM rubric scores, deterministic atomic criteria, required-evidence recall, and manifest checks. A blinded practicing statistical programmer independently rescored 60 outputs. Task-level paired inference used bootstrap 95% CIs, exact sign-flip tests, and Holm adjustment.</p>
+<p><b>RESULTS:</b> Routed context scored 4.63 versus 4.20 for prompt-only (difference 0.43 on a 1-5 scale; 95% CI 0.25-0.63; Holm-adjusted P=.01) but did not exceed flat or random loading. The lower-context scheduler used 28.82% less context while retaining quality; all 559 injected fragments had recorded sources, and all 120 manifests were reproduced exactly. On lexically reachable tasks, graph+Best Match 25 (BM25) and BM25-only were equivalent within a 0.05 margin (difference +0.009; 95% CI -0.028 to 0.046; P=.67), where BM25 already recalled 95.8% of required evidence. On topology-dependent stress tasks, graph-only selection outperformed BM25-only (difference 0.348; 95% CI 0.178-0.530; nominal P=.002; dz=0.89) and raised required-evidence recall from 0.500 to 1.000. Expert-judge agreement was substantial for terminology (weighted κ=0.61) and moderate overall (intraclass correlation coefficient=0.60).</p>
+<p><b>CONCLUSIONS:</b> Workflow topology serves as a conditional retrieval prior. It adds little when lexical retrieval already reaches the required evidence but recovers dependency-linked evidence when task wording does not identify it lexically. These findings, from a synthetic benchmark using one generator backbone and one expert rater, support topology-guided selection as a promising approach for controlled context assembly and motivate independent factorial validation.</p>
+</body></html>

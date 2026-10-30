@@ -1,0 +1,4 @@
+论文：A general-purpose System One decision model for clinical records
+arXiv（Mass General Brigham、Harvard Medical School、MIT，Andrew Zhang等）
+2026-10-19
+https://arxiv.org/abs/2610.27099v1

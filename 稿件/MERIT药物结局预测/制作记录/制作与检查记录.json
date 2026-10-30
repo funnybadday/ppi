@@ -1,0 +1,116 @@
+{
+ "created_at": "2026-10-23T14:55:00+08:00",
+ "completed_at": "2026-10-23T15:25:00+08:00",
+ "status": "completed_awaiting_user_review",
+ "task": "MERIT论文小红书图组（池中8分论文，直接制作，非候选事件，不写台账）",
+ "source_check": {
+  "biorxiv_abstract_page": "素材/bioRxiv摘要页.html（经代理curl -sL -x http://127.0.0.1:6864 获取；首两次429限流，循环重试后200，94,673字节）",
+  "biorxiv_pdf": "素材/论文全文.pdf（同代理获取，510,475字节，35页；首次429后重试200）",
+  "fulltext_extraction": "素材/论文全文提取.txt（Horizon/.venv/bin/python + pdfplumber，92,437字符）",
+  "fact_check": "摘要与全文逐项核验：模型输入（分子机制与疾病特征，8+1模块285特征，无化合物身份/同类成败信息）、预测任务（试验结局PASS vs 疗效/安全失败）、验证方式（回顾性化合物留出+时间分割，753药/3,133试验）、失败药新适应症证据（repoDB 50/60=83%；139化合物内75%=104/139；提名146对中88%有临床前证据）、前瞻注册（55对/54项III期，SHA-256锁定存Zenodo）。所有引用数字与原文一致；预印本状态、公司资助（Omic Inc.全体作者）、STAR专有层均如实标注。"
+ },
+ "wechat_draft": {
+  "file": "公众号/公众号正文.txt",
+  "sha256": "8e424da583cddf8260562200f2a1458b507c500f57a435d432ec34cfafc95827",
+  "chinese_chars": 2371,
+  "note": "标题+5节小标题+图文引用式配图标记；本任务交付小红书图组，公众号txt为渲染底稿与事实源"
+ },
+ "image_crops": [
+  {
+   "file": "公众号/配图/论文首页_标题与作者.png",
+   "method": "pdftoppm 300dpi第1页 + PIL按宽:高=1080:800从页顶裁剪（2550x1889）",
+   "verification": "analyze_image核验：bioRxiv横幅、标题两行、作者5人、单位与邮箱完整，底部含Abstract起始（允许），左右无切断"
+  },
+  {
+   "file": "公众号/配图/论文Table1_已发表方法对照.png",
+   "method": "等价坐标级裁剪（/tmp/crop_exact.py，pdfplumber行坐标）：第6页垂直70.5%-88.5%，水平4%-96%，2346x594px@300dpi。因crop_paper_figure.py按词匹配无法命中被分词的\"Table 1.\"标题，改用同断言的行级坐标法；断言通过（首行=Table 1标题，末行=表末行approval Wilcoxon）",
+   "verification": "analyze_image逐列核验：列序Benchmark/Task/Reported/Honest/MERIT/Δ(model−honest)/P；HINT行0.654/0.626/0.704/+0.078，TrialBench行0.794/0.637/0.768/+0.131，与正文引用逐项一致（P列指数在原PDF即存在缺字形方框，属原文字体问题）"
+  },
+  {
+   "file": "公众号/配图/论文Figure1_数据集与架构.png",
+   "method": "等价坐标级裁剪：第4页图像对象top=72pt起、bottom=94%（8.3%-94.0%），2346x2829px@300dpi；该页除横幅外无正文，纯图形区",
+   "verification": "analyze_image核验：漏斗(428,377/12,420/3,320/3,133)与架构(模块1-8+module 9、285 features、两任务头)完整无截断，无横幅混入；图中3,320=3,133+187条审计排除试验，与正文一致，未在文中引用该图内数字"
+  },
+  {
+   "file": "公众号/配图/论文Figure2_预测表现.png",
+   "method": "等价坐标级裁剪：第5页图像对象top=405pt起、bottom=83.5%（50.3%-83.5%），2346x1095px@300dpi；含图形(405-518pt)+完整图注(535-639pt)，上方正文(至345pt)零混入",
+   "verification": "analyze_image核验：三子图(a)ROC(b)逐折(c)分解完整，图注以S1).完整结尾，legend含overall AUC=0.770/safety 0.784/efficacy 0.765，无正文混入"
+  },
+  {
+   "file": "公众号/配图/论文Figure4_失败药再定位.png",
+   "method": "等价坐标级裁剪：第10页图像对象top=445pt起、bottom=91%（55.4%-91.0%），2346x1174px@300dpi；含图形(445-633pt)+图注第10页部分(650-712pt)，图注在原论文分页处自然中断（后文在第11页），上方正文(至385pt)零混入",
+   "verification": "analyze_image核验：(a)三柱75%/82%/83%（柱内104/139、14/17、50/60）+(b)散点完整，图注开头正确，无正文混入"
+  }
+ ],
+ "xiaohongshu": {
+  "article_json": "小红书/制作记录/文章内容_四章节.json（四章节：创新点/方法/结果/结论，每章1-3段+图文引用式image块）",
+  "copy_json": "小红书/制作记录/封面与发布文案.json（post_body约280字）",
+  "manifest": "小红书/制作记录/渲染输入_v1.json（prepare_input.py，source sha256=86012670…）",
+  "render": "render_pages.cjs + 本机Chrome，输出 小红书/图片/；一次通过 status=passed",
+  "pages": 7,
+  "dimensions": [
+   1080,
+   1440
+  ],
+  "text_exact_match": true,
+  "split_paragraphs": "block9(结果第1段)跨第4-5页，行边界跨页，允许",
+  "source_pages": [
+   7
+  ],
+  "bottom_whitespace_px": {
+   "p2": 143,
+   "p3": 393,
+   "p4": 178,
+   "p5": 161,
+   "p6": 136,
+   "p7": 542,
+   "note": "p3空白因Figure1竖图(高2346x2829)无法置于文字后同栏而顺延下页，非缩字避让；p7为末页来源后自然留白；参考案例T1D最大308px"
+  }
+ },
+ "visual_checks": {
+  "cover": "01_封面.png：中文标题两行+MERIT论文首页截图+一句摘要，版面协调无溢出",
+  "pages": "02创新点+Table1、03方法文字、04 Figure1+结果标题、05 Figure2+跨页段、06结论+Figure4、07末段+来源，均字形正常、无乱码、无标题孤悬、来源仅末页",
+  "tool_incidents": "①analyze_image服务按文件名缓存旧图：核验论文首页封面与03_正文.png时返回T1D案例旧图/错误描述；改用唯一文件名（/tmp下jpg副本与裁剪放大图）重传后核验通过，并以像素墨迹分析交叉验证（03页顶部条带仅0.3%墨迹=仅方法标题，证明英文残留行报告为缓存图幻觉）。②06页整页检查曾报\"大量方块字符\"，对COVID-19（0.006）行与Figure4区域高清放大复核：0.006完整显示、无方块字、图为论文原图内缺字形，正文无乱码。"
+ },
+ "deliverables": [
+  "小红书/图片/图片/01_封面.png…07_正文.png（7张，1080x1440）",
+  "小红书/图片总览.jpg（940x622拼图）",
+  "小红书/发布标题与正文.txt",
+  "小红书/来源链接.txt",
+  "小红书/小红书图文.zip（7PNG+文案+来源）",
+  "小红书/制作记录/{文章内容_四章节.json, 封面与发布文案.json, 渲染输入_v1.json}",
+  "小红书/图片/{分页排版.html, 逐页内容.json, 排版检查.json, 来源链接.txt}"
+ ],
+ "constraints_compliance": "仅写稿件/MERIT药物结局预测/内文件；未改skills/、AGENTS.md、工作流状态.json、选题池/、语气参考/、Horizon/；未跑Horizon采集；未写台账；案例名MERIT药物结局预测取自研究内容",
+ "human_acceptance": "pending",
+ "revisions": [
+  {
+   "revision": "wechat_full_rewrite_v3",
+   "date": "2026-10-28",
+   "trigger": "用户要求对项目全部6篇论文按完整流程重新生成公众号稿件（此前2026-10-28上午另一会话已按PFA样例做过一轮样式改写但未回源核验、未记录台账）；本次回到各案例素材全文提取逐项核验事实后重写，并补全记录。",
+   "changes": [
+    "正文全文重写（PFA样例结构：主标题+——副标题、读者痛点开头、三个加粗追问路线图、判断句加粗小标题、[1]引用、参考文献节、按主题定制的斜体免责声明）",
+    "事实逐项回源：草稿中每个数字/专名在素材/论文全文提取.txt中找到对应原文行，未核验主张删除（详见制作记录/公众号正文_重写草稿_20261028.txt随附核验报告，报告正文存于当次会话交付摘要）",
+    "历史未核验主张（多智能体案例392例队列、盲法医生安全性差异）确认未写入",
+    "图文引用式配图：配图标记与配图/清单文件一一对应；多智能体案例启用此前备用Table 2",
+    "Word重建：宋体/Songti SC，标题16pt居中加粗、副标题12pt、小标题13pt、正文11pt、图6.1英寸+9pt来源题注、表格Table Grid 10pt、数据来源注9pt斜体、参考文献10pt",
+    "上午版正文与docx存历史版本/公众号正文_上午版20261028.txt、公众号稿件_上午版20261028.docx"
+   ],
+   "verification": {
+    "content_completeness": "6/6通过：docx全文与正文TXT规范化比对，仅markdown表格对齐行（语法行）不入文，无内容缺漏",
+    "visual_check": "6/6通过：qlmanage原生渲染首页逐张核查（无豆腐块乱码、无重叠截断、标题居中加粗、正文两端对齐、图片完整）；MERIT首页可见表格边框表头完整与自然分页",
+    "image_fit": "全部嵌入图高≤7.36英寸（页可用高8.9英寸），无跨页异常",
+    "limitations": "本机Word版本AppleScript不支持save as导出PDF、screencapture无屏幕录制权限，第2页起未做逐页目检；分页正常性由同版式参数（与已交付上午版一致）+无超高元素+首页自然分页佐证"
+   },
+   "human_acceptance": "pending",
+   "files": {
+    "article": "公众号/公众号正文.txt",
+    "article_sha256": "8e424da583cddf8260562200f2a1458b507c500f57a435d432ec34cfafc95827",
+    "docx": "公众号/公众号稿件.docx",
+    "docx_sha256": "4dbe343c9917647647434e27a9c808e5d250ac4aee2d85a912fb4113159a38a8",
+    "draft_with_verification": "制作记录/公众号正文_重写草稿_20261028.txt"
+   },
+   "chars_nospace": 4396
+  }
+ ]
+}

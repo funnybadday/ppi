@@ -1,0 +1,5 @@
+interface:
+  display_name: "实验室小红书制作"
+  short_description: "将完成的公众号解读制作成封面、连续正文分页图与发布文案，统一检查及管理版本"
+  brand_color: "#8064A8"
+  default_prompt: "用 $lab-paper-xhs-post 将我指定的已完成公众号制作成小红书图文，沿用当前分页规范并交付完整图片和发布文案。"

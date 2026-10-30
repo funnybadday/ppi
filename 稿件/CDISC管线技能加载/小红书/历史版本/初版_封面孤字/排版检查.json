@@ -1,0 +1,830 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-23T07:17:18.956Z",
+  "input": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/小红书/制作记录/渲染输入_v1.json",
+    "sha256": "f2c46d206b1ffdcb728772be530de44f8f5100b87ab7bd87381fc367f68546dd",
+    "source": {
+      "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/CDISC管线技能加载/公众号/公众号正文.txt",
+      "sha256": "1b8606c28ade8319be4474d0dd51e186fb11aded8414821213232373152084a0"
+    }
+  },
+  "theme": {
+    "width": 1080,
+    "height": 1440,
+    "margin": 64,
+    "font_size": 42,
+    "line_height": 68,
+    "paragraph_gap": 24,
+    "heading_size": 42,
+    "heading_line_height": 64,
+    "column_gap": 128,
+    "highlight": "#EAE3F4",
+    "underline": "#8064A8",
+    "background": "#FFFFFF",
+    "text": "#161616",
+    "font_family": "Songti SC",
+    "cover_title_size": 96,
+    "cover_summary_size": 40,
+    "source_size": 22,
+    "source_line_height": 36
+  },
+  "text_exact_match": true,
+  "text_blocks": 13,
+  "text_characters": 1076,
+  "body_columns": 6,
+  "image_count": 7,
+  "dimensions": [
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    }
+  ],
+  "pages": [
+    {
+      "page": 2,
+      "column": 0,
+      "content_top": 2,
+      "content_bottom": 1199.890625,
+      "bottom_whitespace": 112.109375,
+      "fragments": [
+        {
+          "source_block_index": 0,
+          "type": "heading",
+          "start": 0,
+          "end": 3,
+          "page": 2,
+          "text": "创新点",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 1,
+          "type": "paragraph",
+          "start": 0,
+          "end": 160,
+          "page": 2,
+          "text": "这篇论文处理的是CDISC试验数据管线里LLM的“伪影”问题：生成的SDTM/ADaM产物看似合理，却漏掉必需变量、误用受控术语、编造派生逻辑。做法是把整条管线建成45节点、7层的工作流DAG，59个模块化SKILL.md规则文件绑定到节点上，按拓扑在8000 token预算内路由加载。架构总览见论文Figure 1。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292,
+            360,
+            428,
+            496
+          ]
+        }
+      ],
+      "image_blocks": [
+        2
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 3,
+      "column": 1,
+      "content_top": 4,
+      "content_bottom": 1156.390625,
+      "bottom_whitespace": 155.609375,
+      "fragments": [
+        {
+          "source_block_index": 3,
+          "type": "paragraph",
+          "start": 0,
+          "end": 77,
+          "page": 3,
+          "text": "创新点在评价而非系统本身：用受控对比把“领域提示词”“拿到规则语料”“拓扑路由”三个因素拆开，问拓扑是不是只值语料获取的钱，并测了它真正起作用的边界条件。",
+          "line_tops": [
+            4,
+            72,
+            140,
+            208
+          ]
+        },
+        {
+          "source_block_index": 4,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 3,
+          "text": "方法",
+          "line_tops": [
+            306
+          ]
+        },
+        {
+          "source_block_index": 5,
+          "type": "paragraph",
+          "start": 0,
+          "end": 113,
+          "page": 3,
+          "text": "顺序探索式四个证据区组：域上下文（10任务90次运行）、组件与效率（180+120次运行）、词法可达（24任务288次运行）、拓扑依赖压力（18任务324次运行），推断以任务为单位。四阶段的任务与运行设计见论文Table 1。",
+          "line_tops": [
+            392,
+            460,
+            528,
+            596,
+            664
+          ]
+        }
+      ],
+      "image_blocks": [
+        6
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 4,
+      "column": 2,
+      "content_top": 4,
+      "content_bottom": 859,
+      "bottom_whitespace": 453,
+      "fragments": [
+        {
+          "source_block_index": 7,
+          "type": "paragraph",
+          "start": 0,
+          "end": 133,
+          "page": 4,
+          "text": "生成端统一走Claude Code命令行框架配GLM-5骨干；自适应优先级调度器按当前节点与前驱、后继、全局带宽加权排序候选规则文件。统计用任务级配对bootstrap 95% CI、精确符号翻转检验加Holm校正，另有一名10年经验的统计程序员盲态复评60个输出。",
+          "line_tops": [
+            4,
+            72,
+            140,
+            208,
+            276,
+            344
+          ]
+        },
+        {
+          "source_block_index": 8,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 4,
+          "text": "结果",
+          "line_tops": [
+            442
+          ]
+        },
+        {
+          "source_block_index": 9,
+          "type": "paragraph",
+          "start": 0,
+          "end": 112,
+          "page": 4,
+          "text": "组件对比：路由上下文4.63高于仅领域提示的4.20（差0.43，Holm校正P=.01），但没有超过扁平加载4.58与随机加载4.44——标准任务上“加载哪些精选规则”并不敏感。三个区组的主对比汇总见论文Figure 3。",
+          "line_tops": [
+            528,
+            596,
+            664,
+            732,
+            800
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": false
+    },
+    {
+      "page": 5,
+      "column": 3,
+      "content_top": 0,
+      "content_bottom": 1138.25,
+      "bottom_whitespace": 173.75,
+      "fragments": [
+        {
+          "source_block_index": 11,
+          "type": "paragraph",
+          "start": 0,
+          "end": 103,
+          "page": 5,
+          "text": "边界条件很清晰：任务措辞已点名证据时，图+BM25与纯BM25等价（0.593对0.584，差0.009，P=.67），此时BM25本身已召回95.8%必需证据；证据藏在依赖链、与措辞刻意低重叠时，纯图选择",
+          "line_tops": [
+            875.25,
+            943.25,
+            1011.25,
+            1079.25
+          ]
+        }
+      ],
+      "image_blocks": [
+        10
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 6,
+      "column": 4,
+      "content_top": 4,
+      "content_bottom": 1129.328125,
+      "bottom_whitespace": 182.671875,
+      "fragments": [
+        {
+          "source_block_index": 11,
+          "type": "paragraph",
+          "start": 103,
+          "end": 158,
+          "page": 6,
+          "text": "0.715对0.367大胜BM25，必需证据召回从0.500补到1.000。完整六臂数字见论文Table 3。",
+          "line_tops": [
+            4,
+            72
+          ]
+        },
+        {
+          "source_block_index": 13,
+          "type": "paragraph",
+          "start": 0,
+          "end": 83,
+          "page": 6,
+          "text": "工程收益：低上下文调度器少用28.82%规则上下文（5684对7986 token）而得分持平；全部559个注入片段有来源记录，120份manifest全部精确复现。",
+          "line_tops": [
+            546.33,
+            614.33,
+            682.33
+          ]
+        },
+        {
+          "source_block_index": 14,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 6,
+          "text": "结论",
+          "line_tops": [
+            780.33
+          ]
+        },
+        {
+          "source_block_index": 15,
+          "type": "paragraph",
+          "start": 0,
+          "end": 88,
+          "page": 6,
+          "text": "工作流拓扑是一个条件性检索先验：词法检索已到达证据时它增益很小，任务措辞找不到证据时它沿依赖链把证据找回来。对试验数据智能体的操作启发是按任务区组选检索策略——直接点名的工作用",
+          "line_tops": [
+            866.33,
+            934.33,
+            1002.33,
+            1070.33
+          ]
+        }
+      ],
+      "image_blocks": [
+        12
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 7,
+      "column": 5,
+      "content_top": 4,
+      "content_bottom": 694,
+      "bottom_whitespace": 618,
+      "fragments": [
+        {
+          "source_block_index": 15,
+          "type": "paragraph",
+          "start": 88,
+          "end": 113,
+          "page": 7,
+          "text": "词法检索即可，依赖链上的多阶段任务才值得拓扑路由。",
+          "line_tops": [
+            4,
+            72
+          ]
+        },
+        {
+          "source_block_index": 16,
+          "type": "paragraph",
+          "start": 0,
+          "end": 118,
+          "page": 7,
+          "text": "边界也要如实记：证据全部来自合成基准，单一GLM-5骨干、单一评分专家，图/语料/任务/判据均由单作者构建；压力面板不是干净因子设计（两臂上下文量2157对4000 token不等）。作者定位为形成性研究，呼吁独立构建的2×2因子验证。",
+          "line_tops": [
+            164,
+            232,
+            300,
+            368,
+            436
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": true
+    }
+  ],
+  "fragments": [
+    {
+      "source_block_index": 0,
+      "type": "heading",
+      "start": 0,
+      "end": 3,
+      "page": 2,
+      "text": "创新点",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 1,
+      "type": "paragraph",
+      "start": 0,
+      "end": 160,
+      "page": 2,
+      "text": "这篇论文处理的是CDISC试验数据管线里LLM的“伪影”问题：生成的SDTM/ADaM产物看似合理，却漏掉必需变量、误用受控术语、编造派生逻辑。做法是把整条管线建成45节点、7层的工作流DAG，59个模块化SKILL.md规则文件绑定到节点上，按拓扑在8000 token预算内路由加载。架构总览见论文Figure 1。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292,
+        360,
+        428,
+        496
+      ]
+    },
+    {
+      "source_block_index": 3,
+      "type": "paragraph",
+      "start": 0,
+      "end": 77,
+      "page": 3,
+      "text": "创新点在评价而非系统本身：用受控对比把“领域提示词”“拿到规则语料”“拓扑路由”三个因素拆开，问拓扑是不是只值语料获取的钱，并测了它真正起作用的边界条件。",
+      "line_tops": [
+        4,
+        72,
+        140,
+        208
+      ]
+    },
+    {
+      "source_block_index": 4,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 3,
+      "text": "方法",
+      "line_tops": [
+        306
+      ]
+    },
+    {
+      "source_block_index": 5,
+      "type": "paragraph",
+      "start": 0,
+      "end": 113,
+      "page": 3,
+      "text": "顺序探索式四个证据区组：域上下文（10任务90次运行）、组件与效率（180+120次运行）、词法可达（24任务288次运行）、拓扑依赖压力（18任务324次运行），推断以任务为单位。四阶段的任务与运行设计见论文Table 1。",
+      "line_tops": [
+        392,
+        460,
+        528,
+        596,
+        664
+      ]
+    },
+    {
+      "source_block_index": 7,
+      "type": "paragraph",
+      "start": 0,
+      "end": 133,
+      "page": 4,
+      "text": "生成端统一走Claude Code命令行框架配GLM-5骨干；自适应优先级调度器按当前节点与前驱、后继、全局带宽加权排序候选规则文件。统计用任务级配对bootstrap 95% CI、精确符号翻转检验加Holm校正，另有一名10年经验的统计程序员盲态复评60个输出。",
+      "line_tops": [
+        4,
+        72,
+        140,
+        208,
+        276,
+        344
+      ]
+    },
+    {
+      "source_block_index": 8,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 4,
+      "text": "结果",
+      "line_tops": [
+        442
+      ]
+    },
+    {
+      "source_block_index": 9,
+      "type": "paragraph",
+      "start": 0,
+      "end": 112,
+      "page": 4,
+      "text": "组件对比：路由上下文4.63高于仅领域提示的4.20（差0.43，Holm校正P=.01），但没有超过扁平加载4.58与随机加载4.44——标准任务上“加载哪些精选规则”并不敏感。三个区组的主对比汇总见论文Figure 3。",
+      "line_tops": [
+        528,
+        596,
+        664,
+        732,
+        800
+      ]
+    },
+    {
+      "source_block_index": 11,
+      "type": "paragraph",
+      "start": 0,
+      "end": 103,
+      "page": 5,
+      "text": "边界条件很清晰：任务措辞已点名证据时，图+BM25与纯BM25等价（0.593对0.584，差0.009，P=.67），此时BM25本身已召回95.8%必需证据；证据藏在依赖链、与措辞刻意低重叠时，纯图选择",
+      "line_tops": [
+        875.25,
+        943.25,
+        1011.25,
+        1079.25
+      ]
+    },
+    {
+      "source_block_index": 11,
+      "type": "paragraph",
+      "start": 103,
+      "end": 158,
+      "page": 6,
+      "text": "0.715对0.367大胜BM25，必需证据召回从0.500补到1.000。完整六臂数字见论文Table 3。",
+      "line_tops": [
+        4,
+        72
+      ]
+    },
+    {
+      "source_block_index": 13,
+      "type": "paragraph",
+      "start": 0,
+      "end": 83,
+      "page": 6,
+      "text": "工程收益：低上下文调度器少用28.82%规则上下文（5684对7986 token）而得分持平；全部559个注入片段有来源记录，120份manifest全部精确复现。",
+      "line_tops": [
+        546.33,
+        614.33,
+        682.33
+      ]
+    },
+    {
+      "source_block_index": 14,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 6,
+      "text": "结论",
+      "line_tops": [
+        780.33
+      ]
+    },
+    {
+      "source_block_index": 15,
+      "type": "paragraph",
+      "start": 0,
+      "end": 88,
+      "page": 6,
+      "text": "工作流拓扑是一个条件性检索先验：词法检索已到达证据时它增益很小，任务措辞找不到证据时它沿依赖链把证据找回来。对试验数据智能体的操作启发是按任务区组选检索策略——直接点名的工作用",
+      "line_tops": [
+        866.33,
+        934.33,
+        1002.33,
+        1070.33
+      ]
+    },
+    {
+      "source_block_index": 15,
+      "type": "paragraph",
+      "start": 88,
+      "end": 113,
+      "page": 7,
+      "text": "词法检索即可，依赖链上的多阶段任务才值得拓扑路由。",
+      "line_tops": [
+        4,
+        72
+      ]
+    },
+    {
+      "source_block_index": 16,
+      "type": "paragraph",
+      "start": 0,
+      "end": 118,
+      "page": 7,
+      "text": "边界也要如实记：证据全部来自合成基准，单一GLM-5骨干、单一评分专家，图/语料/任务/判据均由单作者构建；压力面板不是干净因子设计（两臂上下文量2157对4000 token不等）。作者定位为形成性研究，呼吁独立构建的2×2因子验证。",
+      "line_tops": [
+        164,
+        232,
+        300,
+        368,
+        436
+      ]
+    }
+  ],
+  "split_paragraphs": [
+    {
+      "index": 11,
+      "type": "paragraph",
+      "text": "边界条件很清晰：任务措辞已点名证据时，图+BM25与纯BM25等价（0.593对0.584，差0.009，P=.67），此时BM25本身已召回95.8%必需证据；证据藏在依赖链、与措辞刻意低重叠时，纯图选择0.715对0.367大胜BM25，必需证据召回从0.500补到1.000。完整六臂数字见论文Table 3。",
+      "pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "index": 15,
+      "type": "paragraph",
+      "text": "工作流拓扑是一个条件性检索先验：词法检索已到达证据时它增益很小，任务措辞找不到证据时它沿依赖链把证据找回来。对试验数据智能体的操作启发是按任务区组选检索策略——直接点名的工作用词法检索即可，依赖链上的多阶段任务才值得拓扑路由。",
+      "pages": [
+        6,
+        7
+      ]
+    }
+  ],
+  "heading_checks": [
+    {
+      "source_block_index": 0,
+      "page": 2,
+      "following_text_lines": 7,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 4,
+      "page": 3,
+      "following_text_lines": 5,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 8,
+      "page": 4,
+      "following_text_lines": 5,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 14,
+      "page": 6,
+      "following_text_lines": 4,
+      "required_lines": 2
+    }
+  ],
+  "palette": [
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    }
+  ],
+  "cover": {
+    "image_height": 768.671875,
+    "bottom_whitespace": 64
+  },
+  "header_footer_count": 0,
+  "source_present": true,
+  "source_only_final_visible_page": true,
+  "source_pages": [
+    7
+  ],
+  "blocks": [
+    {
+      "index": 0,
+      "type": "heading",
+      "text": "创新点",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 1,
+      "type": "paragraph",
+      "text": "这篇论文处理的是CDISC试验数据管线里LLM的“伪影”问题：生成的SDTM/ADaM产物看似合理，却漏掉必需变量、误用受控术语、编造派生逻辑。做法是把整条管线建成45节点、7层的工作流DAG，59个模块化SKILL.md规则文件绑定到节点上，按拓扑在8000 token预算内路由加载。架构总览见论文Figure 1。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "pages": [
+        2
+      ],
+      "caption": "论文Figure 1：CSP-Engine架构——45节点7层工作流DAG引导59个SKILL.md技能文件选择（JMIR Form Res 2026;10:e100769）",
+      "image_bounds": {
+        "x": 0,
+        "top": 584,
+        "bottom": 1199.890625,
+        "width": 952
+      }
+    },
+    {
+      "index": 3,
+      "type": "paragraph",
+      "text": "创新点在评价而非系统本身：用受控对比把“领域提示词”“拿到规则语料”“拓扑路由”三个因素拆开，问拓扑是不是只值语料获取的钱，并测了它真正起作用的边界条件。",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 4,
+      "type": "heading",
+      "text": "方法",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 5,
+      "type": "paragraph",
+      "text": "顺序探索式四个证据区组：域上下文（10任务90次运行）、组件与效率（180+120次运行）、词法可达（24任务288次运行）、拓扑依赖压力（18任务324次运行），推断以任务为单位。四阶段的任务与运行设计见论文Table 1。",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "pages": [
+        3
+      ],
+      "caption": "论文Table 1：四个顺序证据阶段的任务、运行数与各自能识别的问题（JMIR Form Res 2026;10:e100769）",
+      "image_bounds": {
+        "x": 0,
+        "top": 752,
+        "bottom": 1156.390625,
+        "width": 952
+      }
+    },
+    {
+      "index": 7,
+      "type": "paragraph",
+      "text": "生成端统一走Claude Code命令行框架配GLM-5骨干；自适应优先级调度器按当前节点与前驱、后继、全局带宽加权排序候选规则文件。统计用任务级配对bootstrap 95% CI、精确符号翻转检验加Holm校正，另有一名10年经验的统计程序员盲态复评60个输出。",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 8,
+      "type": "heading",
+      "text": "结果",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 9,
+      "type": "paragraph",
+      "text": "组件对比：路由上下文4.63高于仅领域提示的4.20（差0.43，Holm校正P=.01），但没有超过扁平加载4.58与随机加载4.44——标准任务上“加载哪些精选规则”并不敏感。三个区组的主对比汇总见论文Figure 3。",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 10,
+      "type": "image",
+      "pages": [
+        5
+      ],
+      "caption": "论文Figure 3：三区组整合证据——(A)路由对比、(B)词法可达面板、(C)拓扑依赖压力面板（JMIR Form Res 2026;10:e100769）",
+      "image_bounds": {
+        "x": 0,
+        "top": 0,
+        "bottom": 843.25,
+        "width": 952
+      }
+    },
+    {
+      "index": 11,
+      "type": "paragraph",
+      "text": "边界条件很清晰：任务措辞已点名证据时，图+BM25与纯BM25等价（0.593对0.584，差0.009，P=.67），此时BM25本身已召回95.8%必需证据；证据藏在依赖链、与措辞刻意低重叠时，纯图选择0.715对0.367大胜BM25，必需证据召回从0.500补到1.000。完整六臂数字见论文Table 3。",
+      "pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "index": 12,
+      "type": "image",
+      "pages": [
+        6
+      ],
+      "caption": "论文Table 3：拓扑依赖压力面板——图选择0.715/召回1.000，全库BM25 0.367/召回0.500（JMIR Form Res 2026;10:e100769）",
+      "image_bounds": {
+        "x": 0,
+        "top": 160,
+        "bottom": 514.328125,
+        "width": 952
+      }
+    },
+    {
+      "index": 13,
+      "type": "paragraph",
+      "text": "工程收益：低上下文调度器少用28.82%规则上下文（5684对7986 token）而得分持平；全部559个注入片段有来源记录，120份manifest全部精确复现。",
+      "pages": [
+        6
+      ]
+    },
+    {
+      "index": 14,
+      "type": "heading",
+      "text": "结论",
+      "pages": [
+        6
+      ]
+    },
+    {
+      "index": 15,
+      "type": "paragraph",
+      "text": "工作流拓扑是一个条件性检索先验：词法检索已到达证据时它增益很小，任务措辞找不到证据时它沿依赖链把证据找回来。对试验数据智能体的操作启发是按任务区组选检索策略——直接点名的工作用词法检索即可，依赖链上的多阶段任务才值得拓扑路由。",
+      "pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "index": 16,
+      "type": "paragraph",
+      "text": "边界也要如实记：证据全部来自合成基准，单一GLM-5骨干、单一评分专家，图/语料/任务/判据均由单作者构建；压力面板不是干净因子设计（两臂上下文量2157对4000 token不等）。作者定位为形成性研究，呼吁独立构建的2×2因子验证。",
+      "pages": [
+        7
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "图片/01_封面.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "52b807ea85e2e31144a8d3b4119a1abbb5a79538fb57ce74a79e0acc44943d52"
+    },
+    {
+      "file": "图片/02_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "024fdfabb74fc530fae48b9dde741463568d508f1e9436cffcc14e46315291d4"
+    },
+    {
+      "file": "图片/03_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "e3754b47e907f6a67b6318fa13cc2001da323a5066c7812e739b8136d66eda00"
+    },
+    {
+      "file": "图片/04_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "73d30919c044f25798f37cbbd177f74a7d561433eb577a725b59869946905d66"
+    },
+    {
+      "file": "图片/05_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "85d1c167503c07229a93654e18c3321ee53571c7bf4c16e6db4a8b97de8179d8"
+    },
+    {
+      "file": "图片/06_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "a6b2a6954c12db6d9facab618cdeefa64429f936d8843e5de5716c3de2ee6513"
+    },
+    {
+      "file": "图片/07_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "bec0c2cdbcf55c2cb773ba9e0b5b7175ecc4ba6bd0ea71bf3aba2b43166bedae"
+    }
+  ],
+  "visual_review": "PNG files still require actual visual inspection before delivery."
+}

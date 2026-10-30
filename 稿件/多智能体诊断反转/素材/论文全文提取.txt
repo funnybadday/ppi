@@ -1,0 +1,1092 @@
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+Perspective independence, more than personas, drives
+LLM teams — and where they reverse
+Running title: When does a team of LLMs beat one call?
+Authors: Jun Feng1,†, Yuhao Jiao2,†, Yiyao Li3,4, Longxin Xie5, Wenyu Peng5, Xuefeng Sun3,4,*
+Affiliations:
+1. Department of Hematology, Peking Union Medical College Hospital, Chinese Academy
+of Medical Sciences & Peking Union Medical College, Beijing, China
+2. Department of Gastroenterology, Peking Union Medical College Hospital, Chinese
+Academy of Medical Sciences & Peking Union Medical College, Beijing, China
+3. Department of Pulmonary and Critical Care Medicine, Peking Union Medical College
+Hospital, Chinese Academy of Medical Sciences & Peking Union Medical College,
+Beijing, China
+4. Department of Internal Medicine, Peking Union Medical College Hospital, Chinese
+Academy of Medical Sciences & Peking Union Medical College, Beijing, China
+5. Chinese Academy of Medical Sciences & Peking Union Medical College, Beijing, China
+†
+
+Jun Feng and Yuhao Jiao contributed equally to this work.
+
+Corresponding author: Xuefeng Sun, Department of Pulmonary and Critical Care Medicine,
+Peking Union Medical College Hospital, Chinese Academy of Medical Sciences & Peking Union
+Medical College, Beijing 100730, China. Email: sunxfer@sina.com. ORCID: 0000-0002-53553405.
+
+Abstract
+Multi-agent prompting of large language models has produced contradictory diagnostic results,
+and it remains unclear whether any benefit comes from specialist personas or from perspective
+independence. We compared a single direct call, five personas in one context, and the same five
+roles as isolated agents integrated by a moderator, with five repeat runs per case, on 87 CPC
+cases, 406 MedCaseReasoning cases, and 364 emergency department encounters, under an LLM
+judge validated against clinicians. On the external benchmark the team beat the single call on
+both pre-specified recall endpoints (top-3 +3.0 points, p = 0.0079; top-5 +3.9, p = 3.8 × 10⁻⁵); a
+factorial attributes the gain to independent generation plus moderated synthesis, not the
+specialist roles. On real emergency presentations the benefit reversed (top-1 40.1% versus
+34.3%, p < 0.0001), carried by the specialist role lists and surviving added objective results.
+Deployment should key on the question and the input at hand.
+Keywords: Large Language Models; Multi-Agent Systems; Diagnostic Reasoning; Diagnosis,
+Computer-Assisted; Differential Diagnosis; Artificial Intelligence; Emergency Medicine
+
+NOTE: This preprint reports new research that has not been certified by peer review and should not be used to guide clinical practice.
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+Introduction
+Diagnostic error remains one of the largest unaddressed sources of patient harm: most people
+will experience at least one diagnostic error in their lifetime [1], and a national analysis
+attributed roughly 795,000 deaths or permanent disabilities each year in the United States to
+misdiagnosis [2]. Large language models (LLMs) have progressed from encoding clinical
+knowledge [3] to performing competitively on benchmarks built for expert diagnosticians —
+clinicopathological conference (CPC) cases [4,5], randomized comparisons against primary care
+physicians [6,7]. What remains unsettled is not whether these models can reason about
+diagnosis, but how that reasoning should be organized.
+A popular answer is to simulate a team: specialist personas, conversational multi-agent
+frameworks, or aggregation of independent generations by voting [8,9,10,11], on the intuition,
+borrowed from multidisciplinary team practice [12], that several perspectives improve
+diagnosis. The evidence is contradictory. Multi-agent conversational frameworks report
+substantial gains on rare-disease cases [8,13], yet system-prompt personas produce no stable
+improvement on objective tasks [14], debate can entrench error without external feedback [15],
+automatically constructed multi-agent systems underperform budget-matched chain-ofthought baselines [16,17], and large-scale syntheses find the benefit of collaboration shrinks as
+backbone capability grows [22], vanishes under equalized thinking-token budgets [23], and
+eludes tool-using clinical agents [24]. Positive reports rarely include budget-matched singlemodel controls, so accuracy gains remain entangled with test-time compute.
+One reason is that two distinct variables have been conflated. “Multiple perspectives” can mean
+several personas voiced sequentially within one context, where each perspective conditions on
+the ones before it, or genuinely independent opinions generated in isolation and only then
+combined. No prior work has isolated independence as the sole manipulated variable while
+holding roles, model, and prompt content constant. A second gap is distributional: multi-agent
+diagnostic prompting has been evaluated almost exclusively on curated, information-rich case
+reports, not on real emergency department presentations, where the first-contact input is thin
+and the reference diagnosis is often the treating clinician’s working label rather than a
+confirmed disease. Thin input is the natural explanation for a benefit that disappears there and,
+unlike the first confound, it is testable within a single dataset by adding the visits’ objective
+results to the input.
+Here we address both gaps. In a single large language model we compare a single-pass direct
+call, five personas voiced within one context, and the same five roles run as isolated, mutually
+blinded agents integrated by a moderator; the second and third differ only in whether
+perspectives are independent, so the gap between them is attributable to isolation alone, and a
+budget-matched control of five independent samples with rank aggregation further separates
+structure from test-time compute. We evaluate on three datasets differing in difficulty,
+provenance, and reference-label structure — 87 CPC cases, 406 from an external reasoning
+benchmark, 364 real emergency department encounters — with a semantic-equivalence LLM
+judge validated against blinded clinicians on every corpus [19]. We find the benefit of multiperspective reasoning real but conditional: produced by independence of generation together
+with moderated synthesis, not personas; concentrated in differential-list recall; and reversed on
+real emergency presentations, where a single direct call is best — a reversal that survives
+adding the visits’ objective results and is carried by the specialist role lists rather than multi-
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+call inference itself. These findings convert a contested literature into deployment guidance
+keyed to the clinical question and the input at hand.
+
+Results
+The LLM judge reaches human-level agreement
+Before any strategy comparison, we validated the semantic-equivalence judge against two
+clinicians in a double-blind study of 100 candidate–reference pairs that no rule or prompt had
+touched during development: GLM agreed with the raters at κ = 0.814 and 0.878 against an
+inter-rater level of 0.812 — with 100 pairs, agreement at, not above, the inter-rater level; the
+validation was then extended to the two non-CPC corpora with the same protocol (100 judgestratified pairs per corpus, half boundary cases), where on the emergency set’s symptom-level
+labels the criterion itself is softer — raters agree with each other at κ = 0.612 (0.81 on casereport labels), and the judge tracks that level (κ 0.640 and 0.580) (Supplementary Tables S5, S52). The judge and rules were frozen before the outcome analyses; because every arm in a
+contrast is scored by the same judge, its known leniency asymmetry cancels in paired
+comparisons, and on ER-Reason — where the multi-perspective arms produce longer, more
+etiologically elaborate candidates — leniency works against, not for, the reversal we report.
+Every main result is additionally reported under a second judge from a different model family
+and under a judge-independent word-coverage check (Supplementary Note S18).
+
+Isolation turns the persona penalty into a recall advantage
+On the 87 CPC cases, voicing five personas within a single context (P) did not help: P scored
+below the single direct call (A×1) on every metric, a directional trend under the case-level tests
+(top-1, p = 0.24; top-5, p = 0.12). Isolating the same five roles and integrating them through a
+moderator (MDT) reversed the picture: MDT exceeded A×1 on both pre-specified primary
+endpoints (top-3: +5.5 percentage points, 95% CI 1.1 to 10.3, Wilcoxon p = 0.0079; top-5: +4.4
+points, 95% CI 0.9 to 8.3, p = 0.015) and exceeded P on both recall endpoints (top-3, +9.4 points,
+p = 0.0043; top-5, +8.7 points, p = 0.0036) (Table 1, Figures 1 and 2). These estimates include the
+41 prompt-development cases and are correspondingly optimistic (the development subset
+carried roughly twice the held-out margin); the held-out subset (n = 46) is a direction check,
+and the significance claim rests on the independent external replication.
+Table 1. Diagnostic performance of the three strategies across datasets (primary
+judge, GLM × v3).
+Dataset
+
+Strategy
+
+Top-1 (%)
+
+Top-3 (%)
+
+Top-5 (%)
+
+CPC (n = 87)
+
+A×1
+P
+Pfixed
+(promptcorrected)
+MDT
+A×1
+
+57.9 ± 1.9
+53.8 ± 4.0
+52.4 ± 1.3
+
+76.1 ± 4.1
+72.2 ± 2.6
+75.6 ± 3.0
+
+81.1 ± 2.6
+76.8 ± 2.1
+80.9 ± 1.9
+
+60.5 ± 3.1
+57.0 ± 0.9
+
+81.6 ± 2.4
+69.9 ± 0.6
+
+85.5 ± 2.1
+75.6 ± 0.8
+
+MCR (n =
+406)
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+Dataset
+
+ER-Reason (n
+= 364)
+
+Strategy
+P
+MDT
+A×1
+
+Top-1 (%)
+56.4 ± 0.3
+55.9 ± 0.8
+40.1 ± 0.9
+
+Top-3 (%)
+69.2 ± 1.1
+72.9 ± 0.8
+54.6 ± 1.1
+
+Top-5 (%)
+75.0 ± 1.0
+79.6 ± 0.8
+61.6 ± 0.8
+
+P
+MDT
+
+37.7 ± 0.6
+34.3 ± 1.0
+
+48.5 ± 1.5
+45.5 ± 1.0
+
+55.2 ± 0.8
+51.9 ± 1.1
+
+All values are mean ± SD across five seeds; hypothesis tests use per-case hit rates across seeds
+(paired Wilcoxon; Statistical analysis). Full per-seed values and sensitivity-judge versions of all
+figures appear in Supplementary Tables S1 and S2; legacy pooled-seed McNemar figures in
+Supplementary Table S3. The second model family and the additional control arms (reasoning
+elicitation, matched call budget, prompt-corrected P, and backbone scale) are summarized in
+Figure 5 and Supplementary Tables S10–S12. Temperature-matched control (all arms at 0.3)
+leaves every conclusion unchanged (Supplementary Note: Temperature-matched analyses). The
+P arm carried a prompt transcription defect; the Pfixed row is its corrected control (Methods).
+Figure 1. Study design: three prompting strategies and the two controlled contrasts.
+
+Three strategies were run on the same backbone (qwen3.8-flash, 176B parameters, thinking
+mode disabled) and returned the same output format, a ranked list of five differential
+diagnoses. A×1 is a single zero-shot call that emits the ranked list directly, with no
+intermediate reasoning text (1 call per case). P reasons from the same five perspectives inside
+one shared context, so each perspective conditions on the previous ones (1 call per case). MDT
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+issues those five roles as independent calls that cannot see one another’s output, and a
+moderator call then integrates the five opinions into the final list (5 role calls + 1 moderator
+call = 6 calls per case). Call counts are from the token accounting (Table 3). Contrast (i) holds
+roles, prompt material, model, decoding settings and output format fixed, manipulating only
+whether the five perspectives are isolated from one another — the sole difference between P
+and MDT. Contrast (ii) is the ER-Reason input manipulation: the same 364 encounters,
+prompts, model, decoding, seeds and judge are run under two input texts — presentation only
+(the provider note truncated immediately before the “Medical Decision Making” section) and
+presentation plus the visit’s objective results (laboratory values, vital signs, and imaging
+reports appended under a short heading). Performance was scored by whether the reference
+diagnosis appears within the top-1, top-3 or top-5 candidates (GLM-5.3-flash, frozen v3 rules,
+blinded to strategy).
+Figure 2. Top-k recall of the three strategies on (a) CPC, (b) MedCaseReasoning and
+(c) ER-Reason under five seeds, with the ER-Reason input contrast.
+
+Bars give mean top-1, top-3 and top-5 recall over five independent seeds; error bars ± 1 SD
+(sample SD, ddof = 1). Panels a and b: CPC (n = 87) and the external MedCaseReasoning set (n
+= 406). Panel c: the same 364 emergency department encounters run under two input
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+conditions; within each endpoint the left triplet of bars is the presentation-only input and the
+right triplet is the same cases with the visit’s objective results added, separated by a dashed
+rule. Brackets show the paired two-sided Wilcoxon signed-rank test on per-case five-seed hit
+rates (the case is the unit of inference); *** p < 0.001, ** p < 0.01, * p < 0.05, n.s. not significant;
+all p values are unadjusted, and 15 of the 16 primary-framework contrasts with p < 0.05 survive
+Benjamini–Hochberg correction (Supplementary Table S4). All values are tabulated in Tables 1
+and 2 and Supplementary Tables S1 and S6; the strategy-by-input interaction in panel c is null
+at every endpoint (all p ≥ 0.148, Supplementary Table S6), and the MedCaseReasoning MDT
+runs carry the data-integrity repair described in Methods.
+One further control excludes backbone scale: 176B → 2400B raised the single-call strategies
+with no scale-by-strategy interaction (all p ≥ 0.43), and the six-call 176B team was
+indistinguishable from a single 2400B call (p = 0.90; Supplementary Table S12).
+
+External replication and the completed factorial
+External validation on 406 MedCaseReasoning cases — an independent public benchmark
+where the MDT-versus-A×1 contrast is significant at both recall endpoints — replicated the
+pattern at scale: top-1 was statistically indistinguishable (55.9 ± 0.8% versus 57.0 ± 0.9%, p =
+0.25), while MDT was superior on top-3 (72.9 ± 0.8% versus 69.9 ± 0.6%, +3.0 points, 95% CI 0.9
+to 5.1, p = 0.0079) and top-5 (79.6 ± 0.8% versus 75.6 ± 0.8%, +3.9 points, 95% CI 2.1 to 5.9, p =
+3.8 × 10⁻⁵), and beat P on both recall endpoints (p = 0.0027 and p = 1.0 × 10⁻⁴). On the 46 heldout CPC cases every MDT-versus-A×1 contrast matched the full set without reaching
+significance (top-3 p = 0.096 on 12 non-tied cases) — the power of a 46-case set, not
+inconsistency — so the recall advantage stands on this external replication (Supplementary
+Table S7; Supplementary Note S20).
+The completed factorial then pins the attribution (Figure 3a). Mechanical aggregation of the
+lists never helped, from either source: five independent samples of the single-call prompt
+aggregated by Borda count scored 47.5 ± 2.1% at top-1 on MedCaseReasoning, 9.5 points below
+the single call, and re-aggregating the team’s own five role lists by the same Borda rule (MDTBorda) left them at or below the single call on CPC (indistinguishable at top-3 and top-5, −5.5
+points at top-1, p = 0.086; −8.0 below the full team at top-1, p = 0.0044). Moderated synthesis,
+by contrast, recovered the team’s advantage from either source: the same moderator over the
+same plain samples (A×5+Mod) added +10.6 points at top-1 over Borda on MedCaseReasoning
+and +9.0 on ER-Reason, and matched or beat the role-based team at every endpoint on both
+corpora (top-5 within 0.5 points of MDT, p = 0.52 on MedCaseReasoning). Neither the
+reasoning text nor the call budget explains the gain: eliciting a step-by-step justification inside
+the single call (A×1+CoT) moved no endpoint beyond noise (all p ≥ 0.61), and the five-call
+budget spent on independent sampling with self-consistency aggregation likewise reproduced
+the single call, not the team (all contrasts against MDT p ≤ 0.059; Supplementary Note S21,
+S22). A fifth cell locates the persona failure at generation time: when a fresh moderator
+integrates five sequentially generated, mutually conditioning perspective analyses (P-split), the
+result stays with P at top-1 (−6.5 points below the single call) even though the independent
+adjudicator recovers 6.4 points of top-5 recall over P (p = 0.0034) — once the voices have
+conditioned on one another, the candidate pool has already narrowed (Supplementary Note
+S24). Across all three corpora the moderator-over-mechanical contrast reads +7.6 (CPC), +9.0
+(ER-Reason), and +10.6 (MedCaseReasoning) points at top-1, with the specialist framing of the
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+lists optional everywhere (Supplementary Table S10i), under one decoding caveat — plain
+samples at 0.7 and role lists at 0.3, so ‘roles optional’ holds under that asymmetry.
+Figure 3. The completed factorial and the cost–recall frontier.
+
+(a) Top-3 recall of the four cells of the completed factorial on CPC: candidate lists from sameprompt sampling (A×5, temperature 0.7) or from five isolated specialist roles, integrated either
+by mechanical Borda aggregation or by the LLM moderator. Both moderator cells exceed both
+mechanical cells (which sit at or below the level of the single call, A×1 = 76.1%) and are
+statistically indistinguishable from each other, so the specialist framing of the lists is optional:
+the gain requires independent generation plus moderated synthesis. A×5 samples at
+temperature 0.7 because rank aggregation requires diverse samples — a design requirement of
+that arm, not a freely matched setting. Values are mean ± SD across five seeds.
+(b) Top-3 recall versus tokens per case (log scale) for every CPC arm: A×1 (2,846 tokens),
+A×1+CoT (3,499), P (3,872), A×5 Borda/self-consistency (14,224), A×5+Mod (17,419) and MDT
+(19,422). The frontier runs A×1 → A×5+Mod → MDT: the +5.3-point top-3 gain of A×5+Mod
+over A×1 costs about six times A×1’s tokens, and replacing the five plain samples with five
+specialist role calls buys a further 0.2 points. Judge: GLM-5.3-flash × v3; error bars ±1 SD across
+five seeds.
+
+The benefit reverses in real emergency department cases
+On ER-Reason — 364 real emergency department encounters whose inputs end before any
+laboratory or imaging results — the benefit of multi-perspective reasoning reversed in
+direction. A×1 outperformed MDT on every metric: top-1 40.1% versus 34.3% (−5.8 points, 95%
+CI −8.7 to −3.0, p < 0.0001), top-3 54.6% versus 45.5% (−9.0 points, p < 0.0001), and top-5 61.6%
+versus 51.9% (−9.8 points, p < 0.0001), with P intermediate (above MDT on all three endpoints;
+below A×1 on both recall endpoints and numerically at top-1, p = 0.12). The deficit was present
+and significant in both reference-label strata (symptom-level and disease-level), and a judgeindependent check confirmed it: A×1 covered 38.3% of the reference label’s content words in its
+top-5 lists against 30.7% for MDT (p < 0.0001), the same ordering in both strata (Figure 4b).
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+Temperature does not explain the reversal: with all arms matched at 0.3, the ordering A×1 > P
+> MDT survived on every dataset (Table 1 note; Supplementary Note: Temperature-matched
+analyses).
+Table 2. ER-Reason performance under the two input conditions (n = 364, primary
+judge, five seeds).
+Strategy
+
+Input
+
+Top-1 (%)
+
+Top-3 (%)
+
+Top-5 (%)
+
+A×1
+
+Presentation
+only
+Plus objective
+results
+Presentation
+only
+Plus objective
+results
+Presentation
+only
+Plus objective
+results
+
+40.1 ± 0.9
+
+54.6 ± 1.1
+
+61.6 ± 0.8
+
+42.9 ± 0.8
+
+57.2 ± 0.8
+
+66.4 ± 0.6
+
+37.7 ± 0.6
+
+48.5 ± 1.5
+
+55.2 ± 0.8
+
+41.9 ± 0.8
+
+53.7 ± 2.1
+
+59.7 ± 1.9
+
+34.3 ± 1.0
+
+45.5 ± 1.0
+
+51.9 ± 1.1
+
+36.2 ± 0.5
+
+48.7 ± 1.3
+
+56.1 ± 1.3
+
+P
+
+MDT
+
+Values are mean ± SD across five seeds; table hit rates are per-seed means, whereas the gains
+and interaction tests quoted here and in the text are case-level (per-case differences in five-seed
+hit rates), so the two conventions differ slightly on the ER workup cells (MDT top-5: 56.1% perseed mean, 55.9% case level). Gains were +2.8 / +2.6 / +4.7 points (A×1), +4.2 / +5.2 / +4.5 (P),
+and +1.9 / +3.3 / +4.3 (MDT) at top-1 / top-3 / top-5. MDT under the objective-results condition
+excludes one case at top-3 and two at top-5 whose candidate–reference pairs could not be
+adjudicated after retries, counted as misses, the same convention as the P-split arm (Methods).
+Per-seed values for both conditions and the full interaction output appear in Supplementary
+Table S6.
+Figure 4. Boundary conditions: prompt-development optimism, judge-independent
+word coverage, and two-judge disagreement.
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+(a) Effect size of MDT against A×1 (percentage points) on the 41 development cases used for
+prompt design, the 46 held-out CPC cases never exposed to prompt tuning or judge refinement,
+and the full 87 CPC cases, scored by the primary judge only. Markers give case-level five-seed
+hit-rate differences, whiskers the 95% percentile bootstrap interval (10,000 case-level resamples,
+seed 20260917); p values are paired two-sided Wilcoxon on the same rates; all values in
+Supplementary Table S7. The recall-endpoint effect is roughly twice as large on the
+development cases as on the held-out cases, and no held-out contrast reaches significance at
+this sample size; the sensitivity judge agreed in direction on every held-out endpoint (top-1
++8.7 points, p = 0.064, not shown).
+(b) Judge-independent check of whether the reference diagnosis is actually represented in the
+returned list, measured without any LLM judge, on all five seeds of ER-Reason. Content words
+are the tokens of the normalised reference label (lower-cased, non-letters replaced by spaces)
+longer than four characters; a case’s coverage is the fraction of those words occurring as
+substrings of the normalised union of its top-5 candidates, and cases whose label has no
+content word (5 of 364) count as covered — they contribute identical (maximal) coverage to
+every strategy, can raise absolute levels but never a between-arm contrast, and enter the paired
+test as ties. Bars give mean coverage across seeds ± 1 SD, white dots individual seed values;
+strata follow reference-label granularity; brackets give the paired Wilcoxon test on per-case
+five-seed coverage, unadjusted. A×1 covered more of the reference label than either multiperspective strategy in every stratum (all cases 38.3% versus 31.3% for P and 30.7% for MDT;
+both p ≤ 1.2 × 10⁻¹³), while P and MDT did not differ (p ≥ 0.13).
+(c) How often the two judges reach different verdicts on the same candidate–reference pair.
+The primary judge (GLM-5.3-flash) and the sensitivity judge (deepseek-v4.1-flash) ran under
+identical v3 rules, blinded to strategy; dark bars are pairs the primary judge accepted and the
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+sensitivity judge rejected, light bars the reverse. Rows give all adjudicated pairs and the same
+quantity by dataset and, within ER-Reason, by reference-label granularity (fractions and
+denominators in Supplementary Table S8). Disagreement is high nowhere (3.6–5.7% in every
+stratum) but is most frequent where the reversal is largest (ER-Reason), which bounds how
+much of that reversal can be attributed to judge noise; the dashed line marks the overall rate.
+The obvious competing explanation — that the presentation-only input is simply too thin —
+was tested by re-running the same 364 encounters with the objective results of each visit
+appended (laboratory values, vital signs, and imaging, electrocardiogram and ultrasound
+impressions, extracted by rule-based filters that never consult the reference diagnosis). Every
+strategy improved by broadly similar margins, the ordering was unchanged, and the strategyby-condition interaction was null at every endpoint (MDT-versus-A×1: −0.9, +0.6, and −0.5
+points at top-1/3/5, all p ≥ 0.57; excluding the 34 cases with no objective content, or the 20 in
+which the reference label appeared literally in the added text, changed nothing) (Table 2;
+Supplementary Tables S6, S9). Input density is not what governs the reversal — an interaction
+larger than roughly 3.5 points is excluded at this resolution, not the possibility of any
+interaction (Supplementary Note S29).
+The completed-factorial arm closes the attribution on this corpus as well: feeding the
+moderator five plain samples of the single-call prompt (Ax5Mod) erased the reversal entirely —
+within noise of A×1 at every endpoint (top-3 −0.8 points, p = 0.39) yet 8.2 points above the
+role-based team at top-3 (p < 0.0001) — and the moderator again beat mechanical aggregation
+of the same samples by +9.0 points at top-1. Multi-call inference per se is therefore not what
+harms on real emergency presentations — plain samples plus a moderator are exactly as safe as
+one call — the harm enters with the specialist role lists; the moderator’s synthesis decides
+outcomes in both directions on both distributions (Supplementary Note S30). The same
+decoding caveat as in the CPC factorial applies here.
+An exploratory, single-reviewer manual review of cases where A×1 was correct and MDT
+wrong suggests a mechanism (offered as a hypothesis, not as a coded causal claim): each
+isolated role amplifies a mechanistic or exotic hypothesis from the same thin evidence, and the
+moderator’s synthesis promotes these elaborated hypotheses over the plain label that matches
+the emergency-level reference diagnosis. Where the reference label was ileus, all five roles
+converged on a motility-related syndrome and no obstruction-level diagnosis appeared in the
+top 5; further examples are given in Supplementary Note S28.
+
+Failure taxonomy of the discordant pairs
+Classifying the CPC top-1 discordant pairs (25 MDT wins, 20 A×1 wins, deduplicated;
+exploratory and descriptive, not hypothesis-tested) located the two strategies’ failures on
+opposite axes: the dominant failure of A×1 was near-miss within-family discrimination (10 of
+25 losses: the right family, defaulted to its most prototypical member), whereas every failure
+unique to MDT was zebra-related in one direction or the other (6 of 20: rare golds missed for
+common entities, or common golds escalated to exotic etiologies), and anchoring failures were
+bidirectional and concentrated in seven trap cases that flip across seeds (full taxonomy in
+Supplementary Note S31).
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+The pattern across model families and scales
+All results above come from one open-weight backbone, so the isolation effect could in
+principle be family-specific. Re-running the three strategies on a second open-weight family
+(deepseek-v4.1-flash, byte-identical prompts, five seeds) reproduced the ordering: MDT ahead
+of P on both recall endpoints (+9.0 points at top-3, p = 0.017; +7.6 at top-5, p = 0.023) and ahead
+of the single call on point estimates at every endpoint (+4.8/+3.0/+3.7 points, none individually
+significant at n = 87), with P again below the single call (Figure 5c; Supplementary Table S11).
+On a closed flagship (gpt-5.1, five seeds) the persona effect reversed in sign — P rose +7.1 points
+above the single call at top-1 (p = 0.0009) and +6.9 at top-3 (p = 0.0070), where it had sat below
+or level with it on both open families — but stopped at the head of the list (top-5, p = 0.77),
+while the team effect showed no such dependence: MDT separated from the single call at every
+endpoint including top-1 (top-3 +10.9 points, p = 0.0003; top-5 +6.0, p = 0.005; top-1 +5.6, p =
+0.016) (Figure 5e; Supplementary Table S17). The persona effect is thus family-dependent in
+sign, and the team’s recall advantage is not: three families, three positive top-5 margins. The
+main-text P-arm numbers come from the original prompt, which carried a transcription defect
+(Methods); the corrected-prompt control raises P recall by 3–4 points on CPC without changing
+any persona conclusion, and both versions are reported (Table 1; Supplementary Table S10c).
+Figure 5. Controls that isolate the source of the benefit: reasoning elicitation,
+compute budget, model family, model scale, and a closed flagship.
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+All five panels use the CPC corpus (n = 87), the same frozen judge (GLM-5.3-flash, v3 rules,
+blinded to strategy), and are directly comparable with the CPC column of Figure 2. Bars give
+mean top-1, top-3 and top-5 recall and error bars ± 1 SD across seeds (five seeds in every
+panel). Within each endpoint, bars follow the panel-legend order, each in its own grayscale
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+tone. Brackets give the two-sided paired Wilcoxon test on per-case hit rates, with *** p < 0.001,
+** p < 0.01, * p < 0.05, n.s. not significant; all p unadjusted, these controls lying outside the prespecified 27-test correction family. Full statistics are tabulated in Supplementary Tables S10–
+S12 and S17.
+(a) Reasoning elicitation. A×1+CoT is the single call asked for a short step-by-step
+justification before the ranked list (identical prompt skeleton, guidelines, JSON schema, model
+and temperature; the elicitation trace appeared in all 435 calls, mean 2,713 characters). Eliciting
+that reasoning changed nothing against A×1 (all p ≥ 0.61), while MDT stayed ahead at top-3 (p
+= 0.027) and directionally ahead at top-5 (p = 0.067), so the team’s advantage is not explained
+by the presence of intermediate reasoning text. P and MDT are shown for reference.
+(b) Compute budget. A×5 spends five calls per case on the single-call prompt, aggregated by
+Borda count over clustered disease labels or by self-consistency majority voting on the rank-1
+cluster; MDT spends six calls structured as isolated roles. Neither aggregation reproduced the
+team: Borda fell below A×1 at top-1 (p = 0.017), both tracked A×1 on recall, and both sat below
+MDT at every endpoint (p ≤ 0.059 at top-5). Extra test-time compute therefore buys recall
+without reproducing the isolated-role advantage.
+(c) Model family. The three strategies were re-run end to end on deepseek-v4.1-flash (five
+seeds, byte-identical prompts) and scored by the same judge; the qwen3.8-flash arms are the
+main-experiment runs over the same five seeds. The ordering reproduced in the second family
+— MDT ahead of the single call on point estimates at every endpoint (top-1 +4.8 points, p =
+0.067) and ahead of the persona arm on both recall endpoints (top-3 p = 0.017, top-5 p = 0.023),
+with P never above the single call — so the structure effect is not specific to one model family,
+although only the qwen MDT-versus-A×1 contrasts are individually significant and absolute
+levels differ between families. Panel (e) extends the same comparison to a closed flagship,
+gpt-5.1 (five seeds; also tabulated in Supplementary Table S17).
+(d) Model scale. Scaling the backbone from 176B to 2400B parameters raised every endpoint
+of both single-call strategies, with no reliable strategy difference in that gain (interaction p ≥
+0.43). The six-call 176B team (dashed line, 85.5 ± 2.1% at top-5) was statistically
+indistinguishable from the single 2400B call (86.2 ± 1.1%, p = 0.90) — indistinguishability at
+these sample sizes, not demonstrated equality.
+(e) Closed flagship. The three strategies re-run end to end on gpt-5.1 (five seeds, byteidentical prompts, same frozen judge). The persona effect reversed in sign — P rose +7.1 points
+above the single call at top-1 (p = 0.0009) — without extending the differential (top-5, p = 0.77),
+while the team separated from the single call at every endpoint (top-3 +10.9 points, p = 0.0003;
+top-5 +6.0 points, p = 0.005; top-1 +5.6 points, p = 0.016). Full statistics in Supplementary Table
+S17.
+
+Heterogeneous roles and inference cost
+Replacing two of the five isolated roles with a different model family left performance
+essentially unchanged (all pairwise p ≥ 0.90 against the homogeneous team over three seeds,
+underpowered for equivalence), consistent with the advantage stemming from the isolationand-synthesis rather than the identity of the weights (Supplementary Note S32). The strategies
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+differ sharply in cost: MDT consumed 6.8–8.4 times the tokens of a single call across the three
+datasets (the emergency figure is a single-seed measurement; Table 3), and the factorial
+simplifies the recipe — plain repeated samples plus one integrating call achieve the recall gain
+at slightly lower cost than the role-based team (17,419 versus 19,422 tokens; Figure 3b). The
+moderator also adds a serial synthesis step to wall-clock latency, since it waits for all five role
+calls. That premium buys recall on the datasets whose reference labels reward discriminating
+among near neighbors, and buys nothing — indeed converts to harm — on the emergency
+encounters.
+Table 3. Token usage per case.
+Dataset
+
+Strategy
+
+Calls per case
+
+Total tokens per case
+(mean ± SD)
+
+CPC (n = 87)
+
+A×1
+P
+MDT
+A×1+CoT
+A×5
+A×5+Mod
+A×1
+P
+MDT
+
+1
+1
+6
+1
+5
+6
+1
+1
+6
+
+2,846 ± 1,268
+3,872 ± 1,302
+19,422 ± 7,686
+3,499 ± 1,421
+14,224 ± 6,333
+17,419 ± 7,650
+850 ± 123
+1,797 ± 198
+7,134 ± 864
+
+A×1
+P
+MDT
+
+1
+1
+6
+
+1,686 ± 473
+2,675 ± 505
+11,936 ± 2,914
+
+A×1
+
+1
+
+2,591 ± 1,148
+
+P
+MDT
+
+1
+6
+
+3,739 ± 1,157
+17,926 ± 6,960
+
+MCR (n = 406)
+
+ER-Reason —
+single seed (1 ×
+364); SDs are caseto-case, not
+comparable with
+five-seed rows
+ER-Reason (n = 364)
+
+CPC (n = 87,
+deepseek-v4.1flash) — five seeds
+CPC (n = 87,
+deepseek-v4.1-flash)
+
+Token counts are per-example totals recorded at inference; the logs do not separate input from
+output tokens, so we report token volume rather than imputed currency costs. The CPC control
+rows cover the same five seeds as A×1, P, and MDT; A×5 sums its five samples per case
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+(matching MDT’s call count but not its token total), and the A×5+Mod row adds the moderator
+call to those samples (17,419 = 14,224 + 3,195); the A×5 and A×1+CoT rows are recomputed
+from their per-case run files and deposited with the per-seed breakdown in
+routing_study/results/token_costs/control_arms_tokens.json. The ER-Reason rows come from a
+single seed (1 × 364) and their standard deviations describe case-to-case variation only,
+whereas the CPC and MCR rows aggregate five seeds (5 × 87, 5 × 406); the deepseek-v4.1-flash
+rows cover CPC only, and the prompt-corrected P arm uses the same prompt and provider as P,
+so it carries no separate cost row (Supplementary Table S10c). Record coverage was 100%
+across all strategy × dataset × seed combinations reported here; the matched control arms are
+collected in Supplementary Tables S10–S12.
+
+Discussion
+Across three datasets differing in difficulty, provenance, and reference-label structure, the
+benefit of multi-perspective LLM reasoning is real but conditional, with a component-level
+attribution. The active pair is independent generation of the lists combined with moderated
+synthesis over them: mechanical aggregation of the same lists fails from either source, the
+moderator over conditioned voices fails, and either list source recovers the full gain under the
+moderator — so the specialist personas are optional, on every corpus. The benefit concentrates
+in differential-list recall rather than top-1 accuracy — the team’s top-1 margins on the openweight families were directional only (p = 0.43, p = 0.067), the exception being the strongest
+backbone tested (+5.6 points, p = 0.016) — and it reverses outright on real emergency
+department presentations, where the reference diagnosis is the treating clinician’s working
+label. On the curated corpora, the judge-independent word-coverage check reproduced the
+persona penalty but not the team’s lexical advantage: A×1 matched (CPC, +2.3 points, p =
+0.062) or slightly exceeded (MCR, +1.7 points, p = 0.019) MDT in literal coverage, so the recall
+gain is carried by semantically equivalent rephrasings accepted by the clinician-validated judge
+— the same evidentiary basis as every adjudicated LLM diagnostic benchmark (Supplementary
+Note S34).
+The failure analysis supplies a mechanism for this boundary. Where the team won, it won by
+discriminating among near neighbors within a disease family — the single call’s most common
+failure — and where it lost, it lost on zebras in both directions, missing rare diagnoses and
+inventing exotic ones. Moderated re-adjudication over independently generated candidates
+sharpens within-family discrimination; the same integrative freedom, applied past the
+evidence, licenses etiologic overreach. The emergency cases are the extreme of this trade: when
+the reference label is the clinician’s own working diagnosis, elaboration is pure loss — and
+remained pure loss when the visit’s objective results were added.
+These conditions reconcile a contradictory literature. The positive reports employed multi-call
+designs in which contributions are generated in separate steps and then aggregated [8,13]; the
+negative reports voiced personas within a single prompt, where perspectives condition on one
+another and collapse toward a consensus [14], or debated without external feedback [15]. Our
+P condition reproduces the negative result and our MDT condition the positive one under a
+single backbone, with isolation as the only manipulated variable — an attribution the
+confounded literature could not make. The same reading explains why automatically assembled
+multi-agent systems underperform budget-matched baselines while hand-crafted expert
+designs do not [17], why collaboration’s benefit shrinks as capability grows [22], why single
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+agents match multi-agent systems at equalized thinking budgets [23], and why tool-using
+clinical agents struggle to beat plain baselines [24]: structure, not agent count, carries the
+effect. The mixed-vendor concern raised against conversational frameworks [18] finds no
+support here either — swapping two roles to a different model family changed no metric —
+although at this sample size that is absence of evidence, not evidence of absence.
+Three matched alternatives each fail against a control: intermediate reasoning text inside the
+single call moved nothing (p ≥ 0.61); a five-fold call budget with mechanical aggregation
+bought the single call’s recall, never the team’s; and the particular model family cannot explain
+the recall effect, which is positive in all three families tested, while the persona effect flips sign
+with the family — helping the strongest backbone at the head of the list (top-1 +7.1 points, p =
+0.0009; top-3 +6.9, p = 0.0070) yet adding nothing to the breadth of the differential (top-5, p =
+0.77).
+One asymmetry orders the deployment reading: the attribution is internal to each corpus,
+while the only corpus whose labels no model could have memorized is the emergency set,
+where the method reverses.
+The results translate into deployment guidance keyed to the clinical question, the input at
+hand, and now the backbone. When the task is a single most-likely diagnosis, the single direct
+call remains the right default on the open-weight families — nothing beats it robustly at top-1,
+at six times fewer calls and an order of magnitude fewer tokens — but the default is not a law:
+on the strongest backbone tested, both multi-perspective arms beat the single call at top-1, so
+the case for paying the multi-call cost strengthens with capability, consistent with the
+capability-axis analysis of Kim et al. [22].
+What does not change with the backbone is the breadth prescription: when the clinical value
+lies in the differential’s breadth — a rare-disease service assembling an initial work-up
+framework, a referral decision where missing the second-most-likely diagnosis costs more than
+list length, a teaching ward generating starter differentials for trainees — an integrating call
+over independently generated candidate lists justifies its token premium on both open-weight
+families. When the reference label is the treating clinician’s working diagnosis, as in firstpresentation emergency care, role-based multi-perspective prompting should be avoided under
+a working-label-matching criterion, the only criterion we could benchmark; the plain-sample
+moderator recipe is the defensible multi-call design there, if any multi-call design is used at all.
+One circularity qualifies every emergency-side recommendation: symptom-level workingdiagnosis labels are intrinsically closer to the plain, presentation-matched answer a single call
+produces, so a method that elaborates toward disease-level entities starts at a granularity
+disadvantage under a word-level equivalence criterion. The reversal, however, is not a
+granularity artifact — it is significant within both label strata — but when the clinical question
+is a differential list and the quality criterion is a working diagnosis, the fairness of any top-k
+metric is itself unresolved. Strategy selection, in other words, behaves like a routing problem
+whose variables are observable before the model is run; we offer this as a hypothesis for
+prospective evaluation, not as a validated deployment rule.
+Several limitations qualify these findings. The primary emergency input stops before the
+Medical Decision Making section, which structurally weakens the imaging and laboratory role;
+the workup-informed condition added objective results only, not the clinician’s assessment and
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+plan, so the emergency findings should not be extended to multi-agent reasoning on a
+complete chart; its stratified tests are exploratory and uncorrected for multiplicity. The primary
+judge belongs to a different family from the backbone it scores, which cuts both ways: the
+cross-family judge-judge disagreement bounds, but does not eliminate, judge-induced error; the
+larger gpt-5.1 contrasts exceed that bound, but the narrower nulls claim no more than absence
+of evidence; and no blinded clinician rated the discordant emergency pairs for acceptability, so
+the reversal is established at the level of label matching, not of clinical judgement. Because
+NEJM CPC cases are published, a stronger backbone may have memorized them; the
+emergency corpus, whose labels no model could have memorized, shows the opposite ordering,
+but we cannot exclude that memorization interacts with strategy. The moderator-anatomy
+ablations are exploratory and single-seed; the heterogeneous-role comparison is underpowered
+for equivalence; the backbone-scale comparison cannot resolve the interaction it reports as
+null; and the deployment guidance itself awaits prospective evaluation against outcomes that
+matter clinically rather than benchmark labels. Nor was the analysis externally registered: prespecification rests on the dated, append-only milestones of the judgment cache and the locked
+evidence bundle rather than on a registry protocol, and several control arms — temperature
+matching, the completed factorial, the corrected-prompt control — were added post hoc and are
+labelled sensitivity analyses wherever they bear. Finally, the evidence is asymmetric in a
+deployment-relevant way: the positive gains come from curated corpora that stronger
+backbones may have seen, whereas the one corpus no model could have memorized — real
+first-contact encounters — shows harm; gains measured on curated benchmarks should not be
+extrapolated to front-line inputs, and on the curated corpora the team’s recall advantage is
+invisible to a literal word-coverage criterion, resting on judge-adjudicated semantic
+equivalence (Supplementary Note S34).
+
+Methods
+Study design and datasets
+We compared three diagnostic prompting strategies on three case datasets that differ in
+difficulty, provenance, and reference-label structure; all strategies received the same case text
+and returned a ranked list of five differential diagnoses, scored against the reference diagnosis
+of each case. The development corpus was 87 clinicopathological conference cases published
+consecutively as Case Records of the Massachusetts General Hospital over a fixed publication
+window (2013–2016) and curated in the benchmark of [5], split into 41 used for prompt design
+and judge refinement and 46 held out from prompt tuning and model selection. For external
+validation we used 406 MedCaseReasoning cases [20]; released in 2025, its cases may have
+entered the training data of the evaluated models, a contamination risk we acknowledge. The
+third dataset, ER-Reason, contains real emergency department encounters from a PhysioNet
+credentialed repository used under its data use agreement [21]; from 3,984 encounters we drew
+a stratified random sample of 364 after patient-level deduplication, by chief complaint under a
+fixed sampling seed (procedure and record-coverage detail in Supplementary Note: ER-Reason
+sampling). The model input was the ED provider note truncated immediately before the
+“Medical Decision Making” section (fallback markers where needed; no encounter lost to
+missing text); the HP_Note_Text column does not align with its encounter, so
+ED_Provider_Notes_Text was used throughout. Reference labels exist at two granularities,
+symptom-level (n = 168) and disease-level (n = 196), a mixture inherent to the source record.
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+All API calls receiving these encounters’ text followed the zero-data-retention OpenRouter
+routing described under Models and decoding; adjudication, which involves only reference
+labels and candidate diagnosis strings, ran on the primary-judge endpoint.
+
+Workup-informed input condition
+To test whether the emergency reversal reflects the thinness of presentation-only input, we
+built a second input for the same 364 encounters: the presentation text is reused byte-for-byte
+and the objective results of that encounter are appended, with prompts, model, decoding,
+seeds, and judge unchanged. Rule-based filters that never consult the reference diagnosis retain
+laboratory values, vital signs, point-of-care results, and imaging, electrocardiogram, and
+ultrasound impressions, and remove assessment and plan statements, dispositions, handoffs,
+prescriptions, and summary sentences; manual review of every remaining assertional sentence
+found no explicit final diagnosis asserted in the added text. Coverage is bounded by the source
+record: 240 of 364 cases (65.9%) have at least 200 characters of objective content and 34 have
+none, for which the two conditions are identical by construction. A content-word flag
+identified 20 of 364 cases (5.5%) in which the added text effectively contains the reference label
+(8 by a stricter phrase rule), and the sensitivity analysis excludes the flagged cases.
+
+Prompting strategies
+All strategy calls used qwen3.8-flash (176B parameters, provider-documented) with thinking
+mode disabled; all strategies produced the same output format, a ranked top-5 list. A×1 is a
+single zero-shot call that returns the list directly, eliciting no intermediate reasoning text, at
+requested temperature 0. P reasons sequentially from five perspectives inside one shared
+context — attending physician (unifying diagnosis), pathophysiology, imaging and laboratory,
+epidemiology and exposure, and a skeptic — at temperature 0.3, in one call. MDT issues the
+same five roles as independent calls that cannot see one another’s output, and a moderator call
+integrates the five opinions, for six calls per case. P and MDT share roles, model, and prompt
+material; the only manipulated variable is whether the perspectives are isolated. Full prompt
+text is given in Supplementary Methods S-M1–S-M3.
+
+Matched control arms
+Beyond A×5 (five independent samples of the single-call prompt at temperature 0.7, aggregated
+by Borda count or self-consistency majority vote), the control arms comprise A×1+CoT
+(reasoning elicitation); MDT-Borda (the team’s role lists re-aggregated without the moderator);
+Ax5Mod (the same moderator over plain samples, with fresh-sampled ER-Reason and
+MedCaseReasoning counterparts); P-split (sequential perspective analyses integrated by a fresh
+moderator); single-seed moderator-anatomy ablations; the second model family (deepseekv4.1-flash, byte-identical prompts, five seeds, including the emergency factorial); a closedflagship extension (gpt-5.1, five seeds); the prompt-corrected Pfixed; the 2400B backbone-scale
+arm; and a heterogeneous-role team. Per-arm scripts, prompts, and deposited run files are
+listed in Supplementary Note S33 and Supplementary Tables S10–S12 and S17.
+
+Data integrity repair
+Two defects found after the main runs were repaired before analysis: 16 empty role-call
+outputs in the MedCaseReasoning MDT arm were re-run, the affected case-seeds re-
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+synthesized and re-adjudicated under the frozen judge, and five empty rows in the 2400B P arm
+were re-run. Pre-repair files are retained as .bak_prefill backups beside the repaired ones and
+the repairs are logged (routing_study/results/refill_defects.log); the repaired MCR numbers moved
+by at most 0.2 points and no conclusion depends on the repair (Supplementary Note S14).
+
+Models and decoding
+Models are identified by the deployment strings of their serving endpoints: qwen3.8-flash via
+DashScope, deepseek-v4.1-flash (API alias deepseek-flash) via the DeepSeek API, GLM-5.3-flash
+via the Zhipu API (321B, primary judge), a 552B deepseek-v4.1-flash sensitivity judge, and
+gpt-5.1-2025-11-13 via an OpenAI-compatible endpoint. Parameter counts are as documented
+by the providers, which return no immutable snapshot hashes; runs are identified by the
+deposited request/response logs. All arms ran between 2026-09-10 and 2026-09-23. All API calls
+that receive ER-Reason case text — strategy generation and any synthesis over case content —
+were routed through OpenRouter (openrouter.ai) with zero-data-retention routing enabled
+(provider zdr: true, restricting traffic to endpoints that retain no request or response data;
+endpoint data collection disabled, data_collection: deny). Judge adjudication exchanges only
+the reference label and a candidate diagnosis string, no case content, and ran on the primaryjudge endpoint. Requested temperature 0 is not guaranteed greedy decoding: an illustrative
+three-case probe resubmitting identical prompts changed the top-1 diagnosis in one case, so
+each “seed” is an independent repeat measuring run-to-run variance, and the case, not the run,
+is the unit of inference. A×1 requested temperature 0, the multi-perspective arms 0.3; because
+that asymmetry confounds temperature with strategy, all three arms were re-run at
+temperature 0.3 on every dataset (Results; Supplementary Note: Temperature-matched
+analyses).
+
+Prompt transcription defect and its control
+The P strategy appends a fixed output-format suffix that, unlike the A×1 prompt, was never
+passed through Python’s .format(), so its JSON example reached the model as literal doubled
+braces. qwen3.8-flash rewrote the braces itself (none of the 6,105 qwen-side P outputs was
+empty or carried fewer than five candidates), but deepseek-v4.1-flash copied them verbatim: 57
+of the 261 rows of seeds 1–3 (21.8%) returned an unparseable list on the first attempt, all
+recovered — 49 on retry and 8 via a parser-level fold — and 56 of the 435 final rows (12.9%)
+passed through the flagged fold in total. The byte-exact text actually sent, with SHA-256
+fingerprints of each prompt constant, is deposited as
+routing_study/results/prompt_actually_sent.md. As a diagnostic for fold bias, the 56 rows that
+passed through it do not differ systematically in adjudicated accuracy from the 379 natively
+parsed rows: the per-case paired comparison over the 39 cases containing both kinds of rows is
+balanced at top-1 and top-5 (sign test p = 1.0; the only marginal stratum contrast, top-5 within
+seeds 4–5, p = 0.046, does not survive case-level pairing) — if anything the fold is conservative
+for the persona arm, as repaired rows echoed the defect. Re-running P with the braces folded
+(Pfixed; differing from P on that one line only, audited case by case in the producing script)
+raises P recall by 3–4 points on CPC, leaving the team’s recall advantage over the persona no
+longer individually significant there; the corrected arm still failed to beat the single call at any
+endpoint, and on the external set the persona conclusions are unchanged. Both versions are
+reported (Table 1; Supplementary Table S10c).
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+LLM judge and validation
+Because correct diagnoses surface under synonyms, abbreviations, and differing specificity,
+scoring used an LLM judge deciding semantic equivalence between each candidate and the
+reference diagnosis; judgments were cached, one verdict per candidate–reference pair; the
+primary judge (GLM-5.3-flash) and rule version were frozen before the outcome analyses; the
+cache stands at 113,303 pairs. Rule development used a boundary-enriched batch reported only
+in Supplement (Supplementary Table S5); validation used a disjoint 100-pair batch rated by two
+blinded senior clinicians who are not co-authors of this study (a chief physician of respiratory
+medicine and an associate chief physician of hematology) and was extended to
+MedCaseReasoning and ER-Reason with the same protocol, including a voided first-pass
+criterion on ER-Reason that was re-done under an explicit main-diagnosis test (Supplementary
+Table S5-2); agreement is reported in Results. A second judge (deepseek-v4.1-flash) ran under
+identical rules as sensitivity judge on every run of all three datasets (disagreement 4.48%
+overall, 3.6–5.7% by stratum; Supplementary Table S8). The released caches exclude entries
+derived from ER-Reason under its data use agreement.
+
+Statistical analysis
+The pre-specified primary endpoints were top-3 and top-5 recall; top-1 accuracy is reported for
+completeness but carries no superiority claim. The endpoints, the primary judge, and the two
+comparison families (MDT versus A×1; MDT versus P) were fixed before the strategy
+comparisons were run; with no external registration, pre-specification is documented by the
+dated, append-only growth milestones of the judgment cache and the locked evidence bundle.
+All datasets were run under five seeds; strategies are compared across cases with the paired
+two-sided Wilcoxon signed-rank test on per-case five-seed hit rates, with 95% percentile
+confidence intervals from a case-level cluster bootstrap (10,000 resamples) and, secondarily, an
+exact McNemar test on majority-vote outcomes; threshold-sensitivity at t = 2–5 of five seeds
+and a case-clustered GEE re-fit of all 27 primary tests converged and confirmed every
+conclusion (Supplementary Tables S15, S16) — three frameworks that also answer, in advance,
+the heavy-tie concern about the Wilcoxon approximation on discrete five-seed hit rates — and
+pooling case–seed pairs as independent is retained only as a legacy reference (Supplementary
+Table S3). We report unadjusted p values; all main conclusions survive Benjamini–Hochberg
+correction across the 27 tests of the primary framework (the sole exception, ER-Reason MDTversus-P top-3, q = 0.054, carries no conclusion; Supplementary Table S4), and the four factorial
+contrasts survive correction within their family. Results are reported as mean ± SD across
+seeds. Power: the 87-case CPC corpus resolves 3–4-point recall differences but not top-1
+differences below about 8 points, so its top-1 nulls are inconclusive by construction; the 364case emergency sample resolves roughly 2–3-point top-1 contrasts; the CPC ceiling is set by
+case availability under the journal’s copyright terms.
+
+Data availability
+CPC case text is copyrighted by the publisher (Case Records of the Massachusetts General
+Hospital, NEJM) and cannot be redistributed; we release case identifiers with pointers to the
+source journal and to the benchmark of [5]. MedCaseReasoning is publicly available under a
+CC-BY license [20]. ER-Reason is a PhysioNet credentialed dataset available to users who
+complete credentialing and sign its data use agreement [21]. All API calls receiving ER-Reason
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+case text (strategy generation and synthesis) were routed through OpenRouter’s zero-dataretention tier (Methods); judge adjudication, which exchanges only reference labels and
+candidate diagnosis strings, ran on the primary-judge endpoint. Per-case ER-Reason outputs
+and the ER-Reason entries of the judge caches are excluded from the public archive under the
+same agreement.
+
+Code availability
+All analysis code, prompt templates, pipeline scripts, and the judgment caches are openly
+released at https://github.com/yepsun/multi-agent-diagnostic-reasoning and permanently
+archived on Zenodo at https://doi.org/10.5281/zenodo.22935060 (snapshot v1.0.1). The caches
+contain every adjudication used for CPC and MedCaseReasoning; entries derived from ERReason are excluded, and case identifiers are one-way hashed, in line with the ER-Reason data
+use agreement.
+
+Ethics declarations
+This study is a secondary analysis of existing, de-identified data and did not involve human
+subjects recruitment or access to identifiable information; institutional review board review
+was therefore not required. The CPC cases are published case reports; MedCaseReasoning is
+derived from open-access case reports in PubMed Central [20]. ER-Reason consists of clinical
+notes de-identified by the UCSF Information Commons under both HIPAA Safe Harbor and
+Expert Determination methods, with sharing approved by the source institution’s compliance
+team, and was used in accordance with the PhysioNet data use agreement [21]. Consistent with
+PhysioNet’s guidance on the use of credentialed data with large language models, all
+automated processing of these de-identified records ran on inference endpoints configured for
+zero data retention — no request or response retained by the provider, no use of the data for
+model training, no human review of case content — with every call receiving case text routed
+through OpenRouter’s zero-data-retention tier (Methods and Data availability).
+
+Author contributions
+Jun Feng: conceptualization, methodology, writing — original draft. Yuhao Jiao:
+conceptualization, methodology, writing — original draft. Yiyao Li: methodology, software,
+formal analysis, investigation, visualization, writing — original draft. Longxin Xie: data
+curation, investigation, validation. Wenyu Peng: data curation, investigation, validation.
+Xuefeng Sun: conceptualization, supervision, funding acquisition, writing — review and
+editing. All authors read and approved the final manuscript.
+
+Competing interests
+The authors declare no competing interests.
+
+Funding
+This research received no specific grant from any funding agency in the public, commercial, or
+not-for-profit sectors.
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+Declaration of AI use
+Large language models were used to assist with drafting and language editing of this
+manuscript. The authors reviewed, verified, and take full responsibility for all content,
+including every reported number and citation.
+
+References
+1. National Academy of Medicine. Improving Diagnosis in Health Care. Balogh EP, Miller
+BT, Ball JR, editors. Washington, DC: National Academies Press; 2015.
+doi:10.17226/21794.
+2. Newman-Toker DE, Nassery N, Schaffer AC, Yu-Moe CW, Clemens GD, Wang Z, Zhu Y,
+Saber Tehrani AS, Fanai M, Hassoon A, et al. Burden of serious harms from diagnostic
+error in the USA. BMJ Qual Saf. 2024;33(2):109-120. doi:10.1136/bmjqs-2021-014130.
+3. Singhal K, Azizi S, Tu T, Mahdavi SS, Wei J, Chung HW, Scales N, Tanwani A, ColeLewis H, Pfohl S, et al. Large language models encode clinical knowledge. Nature.
+2023;620(7972):172-180. doi:10.1038/s41586-023-06291-2.
+4. Kanjee Z, Crowe B, Rodman A. Accuracy of a generative artificial intelligence model in
+a complex diagnostic challenge. JAMA. 2023;330(1):78-80. doi:10.1001/jama.2023.8288.
+5. Buckley TA, Conci R, Brodeur PG, Gusdorf J, Beltrán S, Behrouzi B, Crowe B,
+Dockterman J, Muhammad M, Ohnigian S, Sanchez A, Diao JA, Shah AP, Restrepo D,
+Rosenberg ES, Lea AS, Glanton E, LeBlanc K; Undiagnosed Diseases Network; Zitnik M,
+Podolsky SH, Kanjee Z, Abdulnour RE, Koshy JM, Rodman A, Manrai AK. Teaching
+large language models to reason like expert diagnosticians. arXiv:2509.12194 [cs.AI].
+2025. https://arxiv.org/abs/2509.12194
+6. McDuff D, Schaekermann M, Tu T, Palepu A, Wang A, Garrison J, Singhal K, Sharma Y,
+Azizi S, Kulkarni K, et al. Towards accurate differential diagnosis with large language
+models. Nature. 2025;642(8067):451-457. doi:10.1038/s41586-025-08869-4.
+7. Tu T, Schaekermann M, Palepu A, Saab K, Freyberg J, Tanno R, Wang A, Li B, Amin M,
+Cheng Y, Vedadi E, Tomasev N, Azizi S, Singhal K, Hou L, Webson A, Kulkarni K,
+Mahdavi SS, Semturs C, Gottweis J, Barral J, Chou K, Corrado GS, Matias Y,
+Karthikesalingam A, Natarajan V. Towards conversational diagnostic artificial
+intelligence. Nature. 2025;642(8067):442-450. doi:10.1038/s41586-025-08866-7.
+8. Chen X, Yi H, You M, Liu W, Wang L, Li H, Zhang X, Guo Y, Fan L, Chen G, et
+al. Enhancing diagnostic capability with multi-agents conversational large language
+models. npj Digit Med. 2025;8(1):159. doi:10.1038/s41746-025-01550-0.
+9. Wang J, Wang J, Athiwaratkun B, Zhang C, Zou J. Mixture-of-agents enhances large
+language model capabilities. In: International Conference on Learning Representations
+(ICLR). Singapore; 2025. pp. 33944-33963. arXiv:2406.04692.
+10. Wang X, Wei J, Schuurmans D, Le QV, Chi EH, Narang S, Chowdhery A, Zhou D. Selfconsistency improves chain of thought reasoning in language models. In: The Eleventh
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+International Conference on Learning Representations (ICLR 2023). 2023.
+arXiv:2203.11171.
+11. Li J, Zhang Q, Yu Y, Fu Q, Ye D. More agents is all you need. Trans Mach Learn Res.
+2024. arXiv:2402.05120.
+12. Lamb BW, Brown KF, Nagpal K, Vincent C, Green JSA, Sevdalis N. Quality of care
+management decisions by multidisciplinary cancer teams: a systematic review. Ann
+Surg Oncol. 2011;18(8):2116-2125. PMID 21442345.
+13. Tang X, Zou A, Zhang Z, Zhao Y, Zhang X, Cohan A, Gerstein M. MedAgents: Large
+language models as collaborators for zero-shot medical reasoning. In: Findings of the
+Association for Computational Linguistics: ACL 2024. Bangkok: ACL; 2024. pp. 599-614.
+doi:10.18653/v1/2024.findings-acl.33. arXiv:2311.10537.
+14. Zheng M, Pei J, Logeswaran L, Lee M, Jurgens D. When “a helpful assistant” is not
+really helpful: personas in system prompts do not improve performances of large
+language models. In: Findings of the Association for Computational Linguistics: EMNLP
+2024. Miami, FL: ACL; 2024. pp. 15126-15154. doi:10.18653/v1/2024.findings-emnlp.888.
+15. Oh J, Jeong M, Ko J, Yun SY. From Belief Entrenchment to Robust Reasoning in LLM
+Agents. Trans Assoc Comput Linguist. 2026;14:1286-1307. doi:10.1162/tacl.a.728.
+16. Wei J, Wang X, Schuurmans D, Bosma B, Ichter B, Xia F, Chi EH, Le QV, Zhou D. Chainof-thought prompting elicits reasoning in large language models. In: Advances in
+Neural Information Processing Systems 35 (NeurIPS 2022). 2022. pp. 24824-24837.
+arXiv:2201.11903.
+17. Jwalapuram P, Lin H, Li C, Jiao F, Wang S, Ming Y, Ke Z, Qin C, Carenini G, Joty S. The
+Illusion of Multi-Agent Advantage. arXiv:2606.13003 [cs.MA]. 2026.
+https://arxiv.org/abs/2606.13003
+18. Yuan GC, Zhang X, Kim SE, Rajpurkar P. Do mixed-vendor multi-agent LLMs improve
+clinical diagnosis? In: Proceedings of the 9th Machine Learning for Health (HEALING)
+Workshop at ACL 2026. ACL Anthology; 2026. arXiv:2603.04421.
+19. Zheng L, Chiang WL, Sheng Y, Zhuang S, Wu Z, Zhuang Y, Lin Z, Li Z, Li D, Xing EP,
+Zhang H, Gonzalez JE, Stoica I. Judging LLM-as-a-judge with MT-Bench and Chatbot
+Arena. In: Advances in Neural Information Processing Systems 36 (NeurIPS 2023),
+Datasets and Benchmarks Track. 2023. pp. 46595-46623. arXiv:2306.05685.
+20. Wu K, Wu E, Thapa R, Wei K, Zhang A, Suresh A, Tao JJT, Sun MW, Lozano A, Zou J.
+MedCaseReasoning: Evaluating and learning diagnostic reasoning from clinical case
+reports. arXiv:2505.11733. 2025. https://arxiv.org/abs/2505.11733
+21. Molina M, Mehandru N, Golchini N, Alaa A. ER-REASON: A Benchmark Dataset for
+LLM-Based Clinical Reasoning in the Emergency Room. PhysioNet. 2025. Version 1.0.0.
+doi:10.13026/55s7-3c27. arXiv:2505.22919.
+
+medRxiv preprint doi: https://doi.org/10.64898/2026.09.24.26363897; this version posted September 26, 2026. The copyright holder for this
+preprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in perpetuity.
+It is made available under a CC-BY 4.0 International license .
+
+22. Kim Y, Gu K, Park C, et al. Capable language models can outgrow the benefits of
+collaboration. Nat Mach Intell. 2026;8(7):1157-1172. doi:10.1038/s42256-026-01268-y.
+23. Tran D, Kiela D. Single-agent LLMs outperform multi-agent systems on multi-hop
+reasoning under equal thinking token budgets. arXiv:2604.02460 [cs.CL]. 2026.
+https://arxiv.org/abs/2604.02460
+24. Liu Y, Carrero ZI, Jiang X, et al. Benchmarking large language model-based agent
+systems for clinical decision tasks. npj Digit Med. 2026;9:259. doi:10.1038/s41746-02602443-6.
+
+

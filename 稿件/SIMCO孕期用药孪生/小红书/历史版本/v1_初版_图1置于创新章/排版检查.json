@@ -1,0 +1,770 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-23T07:20:45.895Z",
+  "input": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/小红书/制作记录/渲染输入_v1.json",
+    "sha256": "f3a1e5fb4aff2fb6fbad9c4ae3e255aafc67e14f2dbb0aa26a9c420d089733b1",
+    "source": {
+      "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/公众号/公众号正文.txt",
+      "sha256": "5475d0a785fe61fceaa276bd1f66d08f8dab62d8d0a3894aca8a83052e1b6da7"
+    }
+  },
+  "theme": {
+    "width": 1080,
+    "height": 1440,
+    "margin": 64,
+    "font_size": 42,
+    "line_height": 68,
+    "paragraph_gap": 24,
+    "heading_size": 42,
+    "heading_line_height": 64,
+    "column_gap": 128,
+    "highlight": "#EAE3F4",
+    "underline": "#8064A8",
+    "background": "#FFFFFF",
+    "text": "#161616",
+    "font_family": "Songti SC",
+    "cover_title_size": 96,
+    "cover_summary_size": 40,
+    "source_size": 22,
+    "source_line_height": 36
+  },
+  "text_exact_match": true,
+  "text_blocks": 12,
+  "text_characters": 1124,
+  "body_columns": 6,
+  "image_count": 7,
+  "dimensions": [
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    }
+  ],
+  "pages": [
+    {
+      "page": 2,
+      "column": 0,
+      "content_top": 2,
+      "content_bottom": 919,
+      "bottom_whitespace": 393,
+      "fragments": [
+        {
+          "source_block_index": 0,
+          "type": "heading",
+          "start": 0,
+          "end": 3,
+          "page": 2,
+          "text": "创新点",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 1,
+          "type": "paragraph",
+          "start": 0,
+          "end": 192,
+          "page": 2,
+          "text": "Stanford团队10月21日在Science Advances发表SIMCO框架（Simulated Immunome Modeling of Clinical Outcomes）：把数字孪生做到单细胞分辨率，直接模拟免疫调节药物对\"距自然分娩时间\"这一临床结局的影响，用于自发性早产（sPTL）的预防用药筛选——孕期新药临床试验受伦理与经费限制，这类模拟正是数字孪生的适用场景。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292,
+            360,
+            428,
+            496
+          ]
+        },
+        {
+          "source_block_index": 2,
+          "type": "paragraph",
+          "start": 0,
+          "end": 103,
+          "page": 2,
+          "text": "框架分三步：用最优传输模型CellOT学习单细胞扰动响应，投影到独立队列生成\"用药/不用药\"两个数字孪生，再用稀疏模型Stabl预测分娩时间，两个孪生的预测差即药物模拟效应。框架总览见论文Figure 1。",
+          "line_tops": [
+            588,
+            656,
+            724,
+            792,
+            860
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": false
+    },
+    {
+      "page": 3,
+      "column": 1,
+      "content_top": 0,
+      "content_bottom": 1139.21875,
+      "bottom_whitespace": 172.78125,
+      "fragments": [
+        {
+          "source_block_index": 4,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 3,
+          "text": "方法",
+          "line_tops": [
+            586.22
+          ]
+        },
+        {
+          "source_block_index": 5,
+          "type": "paragraph",
+          "start": 0,
+          "end": 153,
+          "page": 3,
+          "text": "训练数据是新建的质谱流式扰动图谱：8名非孕与11名孕20-27周女性，96孔外显全血免疫分析，共2.18亿个白细胞、80个扰动场景。9种候选药全部为FDA妊娠A/B类口服药（8种单药+1个组合），由已发表的计算药物重定位管线预选，实验浓度按口服标准剂量后的血浆水平设定，各药剂量与浓度见论文Table 2。",
+          "line_tops": [
+            672.22,
+            740.22,
+            808.22,
+            876.22,
+            944.22,
+            1012.22,
+            1080.22
+          ]
+        }
+      ],
+      "image_blocks": [
+        3
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 4,
+      "column": 2,
+      "content_top": 0,
+      "content_bottom": 603.890625,
+      "bottom_whitespace": 708.109375,
+      "fragments": [
+        {
+          "source_block_index": 7,
+          "type": "paragraph",
+          "start": 0,
+          "end": 98,
+          "page": 4,
+          "text": "在扰动图谱内的四折交叉验证中，SIMCO的单细胞模拟在MAE、R2、MMD三项指标上均优于两个基线，模拟误差与患者间真实变异的相关达Spearman R=0.93，验证设计见论文Figure 4。",
+          "line_tops": [
+            340.89,
+            408.89,
+            476.89,
+            544.89
+          ]
+        }
+      ],
+      "image_blocks": [
+        6
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 5,
+      "column": 3,
+      "content_top": 0,
+      "content_bottom": 1283.78125,
+      "bottom_whitespace": 28.21875,
+      "fragments": [
+        {
+          "source_block_index": 9,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 5,
+          "text": "结果",
+          "line_tops": [
+            774.78
+          ]
+        },
+        {
+          "source_block_index": 10,
+          "type": "paragraph",
+          "start": 0,
+          "end": 120,
+          "page": 5,
+          "text": "应用于独立纵向队列（Stelzer等采集的177份血样、63名孕妇，含5名sPTL患者）：SIMCO预测距分娩时间为Pearson R=0.64、RMSE 24.1天，区分早产与足月的AUROC为0.75（95%CI 0.59-0.88）。",
+          "line_tops": [
+            860.78,
+            928.78,
+            996.78,
+            1064.78
+          ]
+        },
+        {
+          "source_block_index": 11,
+          "type": "paragraph",
+          "start": 0,
+          "end": 57,
+          "page": 5,
+          "text": "药物模拟排序：THF（叶酸活性代谢物）平均延长24.7天（IQR 11.4-45.9）居首，马普替林18.8天、阿",
+          "line_tops": [
+            1156.78,
+            1224.78
+          ]
+        }
+      ],
+      "image_blocks": [
+        8
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 6,
+      "column": 4,
+      "content_top": 4,
+      "content_bottom": 1183,
+      "bottom_whitespace": 129,
+      "fragments": [
+        {
+          "source_block_index": 11,
+          "type": "paragraph",
+          "start": 57,
+          "end": 162,
+          "page": 6,
+          "text": "司匹林+兰索拉唑组合（SALPZ）17.3天；THF、SALPZ、马普替林分别让90.5%、87.3%、82.5%的孕妇在模拟中延长孕周，单用阿司匹林代谢物SA只有46%。各药效应与机制见论文Figure 5。",
+          "line_tops": [
+            4,
+            72,
+            140,
+            208
+          ]
+        }
+      ],
+      "image_blocks": [
+        12
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 7,
+      "column": 5,
+      "content_top": 4,
+      "content_bottom": 1158,
+      "bottom_whitespace": 154,
+      "fragments": [
+        {
+          "source_block_index": 13,
+          "type": "paragraph",
+          "start": 0,
+          "end": 109,
+          "page": 7,
+          "text": "机制解释：THF与SALPZ主要通过抑制初始CD4+ T细胞的pSTAT3信号（JAK/STAT通路）与增强粒细胞pS6响应（mTOR通路）延迟分娩相关的免疫演变，两者对模型前10个关键特征中的7个产生期望方向的调节。",
+          "line_tops": [
+            4,
+            72,
+            140,
+            208,
+            276
+          ]
+        },
+        {
+          "source_block_index": 14,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 7,
+          "text": "结论",
+          "line_tops": [
+            374
+          ]
+        },
+        {
+          "source_block_index": 15,
+          "type": "paragraph",
+          "start": 0,
+          "end": 178,
+          "page": 7,
+          "text": "论文反复明确：全部药物效应来自in silico模拟，不是临床试验结果。局限包括训练图谱仅19人、集中于孕中期窗口、只取外周血；独立队列中早产患者仅5人；实验只测2小时内的急性磷酸化信号；单次给药模拟以患者内聚合近似重复用药。作者将SIMCO定位为概念验证：适合早期化合物优先级排序与机制假设生成，转化为预防策略还需跨孕周大队列、动物实验与前瞻性临床验证。",
+          "line_tops": [
+            460,
+            528,
+            596,
+            664,
+            732,
+            800,
+            868,
+            936
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": true
+    }
+  ],
+  "fragments": [
+    {
+      "source_block_index": 0,
+      "type": "heading",
+      "start": 0,
+      "end": 3,
+      "page": 2,
+      "text": "创新点",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 1,
+      "type": "paragraph",
+      "start": 0,
+      "end": 192,
+      "page": 2,
+      "text": "Stanford团队10月21日在Science Advances发表SIMCO框架（Simulated Immunome Modeling of Clinical Outcomes）：把数字孪生做到单细胞分辨率，直接模拟免疫调节药物对\"距自然分娩时间\"这一临床结局的影响，用于自发性早产（sPTL）的预防用药筛选——孕期新药临床试验受伦理与经费限制，这类模拟正是数字孪生的适用场景。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292,
+        360,
+        428,
+        496
+      ]
+    },
+    {
+      "source_block_index": 2,
+      "type": "paragraph",
+      "start": 0,
+      "end": 103,
+      "page": 2,
+      "text": "框架分三步：用最优传输模型CellOT学习单细胞扰动响应，投影到独立队列生成\"用药/不用药\"两个数字孪生，再用稀疏模型Stabl预测分娩时间，两个孪生的预测差即药物模拟效应。框架总览见论文Figure 1。",
+      "line_tops": [
+        588,
+        656,
+        724,
+        792,
+        860
+      ]
+    },
+    {
+      "source_block_index": 4,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 3,
+      "text": "方法",
+      "line_tops": [
+        586.22
+      ]
+    },
+    {
+      "source_block_index": 5,
+      "type": "paragraph",
+      "start": 0,
+      "end": 153,
+      "page": 3,
+      "text": "训练数据是新建的质谱流式扰动图谱：8名非孕与11名孕20-27周女性，96孔外显全血免疫分析，共2.18亿个白细胞、80个扰动场景。9种候选药全部为FDA妊娠A/B类口服药（8种单药+1个组合），由已发表的计算药物重定位管线预选，实验浓度按口服标准剂量后的血浆水平设定，各药剂量与浓度见论文Table 2。",
+      "line_tops": [
+        672.22,
+        740.22,
+        808.22,
+        876.22,
+        944.22,
+        1012.22,
+        1080.22
+      ]
+    },
+    {
+      "source_block_index": 7,
+      "type": "paragraph",
+      "start": 0,
+      "end": 98,
+      "page": 4,
+      "text": "在扰动图谱内的四折交叉验证中，SIMCO的单细胞模拟在MAE、R2、MMD三项指标上均优于两个基线，模拟误差与患者间真实变异的相关达Spearman R=0.93，验证设计见论文Figure 4。",
+      "line_tops": [
+        340.89,
+        408.89,
+        476.89,
+        544.89
+      ]
+    },
+    {
+      "source_block_index": 9,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 5,
+      "text": "结果",
+      "line_tops": [
+        774.78
+      ]
+    },
+    {
+      "source_block_index": 10,
+      "type": "paragraph",
+      "start": 0,
+      "end": 120,
+      "page": 5,
+      "text": "应用于独立纵向队列（Stelzer等采集的177份血样、63名孕妇，含5名sPTL患者）：SIMCO预测距分娩时间为Pearson R=0.64、RMSE 24.1天，区分早产与足月的AUROC为0.75（95%CI 0.59-0.88）。",
+      "line_tops": [
+        860.78,
+        928.78,
+        996.78,
+        1064.78
+      ]
+    },
+    {
+      "source_block_index": 11,
+      "type": "paragraph",
+      "start": 0,
+      "end": 57,
+      "page": 5,
+      "text": "药物模拟排序：THF（叶酸活性代谢物）平均延长24.7天（IQR 11.4-45.9）居首，马普替林18.8天、阿",
+      "line_tops": [
+        1156.78,
+        1224.78
+      ]
+    },
+    {
+      "source_block_index": 11,
+      "type": "paragraph",
+      "start": 57,
+      "end": 162,
+      "page": 6,
+      "text": "司匹林+兰索拉唑组合（SALPZ）17.3天；THF、SALPZ、马普替林分别让90.5%、87.3%、82.5%的孕妇在模拟中延长孕周，单用阿司匹林代谢物SA只有46%。各药效应与机制见论文Figure 5。",
+      "line_tops": [
+        4,
+        72,
+        140,
+        208
+      ]
+    },
+    {
+      "source_block_index": 13,
+      "type": "paragraph",
+      "start": 0,
+      "end": 109,
+      "page": 7,
+      "text": "机制解释：THF与SALPZ主要通过抑制初始CD4+ T细胞的pSTAT3信号（JAK/STAT通路）与增强粒细胞pS6响应（mTOR通路）延迟分娩相关的免疫演变，两者对模型前10个关键特征中的7个产生期望方向的调节。",
+      "line_tops": [
+        4,
+        72,
+        140,
+        208,
+        276
+      ]
+    },
+    {
+      "source_block_index": 14,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 7,
+      "text": "结论",
+      "line_tops": [
+        374
+      ]
+    },
+    {
+      "source_block_index": 15,
+      "type": "paragraph",
+      "start": 0,
+      "end": 178,
+      "page": 7,
+      "text": "论文反复明确：全部药物效应来自in silico模拟，不是临床试验结果。局限包括训练图谱仅19人、集中于孕中期窗口、只取外周血；独立队列中早产患者仅5人；实验只测2小时内的急性磷酸化信号；单次给药模拟以患者内聚合近似重复用药。作者将SIMCO定位为概念验证：适合早期化合物优先级排序与机制假设生成，转化为预防策略还需跨孕周大队列、动物实验与前瞻性临床验证。",
+      "line_tops": [
+        460,
+        528,
+        596,
+        664,
+        732,
+        800,
+        868,
+        936
+      ]
+    }
+  ],
+  "split_paragraphs": [
+    {
+      "index": 11,
+      "type": "paragraph",
+      "text": "药物模拟排序：THF（叶酸活性代谢物）平均延长24.7天（IQR 11.4-45.9）居首，马普替林18.8天、阿司匹林+兰索拉唑组合（SALPZ）17.3天；THF、SALPZ、马普替林分别让90.5%、87.3%、82.5%的孕妇在模拟中延长孕周，单用阿司匹林代谢物SA只有46%。各药效应与机制见论文Figure 5。",
+      "pages": [
+        5,
+        6
+      ]
+    }
+  ],
+  "heading_checks": [
+    {
+      "source_block_index": 0,
+      "page": 2,
+      "following_text_lines": 7,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 4,
+      "page": 3,
+      "following_text_lines": 7,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 9,
+      "page": 5,
+      "following_text_lines": 4,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 14,
+      "page": 7,
+      "following_text_lines": 8,
+      "required_lines": 2
+    }
+  ],
+  "palette": [
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    }
+  ],
+  "cover": {
+    "image_height": 885.78125,
+    "bottom_whitespace": 64
+  },
+  "header_footer_count": 0,
+  "source_present": true,
+  "source_only_final_visible_page": true,
+  "source_pages": [
+    7
+  ],
+  "blocks": [
+    {
+      "index": 0,
+      "type": "heading",
+      "text": "创新点",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 1,
+      "type": "paragraph",
+      "text": "Stanford团队10月21日在Science Advances发表SIMCO框架（Simulated Immunome Modeling of Clinical Outcomes）：把数字孪生做到单细胞分辨率，直接模拟免疫调节药物对\"距自然分娩时间\"这一临床结局的影响，用于自发性早产（sPTL）的预防用药筛选——孕期新药临床试验受伦理与经费限制，这类模拟正是数字孪生的适用场景。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "type": "paragraph",
+      "text": "框架分三步：用最优传输模型CellOT学习单细胞扰动响应，投影到独立队列生成\"用药/不用药\"两个数字孪生，再用稀疏模型Stabl预测分娩时间，两个孪生的预测差即药物模拟效应。框架总览见论文Figure 1。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "pages": [
+        3
+      ],
+      "caption": "论文Figure 1：SIMCO单细胞级数字孪生框架总览（Science Advances, eaed2741）",
+      "image_bounds": {
+        "x": 0,
+        "top": 0,
+        "bottom": 552.21875,
+        "width": 952
+      }
+    },
+    {
+      "index": 4,
+      "type": "heading",
+      "text": "方法",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 5,
+      "type": "paragraph",
+      "text": "训练数据是新建的质谱流式扰动图谱：8名非孕与11名孕20-27周女性，96孔外显全血免疫分析，共2.18亿个白细胞、80个扰动场景。9种候选药全部为FDA妊娠A/B类口服药（8种单药+1个组合），由已发表的计算药物重定位管线预选，实验浓度按口服标准剂量后的血浆水平设定，各药剂量与浓度见论文Table 2。",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "pages": [
+        4
+      ],
+      "caption": "论文Table 2：9种sPTL预防候选药的剂量、半衰期与实验浓度（Science Advances, eaed2741）",
+      "image_bounds": {
+        "x": 0,
+        "top": 0,
+        "bottom": 308.890625,
+        "width": 952
+      }
+    },
+    {
+      "index": 7,
+      "type": "paragraph",
+      "text": "在扰动图谱内的四折交叉验证中，SIMCO的单细胞模拟在MAE、R2、MMD三项指标上均优于两个基线，模拟误差与患者间真实变异的相关达Spearman R=0.93，验证设计见论文Figure 4。",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "pages": [
+        5
+      ],
+      "caption": "论文Figure 4：模拟与实测免疫响应的对比验证（Science Advances, eaed2741）",
+      "image_bounds": {
+        "x": 0,
+        "top": 0,
+        "bottom": 740.78125,
+        "width": 952
+      }
+    },
+    {
+      "index": 9,
+      "type": "heading",
+      "text": "结果",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 10,
+      "type": "paragraph",
+      "text": "应用于独立纵向队列（Stelzer等采集的177份血样、63名孕妇，含5名sPTL患者）：SIMCO预测距分娩时间为Pearson R=0.64、RMSE 24.1天，区分早产与足月的AUROC为0.75（95%CI 0.59-0.88）。",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 11,
+      "type": "paragraph",
+      "text": "药物模拟排序：THF（叶酸活性代谢物）平均延长24.7天（IQR 11.4-45.9）居首，马普替林18.8天、阿司匹林+兰索拉唑组合（SALPZ）17.3天；THF、SALPZ、马普替林分别让90.5%、87.3%、82.5%的孕妇在模拟中延长孕周，单用阿司匹林代谢物SA只有46%。各药效应与机制见论文Figure 5。",
+      "pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "index": 12,
+      "type": "image",
+      "pages": [
+        6
+      ],
+      "caption": "论文Figure 5：SIMCO预测九种候选药对分娩时间的影响（Science Advances, eaed2741）",
+      "image_bounds": {
+        "x": 0,
+        "top": 296,
+        "bottom": 1183,
+        "width": 952
+      }
+    },
+    {
+      "index": 13,
+      "type": "paragraph",
+      "text": "机制解释：THF与SALPZ主要通过抑制初始CD4+ T细胞的pSTAT3信号（JAK/STAT通路）与增强粒细胞pS6响应（mTOR通路）延迟分娩相关的免疫演变，两者对模型前10个关键特征中的7个产生期望方向的调节。",
+      "pages": [
+        7
+      ]
+    },
+    {
+      "index": 14,
+      "type": "heading",
+      "text": "结论",
+      "pages": [
+        7
+      ]
+    },
+    {
+      "index": 15,
+      "type": "paragraph",
+      "text": "论文反复明确：全部药物效应来自in silico模拟，不是临床试验结果。局限包括训练图谱仅19人、集中于孕中期窗口、只取外周血；独立队列中早产患者仅5人；实验只测2小时内的急性磷酸化信号；单次给药模拟以患者内聚合近似重复用药。作者将SIMCO定位为概念验证：适合早期化合物优先级排序与机制假设生成，转化为预防策略还需跨孕周大队列、动物实验与前瞻性临床验证。",
+      "pages": [
+        7
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "图片/01_封面.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "5f965819d13843045ef3c2a8ef68ae61df22d5125bee0707c372c7cb95ab7317"
+    },
+    {
+      "file": "图片/02_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "be5c4e9fab12a9725047fb3039f0012f4a9200917b798847b1c48795e83dccb5"
+    },
+    {
+      "file": "图片/03_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "cae8f8abed3af5e4dafd3aebce11b3b40c52356772a35ce41f1b9fc4295160ef"
+    },
+    {
+      "file": "图片/04_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "da7c6716afe9a4f7df4914ef97f7782efdb03717fc7a4fabfacc058ebd8758a1"
+    },
+    {
+      "file": "图片/05_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "adc1734090891fc8b2425835017457b5f94c348dc975a90358800c681258194a"
+    },
+    {
+      "file": "图片/06_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "d012945f30b798f2a97f6cefad3324804dc17ac0e0878857e28da7ce0a4fb5ce"
+    },
+    {
+      "file": "图片/07_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "93dd32f992d30e1adc2d751d22c552d78a3378d169ad66fe9618c3cf5d8fe0f0"
+    }
+  ],
+  "visual_review": "PNG files still require actual visual inspection before delivery."
+}

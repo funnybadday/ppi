@@ -1,0 +1,2907 @@
+A general-purpose System One decision model for clinical
+records
+Andrew Zhang1,2,3, Trinh T.L. Vuong1,2, Sophia J. Wagner1,2, Dongmin Bang1,2, Tong Ding1,2,
+Yuchang Su1,2, Mary Cipperman1,2, Christina S. Chen1,2, Judith Lefkes1,2, Ramin Kahidi1,2,3, Ming Y . Lu1,2,
+Caiwei Tian1,2, Tianhao Luo1,2, Jingnan Ma1,2, Rowland Pettit1,2, Long Phi Le1,2,3,† & Faisal Mahmood1,2,†,*
+1Mass General Brigham AI Institute, Boston, MA.
+2Harvard Medical School, Boston, MA.
+3Massachusetts Institute of Technology, Cambridge, MA.
+†Co-senior authors.
+*Corresponding author: Faisal Mahmood (faisalmahmood@bwh.harvard.edu).
+Clinical care, health-system operations and biomedical discovery depend on extracting reliable answers
+from patient records, yet applying diverse clinical questions across entire populations remains difficult
+and computationally expensive. Task-specific models offer limited flexibility, whereas generative lan-
+guage models require costly, repeated processing of lengthy records. Here we present Clinical System
+One (CS1), a 4-billion-parameter decision model for fast, typed judgments from clinical records, along
+with two agentic harnesses in which CS1 works together with a generalist language model for high-
+volume screening. CS1-4B is trained on 12.4 million questions and answers from 3.6 million patients
+across a multi-hospital health system. Training combines structured-data keys, observed outcomes
+and language-model supervision to support questions across clinical notes, diagnostic reports and
+longitudinal patient timelines. CS1-4B answers multiple questions with predefined response options in a
+single forward pass and accommodates diverse questions and criteria without task-specific retraining.
+Each answer carries a probability that can route uncertain cases to human review, and on-demand
+attribution to the individual sentences it rests on. On 963,408 held-out patients, CS1-4B outperformed
+open decision models up to 27 billion parameters on 13 of 14 tasks scored independently of its training
+teacher. Across 21 external data sets, its aggregate performance approached that of the strongest tested
+27-billion-parameter model, with 6.4-fold faster inference in a matched workload. A single desktop
+graphics processor reads about 2,000 notes per hour at 40 questions each, allowing deployment on
+modest local hardware. Integrating CS1-4B with a language model agent extended these capabilities
+from individual documents to longitudinal chart review and population screening: the combined system
+produced cited answers over complete multi-year patient histories and screened a patient population
+against the eligibility criteria of 17 registered clinical trials. In the retrospective trial-screening analy-
+sis, this approach placed four times as many judged-eligible patients among its top 20 candidates as
+keyword search and reduced language-model token use 690-fold relative to a language model reading
+every record. These findings support a division of labour in clinical artificial intelligence, with small
+decision models performing repeated record reading and generative models formulating questions and
+synthesizing evidence, and provide a foundation for continuously queryable clinical records supporting
+registry abstraction, quality measurement, cohort discovery, trial screening and clinical review.
+1
+arXiv:2610.27099v1  [cs.AI]  19 Oct 2026
+
+Clinical records support a large volume of fast, narrow judgements. Trial teams and sponsors screen thousands
+of candidates against dozens of eligibility criteria1,2. Registries and cohort studies ask one phenotype question
+of every patient in a health system3. Payers and coding teams review whether the record supports what was
+billed or requested, quality programmes audit every discharge for the same measures4, and clinicians reviewing
+a chart ask how a problem evolved over years of notes5. Each question is simple for a clinician who is familiar
+with the patient context, but across whole populations or long records, the cost quickly balloons beyond a
+feasible effort threshold. In Kahneman’s terms these are System 1 judgements, fast and typed, as opposed to
+the deliberate System 2 reasoning of diagnosis and treatment planning6.
+Established automated workflows do not fit this workload. Clinical natural-language processing pipelines7,8
+and supervised phenotyping or risk models 9,10 are fast but fixed to the concepts they were built for. Large
+language models (LLMs) accept questions in natural language11–14, but every question is a separate generation,
+often with explicit reasoning15, so cost grows with patients × questions × record length. Caching a shared
+record prefix16,17 or asking several questions in one prompt18 reduces the repeated reading, but every answer is
+still generated token by token. Their answers come without calibrated probabilities that could route uncertain
+cases to a human for review19,20, and rarely with evidence a reviewer can check without rereading the chart21.
+Data-use agreements for clinical text also often rule out hosted models22,23, limiting local usage to small LLMs
+that have lower accuracy and higher hallucination rates.
+A new class of open models targets exactly this interface. “System One” decision models take a state and a set
+of typed questions, and return an independent probability distribution for every question in one forward pass24.
+JEV-27B25, Clef26 and the Decision 2.0 family of 0.6–27-billion-parameter models27 are publicly available.
+They are trained on public and synthetic data, however, and none reports an evaluation on clinical records.
+An independent medical evaluation, of the hosted Jev service on examination and case-report benchmarks,
+found it fast and accurate on literature questions but overconfident and behind a reasoning LLM on complex
+diagnosis, and recommended verifying and recalibrating its probabilities for every task 28. A second study
+tested Jev as a judge of the factual accuracy of generated radiology reports29, and small open decision models
+for medicine have begun to appear30–32. A team that wants to screen a population or review charts with such a
+model needs to know whether it reads real records reliably, whether its probabilities can decide which cases
+need review, and whether its answers can be checked.
+The distribution of a patient population in a real hospital system may look very different from the curated
+clinical data sets that are publicly available. Institutional clinical records can supply what public corpora
+cannot: decades of real patient trajectories and clinical text. Structured data give the exact answer to many
+questions about a record, and longitudinal follow-up gives the observed outcome of every prediction. General-
+purpose decision models have yet to be thoroughly evaluated and adapted for clinical question answering on
+real patient records. Even if models trained on a health system’s own records predict outcomes well10,33,34,
+they may fail to transfer to other sites or remain calibrated there35–38. In order to become trusted for real-world
+use, clinical models must be evaluated not only on held-out patient data from within a healthcare system
+(to assess its performance if deployed locally), but also show generalization to other hospitals with different
+patient populations.
+Here we present Clinical System One (CS1-4B), a System One decision model for clinical records trained on
+Klaros-12M: more than 12 million decisions about 3.6 million patients at MGB, a multi-hospital US academic
+health system (Fig. 1). We evaluate CS1-4B from single decisions to whole populations. We first establish
+that CS1-4B makes individual decisions reliably and efficiently, by assessing its accuracy and calibration on
+held-out MGB patients (MGBQA-1M) and on 21 public data sets from other institutions, against 13 publicly
+available decision models ranging from 0.6B to 27B parameters. We then show that each of CS1’s answers
+about a note or patient timeline can be traced to the passages it rests on, forming the basis of our evidence
+2
+
+attribution pipeline. Finally, we show that a generalist LLM using CS1 as a tool can answer questions about a
+whole patient record with citations, and show that a similar agentic system can screen a large patient population
+for eligibility using real clinical trial criteria at a small fraction of the cost it would take for an LLM to review
+each record.
+Results
+Clinical System One (CS1) design and training.CS1 reads one document with any number of typed
+questions and returns a probability distribution over each question’s options (Fig. 1b,c). Questions (choices
+among named options, ordered scores or yes/no claims, each option with a criterion for boundary cases) are
+written at request time, so a new criterion, phenotype or outcome definition needs no retraining. Documents
+are clinical notes, diagnostic reports, multi-note records and structured patient timelines rendered as text up to
+a decision point (Methods).
+CS1-4B was initialized from Decision 2.0 Nox-4B27 and trained on 12,416,448 document–question pairs from
+3,643,798 MGB patient records (Fig. 1a and Extended Data Table 1). Its labels are of three kinds (Fig. 1d):
+option probabilities read out of an LLM teacher, GLM-5.3-Flash39, on institutional hardware (Extended Data
+Fig. 1); exact answers computed by rules from structured data; and outcomes observed after the decision point,
+such as readmission. Its fine-tuning used no records from other institutions and no public data set.
+The document is encoded once, and each question is a short segment that attends to the document and to itself
+but never to another question, so each answer equals that of a single-question prompt and an extra question
+costs only its own tokens (Fig. 1e and Extended Data Fig. 2). On one NVIDIA GB10 desktop graphics
+processor (commonly referred to as a DGX Spark), CS1-4B answered 40 questions about a 2,900-token note in
+1.80 s, against 11.54 s for Decision 2.0 Vega-27B (6.4 times faster); the Decision 2.0 models were run through
+their released inference code and not further optimized (Extended Data Table 2 and Methods). The speed-ups
+held for documents of 512 to 16,384 tokens, and show the efficiency of asking multiple questions in a single
+pass: reading the document once per question would have taken CS1-4B 15 times longer (Extended Data
+Fig. 3).
+Performance on held-out patients.On real patient records, we compared CS1-4B with ten open deci-
+sion models: the six Decision 2.0 models, JEV-27B, Clef, pplx-decider-v1-27b 40 and BioDecision-4B30;
+MedDecider-9B and -27B31 were evaluated on the public data sets only (Methods). Each baseline model
+was run through its official implementation with a question input format that was optimized for that model.
+Tasks fall into six task types, three read from structured records and three from text (Fig. 2a). Because always
+giving the most common answer scores well in raw accuracy on several tasks, the primary metric is balanced
+accuracy, the mean recall over answer classes.
+On MGBQA-1M (28 tasks; 963,408 held-out MGB patients, one question each; Extended Data Table 3),
+CS1-4B was the most accurate decision model in five of the six task types (Fig. 2b). It led on 13 of the 14
+tasks whose keys come from rules, observed outcomes or an open LLM: it reached 96.6% averaged over the
+eight timeline tasks, against 86.8% for JEV-27B, the best open model there; 92.1% on the clinical-definition
+task (Vega-27B 85.0%); 75.6% on outcome forecasting (JEV-27B 69.4%); and 95.0% on medication status
+(BioDecision-4B 82.6%). The exception was cancer staging from diagnostic reports, where pplx-decider-
+v1-27b reached 86.9% against 86.6%. Averaged over the six task types, CS1-4B scored 89.7, well above its
+initialization, Nox-4B (73.3), and above Vega-27B (81.7), the best open model (Fig. 2b). CS1-4B thus read
+the real-world care trajectories of held-out patients accurately, whereas the open models generalized poorly
+to institutional data. MGBQA-1M is also the only evaluation in this study whose records and keys no open
+model could have seen, because they are restricted to institutional systems. Among the 14 tasks keyed by
+3
+
+Training data
+12.4 M QA pairs (Klaros-12M)
+7.47 M Documents
+3.64 M Patients
+24 Hospital sites
+12 (5–20) Years of follow-up
+Question types
+Choice 73 %
+Yes / no 16 %
+Ordered score 11 %
+Diagnoses in records
+Hypertension 15 %
+Hyperlipidemia 9 %
+Reflux disease 8 %
+Anxiety 7 %
+Hypercholesterolemia 5 %
+One patient
+Structured Reports Notes
+QA pairs per modality
+Clinical notes 36 %
+Diagnostic reports 20 %
+Labs and vitals 11 %
+Visits and care 10 %
+Clinical definitions 7 %
+Diagnoses 6 %
+Other structured 4 %
+Medications 4 %
+Forecasting 3 %
+One note
+Q1
+Q2
+Q3
+Qn
+CS1
+One pass
+Q LLM
+Thinking
+Output
+{ } Parse
+Typed questions,
+calibrated answers
+Heart-failure type?
+Reduced EF Preserved EF Not specified None
+SGLT2 inhibitor at discharge?
+Yes No
+Chronic disease burden?
+1 2 3 4 Not documented
+Low High
+Calibrated probability
+Soft labels from teacher logits Timeline → text document Exact labels from structured data
+4.51 M Notes, 2.46 M Reports 5.01 M QA, 433 K Forecasting
+SGLT2 inhibitor?
+(A) yes
+(B) no
+Rotated
+option
+orders
+GLM-5.3-Flash
+A B
+Yes = A
+A B
+Yes = B
+Next-token
+logits
+Mean
+Yes 0.93 No 0.07
+Labs, meds,
+diagnoses,
+encounters
+Rule
+KDIGO AKI
+stage ≥ 1?
+Outcome
+30 days
+Exact answer
+Kept only if the facts
+are visible in the document
+Diagnoses
+Labs
+Meds
+Procedures
+Vitals
+Notes
+Index stayTime
+History
+Index stay
+Day 1
+Day 2
+Day 3
+Budget
+Document (read once) Q1 Q2 Q3 … Qn
+Document Questions
+Full-attention mask
+Document
+encoded once
+Questions never
+see each other
+Answer: candidate head
+on the option blocks,
+one logit per option
+Chief Complaint: Shortness of breath, leg swelling
+History of Present Illness: Mr. ___ is a 68-year-old man
+with ischemic cardiomyopathy (LVEF 25%), atrial
+fibrillation on apixaban and CKD stage 3b who presents
+with 10 days of dyspnea on exertion, orthopnea and a 6
+kg weight gain. He ran out of torsemide two weeks ago
+because of cost. He denies chest pain.
+Pertinent Results: BNP 2,840. Troponin flat. CXR:
+pulmonary vascular congestion. …
+CS1-4B
+One pass
+n questions
+Cost barrier Yes 0.99
+SGLT2i Yes 0.946
+HF type HFrEF 0.96
+Question filtering
+P ≥ 0.95: auto-accept
+P < 0.95: human review
+Final output
+Q A
+Cost barrier Yes
+SGLT2i Yes
+HF type HFrEF
+Auto-accept Human review Reviewer Evidence sentence
+Clinicians
+Care gaps at discharge
+Researchers
+Cohort building
+Trial sites
+Trial pre-screening
+Registries
+Registry abstraction
+Providers
+Risk stratification
+Low Medium High
+Pharma
+Drug safety signals
+4.51 M pairs
+2.46 M
+× n
+Choice
+Yes / no
+Ordered score
+!
+1 10 12
+Year of follow-up
+0
+30
+60Items
+Stay
+a b c
+d e
+f
+Fig. 1 | Clinical System One reads a clinical record once and answers many typed questions with calibrated probabilities. a,
+The Klaros-12M training data: 12.4 million question–answer (QA) pairs from 3.64 million patients at 24 hospital sites (median
+follow-up 12 years, interquartile range 5–20), asked of 7.47 million documents. One patient, items per year for a synthetic patient
+whose totals equal the cohort medians. Below, the share of pairs by question type and by modality (colour, input type, as in Fig. 2a),
+and the five most frequent conditions in the 3.01 million structured training records.b, CS1 answers any number of typed questions
+about a document in one forward pass, whereas a generative LLM can write hundreds of tokens per question.c, The three question
+types, each option shaded by CS1-4B’s probability (darkest, the answer).d, Ground truth. Left, soft labels for 4.51 million note and
+2.46 million report pairs: the GLM-5.3-Flash teacher’s next-token probabilities, averaged over rotated option orders. Middle, a
+record timeline serialized into a budgeted text document. Right, exact labels for 5.01 million timeline and 433,000 forecasting pairs
+from rules or observed outcomes, kept only when the facts are visible in the document.e, Shared-document packing: the document
+is read once and each question attends only to the document and itself; the candidate head returns one logit per option. CS1-4B has
+4.2 billion parameters and was initialized from Decision 2.0 Nox-4B.f, Top, one synthetic note read once by CS1-4B: answers at
+P≥0.95 are accepted automatically and the rest go to a reviewer; highlighted, the evidence for the cost question. Bottom, the same
+output serves six user groups. Patient examples are synthetic.
+4
+
+rules, outcomes or an open LLM, the gap between CS1-4B and the best open model was largest on tasks keyed
+by MGB’s own structured data and conventions (care process, 20.9 points; medications, 12.9; coding review,
+12.6; medication status, 12.4) and smallest on the tasks that most resemble public benchmarks (BRIE-style
+chart review, 0.3; cancer staging, −0.3; Fig. 2d), which points to the value of training on real-world patient
+trajectories and use cases.
+Generalization to external data sets.We evaluated the ability of CS1-4B to transfer its institutionally
+trained knowledge to public data sets. The 21 public data sets come from other institutions: timelines
+rendered from the structured records of MIMIC-IV 41,42, eICU43 and EHRSHOT44, and public notes and
+reports (Fig. 2a,c, Extended Data Table 4 and Methods). Averaged over the six task types, CS1-4B scored 86.7,
+against 81.7 for its initialization, Nox-4B, and 88.6 for Vega-27B, the strongest open model, while answering
+6.4 times faster; it was above Vega-27B on patient timelines, outcome forecasting and questions over notes. A
+27-billion-parameter model was the best open model on 20 of the 21 sets.
+CS1-4B exceeded every open model, even the 27-billion-parameter models, on 5 sets, most clearly on
+structured records: 92.8% on eICU-Timelines and 94.3% on EHRSHOT-Timelines, against 91.1% and 90.5%
+for JEV-27B, the best open model on both, and a mean AUROC of 0.766 on EHRSHOT-Prognosis, the
+best outcome ranking of any system (Clef, 0.681). It trailed the best open model by 7.4–12.8 points on
+the three clinical-definition sets, ranked outcomes below every 27-billion-parameter model on MIMIC- and
+eICU-Prognosis, and, of the eleven sets read from notes and reports, led narrowly on MIPA and BRIE but
+trailed on the other nine, by 1.1–5.9 points. These leads are not an artefact of its training layout: on MIMIC-IV
+timelines rendered both ways, CS1-4B, like every other model, scored higher in the encounter layout it was
+not trained on (Extended Data Table 5). Training on MGB records also lifted CS1-4B over its initialization on
+these sets, by 12.6 points on patient timelines, 7.1–7.2 points on clinical definitions and outcome forecasting,
+and−0.9 to 3.6 points on the three task types read from notes and reports (Fig. 2c,e).
+Because the training data of most open models are undisclosed, we cannot exclude that the published
+benchmarks, or the records on which any of the sets are based, were seen in their training45, so their scores
+may partly reflect exposure to the underlying records. Thus the public datasets primarily serve to show
+how CS1-4B’s finetuning on internal MGB data transfers to improved performance over Nox-4B at other
+institutions, and are less useful as a direct comparator between CS1-4B and other public models.
+Calibrated probabilities at population scale.At population scale, probabilities decide which answers are
+accepted automatically and which a person reviews (Fig. 1f). CS1-4B results are first reported without an
+explicit calibration stage on validation data. On the public data sets, the expected calibration error (ECE) of its
+top answer was 0.012–0.052 across the six task types, below that of its initialization, Nox-4B, in every task
+type (0.033–0.139; Fig. 2h). Pooled over five human-keyed public benchmarks (14,756 items), its ECE was
+0.029, about half that of Nox-4B (0.058), but above that of JEV-27B (0.010) and Clef (0.024), and per set
+it ranged from 0.007 to 0.100 (Extended Data Table 2). Its outcome forecasts rank patients effectively, but
+absolute risks did not transfer: over the 27 outcomes of the three public prognosis sets, its mean predicted
+risk was 0.39 against an observed incidence of 0.19, and the calibration error of its predicted risks was 0.203
+(Fig. 2g), as expected where intensive-care or emergency cohorts have baseline incidences unlike those of a
+general hospital population. Within each outcome, however, its predictions had about the right spread (median
+calibration slope 1.03), so one correction per outcome sufficed: shifting each outcome’s predicted risks on the
+log-odds scale to match its incidence46, estimated on the other half of the patients, reduced the calibration
+error to 0.014 and the Brier score from 0.182 to 0.110, below that of Nox-4B after the same correction (0.118).
+A site that knows the incidence of its outcomes can thus read CS1-4B’s forecasts as risks without retraining.
+Because the document is encoded once, cost grows with the number of documents rather than with documents
+5
+
+960K real-world patients,
+balanced acc.
+Parameters (B) Parameters (B) Parameters (B) Parameters (B) Parameters (B) Parameters (B)
+REPORT
+R
+Private health-system records Public data setsDiagnostic reportsClinical notesStructured record (timeline)Input:
+Patient timelines
+Find one fact in a whole record
+Beta-blocker given in the day
+before screening?
+exact key
+Dx
+Rx
+Lab
+rule 2
+Clinical definitions
+Apply a published multi-criteria
+definition
+Highest KDIGO kidney injury
+stage this admission?
+exact key
+Outcome forecasting
+Predict what happens after the
+record ends
+Unplanned readmission
+within 30 days of discharge?
+observed outcomes
+Phenotypes and
+assertions
+Find a condition and how firmly
+it is stated
+How does the note
+document prior intracranial
+haemorrhage (a trial
+exclusion)?
+clinician keys
+Questions over notes
+Answer a question about one
+patient's course
+Why was the anticoagulant
+changed between
+admissions?
+clinician/LLM keys
+Diagnostic reports
+Read radiology and pathology
+reports
+Pleural effusion on the chest
+radiograph?
+mixed keys
+meets does not meet
+cannot determine
+none 1 2 3 excluded
+now ?
+yes no
+present possible absent
+A B C D E
+yes no not documented
+?
+1 2 3 4 5 6
+0.6 2 4 9 27
+50
+60
+70
+80
+90
+100
+0.6 2 4 9 27
+20
+30
+40
+50
+60
+70
+80
+90
+100
+0.6 2 4 9 27
+45
+55
+65
+75
+0.6 2 4 9 27
+65
+75
+85
+95
+0.6 2 4 9 27
+45
+55
+65
+75
+85
+95
+0.6 2 4 9 27
+50
+60
+70
+80
+90
+60
+70
+80
+90
+100
+Public datasets,
+balanced acc. or AUROC
++18.0
++11.2
++2.3
+eICU
+(208 US hospitals)
++17.5
++6.9 +17.1
+EHRSHOT
+(Stanford)
++6.8
++3.5
++2.0
+MIMIC-IV
+(Beth Israel Deaconess)
+TimelinesCompositePrognosis TimelinesCompositePrognosis TimelinesCompositePrognosis
+Nox-4B CS1-4B
+0 10 20
+Lead over best open model (points)
+Care process
+Medications
+Coding review
+Medication status
+Timing
+Measurements
+Clinical definitions
+Outcome forecasts
+Demographics
+Conditions
+Utilization
+Other timeline facts
+BRIE-style review
+Cancer staging
++20.9
++12.9
++12.6
++12.4
++10.2
++7.8
++7.2
++6.1
++5.5
++4.1
++3.5
++2.2
++0.3
+−0.3
+0
+10
+20
+30
+40CS1-4B − Nox-4B (points)
++20.7
++12.6
++28.2
++7.2
++11.0
++7.1
++21.1
+−0.9
++15.2
++3.6
++1.9
++0.6
+Timelines DefinitionsForecastingPhenotypes
+Notes Reports
+960K real-world patients
+public data sets
+300 1,000 3,000
+GPU-hours per 106 documents
+50
+60
+70
+80
+90
+960K real-world patients,
+mean balanced accuracy (%)
+Eos-0.8B
+Kai-0.6B
+Sol-2B
+CS1-4B
+Nox-4B
+Lux-9B Vega-27B
+0 0.05 0.10 0.15
+Calibration error (ECE)
+Timelines
+Definitions
+Forecasting
+Phenotypes
+Notes
+Reports
+0 0.2 0.4 0.6 0.8
+Predicted risk
+0
+0.2
+0.4
+0.6
+0.8Observed incidence Prognosis sets,
+27 outcomes
+ECE
+CS1-4B, raw  0.203
+CS1-4B, recal.  0.014
+a
+b
+c d
+e f h
+g
+CS1-4B Best open decision model at each size
+Nox-4B CS1-4B
+Fig. 2 | Performance on held-out patient records and transfer to public data sets. a, Six task types, with example questions and
+the source of their answer keys (Extended Data Table 4); colour, input type. Padlock, private health-system records, never public;
+globe, public data sets, whose records may be in open models’ training data.b, MGBQA-1M (963,408 held-out patients): mean
+balanced accuracy over each task type’s tasks keyed by rules, observed outcomes or an open LLM (14 of 28 tasks; Extended Data
+Table 3) against model size; blue, CS1-4B; grey, the best of the ten open decision models at each size.c, The structured-record
+public sets by source institution: Nox-4B (grey) and CS1-4B (blue), with their difference (points); balanced accuracy (%), prognosis
+mean AUROC ×100. Other public sets and every open model, Extended Data Table 4.d, CS1-4B minus the best open model on
+each of the 14 tasks of b (balanced-accuracy points).e, CS1-4B minus Nox-4B per task type, on MGBQA-1M and on the 21 public
+data sets.f, Mean of b over the six task types against GPU-hours per million documents at 40 questions on one GB10 (Extended
+Data Table 2); dashed, Pareto frontier.g, The three public prognosis sets (27 outcomes): observed incidence against predicted risk,
+raw and after one log-odds shift per outcome to its incidence in the other half of the patients.h, Expected calibration error (ECE) of
+the top answer per task type, pooled over the public data sets. Dots in c–e and h, task type. CS1-4B: fine-tuned on Klaros-12M only,
+raw probabilities unless stated.
+6
+
+× questions. At 40 questions per document, CS1-4B costs 500 GB10-hours per million documents, against
+630 for Nox-4B, 830 for Lux-9B and 3,210 for Vega-27B (Extended Data Table 2). On MGBQA-1M, CS1-4B
+was more accurate than every Decision 2.0 model and cheaper than those of 4 billion parameters or more
+(Fig. 2f); the three smaller ones cost 230–290 GB10-hours but were less accurate. One desktop graphics
+processor thus reads about 2,000 notes, 40 questions each, per hour.
+Sentence-level evidence attribution.To identify which parts of a clinical record drive CS1’s answers, we
+measured how the predicted probability changes when individual sentences are removed or considered in
+isolation47,48 (Fig. 3a). We used two complementary measures, necessity and sufficiency. Necessity is defined
+as the decrease in probability when a sentence is removed from the record; sufficiency, in contrast, is defined
+as the increase in probability when that sentence is presented alone, relative to an empty document. Together,
+these measures distinguish evidence that is essential to an answer from evidence that independently supports
+it, even when the same clinical fact appears in multiple places.
+We quantified the faithfulness of the attributions on the 90 note–question pairs whose answer depends on the
+note (probability below 0.5 for an empty document), among 200 pairs from 100 MIMIC-IV discharge notes
+not used in training (Fig. 3b,c). Removing the three highest-ranked sentences changed the model’s answer in
+41% of cases when ranked by necessity and 59% when ranked by sufficiency, compared with 1% for randomly
+selected sentences. Conversely, retaining only the highest-ranked sentences recovered a mean probability
+of 0.89 for the original answer, compared with 0.19 for random selections. These results indicate that the
+identified sentences have a substantially greater influence on the model’s decisions than other, arbitrary parts
+of the record. Attribution incurs additional computation, with median processing times of 24 s per answer for
+necessity and 10 s for sufficiency on a single NVIDIA GB10 machine. We therefore compute attribution on
+demand, allowing reviewers to inspect the sentences underlying selected decisions without incurring this cost
+for every answer in a population-scale screen.
+We next examined attribution in synthetic notes with known supporting evidence (Fig. 3d–f). For a patient
+presenting with dyspnoea, CS1 identified an explicit denial of chest pain with probability 0.98. Removing
+the sentence documenting the denial reduced this probability to 0.07, identifying it as the principal evidence
+for the answer (Fig. 3d). In a second example, empagliflozin was documented both in the hospital course
+and in the discharge medication list. Either mention independently supported the answer that the patient was
+prescribed an SGLT2 inhibitor at discharge, while removing either had little effect because the other remained
+(Fig. 3e). More complex questions required evidence distributed across the record. For a structured patient
+timeline, creatinine rose from 0.9 to 2.4 mg/dL before returning to 1.0 mg/dL. The model identified this course
+as rising and recovering, with the largest contributions coming from laboratory measurements on different
+days rather than a single observation (Fig. 3f). Extended Data Fig. 4 shows further cases, including an answer
+resting on silence, and the limit of single-sentence attribution: evidence repeated across days makes no line
+necessary, and a pattern across days is carried by no single line.
+Question answering over longitudinal patient records.Whole-record question answering is a routine but
+labour-intensive part of chart review5. In order to answer a question about a patient’s history, a reviewer must
+find every relevant note, report and structured result across years of care, and LLMs answering questions
+over long or whole records49,50 often omit information spread across documents51. General LLMs plan and
+write well but are too costly to read every record, whereas CS1 answers typed questions about one document
+at a time; combining typed questions by explicit rules has been proposed to bridge the two 28. In order to
+address this bottleneck, we introduce a whole-record question-answering pipeline that pairs a general LLM,
+GLM-5.352, with CS1 as a tool53,54: rather than reading full records itself, the LLM plans and cites, while
+CS1-4B supplies every typed decision (Fig. 4). First, the LLM sees only a manifest of the record (document
+7
+
+s1 s2 s3 s4 Q
+P(a | d)
+0.98
+s1 s2 s4 Q
+P(a | d without s3)
+0.07
+state reused re-encoded
+Necessity = 0.98 − 0.07 = 0.91
+s3 Q
+P(a | s3 alone)
+0.98
+Q
+P(a | empty document)
+0.16
+Sufficiency = 0.98 − 0.16 = 0.82
+Q: Did the patient report chest pain at presentation?
+Final answer: P = 0.98
+Necessity Sufficiency
+Chief Complaint: Shortness of breath
+History of Present Illness:
+Mr. ___ is a 67-year-old man with COPD
+and hypertension who presents with three
+days of worsening dyspnea and
+productive cough.
+He reports subjective fevers at home.
+He denies chest pain or palpitations. 0.91 0.82
+He used his albuterol inhaler every two
+hours without relief.
+Physical Exam: T 38.2, HR 104, BP
+138/84, SpO2 87% on room air.
+Diffuse expiratory wheezes, no crackles.
+Pertinent Results: WBC 12.8.
+Troponin negative x2.
+ECG sinus tachycardia.
+CXR: hyperinflation without focal
+consolidation.
+Brief Hospital Course:
+# COPD exacerbation: Treated with
+prednisone 40 mg daily, azithromycin and
+scheduled nebulizers.
+Oxygen weaned to room air by day 3.
+Discharge Disposition: Home
+Q: SGLT2 inhibitor at discharge?
+Final answer: P = 0.99
+Necessity Sufficiency
+Chief Complaint: Leg swelling
+History of Present Illness:
+Ms. ___ is a 72-year-old woman with heart
+failure with reduced ejection fraction, atrial
+fibrillation and type 2 diabetes who
+presents with two weeks of leg swelling
+and orthopnea.
+Physical Exam: JVP 12 cm.
+Bibasilar crackles.
+2+ pitting edema to the shins.
+Pertinent Results: BNP 1,920.
+Creatinine 1.3.
+Brief Hospital Course:
+# Acute on chronic heart failure: Diuresed
+with IV furosemide, net negative 5 liters.
+She was started on empagliflozin 10 mg
+daily.
+0.65
+Metoprolol succinate was continued.
+# Atrial fibrillation: Rate controlled;
+apixaban continued.
+Discharge Medications:
+1. Furosemide 40 mg PO daily
+2. Empagliflozin 10 mg PO daily 0.21 0.68
+3. Metoprolol succinate 50 mg PO daily
+4. Apixaban 5 mg PO twice daily
+Discharge Disposition: Home with
+services
+Q: Creatinine course during the stay?
+Final answer: P = 0.62
+Necessity SufficiencyLab lines
+D-400 Labs (first, range, last,
+number of results):
+Creatinine (mg/dL) 0.9
+0.18
+D-200 Labs (first, range, last, number
+of results): Creatinine (mg/dL)
+0.9
+D-6 Labs: Potassium (mEq/L)
+4.1; White blood cells (K/uL)
+14.8 H; Creatinine (mg/dL) 1
+0.23
+D-5 Labs: Creatinine (mg/dL) 1.7 H
+D-4 Labs: Creatinine (mg/dL) 2.4
+H; Potassium (mEq/L) 5.4 H;
+White blood cells (K/uL) 12.1
+H
+D-3 Labs: Creatinine (mg/dL) 2.2 H
+D-2 Labs: Potassium (mEq/L) 4.6;
+Creatinine (mg/dL) 1.6 H;
+White blood cells (K/uL) 9.4
+D-1 Labs: Creatinine (mg/dL) 1.2
+D0 Labs: Creatinine (mg/dL) 1;
+White blood cells (K/uL) 7.9;
+Potassium (mEq/L) 4.2
+0.43
+Necessity
+Sufficiency
+Explicit denial
+Denied
+Fact stated twice
+Yes
+Structured record: a course over days
+Rose and recovered
+0 1 2 3 5 10
+Top-k sentences deleted
+0.0
+0.5
+1.0Mean P(answer)
+Necessity Sufficiency Random
+0 1 2 3 5 10
+Only top-k sentences kept
+0.0
+0.5
+1.0
+0 25 50 75 100
+Answers flipped by deleting the top 3 sentences (%)
+Necessity
+Sufficiency
+Random
+41%
+59%
+1%
+a b
+c
+d e f
+Fig. 3 | CS1 provides evidence attribution over notes and timelines. a, Deletion attribution: a sentence’s necessity is P(a|
+d)−P(a|d\s) , the drop in the probability of the answer a when the sentence is deleted and the document is re-encoded; its
+sufficiency is P(a|salone)−P(a|empty document) ; the bars and numbers are those of the denial sentence in d. Re-encoding
+reuses the model’s state for the text before the deleted sentence; long documents are screened in 10-sentence chunks before sentences
+are measured individually in the top chunks.b, Faithfulness on the 90 evidence-dependent note–question pairs (answer probability
+below 0.5 for an empty document) of 200 pairs from 100 MIMIC-IV discharge notes not used to train CS1-4B (aggregate only):
+mean probability of the original answer after deleting the top- k sentences by necessity or sufficiency (lower is more faithful) or
+after keeping only them (higher is more faithful); dotted, random order. Median time per answer on one GB10: 24 s (necessity) and
+10 s (sufficiency).c, Answers flipped by deleting the top three sentences of the same pairs: 41% (necessity) and 59% (sufficiency),
+against 1% for random order.d–f, Evidence in two synthetic notes and a synthetic structured record: for each sentence or line, its
+necessity (left) and sufficiency (right), as defined in a; values below zero (a sentence that lowers the answer’s probability) are drawn
+as zero.d, An explicit denial: deleting one sentence drops the answer from 0.98 to 0.07.e, A fact stated twice: deleting either
+mention lowers it by at most 0.21, while each alone gives 0.97 or 0.94.f, The laboratory lines of a day-by-day timeline, rendered
+as CS1 reads structured data: for the course of creatinine over the stay (rose and recovered, P=0.62 ), the evidence spans days.
+Deleting the last value (D0), the admission value (D−6) or the earlier outpatient value (D−400) drops P to 0.19, 0.39 and 0.44,
+while no single line alone gives the answer. Faithfulness was measured on notes only. All text in d–f is synthetic.
+8
+
+types, counts and dates) and plans typed sub-questions, each with an aggregation rule and a scope (Fig. 4a,b).
+Next, the harness answers every sub-question for every document, and code aggregates the answers across
+documents and time and flags confident disagreements between documents (Fig. 4c). Finally, the LLM
+composes an answer whose statements are cited to the sentences that CS1-4B answered from (Fig. 4d,e).
+We first illustrate the pipeline on a MIMIC-IV test patient with 159 documents from 26 admissions over seven
+years. The question concerned the trajectory of kidney function and any acute kidney injury in the current
+admission. To answer it, the harness made 402 typed decisions, traced chronic kidney disease across the
+record, identified the acute kidney injury with its causes and recovery, and cited 12 sentences. Extended Data
+Figs. 5 and 6 show two further examples, one asked about anticoagulation and bleeding and one about the
+course of cancer. Because the LLM plans from the manifest and never reads the record itself, the LLM’s cost
+does not grow with the length of the record, and every statement in the answer points to a bounded segment of
+the raw record.
+To assess how well the pipeline answered, each answer was checked against its full record by GLM-5.3 at
+high reasoning effort55 and by reading short excerpts (Methods). Our three answers were correct in substance
+with minor errors (one of them due to a mistake in the raw record). In the kidney example, the worst level
+of kidney function came from the indication line of a radiology request that listed end-stage renal disease,
+which the rest of the record contradicts, and two statements repeated errors of the aggregated answers (a count
+of documents and a conflict built on cysts misread as masses). The anticoagulation answer omitted a left
+ventricular assist device, a further indication for anticoagulation. It also missed the documented site of the
+index admission’s bleed and flagged a conflict with head CT reports that addressed only intracranial bleeding.
+The cancer answer stated progression more firmly than mixed recent findings support, listed a radiosensitizing
+course of cisplatin as systemic therapy and a bone marrow transplant that rests on a single billing code, and
+omitted several regimens. Most of these errors are easily flagged in the answer. The end-stage renal disease
+rests on a request’s indication line and the bleeding conflict on head CT reports, so a reviewer can catch and
+correct them by opening a few sentences rather than rereading the whole record.
+Clinical trial eligibility screening across a patient population.Screening is a primary bottleneck in trial
+development2. In order to ensure participant safety and reliable scientific results, researchers must check
+and rank every candidate against predefined eligibility criteria written in free-form text. This process can
+be tedious59, especially given dozens of criteria and a database of thousands or millions of patients. LLMs
+that read clinical notes have screened patients for individual trials 60–62 and, in a randomized trial, sped up
+prescreening59, but they read each candidate’s record for every trial. To solve this, we introduce an automated
+screening pipeline that accelerates and streamlines patient selection. We frame screening as a ranking problem:
+Given a list of trial criteria and a population of patients, a trial screening system must produce a ranking of the
+patients such that higher-ranked patients are more likely to be eligible. Our method uses an LLM (GLM-5.3)
+to translate a trial’s free-text eligibility criteria into a series of atomic typed questions, each bound to a specific
+timeframe, much as earlier systems translated criteria into cohort queries63. CS1-4B then does high-volume
+question answering by scanning every medical document for every candidate. We aggregate these answers
+into a standardized eligibility score (Fig. 5a).
+We tested this pipeline on 1,000 test patients from the MIMIC-IV database (21,866 medical documents),
+each screened for 17 trials from ClinicalTrials.gov 64, and evaluated its accuracy at two levels: individual
+criteria matching (tested on 7 trials and 200 patients) and overall patient ranking (tested across the 13 trials
+whose judged pool contained an eligible or possibly eligible patient). For criteria that could be answered using
+rule-based calculations from structured data, our pipeline matched the raw LLM, which read every single
+record: our pipeline achieved a balanced accuracy of 0.884 compared to the LLM’s 0.869 (difference 0.015,
+9
+
+What's the trajectory of the patient's
+kidney function, and is there any
+evidence of acute kidney injury
+during this admission?
+Test patient
+159
+documents
+561k
+characters
+7
+years
+133 radiology 25 discharge 1 timeline
+2124 2131
+index stay, 45 days
+Rate the level of kidney function described in this single document, using
+the worst creatinine, eGFR, CKD stage, or renal-function statement it…
+Normal | Mildly reduced | Moderately reduced | Severely reduced | Kidney
+failure | Not documented
+Doc: describe acute kidney injury or an acute decline in renal function
+during the current admission (2131-02-22 to 2131-04-08)? Use only…
+AKI explicit | Acute decline suspected | Stable no AKI | Chronic impairment
+only | Not documented
+If doc mentions acute kidney injury or an acute renal decline, rate its worst
+severity in doc (KDIGO-style). If doc addresses renal function but…
+No AKI | Stage 1 | Stage 2 | Stage 3 | Not documented
+Doc: attribute impaired or acutely worsening kidney function to a cause?
+Select the cause doc names; if several are named, choose the most…
+Prerenal | Nephrotoxic | Obstructive | Intrinsic | No cause stated | Not
+documented
+What structural kidney findings does doc report? If several are present,
+choose the most clinically significant.
+Normal kidneys | Obstructive findings | Chronic structural changes | Mass
+or complex cyst | Not documented
+AggregatedShifted dates2124 2126 2128 2129 2130 2131
+Documents
+q1 Kidney function 29/159 docs
+q2 AKI 3/28 docs
+q3 AKI stage 2/28 docs
+q4 Cause 3/28 docs
+q5 Kidney structure 28/159 docs
+Level (q1, q3) Present (shade = P) Absent Other answer Silent Out of scope
+• Trajectory: kidney function is addressed in 29 of 159 documents.
+• The worst ratings are from 2125, when a radiology report listed end-stage kidney disease E1
+(aggregated peak severity 2125-05-05 ); from 2128-06-11 through 2130-08-12 documents consistently
+rate function as moderately reduced (24 documents, aggregated trajectory), with a single
+severely-reduced rating on 2131-02-02 just before this admission, and the current discharge summary
+again documents a history of stage III CKD E9.
+• Yes, there is evidence of AKI during this admission (2131-02-22 to 2131-04-08 ): the timeline carries a
+billing diagnosis of acute kidney failure E2, and the 2131-04-08 discharge summary documents
+acute-on-chronic kidney disease on background stage III CKD E11 with an elevated BUN/Cr ratio on
+admission E12.
+• The discharge summary attributes this to volume depletion from poor PO intake plus intermittent
+obstruction from hematuria and clots E6, in the setting of acute blood loss with transient hypotension E5;
+imaging on 2131-03-24 showed mild-to-moderate right hydronephrosis slightly improved from the prior
+examination E7 E8, and hydronephrosis is also a billed diagnosis this admission E16.
+• Aggregated staging rates the AKI as KDIGO Stage 1 (peak from two documents dated 2131-04-08 ),
+though only 2 of 28 admission documents address staging and model confidence in the stage is
+modest.
+• Creatinine was 2.1 mg/dL on admission E10 and improved to 1.2 mg/dL by discharge (admission peak
+2.1) E3, so the acute insult was improving by discharge; note that only 3 of 28 documents from this
+admission address renal function, so this picture rests mainly on the discharge summary and timeline.
+Structural imaging conflict (q5): D136 (2131-02-25 , during this admission) reported normal kidneys,
+contradicting earlier reports of a renal mass or complex cyst ( D002 , D003 , D004 , D007 ;
+2124-04-29 to 2125-03-24 ); the normal-kidney report is the more recent, but the discrepancy is
+unresolved in the available evidence (no citable evidence sentences for these reports).
+Radiology Report 2125-05-05
+Imaging request: woman with end-stage kidney disease and diabetes, with worsening malaise and
+abdominal pain.
+Discharge Summary 2131-04-08
+Acute-on-chronic kidney disease, on a background of stage 3 CKD.
+The BUN-to-creatinine ratio was high at admission.
+Probably caused by low volume from poor oral intake, plus intermittent blockage by blood clots in
+the urine.
+Occurred with acute blood loss and a brief fall in blood pressure.
+Admission labs: urea nitrogen 59, creatinine 2.1 (high), sodium 133, potassium 5.0, bicarbonate
+24.
+Structured Timeline 2131-04-08
+Billing diagnoses: radiation cystitis, chronic lymphocytic leukaemia, acute kidney failure,
+acidosis, bacteraemia, hydronephrosis, …
+Lab summary: creatinine first 2.1 (high), last 1.2; several blood-count indices abnormal.
+Radiology Report 2131-03-24
+The right kidney shows mild-to-moderate hydronephrosis, slightly better than on the previous study.
+Impression: mild-to-moderate hydronephrosis, slightly improved since the previous examination.
+q1 score trajectory
+q2 choice any · this stay
+q3 score trajectory · this stay
+q4 choice any · this stay
+q5 choice any
+Moderately reduced
+AKI explicit
+Stage 1
+Prerenal
+Obstructive findings
+D029
+E1
+D159
+E9 E11
+E12
+E6
+E5
+E10
+D158
+E2 E16
+E3
+D154
+E7
+E8
+Question Plan
+Scan
+Answer Evidence
+!
+!
+a b
+c
+d e
+Fig. 4 | Evidence-backed answers over a whole patient record. a, A clinical question and the summarized record of a MIMIC-IV
+test patient.b, An LLM (GLM-5.3) plans 5 typed sub-questions, each with an aggregation rule and a scope.c, CS1-4B answers
+every sub-question for every document (402 typed decisions; long documents chunked, nothing truncated); rows are labelled by
+topic. Level rows (trajectory and latest rules) show each document’s level, light to dark in option order; the other rows show whether
+a document reports the finding (blue, shaded by probability), reports it absent (orange), gives another answer or is silent. Right,
+code aggregates each sub-question across documents and time: the aggregated answer and the documents that support it; a warning
+triangle marks conflicting documents, explained in d.d, The LLM composes a cited answer from the aggregated answers and the
+evidence sentences (one bullet per sentence).e, CS1 attribution selects 16 evidence sentences; the 12 cited in d are shown, grouped
+by document (a sentence cited twice shares a line). The LLM plans from a manifest of the record (document types, counts and
+dates) and never reads the record; at the last step it sees only the aggregated answers and the evidence sentences. Aggregation
+rules: any, the highest probability over documents; latest, the most recent document that addresses the sub-question; trajectory, the
+per-document level over time; a conflict is confident support and confident contradiction in different documents. Sub-questions
+scoped to this admission are asked only of its documents (white cells, out of scope). Evidence sentences are selected by CS1
+sufficiency attribution; in compliance with the MIMIC-IV data-use policy, the evidence sentences and any record text quoted in the
+answer are shown as paraphrases, not verbatim. Dates are shifted by MIMIC-IV de-identification and documents are relabelled
+D001. . . in date order. Results shown are from a single run, with GLM-5.3 at its default reasoning effort and CS1-4B (raw outputs).
+10
+
+Structured
+(70 criteria)
+Note-only
+(36 criteria)
+0.70
+0.75
+0.80
+0.85
+0.90
+0.95Balanced accuracy
+0.869 0.884
+0.796
+0.766
+0 10 20 30 40 50 60
+Criteria
+Conditions
+Labs
+Medications
+Demographics
+Vitals, imaging
+50
+20
+19
+7
+10
+Structured (70) Note-only (36)
+102 103 104 105 106
+LLM tokens per screened patient
+GLM reads all
+GLM + CS1-4B
+421,136
+610  (690× fewer)
+0.0 0.5 1.0
+nDCG@20 (graded, blind judge)
+0.64
+0.11
++0.86
++0.83
++0.75
++0.62
++0.32
++0.73
++0.54
++0.18
++0.33
++0.29
++1.00
++0.63
+−0.22
+CS1-4B harness BM25 keywords
+0 10 20
+Judged in top 20
+3.5 + 2.9
+0.8 + 0.9
+eligible possibly
+1 2 3 4 5
+VITC-SHOCK NCT03338569
+Age ≥ 18 years
+Septic shock as pragmatically
+defined as: Order for…
+Hypotension requiring
+vasopressor therapy, despite…
+Lactate > 2 mmol/L 24 hr prior
+to enrollment
+Presence of sepsis defined as
+equal to or greater than 2…
+Unable to start infusion within
+24 hours of septic shock…
+Currently pregnant or
+breastfeeding
+Patient to receive comfort
+measures only
+Cardiac Arrest
+Allergy to Vitamin C
+History of nephrolithiasis
+Capability to provide written
+consent from participant or…
++ 5 more criteria
+During the current hospitalisation, is
+the patient receiving vasopressor
+therapy for hypotension (e.g.,
+norepinephrine, epinephrine,
+vasopressin, dopamine,
+phenylephrine, or angiotensin II
+infusion)?
+During the current hospitalisation, in
+the 24 hours before study
+enrollment (around the time of
+septic shock identification), was any
+lactate value above 2 mmol/L?
+Does the current hospitalisation
+record document that the patient is
+to receive comfort measures only?
+condition present missing
+P(condition present) 0 1
+P01
+P02
+P03
+P04
+P05
+P06
+P07
+P08
+P09
+P10
+P11
+P12
+P13
+P14
+P15
+P16
+P17
+P18
+P19
+P20
+P21
+P22
+P23
+P24
+I3 I4 I5 I6 E3 E4 E8
+inclusion exclusion
+P(eligible) = ∏ P( inclusion met)
+× ∏ (1 − P(exclusion))
+P04
+P23
+P06
+P12
+P24
+P01
+P15
+P19
+P22
+P20
+P03
+P11
+P21
+P09
+P14
+P18
+P08
+P17
+P05
+P13
+P02
+P16
+P07
+P10
+Blind review of the full record
+and the criteria as written
+#1 P04 eligible
+#2 P23 eligible
+#3 P06 eligible
+#4 P12 eligible
+#5 P24 eligible
+#6 P01 not eligible not met
+#7 P15 possibly eligible
+#8 P19 eligible
+#9 P22 not eligible not met
+#10 P20 not eligible not met
+#11 P03 eligible
+#12 P11 not eligible not met
+#13 P21 not eligible not met
+#14 P09 possibly eligible
+#15 P14 eligible
+#16 P18 eligible
+#17 P08 not eligible not met
+#18 P17 not eligible not met
+#19 P05 not eligible not met
+#20 P13 eligible
+10 eligible, 2 possibly, 8 not eligible
+Criteria Decompose Scan Rank Judge
+I2
+I3
+I4
+I5
+I6
+E1
+E2
+E3
+E4
+E7
+E8
+I1
+I4
+yes no
+I5
+elevated not elevated
+not measured
+E3
+yes no
+I6
+I5
+I5
+I5
+I5
+I4
+I3
+I5
+Cardiovascular
+Critical care
+Kidney
+Lung
+Thrombosis
+PARAGLIDE-HF
+DICTATE-AHF
+ABLATE-AF-CS
+CARES
+CXL1020-HF
+VITC-SHOCK
+CHILL
+DEX-SLEEP-ICU
+BICARB-AKI
+DAPRO-NDD
+LARIAT
+BENRA-COPD
+PROSPER
+Mean of 13 trials
+a
+b
+c
+e
+dGLM-5.3 reads every record
+GLM-5.3 + CS1-4B
+Fig. 5 | Population-level cohort building with real clinical trial criteria. a, The pipeline on one of the 17 evaluated trials,
+VITC-SHOCK (NCT0333856956), and 1,000 MIMIC-IV test patients. (1) Eligibility criteria as written (green, inclusion; orange,
+exclusion; grey, not checkable from records; 12 of 17 shown, shortened). (2) An LLM (GLM-5.3) turns them into atomic typed
+questions, each with a time scope. (3) CS1-4B reads every document of every patient (21,866 documents); a question’s probability is
+its maximum over the parts of the record within its scope. Shown are CS1-4B’s top 20 patients and four drawn at random from the
+rest (P01–P24). (4) Code combines the answers into P(eligible) and ranks the patients (shaded, top 20). (5) A blind LLM judge
+reading the full record graded the top 20: 10 eligible, 2 possibly eligible and 8 not eligible.b, Criterion-level balanced accuracy for
+seven trials on 200 patients, for the LLM reading every record and for the agentic harness (95% intervals by patient bootstrap).
+Filled, 70 structured criteria with rule-computed answers: 0.869 against 0.884, a difference of 0.015 (−0.005 to 0.039). Open, 36
+note-only criteria, against labels on which two full-record LLM reads agree: 0.796 against 0.766, a difference of −0.030 (−0.060 to
+−0.009).c, The criteria of b by topic (dark, structured; light, note-only).d, Ranking all 1,000 patients for each trial by CS1-4B’s
+P(eligible) and by BM25 keyword search over the full record. The union of both top 20s was graded by a blind GLM-5.3 judge in
+two passes (663 pairs; weighted κ57 between passes 0.84). Left, nDCG@2058 for the 13 trials with any judged-eligible or possibly
+eligible patient, grouped by therapeutic area (numbers, CS1-4B minus BM25), and the mean with its 95% interval: 0.64 against
+0.11 (CS1-4B higher in 12 of 13 trials). Right, judged-eligible (dark) and possibly eligible (light) patients in each top 20; ticks,
+judged-eligible patients in the pool.e, LLM tokens per screened patient to rank patients for the 13 trials of d: 421,136 for the LLM
+reading every record against 610 with CS1-4B, 690 times fewer (verification, CS1-4B’s own compute and judge calls not counted).
+11
+
+95% CI −0.005 to 0.039). For complex criteria that could only be answered using unstructured clinical notes,
+our pipeline performed slightly lower than the benchmark LLM (0.766 accuracy vs 0.796; difference −0.030,
+−0.060 to−0.009), using a reference standard adjudicated by the LLM itself (Fig. 5b,c).
+To grade how well the pipeline ranked whole patients by multiple criteria, a blinded LLM judge55 reviewed
+the full medical records of the top 20 patients selected by each method across the 13 trials whose judged pool
+contained an eligible or possibly eligible patient. Performance was measured using nDCG@20 (Normalized
+Discounted Cumulative Gain)58, a metric from 0 to 1 that rewards placing judged-eligible patients at the very
+top of the list; 1 is the best ordering of the judged patients, 0 is assigned to a top 20 without any. Our pipeline
+achieved a mean nDCG@20 of 0.64, significantly outperforming standard BM25 keyword search, which
+scored just 0.11. Our method beat keyword search in 12 out of the 13 trials (Fig. 5d), and on average placed
+3.5 judged-eligible patients in its top 20 list per trial, compared to just 0.8 patients for the keyword search.
+These grades are judgements by the same LLM (GLM-5.3) that wrote the questions and keyed the note-only
+criteria, and LLM judges can favour their own outputs65; the weighted κ57 of 0.84 between its two grading
+passes measures consistency, not agreement with clinicians.
+Our pipeline is exceptionally cost-effective, using 690 times fewer LLM tokens per patient to rank candidates
+compared to the pure LLM approach, which required reading every record (Fig. 5e). Note that this token count
+excludes the internal processing of CS1-4B, which generated roughly 4.0 million answers by evaluating all 519
+trial questions (17 trials) across 7,695 individual record units for the 1,000 patients. Because the benchmark
+LLM (which reads every record) is so expensive, we ran it as a baseline for 200 patients at the individual
+criterion level; ranking all 1,000 patients would be cost-prohibitive. Consequently, the final 1,000-patient
+ranking comparison was conducted against the much cheaper keyword search.
+Discussion
+CS1 makes it practical to ask many narrow questions of every record in a large patient population. For users
+who read records at scale, this changes what is affordable. A trial team can have every candidate in a large
+population ranked within days, with an LLM reading only the criteria rather than every record. A clinician
+can ask a question about a patient’s whole history and receive an answer whose every statement points to a
+sentence in the chart. A registry can extract structured definitions from clinical free-text without extensive
+manual curation; confident answers can be auto-accepted and uncertain ones can be routed to a reviewer.
+These use cases are enabled by CS1’s training on real-world patient records. On held-out patients of the
+multi-hospital MGB system, it was the most accurate decision model tested in five of six task types. On public
+data sets from other institutions, it led every open model on the structured timelines of eICU and EHRSHOT
+and on outcome forecasting in EHRSHOT, gained most over its initialization where records are structured,
+and had about half the calibration error of its initialization. Averaged over the six task types, it came within 2
+points of the strongest 27-billion-parameter model, Vega-27B, which, at 27 billion parameters, has 6.4 times
+the latency of CS1-4B.
+For a team deciding whether to use CS1, these results suggest the following. First, it is most reliable where the
+records are structured and the keys exact, and on the institution’s own tasks; on most public note and report sets
+the larger open models were better, so criteria read from free text deserve more review. Second, its outcome
+forecasts rank patients well and can be easily recalibrated to the local incidence of each outcome. Third, the
+cost is low enough to ask many questions of every patient: a small desktop GPU reads about 2,000 notes an
+hour at 40 questions each, and a more powerful machine would make this many times faster. Fourth, every
+answer can be traced to the sentences it rests on. Finally, CS1 composes effectively with general LLMs, which
+keep the flexibility of language while delegating population-scale reading to a small, fast decision model:
+12
+
+given CS1 as a tool, an LLM answered questions about whole patient records with cited sentences and ranked
+patients for real trials while reading none of the records itself.
+Rapid decision models such as CS1 are complementary to foundation models of the electronic health
+record66,67. Apollo 68, trained on 25 billion events from 7.2 million patients of the same health system,
+compresses a patient’s multimodal history into one representation that supports forecasting of disease onset,
+progression and treatment response, and similarity search across a population. Such a representation answers
+what is likely to happen to a patient and which patients resemble one another; each endpoint is read out by a
+model fitted for it, and attributions point to learned associations across events. CS1 answers a different kind of
+question: what the record states, posed in words at request time without task-specific training, with a calibrated
+probability and the sentences that support it. The two can work together. CS1 can turn criteria written in words
+into labels, cohorts and endpoints on which representation models are fitted and evaluated, and can check,
+sentence by sentence, the patients that a representation model forecasts to be at risk or retrieves as similar; a
+representation model can, in turn, shortlist the patients that CS1 reads.
+The comparison also shows what open models do well. The 27-billion-parameter models were the best open
+model on 20 of the 21 public data sets and read notes, reports, long multi-document records and assertion
+status well. Their failures cluster on content that institutional supervision covers: time windows, laboratory
+thresholds, definitions and outcomes. CS1-4B closed this gap on the eICU and EHRSHOT timelines but not
+on the MIMIC-IV timelines or on clinical definitions. Part of the open models’ advantage may also come from
+training data we cannot audit: of the open models, only JEV-27B’s corpus is public, and we found no MIMIC
+text in it (Methods), whereas the Decision 2.0 and Clef corpora are undisclosed. The gap ran the other way on
+institutional data: the open models, which may have seen the public data sets in training, generalized poorly to
+the real-world care trajectories of MGB patients, where CS1-4B led in five of six task types. This is the setting
+that matters for deployment. Most hospitals’ own records, with their diverse structured data and free text from
+routine care, are likely to resemble MGB’s more closely than curated research databases such as MIMIC-IV ,
+eICU-CRD and EHRSHOT.
+This study has important limitations. First, the data curation depends on design choices regarding timeline,
+definition and forecasting sets, which were built from each source’s records and rendered as text by a rule-
+based serializer, and whose rule keys define each concept exactly as posed. Although we aimed at universal
+questions, these can differ in clinical intent, billing codes may lack timing and severity69, and outcomes may
+stay unobserved when care happened elsewhere 70, as, for example, in MIMIC-IV , which mostly includes
+emergency department and ICU visits. Second, three public keys are written by models, HISTAI’s by our
+teacher, BRIE’s by an open LLM with its authors’ code and ReXVQA’s by its authors’ LLM pipeline, as are the
+14 secondary teacher-keyed MGBQA-1M tasks. An LLM with reasoning agreed with human keys on 94–98%
+of items on three benchmarks but on only 90.6% of phenotype judgements, below the most common answer,
+because its notion of a phenotype was broader than the annotators’ (Methods), so model-written keys can
+diverge systematically from clinical annotation71. Third, CS1 is built for reading judgements over records, not
+for differential diagnosis from case descriptions, where System One models trail reasoning LLMs28. Finally,
+CS1 reads what records state and forecasts what records predict. If information is missing from the context
+provided to CS1, its answers may be materially affected. CS1 is a tool for research, operations and review
+with a person in the loop, has not been validated prospectively and must not make autonomous decisions about
+individual patients.
+CS1-4B is the first Clinical System One model. Its weights will follow as a credentialed release upon
+institutional approval. Future versions of CS1 will also read medical images, such as radiographs and
+pathology slides, alongside clinical text and structured records. We expect calibrated, evidence-linked answers
+13
+
+to typed questions to become a standard layer between clinical records and the many programs, people and
+agents that need to read them at scale.
+Methods
+Public evaluation data.The 21 public data sets cover the six task types of Fig. 2a and are used for evaluation
+only (documents and scored pairs, Extended Data Table 4). We built the nine timeline, definition and
+forecasting sets from MIMIC-IV , eICU-CRD and EHRSHOT, the MedAgentBench records, BRIE and the two
+pathology sets; the others are published benchmarks converted to our question format without changing their
+keys. CS1-4B was fine-tuned only on Klaros-12M data, so none of the 19,027 patients behind the scored pairs
+contributed a fine-tuning record.
+Structured records.Patients come from MIMIC-IV v3.1 41,72, eICU-CRD v2.043,73 (intensive-care admis-
+sions at 208 US hospitals) and EHRSHOT44. Each document is one patient’s structured record up to a decision
+point, rendered as text by a deterministic rule-based serializer with only relative time printed, in the encounter
+layout (MIMIC-IV sets; the index admission day by day, earlier admissions summarized) or the timeline
+layout (eICU-CRD and EHRSHOT sets; periods counted back from the index day, recent days in full and older
+periods summarized); the two layouts are compared on the same MIMIC-IV documents in Extended Data
+Table 5. Documents fit 7,400 Qwen3 tokens (8,000 for MIMIC- and EHRSHOT-Timelines), the oldest history
+being shortened first. Keys are computed by rules on the structured record or are outcomes observed after the
+decision point. A rule is used only if the layout prints every field it reads, and a rule key is kept only when the
+rule applied to what the rendered text shows gives the same answer as on the full record. eICU-CRD tables are
+mapped to MIMIC-IV-shaped tables, so that the same rules, definitions, outcomes and question wording apply,
+and one stay is drawn per adult patient with hospital quotas proportional to the square root of eligible patients.
+Patient timelines and clinical definitions.MIMIC-Timelines and EHRSHOT-Timelines pose template-
+generated questions (existence in a window, thresholds, trends, counts, orderings and others) with fixed
+option sets; a “no” is keyed only when the relevant part of the record is shown in full, answers are balanced
+per template, and a seeded subset of test documents is scored with 40 questions each. MIMIC-Composite
+poses 22 published composite definitions as Choices whose option criteria state the definition’s logic in
+plain language: eight eMERGE/PheKB phenotypes 74, six Charlson and Elixhauser comorbidity groups 75,
+two NHSN infection-surveillance categories76, five laboratory definitions and one stroke quality measure.
+eICU-Composite poses the 17 of them that port to eICU-CRD, and EHRSHOT-Composite curated published
+definitions and scores, with answers balanced per kind. eICU-Timelines and the Composite sets score one
+question per patient.
+Outcome forecasting.Each question asks about an event in an explicit window after a cut in the record,
+which shows only facts recorded by the cut; one outcome is asked per patient, at natural prevalence. MIMIC-
+Prognosis cuts at discharge or 24 h after admission and asks twelve yes/no questions (outcomes of all three sets,
+Extended Data Table 6); a death before the event counts as “no”, and windows that end after the patient’s data
+end are dropped. eICU-Prognosis cuts 24 h after hospital admission or at the first intensive-care discharge and
+asks about six events in the rest of the stay, because eICU-CRD records nothing after discharge. EHRSHOT-
+Prognosis cuts at an index day and asks each patient one question in 22 kinds; the two kinds without a single
+14
+
+event option are reported separately. The headline is the mean AUROC77 over the outcomes with at least 10
+positives and 10 negatives among the scored pairs (Extended Data Table 6). The three sets differ in cuts and
+outcomes and are not comparable with one another.
+MedAgentBench records.From the de-identified FHIR records of 100 patients shipped with MedAgent-
+Bench78, we rendered timelines at 1–6 cut points per patient and posed Choices in eight families, keyed by exact
+rules with the visibility check; a “no” also requires every list in the window to be complete. Answer-balanced
+selection kept at most 22 pairs per question.
+BRIE.We regenerated BRIE chart-review questions 51 on MIMIC-IV-Note v2.242 with the authors’ code and
+an open LLM (Gemma-4-26B-A4B79,80), which wrote items and keys from each patient’s earlier discharge
+summaries and radiology reports; each item became a Choice with a not-documented option.
+Published benchmarks.MIMIC-IV-Ext-Apixaban-Trial-Criteria 81 (numeric criteria banded at trial thresh-
+olds), EHRNoteQA82,83, LongHealth50, MIMIC-III phenotypes9,84–86, MIMIC-CXR-VQA87–89 (presence
+questions on MIMIC-CXR90 reports) and ReXVQA91 (a seeded stratified subset). Both radiograph sets are
+asked of the written report only (for MIMIC-CXR-VQA, findings the report does not mention count as absent),
+so the results are not comparable with image-based VQA.
+Pathology reports.Both sets come from the test split of a labelled collection of public pathology reports.
+TCGA92: optical-character-recognition text of one diagnostic report per patient93 and 31 questions (histology,
+stage, grade, receptor status and others), keyed by the patient’s Genomic Data Commons94 records where the
+keyed value is stated in the report; a review of 196 pairs found no key errors. HISTAI95: 1,000 seeded cases
+(English translations) without an independent key, so the key is the teacher’s rotation-averaged answer, the
+teacher is not scored, and CS1, distilled from that teacher, has a built-in advantage; a confident subset (teacher
+probability≥0.9) is reported separately.
+Phenotypes and assertions.Each note–phenotype pair of MIPA 96 (16 phenotypes in MIMIC-IV discharge
+summaries) is a two-option Choice whose criteria paraphrase MIPA’s definitions. Each note–entity pair of van
+Aken et al.97 (mentions in MIMIC-III notes labelled present, possible or absent) is a Choice with a further
+not-documented option; entities with conflicting labels are dropped, and balanced accuracy averages the three
+class recalls.
+Institutional data (Klaros-12M and MGBQA-1M).Klaros-12M and MGBQA-1M were drawn from MGB,
+a multi-hospital US academic health system whose research data warehouse holds clinical notes, diagnostic
+reports and structured records. The MGB institutional review board approved the retrospective analysis of the
+electronic health records. The participants were not directly involved or recruited for the study. Documents
+were split by patient into training, validation and test sets; Klaros-12M holds the training split and MGBQA-
+1M the test split. Structured records were rendered in the timeline layout of the eICU-CRD and EHRSHOT
+sets (Public evaluation data). CS1-4B was trained on four groups of Klaros-12M data (Extended Data Table 1):
+clinical notes and diagnostic reports with teacher readout labels, and structured timelines with exact labels
+15
+
+for outcome forecasting (observed outcomes) and for structured criteria (the MIMIC-IV rule engine ported
+to MGB records, with censoring at each patient’s end of follow-up). Composite definitions and outcomes
+marked as held out in the question bank are labelled only on test documents. The test split, MGBQA-1M, used
+only for the internal evaluation (Fig. 2b and Extended Data Table 3), has 28 tasks over the six task types of
+Fig. 2a, with one test question per held-out patient. Keys come from rules, observed outcomes, quality-filtered
+structured tables, a cancer registry or an open LLM (Gemma-4-26B-A4B79,80); nine note and five report tasks
+are keyed by the GLM-5.3-Flash teacher, measure agreement with it and are secondary. The open decision
+models were run on the same test set; the reference is the most common training answer per question.
+Labels.
+Teacher readout.GLM-5.3-Flash 39,98, a mixture-of-experts LLM with 320 billion parameters (18 billion
+active), served with vLLM16, receives one raw completion prompt with a fixed instruction, the document,
+the question, the options as (A) {key}: {criterion} , the line “Answer with a single letter.” and
+the prefill Answer: ( . For options k0, . . . ,kn−1, rotation s shows option k(s+i)modn under letter ℓi; with
+rs(i) =P(ℓi |prompt s)and valid-letter massm s = ∑i rs(i), the label is
+¯p(kj) =1n n−1∑s=0 rs (j−s)modn ms ,p(k)∝¯p(k) 1/Tt.
+The n cyclic rotations place every option at every position once, which cancels purely positional bias99,100.
+CS1-4B’s soft labels useT t =1.
+Exact and outcome labels.Rules compute timeline and composite-definition answers from the tables the
+document was rendered from (including derived quantities such as eGFR by CKD-EPI 2021101 and the FIB-4
+liver-fibrosis index102), with the visibility check of Public evaluation data applied to Klaros-12M and public
+labels alike. Outcomes are computed from encounters, transfers, deaths and laboratory values after the decision
+point, with the windows and exclusions above.
+Reasoning annotator.To measure how far a model-written key can be trusted, GLM-5.3 52, a mixture-of-
+experts LLM with 744 billion parameters (40 billion active), with reasoning and greedy decoding (one question
+per request, accepting only an explicit option letter) answered the human-keyed benchmarks. It agreed with
+the human keys on 94.0% of Apixaban judgements, 97.9% of EHRNoteQA items and 94.4% of LongHealth
+items, but on only 90.6% of MIMIC-III phenotype judgements, below the most common answer (92.5%): it
+called phenotypes more liberally than the annotators.
+Model.CS1-4B is a full fine-tune of Decision 2.0 Nox-4B 27, a Qwen3.5103 hybrid of 4.2 billion parameters
+(24 Gated DeltaNet linear-attention layers 104 and 8 gated full-attention layers 105), and keeps that model’s
+runtime prompt and candidate head. Every question is typed: a Choice over 2–11 options, a yes/no question, or
+a Score with ordered levels 1 to N; not_documented is offered wherever the document can be silent. The
+prompt holds the document, the question and one block per option, with its key and criterion; yes/no questions
+take the runtime’s yes/no type, and Choices and Scores its choice type, with options keyed A, B, C, . . . . A
+question has at most 11 options. The candidate head layer-normalizes the hidden states at the last token of
+every option block and at the final token of the question, projects them with option- and query-side MLPs into
+16
+
+a 256-dimensional key and query space and returns one logit per option; a softmax over the question’s options
+gives the answer distribution. One packed sequence holds the document once, followed by one segment per
+question whose position indices restart at the end of the document, so that the document and any one segment
+are token for token the runtime’s input for that question (Extended Data Fig. 2). In the full-attention layers a
+block mask (FlexAttention106) lets each segment attend to the whole document and causally to itself, never to
+another segment. The Gated DeltaNet layers run the document once and start every segment from its final
+recurrent state, recomputing the four-token causal convolution at each segment’s start with the document’s
+last tokens as left context. This extends packing without cross-contamination 107 to a shared prefix in both
+layer types; training packs several documents per sequence. The document keeps at most 15,356 tokens, a
+segment at most 1,024 (option descriptions are shortened first), and a document with its segments at most
+20,480; documents with more questions are split over units that repeat the document. One temperature per
+question type and number of options can be fitted on Klaros-12M validation documents108; CS1-4B’s results
+are raw probabilities.
+Training.Each example is one document with all of its labelled questions, as at inference. The loss is the
+soft cross-entropy between the student’s distribution and the target, a strictly proper scoring rule109, averaged
+over questions110; the target is the teacher’s readout distribution or, where an exact or outcome label exists
+for the same document–question pair, the one-hot answer. Option order is shuffled per example for Choices.
+Only Klaros-12M training-split documents are used. Backbone and head were fully fine-tuned with fused
+AdamW111 (β1 =0.9 , β2 =0.98 , ε=10 −6, weight decay 0.01), with gradient norms clipped at 1.0, in three
+consecutive stages. The first ran 13,591 optimizer steps on the main Klaros-12M training corpus, weighted
+towards structured timelines, at a peak learning rate of 7×10 −6. The second continued for 11,709 steps on the
+same corpus, weighted towards notes and reports, re-annealing the learning rate from 3.6×10 −6 to 7×10 −7.
+The third ran 1,141 steps with a fresh optimizer on a set of multi-note documents, with the learning rate
+decaying from 3×10 −6 to 3×10 −7. In total, the 26,441 steps covered about 13.8 billion training tokens and
+took 26.4 h on eight NVIDIA B300 GPUs of an institutional cluster (211 GPU-hours).
+Baselines.
+Open decision models.All were run through each model’s reference implementation: JEV-27B 25 (a frozen
+Qwen3.8-27B112 with a LoRA and a decision head distilled from a proprietary decision model); Clef 26 (a
+post-trained Qwen3.8-27B that scores all questions of a document in one pass); the six Decision 2.0 models27
+(Kai-0.6B, Eos-0.8B, Sol-2B, Nox-4B, Lux-9B and Vega-27B; each package’s own runtime, encoding a
+document once for all its questions); pplx-decider-v1-27b40 (a fully fine-tuned Qwen3.8-27B hybrid; option-
+letter readout at the release’s temperature; 8,192-token limit); BioDecision-4B30; and MedDecider-9B and
+-27B31 (LoRA adapters on Qwen3.5-9B103 and Qwen3.8-27B, with the release’s per-type temperatures). For
+each model, the mapping of our question types onto its interface was chosen among two or three variants
+by agreement with the teacher on 20 validation notes, without benchmark keys. Inputs longer than a model
+accepts were cut to their head (60%) and tail (40%) (Clef: at the end, per its card). JEV-27B’s public training
+corpus contains no MIMIC text; the Decision 2.0, Clef and pplx-decider training rows are not public, so
+exposure to public benchmarks cannot be excluded for them or for CS1-4B, which starts from Nox-4B. The
+hosted TypeSafe Jev service24 was run only on openly licensed sets (LongHealth, TCGA pathology reports)
+and synthetic records.
+17
+
+Other references.The teacher readout (rotation-averaged, temperature-scaled) and the most common answer
+per question.
+Agent harnesses.A general LLM (GLM-5.3 52) uses CS1-4B as a tool53,54 that takes documents and typed
+questions with criteria and returns option probabilities and, on request, evidence sentences. Structured records
+are rendered in the timeline layout for Fig. 5 and by an earlier in-house serializer (index admission day by day,
+earlier admissions summarized) for the worked examples.
+Population trial screening.Seventeen ClinicalTrials.gov 64 trials, with criteria as written, are screened in a
+seeded sample of 1,000 MIMIC-IV test patients at the discharge of an index admission, using every structured
+timeline, discharge summary and radiology report up to that discharge (21,866 documents), each timeline
+piece one unit and a patient’s notes packed in date order into units of at most 8,000 tokens (7,695 units).
+Per trial, one GLM-5.3 call writes atomic typed questions, with an option for missing information where
+absence is possible, and a second gives each a time scope (index admission, a window of d days before it, or
+any time). CS1-4B answers every question on every unit; a question’s probability is its maximum over units
+with an in-scope document. P(eligible) =∏P(inclusion met)× ∏
+ 
+1−P(exclusion met)
+
+, missing inclusion
+information counting as not met.Criterion evaluation(seven trials, a seeded 200 patients): the comparator
+is GLM-5.3 reading each whole record per trial; structured criteria that a rule computes exactly as stated
+are keyed by that rule, and note-only criteria by the agreeing labels of two full-record GLM-5.3 reads (high
+reasoning effort; different seeds and criterion orders). Balanced accuracy atP(met)≥0.5 is macro-averaged
+over criteria with both classes.Ranking: all 1,000 patients are ordered per trial by P(eligible) and by BM25
+over the full record with the inclusion criteria as query; the union of the two top 20s is graded by GLM-5.355
+at high reasoning effort, blind to ranker and model answers, in two passes (criteria in order and reversed113) of
+2 (eligible), 1 (possibly eligible) or 0, the final grade being the floor of their mean. The judged pool holds
+663 patient–trial pairs (linearly weighted κ57 between passes 0.84). nDCG@2058 is ∑20i=1(2gi −1)/log 2(i+1)
+for the grades gi of a ranker’s top 20, divided by the same sum for the ideal ordering of the judged pool, over
+the 13 trials with any patient graded above 0; intervals resample trials and, for differences, patients within
+trials114; all bootstraps use 2,000 resamples.Cost: server-reported LLM tokens per screened patient over
+these 13 trials, for the question-writing and time-scope calls, shared over the 1,000 patients (pipeline), or for
+GLM-5.3 reading each of the seeded 200 patients’ records (baseline); verification of top candidates, CS1-4B
+compute and reference and judge calls are not counted.
+Patient-level question answering.From a manifest of the record (document types, counts and dates), the
+LLM writes typed sub-questions, each with a not_documented option, an aggregation rule (any, latest,
+trajectory, majority or count) and a scope; CS1-4B answers every sub-question over every document in scope,
+chunking long documents; code aggregates across documents and time, separating documented absence from
+silence and flagging conflicts; sufficiency attribution selects evidence sentences in the decisive documents
+(ssuf ≥1 nat and p(a|sentence alone)≥0.5 ); and the LLM, which never reads the full record, composes
+the answer from cited sentences and aggregates, with citations validated against the evidence list. The three
+worked examples (Fig. 4 and Extended Data Figs. 5 and 6) are MIMIC-IV test patients chosen from the 100
+longest test records by structured signals so that each question applies; each is a single run, checked against
+the full record by GLM-5.3 at high reasoning effort and by reading short excerpts.
+Evidence attribution.Let u1, . . . ,um be a document’s units (sentences; for a structured record, the lines
+of its rendered timeline) and a the model’s top answer to question q. The necessity score of a unit is
+snec(ui) =logp(a|d,q)−logp(a|d\u i,q), where d\u i is the document with ui deleted and re-encoded; the
+sufficiency score, ssuf(ui) =logp(a|u i,q)−logp(a|∅,q) , compares the unit alone with an empty document
+18
+
+and also finds redundantly stated evidence 47,115. Fig. 3 shows the corresponding probability differences,
+which order the units identically. Because deleting ui leaves the text before it unchanged, the model’s state
+at ui (full-attention keys and values, Gated DeltaNet recurrent states and convolution inputs) is computed
+once and reused116, and only the rest of the document and the question are re-encoded; this is exact up to
+floating-point rounding. Documents of more than 34 units are screened hierarchically: chunks of 10 units
+are deleted one at a time, and the units of the three chunks whose deletion lowers logp(a) most are then
+scored singly; every reported score is exact. Up to three units with snec ≥0.1 are listed as evidence. When
+no unit is necessary and p(a|∅,q)<0.5 , units with p(a|u i,q)≥0.5 and ssuf ≥1 are listed as redundant
+evidence; when p(a|∅,q)≥0.5 the answer rests on silence and nothing is highlighted. Faithfulness was
+evaluated on 200 pairs from 100 MIMIC-IV discharge notes of at most 3,000 tokens (per note, one question
+whose teacher answer is not its most common answer and one at random; evidence-dependent, the 90 with
+p(a|∅)<0.5 ): the top k∈ {1,2,3,5,10} units by necessity or sufficiency were deleted (deletion) or kept
+alone (insertion)47,117, the area under each curve is the original answer’s mean probability over k, and two
+random orderings serve as baseline; results are for the 90 evidence-dependent pairs.
+Metrics and statistics.Accuracy is computed on the top option. Balanced accuracy 118 is the mean recall
+over the key’s answer classes per question, averaged over questions (questions with fewer than 20 items, and
+item-specific options, are pooled by answer position); on eICU-Timelines and the three Composite sets it is
+computed per concept and averaged over concepts. Calibration is reported as top-label expected calibration
+error (15 equal-count bins)119,120 and Brier score121, and outcomes also by AUROC77, AUPRC122, scaled
+Brier score123 and calibration slope and intercept124. For the recalibrated forecasts, each outcome’s predicted
+risks were shifted by one constant on the log-odds scale so that their mean equals the outcome’s incidence, with
+the shift estimated on one half of the patients and applied to the other (two folds by patient); the calibration
+error of predicted risks uses 10 equal-count bins. Coverage at precision p is the largest share of judgements,
+taken in order of confidence, whose accuracy is at least p125,126, with confidence the top option’s renormalized
+probability and tied confidences accepted or rejected together. Intervals are 95% document- or patient-clustered
+bootstrap114,127 intervals (1,000 resamples); for balanced accuracy on the MIMIC-IV timeline, human-keyed,
+ReXVQA and pathology sets, a Bayesian bootstrap128 (Dirichlet document weights) keeps every answer class
+in every resample. Per-concept means use a Bayesian bootstrap over concepts (small-sample t correction) and
+prognosis means a patient-level Bayesian bootstrap. Paired comparisons use the paired bootstrap, and every
+system is scored on the same items.
+CS1-4B and the six Decision 2.0 models were timed back to back on one idle NVIDIA GB10, one model
+and one document at a time in bf16, with the documents and question counts of Extended Data Table 2 and
+Extended Data Fig. 3. Each ran through its own released inference code, Decision 2.0 through its official
+runtime as documented on its model cards (one system_one call per document with all its questions). We
+did not further optimize the Decision 2.0 pipeline, which on this GPU uses the generic Transformers129 forward
+pass. CS1-4B and Nox-4B share an architecture and differ only in their weights, so the 1.3-fold difference
+between them comes from the inference code rather than from the model, and an optimized Decision 2.0
+runtime would likely narrow it; the gap that comes from model size remains. Times are end-to-end wall-clock
+times per document, excluding model loading: the median of 10 timed repetitions after two warm-up runs (5
+for runs longer than 5 s). Compute for 106 documents is extrapolated from these measurements.
+Ethics and data governance.MIMIC-IV , MIMIC-IV-Note, MIMIC-III, MIMIC-CXR, eICU-CRD and the
+derived benchmarks were used under the PhysioNet130 credentialed (or restricted) data-use agreements by
+credentialed investigators; EHRSHOT under its credentialed agreement by individually registered investigators,
+19
+
+with local models only23. These data are de-identified, and their use was exempt from further review. MGB
+data were used on institution-controlled infrastructure. The examples in Figs. 1 and 3 are synthetic. Fig. 4,
+Extended Data Figs. 5 and 6 and Fig. 5a show MIMIC-IV test patients with relabelled document and patient
+labels and de-identified, shifted dates, and show record text only as paraphrases, never verbatim; no record
+identifier is shown.
+Software and hardware.Python 3.13, PyTorch 2.14 131 (CUDA 13.0) with FlexAttention and torch.
+compile132, flash-linear-attention 0.5133, Hugging Face Transformers 5.12129 and PEFT 0.21134; NumPy
+2.5135, SciPy 1.18136, scikit-learn 1.9137, pandas 3.0138 and DuckDB 1.5139 for analysis; Matplotlib 3.11140
+for figures; vLLM 0.27.0 or later with FlashInfer 0.6.18 or later141 for serving the LLMs. Inference of CS1-4B
+and the open decision models, latency measurements and attribution ran on NVIDIA GB10 (DGX Spark,
+128 GB unified memory); CS1-4B was trained on eight NVIDIA B300 GPUs (211 GPU-hours), and the LLMs
+were served on NVIDIA B300 GPUs of the same institutional cluster.
+1. Jin, Q.et al.Matching patients to clinical trials with large language models.Nature Communications15,
+9074 (2024).
+2. Penberthy, L. T., Dahman, B. A., Petkov, V . I. & DeShazo, J. P. Effort required in eligibility screening
+for clinical trials.Journal of Oncology Practice8, 365–370 (2012).
+3. Banda, J. M., Seneviratne, M., Hernandez-Boussard, T. & Shah, N. H. Advances in electronic pheno-
+typing: From rule-based definitions to machine learning models.Annual Review of Biomedical Data
+Science1, 53–68 (2018).
+4. Casalino, L. P.et al.US physician practices spend more than $15.4 billion annually to report quality
+measures.Health Affairs35, 401–406 (2016).
+5. Overhage, J. M. & McCallie, D. Physician time spent using the electronic health record during outpatient
+encounters: A descriptive study.Annals of Internal Medicine172, 169–174 (2020).
+6. Kahneman, D.Thinking, Fast and Slow(Farrar, Straus and Giroux, New York, 2011).
+7. Savova, G. K.et al.Mayo clinical Text Analysis and Knowledge Extraction System (cTAKES):
+architecture, component evaluation and applications.Journal of the American Medical Informatics
+Association17, 507–513 (2010).
+8. Chapman, W. W., Bridewell, W., Hanbury, P., Cooper, G. F. & Buchanan, B. G. A simple algorithm for
+identifying negated findings and diseases in discharge summaries.Journal of Biomedical Informatics34,
+301–310 (2001).
+9. Gehrmann, S.et al.Comparing deep learning and concept extraction based methods for patient
+phenotyping from clinical narratives.PLoS ONE13, e0192360 (2018).
+10. Rajkomar, A.et al.Scalable and accurate deep learning with electronic health records.npj Digital
+Medicine1, 18 (2018).
+11. Agrawal, M., Hegselmann, S., Lang, H., Kim, Y . & Sontag, D. Large language models are few-shot
+clinical information extractors. InProceedings of the 2022 Conference on Empirical Methods in Natural
+Language Processing (EMNLP), 1998–2022 (2022).
+12. Van Veen, D.et al.Adapted large language models can outperform medical experts in clinical text
+summarization.Nature Medicine30, 1134–1142 (2024).
+13. Singhal, K.et al.Large language models encode clinical knowledge.Nature620, 172–180 (2023).
+14. Moor, M.et al.Foundation models for generalist medical artificial intelligence.Nature616, 259–265
+(2023).
+15. Wei, J.et al.Chain-of-thought prompting elicits reasoning in large language models. InAdvances in
+Neural Information Processing Systems 35, 24824–24837 (2022).
+20
+
+16. Kwon, W.et al.Efficient memory management for large language model serving with PagedAttention.
+InProceedings of the 29th Symposium on Operating Systems Principles (SOSP), 611–626 (2023).
+17. Zheng, L.et al.SGLang: Efficient execution of structured language model programs. InAdvances in
+Neural Information Processing Systems 37, 62557–62583 (2024).
+18. Cheng, Z., Kasai, J. & Yu, T. Batch prompting: Efficient inference with large language model APIs. In
+Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing: Industry
+Track, 792–810 (2023).
+19. Jiang, Z., Araki, J., Ding, H. & Neubig, G. How can we know when language models know? on the
+calibration of language models for question answering.Transactions of the Association for Computational
+Linguistics9, 962–977 (2021).
+20. Griot, M., Hemptinne, C., Vanderdonckt, J. & Yuksel, D. Large language models lack essential
+metacognition for reliable medical reasoning.Nature Communications16, 642 (2025).
+21. Wu, K.et al.An automated framework for assessing how well LLMs cite relevant medical references.
+Nature Communications16, 3615 (2025).
+22. PhysioNet. Responsible use of MIMIC data with online services like GPT. PhysioNet news (2023).
+https://physionet.org/news/post/gpt-responsible-use/.
+23. PhysioNet. Use of MIMIC data with large language models and online services. PhysioNet news (2025).
+https://physionet.org/news/post/llm-responsible-use/.
+24. Almeida, D. Introducing System One models & Jev. TypeSafe AI blog (2026). https://typesafe.ai/blog/i
+ntroducing-system-one-models-and-jev.
+25. AutoTrust AI. JEV-27B: a second-generation integrated System 1 + System 2 open model built with
+the Blocks of Experts recipe (Qwen3.8-27B; System 1 distilled from TypeSafe Jev 1.13). Model card,
+revision 962701f3, 1 October (2026). https://huggingface.co/autotrust/JEV-27B.
+26. Cloudflare. Clef: a typed-decision model with a joint schema head (27B, Qwen3.8-based). Model card,
+Hugging FaceCloudflare/clef, Apache-2.0 (2026). https://huggingface.co/Cloudflare/clef.
+27. vLLM Semantic Router Team. Decision 2.0 (Kai-0.6B, Eos-0.8B, Sol-2B, Nox-4B, Lux-9B, Vega-
+27B). Model cards, Hugging Face collection vllm-sr/decision-20, Apache-2.0 (2026). https:
+//huggingface.co/collections/vllm-sr/decision-20.
+28. Madrid-García, A. & Merino-Barbancho, B. Jev in medicine: A benchmark evaluation. arXiv preprint
+arXiv:2609.34024 (version 3) (2026). https://arxiv.org/abs/2609.34024v3. Submitted 27 September
+2026; revised 4 October 2026.
+29. Huang, J.et al.Can Jev judge radiology reports? Evaluating a System One model for clinical factuality.
+arXiv:2609.27607 (2026). https://arxiv.org/abs/2609.27607.
+30. lighteternal. BioDecision-4B v2: a system-1 decision model for biomedicine, pharma and clinical trials.
+Hugging Face model card, https://huggingface.co/lighteternal/biodecision-v2-4b (2026).
+31. thelion.ai. MedDecider: calibrated medical decision models (MedDecider-9B and MedDecider-27B).
+Hugging Face model cards, https://huggingface.co/lion-ai/MedDecider-9B and https://huggingface.co/l
+ion-ai/MedDecider-27B (2026).
+32. Ma, J. MedJev: Ultra-fast clinical variable extraction from free-text notes. GitHub repository, version
+0.1.0 (2026). https://github.com/JunMa11/MedJev.
+33. Jiang, L. Y .et al.Health system-scale language models are all-purpose prediction engines.Nature619,
+357–362 (2023).
+34. Steinberg, E.et al.Language models are an effective representation learning technique for electronic
+health record data.Journal of Biomedical Informatics113, 103637 (2021).
+35. Wong, A.et al.External validation of a widely implemented proprietary sepsis prediction model in
+21
+
+hospitalized patients.JAMA Internal Medicine181, 1065–1070 (2021).
+36. Futoma, J., Simons, M., Panch, T., Doshi-Velez, F. & Celi, L. A. The myth of generalisability in clinical
+research and machine learning in health care.The Lancet Digital Health2, e489–e492 (2020).
+37. Zech, J. R.et al.Variable generalization performance of a deep learning model to detect pneumonia in
+chest radiographs: a cross-sectional study.PLoS Medicine15, e1002683 (2018).
+38. Wornow, M.et al.The shaky foundations of large language models and foundation models for electronic
+health records.npj Digital Medicine6, 135 (2023).
+39. Z.ai (Zhipu AI). GLM-5.3-Flash. Model card (2026). https://huggingface.co/zai-org/GLM-5.3-Flash.
+40. Perplexity AI. pplx-decider-v1-27b. Hugging Face model card, https://huggingface.co/perplexity-ai/pplx
+-decider-v1-27b (2026).
+41. Johnson, A. E. W.et al.MIMIC-IV, a freely accessible electronic health record dataset.Scientific Data
+10, 1 (2023).
+42. Johnson, A., Pollard, T., Horng, S., Celi, L. A. & Mark, R. MIMIC-IV-Note: Deidentified free-text
+clinical notes (version 2.2). PhysioNet (2023). https://physionet.org/content/mimic-iv-note/.
+43. Pollard, T. J.et al.The eICU Collaborative Research Database, a freely available multi-center database
+for critical care research.Scientific Data5, 180178 (2018).
+44. Wornow, M., Thapa, R., Steinberg, E., Fries, J. A. & Shah, N. H. EHRSHOT: An EHR benchmark for
+few-shot evaluation of foundation models. InAdvances in Neural Information Processing Systems 36
+(Datasets and Benchmarks Track), 67125–67137 (2023).
+45. Sainz, O.et al.NLP evaluation in trouble: On the need to measure LLM data contamination for each
+benchmark. InFindings of the Association for Computational Linguistics: EMNLP 2023, 10776–10787
+(2023).
+46. Saerens, M., Latinne, P. & Decaestecker, C. Adjusting the outputs of a classifier to new a priori
+probabilities: A simple procedure.Neural Computation14, 21–41 (2002).
+47. DeYoung, J.et al.ERASER: A benchmark to evaluate rationalized NLP models. InProceedings of the
+58th Annual Meeting of the Association for Computational Linguistics, 4443–4458 (2020).
+48. Cohen-Wang, B., Shah, H., Georgiev, K. & M ˛ adry, A. ContextCite: Attributing model generation to
+context. InAdvances in Neural Information Processing Systems 37, 95764–95807 (2024).
+49. Fleming, S. L.et al.MedAlign: A clinician-generated dataset for instruction following with electronic
+medical records. InProceedings of the AAAI Conference on Artificial Intelligence, vol. 38, 22021–22030
+(2024).
+50. Adams, L.et al.LongHealth: A question answering benchmark with long clinical documents.Journal
+of Healthcare Informatics Research9, 280–296 (2025).
+51. Cahoon, J. L.et al.A living benchmark for information retrieval from electronic health records. arXiv
+preprint arXiv:2609.30205 (2026).
+52. Z.ai (Zhipu AI). GLM-5.3. Model card (2026). https://huggingface.co/zai-org/GLM-5.3.
+53. Yao, S.et al.ReAct: Synergizing reasoning and acting in language models. InInternational Conference
+on Learning Representations(2023).
+54. Schick, T.et al.Toolformer: Language models can teach themselves to use tools. InAdvances in Neural
+Information Processing Systems 36, 68539–68551 (2023).
+55. Zheng, L.et al.Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. InAdvances in Neural
+Information Processing Systems 36 (Datasets and Benchmarks Track), 46595–46623 (2023).
+56. Wacker, D. A.et al.Evaluating vitamin C in septic shock: A randomized controlled trial of vitamin C
+monotherapy.Critical Care Medicine50, e458–e467 (2022).
+22
+
+57. Cohen, J. Weighted kappa: Nominal scale agreement with provision for scaled disagreement or partial
+credit.Psychological Bulletin70, 213–220 (1968).
+58. Järvelin, K. & Kekäläinen, J. Cumulated gain-based evaluation of IR techniques.ACM Transactions on
+Information Systems20, 422–446 (2002).
+59. Unlu, O.et al.Manual vs AI-assisted prescreening for trial eligibility using large language models—a
+randomized clinical trial.JAMA333, 1084–1087 (2025).
+60. Unlu, O.et al.Retrieval-augmented generation–enabled GPT-4 for clinical trial screening.NEJM AI1
+(2024).
+61. Wornow, M.et al.Zero-shot clinical trial patient matching with LLMs. arXiv:2402.05125 (2024).
+https://arxiv.org/abs/2402.05125.
+62. Syed, M.et al.Translating evidence into practice: adapting TrialGPT for real-world clinical trial
+eligibility screening.Journal of the American Medical Informatics Association33, 909–913 (2026).
+63. Yuan, C.et al.Criteria2Query: a natural language interface to clinical databases for cohort definition.
+Journal of the American Medical Informatics Association26, 294–305 (2019).
+64. Zarin, D. A., Tse, T., Williams, R. J., Califf, R. M. & Ide, N. C. The ClinicalTrials.gov results
+database—update and key issues.New England Journal of Medicine364, 852–860 (2011).
+65. Panickssery, A., Bowman, S. R. & Feng, S. LLM evaluators recognize and favor their own generations.
+InAdvances in Neural Information Processing Systems 37, 68772–68802 (2024).
+66. Kraljevic, Z.et al.Foresight—a generative pretrained transformer for modelling of patient timelines
+using electronic health records: a retrospective modelling study.The Lancet Digital Health6, e281–e290
+(2024).
+67. Shmatko, A.et al.Learning the natural history of human disease with generative transformers.Nature
+647, 248–256 (2025).
+68. Zhang, A.et al.A multimodal and temporal foundation model for virtual patient representations at
+healthcare system scale.arXiv preprint arXiv:2604.18570(2026).
+69. O’Malley, K. J.et al.Measuring diagnoses: ICD code accuracy.Health Services Research40, 1620–1639
+(2005).
+70. Lin, K. J.et al.Out-of-system care and recording of patient characteristics critical for comparative
+effectiveness research.Epidemiology29, 356–363 (2018).
+71. Yamga, E., Murphy, S. & Després, P. A systematic exploration of LLM behavior for EHR phenotyping.
+medRxiv (2026). https://doi.org/10.64898/2026.04.16.26350890.
+72. Johnson, A.et al.MIMIC-IV (version 3.1). PhysioNet (2024). https://doi.org/10.13026/kpb9-mt58.
+73. Pollard, T.et al.eICU Collaborative Research Database (version 2.0). PhysioNet (2019). https:
+//doi.org/10.13026/C2WM1R.
+74. Kirby, J. C.et al.PheKB: a catalog and workflow for creating electronic phenotype algorithms for
+transportability.Journal of the American Medical Informatics Association23, 1046–1052 (2016).
+75. Quan, H.et al.Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative
+data.Medical Care43, 1130–1139 (2005).
+76. Horan, T. C., Andrus, M. & Dudeck, M. A. CDC/NHSN surveillance definition of health care-associated
+infection and criteria for specific types of infections in the acute care setting.American Journal of
+Infection Control36, 309–332 (2008).
+77. Hanley, J. A. & McNeil, B. J. The meaning and use of the area under a receiver operating characteristic
+(ROC) curve.Radiology143, 29–36 (1982).
+78. Jiang, Y .et al.MedAgentBench: a virtual EHR environment to benchmark medical LLM agents.NEJM
+AI2, AIdbp2500144 (2025).
+23
+
+79. Gemma Team. Gemma 4 technical report. arXiv:2607.02770 (2026). https://arxiv.org/abs/2607.02770.
+80. Google. Gemma-4-26B-A4B. Hugging Face model card, Apache-2.0 (2026). https://huggingface.co/g
+oogle/gemma-4-26B-A4B.
+81. Woo, E., Burkhart, M. C., Alsentzer, E. & Beaulieu-Jones, B. MIMIC-IV-Ext-Apixaban-Trial-Criteria-
+Questions (version 1.0.0). PhysioNet (2025). https://physionet.org/content/mimic-iv-ext-apixaban-trial
+/1.0.0/.
+82. Kweon, S.et al.EHRNoteQA: An LLM benchmark for real-world clinical practice using discharge
+summaries. InAdvances in Neural Information Processing Systems 37 (Datasets and Benchmarks Track),
+124575–124611 (2024).
+83. Kweon, S.et al.EHRNoteQA: An LLM benchmark for real-world clinical practice using discharge
+summaries (version 1.0.1). PhysioNet (2024). https://physionet.org/content/ehr-notes-qa-llms/1.0.1/.
+84. Moseley, E., Celi, L. A., Wu, J. & Dernoncourt, F. Phenotype annotations for patient notes in the
+MIMIC-III database. PhysioNet, version 1.20.3 (2020). https://doi.org/10.13026/txmt-8m40.
+85. Johnson, A. E. W.et al.MIMIC-III, a freely accessible critical care database.Scientific Data3, 160035
+(2016).
+86. Johnson, A., Pollard, T. & Mark, R. MIMIC-III Clinical Database (version 1.4). PhysioNet (2016).
+https://physionet.org/content/mimiciii/1.4/.
+87. Bae, S.et al.EHRXQA: A multi-modal question answering dataset for electronic health records with
+chest X-ray images. InAdvances in Neural Information Processing Systems 36, Datasets and Benchmarks
+Track, 3867–3880 (2023).
+88. Wu, J. T.et al.Chest ImaGenome dataset for clinical reasoning. InProceedings of the Neural Information
+Processing Systems Track on Datasets and Benchmarks, vol. 1 (2021). https://datasets-benchmarks-pro
+ceedings.neurips.cc/paper/2021/hash/17e62166fc8586dfa4d1bc0e1742c08b-Abstract-round2.html.
+89. Bae, S.et al.MIMIC-Ext-MIMIC-CXR-VQA: A complex, diverse, and large-scale visual question
+answering dataset for chest X-ray images (version 1.0.0). PhysioNet (2024). https://physionet.org/cont
+ent/mimic-ext-mimic-cxr-vqa/1.0.0/.
+90. Johnson, A. E. W.et al.MIMIC-CXR, a de-identified publicly available database of chest radiographs
+with free-text reports.Scientific Data6, 317 (2019).
+91. Pal, A.et al.ReXVQA: A large-scale visual question answering benchmark for generalist chest X-ray
+understanding. InBiocomputing 2026: Proceedings of the Pacific Symposium, 251–264 (World Scientific,
+2026).
+92. Cancer Genome Atlas Research Networket al.The Cancer Genome Atlas Pan-Cancer analysis project.
+Nature Genetics45, 1113–1120 (2013).
+93. Kefeli, J. & Tatonetti, N. TCGA-Reports: A machine-readable pathology report resource for bench-
+marking text-based AI models.Patterns5, 100933 (2024).
+94. Grossman, R. L.et al.Toward a shared vision for cancer genomic data.New England Journal of
+Medicine375, 1109–1112 (2016).
+95. Nechaev, D., Pchelnikov, A. & Ivanova, E. HISTAI: an open-source, large-scale whole slide image
+dataset for computational pathology. arXiv preprint arXiv:2505.12120 (2025).
+96. Yamga, E., Goudrar, R. & Després, P. MIMIC-IV Phenotype Atlas (MIPA): A publicly available dataset
+for EHR phenotyping. medRxiv (2026). https://doi.org/10.64898/2026.04.16.26350888.
+97. van Aken, B.et al.Assertion detection in clinical notes: medical language models to the rescue? In
+Proceedings of the Second Workshop on Natural Language Processing for Medical Conversations, 35–40
+(2021).
+98. GLM-5 Team. GLM-5: from vibe coding to agentic engineering. arXiv:2602.15763 (2026). https:
+24
+
+//arxiv.org/abs/2602.15763.
+99. Zheng, C., Zhou, H., Meng, F., Zhou, J. & Huang, M. Large language models are not robust multiple
+choice selectors. InInternational Conference on Learning Representations (ICLR)(2024).
+100. Pezeshkpour, P. & Hruschka, E. Large language models sensitivity to the order of options in multiple-
+choice questions. InFindings of the Association for Computational Linguistics: NAACL 2024, 2006–2017
+(2024).
+101. Inker, L. A.et al.New creatinine- and cystatin C-based equations to estimate GFR without race.New
+England Journal of Medicine385, 1737–1749 (2021).
+102. Sterling, R. K.et al.Development of a simple noninvasive index to predict significant fibrosis in patients
+with HIV/HCV coinfection.Hepatology43, 1317–1325 (2006).
+103. Qwen Team. Qwen3.5: Towards native multimodal agents. Blog post (2026). https://qwen.ai/blog?id=
+qwen3.5.
+104. Yang, S., Kautz, J. & Hatamizadeh, A. Gated delta networks: Improving Mamba2 with delta rule. In
+International Conference on Learning Representations(2025).
+105. Qiu, Z.et al.Gated attention for large language models: Non-linearity, sparsity, and attention-sink-free.
+InAdvances in Neural Information Processing Systems 38 (NeurIPS 2025), 110931–110957 (2025).
+106. Dong, J., Feng, B., Guessous, D., Liang, Y . & He, H. FlexAttention: A programming model for
+generating fused attention variants. InProceedings of Machine Learning and Systems, vol. 7 (2025).
+107. Krell, M. M., Kosec, M., Perez, S. P. & Fitzgibbon, A. Efficient sequence packing without cross-
+contamination: Accelerating large language models without impacting performance. arXiv:2107.02027
+(2021).
+108. Guo, C., Pleiss, G., Sun, Y . & Weinberger, K. Q. On calibration of modern neural networks. In
+Proceedings of the 34th International Conference on Machine Learning (ICML), vol. 70 ofProceedings
+of Machine Learning Research, 1321–1330 (2017).
+109. Gneiting, T. & Raftery, A. E. Strictly proper scoring rules, prediction, and estimation.Journal of the
+American Statistical Association102, 359–378 (2007).
+110. Hinton, G., Vinyals, O. & Dean, J. Distilling the knowledge in a neural network. arXiv:1503.02531
+(2015).
+111. Loshchilov, I. & Hutter, F. Decoupled weight decay regularization. InInternational Conference on
+Learning Representations (ICLR)(2019). https://openreview.net/forum?id=Bkg6RiCqY7.
+112. Qwen Team. Qwen3.8-27B. Hugging Face model card (2026). https://huggingface.co/Qwen/Qwen3.8-2
+7B.
+113. Wang, P.et al.Large language models are not fair evaluators. InProceedings of the 62nd Annual Meeting
+of the Association for Computational Linguistics (Volume 1: Long Papers), 9440–9450 (2024).
+114. Efron, B. Bootstrap methods: Another look at the jackknife.The Annals of Statistics7, 1–26 (1979).
+115. Li, J., Monroe, W. & Jurafsky, D. Understanding neural networks through representation erasure.
+arXiv:1612.08220 (2016). https://arxiv.org/abs/1612.08220.
+116. Pan, R.et al.Marconi: Prefix caching for the era of hybrid LLMs. InProceedings of Machine Learning
+and Systems, vol. 7 (2025).
+117. Samek, W., Binder, A., Montavon, G., Lapuschkin, S. & Müller, K.-R. Evaluating the visualization of
+what a deep neural network has learned.IEEE Transactions on Neural Networks and Learning Systems
+28, 2660–2673 (2017).
+118. Brodersen, K. H., Ong, C. S., Stephan, K. E. & Buhmann, J. M. The balanced accuracy and its posterior
+distribution. InProceedings of the 20th International Conference on Pattern Recognition, 3121–3124
+(IEEE, 2010).
+25
+
+119. Naeini, M. P., Cooper, G. F. & Hauskrecht, M. Obtaining well calibrated probabilities using Bayesian
+binning. InProceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence, 2901–2907
+(2015).
+120. Nixon, J., Dusenberry, M. W., Zhang, L., Jerfel, G. & Tran, D. Measuring calibration in deep learning.
+InProceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+Workshops, 38–41 (2019).
+121. Brier, G. W. Verification of forecasts expressed in terms of probability.Monthly Weather Review78, 1–3
+(1950).
+122. Saito, T. & Rehmsmeier, M. The precision-recall plot is more informative than the ROC plot when
+evaluating binary classifiers on imbalanced datasets.PLoS ONE10, e0118432 (2015).
+123. Steyerberg, E. W.et al.Assessing the performance of prediction models: a framework for traditional and
+novel measures.Epidemiology21, 128–138 (2010).
+124. Van Calster, B., McLernon, D. J., van Smeden, M., Wynants, L. & Steyerberg, E. W. Calibration: the
+Achilles heel of predictive analytics.BMC Medicine17, 230 (2019).
+125. Chow, C. K. On optimum recognition error and reject tradeoff.IEEE Transactions on Information
+Theory16, 41–46 (1970).
+126. Geifman, Y . & El-Yaniv, R. Selective classification for deep neural networks. InAdvances in Neural
+Information Processing Systems 30, 4878–4887 (2017).
+127. Field, C. A. & Welsh, A. H. Bootstrapping clustered data.Journal of the Royal Statistical Society: Series
+B (Statistical Methodology)69, 369–390 (2007).
+128. Rubin, D. B. The Bayesian bootstrap.The Annals of Statistics9, 130–134 (1981).
+129. Wolf, T.et al.Transformers: State-of-the-art natural language processing. InProceedings of the 2020
+Conference on Empirical Methods in Natural Language Processing: System Demonstrations, 38–45
+(Association for Computational Linguistics, 2020).
+130. Pollard, T.et al.PhysioNet as a global platform for biomedical research.Nature Health1, 792–795
+(2026).
+131. Paszke, A.et al.PyTorch: An imperative style, high-performance deep learning library. InAdvances in
+Neural Information Processing Systems 32 (NeurIPS 2019), 8026–8037 (2019).
+132. Ansel, J., Yang, E., He, H.et al.PyTorch 2: Faster machine learning through dynamic Python bytecode
+transformation and graph compilation. InProceedings of the 29th ACM International Conference on
+Architectural Support for Programming Languages and Operating Systems, Volume 2 (ASPLOS ’24),
+929–947 (ACM, 2024).
+133. Yang, S. & Zhang, Y . FLA: A Triton-based library for hardware-efficient implementations of linear
+attention mechanism. GitHub repository (2024). https://github.com/fla-org/flash-linear-attention.
+134. Mangrulkar, S.et al.PEFT: State-of-the-art parameter-efficient fine-tuning methods. GitHub repository
+(2022). https://github.com/huggingface/peft.
+135. Harris, C. R.et al.Array programming with NumPy.Nature585, 357–362 (2020).
+136. Virtanen, P.et al.SciPy 1.0: fundamental algorithms for scientific computing in Python.Nature Methods
+17, 261–272 (2020).
+137. Pedregosa, F.et al.Scikit-learn: Machine learning in Python.Journal of Machine Learning Research
+12, 2825–2830 (2011). http://jmlr.org/papers/v12/pedregosa11a.html.
+138. McKinney, W. Data structures for statistical computing in Python. In van der Walt, S. & Millman, J.
+(eds.)Proceedings of the 9th Python in Science Conference, 56–61 (2010).
+139. Raasveldt, M. & Mühleisen, H. DuckDB: an embeddable analytical database. InProceedings of the
+2019 International Conference on Management of Data (SIGMOD ’19), 1981–1984 (ACM, 2019).
+26
+
+140. Hunter, J. D. Matplotlib: A 2D graphics environment.Computing in Science & Engineering9, 90–95
+(2007).
+141. Ye, Z.et al.FlashInfer: Efficient and customizable attention engine for LLM inference serving. In
+Proceedings of Machine Learning and Systems, vol. 7 (2025).
+142. Goldberger, A. L.et al.PhysioBank, PhysioToolkit, and PhysioNet: Components of a new research
+resource for complex physiologic signals.Circulation101, e215–e220 (2000).
+Data availability The credentialed data sets used for evaluation (PhysioNet 130,142, EHRSHOT and others) remain
+available from their providers under their data-use agreements. Following institution policies, all requests for data
+collected or curated in-house will be evaluated on a case-by-case basis. Data can only be shared for academic research
+purposes and will require a material transfer agreement.
+Code availability The code (inference and training code, and code to run selected benchmarks) and the CS1-4B
+weights will be released upon institutional approval.
+Acknowledgements This work was funded in part by the Brigham and Women’s Hospital (BWH) and Massachusetts
+General Hospital (MGH) internal funds. R.K. is supported by a Doctoral Research Award from the Canadian Institutes of
+Health Research (FRN 209970).
+Author contributions A.Z., F.M. conceived the study and designed the experiments. A.Z., T.T.L.V ., S.J.W., D.B.,
+T.D., Y .S., M.C., C.S.C., J.L., R.K., M.Y .L., C.T., T.L., J.M. curated the training data. A.Z., M.C., J.L., R.K., C.S.C.
+curated and evaluated the benchmarks. A.Z. developed the model architecture and training pipeline. A.Z., Y .S., C.T.,
+J.L., T.D. designed the patient-QA and trial screening experiments. A.Z., S.J.W., M.C., T.T.L.V ., D.B., C.S.C., F.M.
+prepared the manuscript. All authors contributed to the writing. L.P.L., F.M. supervised the research.
+27
+
+Extended Data
+Shared prefix (cached):instruction text,
+then
+<note> . . . Blood cultures grew gram-
+negative rods; started IV ceftriaxone . . .
+</note>(synthetic)
+Per rotation s: Question: ...treated
+with intravenous antibiotics ...?
+Options: (A) ... (B) ... (C) ...
+Answer with a single letter.
+Answer: (→readP(A),P(B),P(C)
+s=0 A yes B no C nd
+.90 .02 .08
+ms =.99
+s=1 A no B nd C yes
+.03 .12 .85
+ms =.98
+s=2 A nd B yes C no
+.10 .88 .02
+ms =.99
+letters (renormalized)
+yes no nd
+.90 .02 .08
+unrotate
+yes no nd
+.85 .03 .12
+unrotate
+yes no nd
+.88 .02 .10
+unrotate
+option-key order
+yes no nd
+.88 .02 .10
+mean¯p
+Extended Data Fig. 1 | Logit-readout teacher.For one document–question pair (synthetic excerpt; illustrative probabilities), the teacher (GLM-5.3-Flash) receives
+one raw completion prompt per cyclic rotation of the options and generates no text: the probabilities of the valid letters are read from one next-token distribution after
+the prefill Answer: ( . Rotation s lists the option keys starting from the s-th, each with its criterion. Letter probabilities are renormalized over the valid letters
+(their sum, the valid-letter mass, is logged as a quality check), mapped back to option-key order and averaged over the n rotations, which cancels purely positional
+bias. A temperature can then sharpen the under-confident average; the Klaros-12M training labels use none. For MGB data, the teacher runs on institutional servers.
+Context:
+document
+Task type:. . .
+Options: option A option B option C . . .Decision: Q2 . . .Decision: Q3 . . .Decision:
+(a) one packed sequence: the document prefix once, then one segment per question
+document prefix segment of question 1: header, option blocks,Select the single option ... Decision:
+positions0, . . . ,L−1 L, . . . L, . . . L, . . .
+CandidateHead(FP32): each option end-
+point’s hidden state with the query state
+→ one logit per option (A, B, C) → softmax over the question’s options
+option endpoint: last token of an option block
+query: the segment’s last token (afterDecision:)
+Option block: <option> {"description": criterion,
+"key":"A"}</option>
+doc Q1 Q2 Q3
+doc
+Q1
+Q2
+Q3
+(b) full-attention layers (8 of 32)
+block attention mask (white = masked)
+(c) Gated DeltaNet layers (24 of 32): state handoff
+0 document (run once) SD
+SD
+SD
+SD
+Q1 segment
+Q2 segment
+Q3 segmentfinal state
+copied to
+every segment
+The gated delta rule runs over the document once from a zero state, and its final recurrent state SD is kept.
+Every segment then runs from a copy of SD (variable-length kernel with initial states), never from another
+segment’s state. The causal convolution (four-token window) at the first three tokens of each segment is
+recomputed with the document’s last tokens as left context, so no segment reads another. When several
+documents share a training sequence, each starts from a zero state and its segments start from its own final
+state.
+Extended Data Fig. 2 | Shared-document packing on the hybrid backbone of CS1-4B. a, One packed sequence holds the document prefix once, in the Decision
+2.0 runtime’s prompt format (Context: and the document), followed by one segment per question: the task type and question, one block per option, and a closing
+line ending in Decision:. Segment position indices restart at the end of the document, so the prefix and any one segment are token for token the runtime’s input
+for that question. The candidate head takes the hidden states at the last token of every option block (option endpoints) and at the segment’s last token (query) and
+returns one logit per option.b, The block attention mask of the full-attention layers: causal within the document; each segment attends to the whole document
+and causally to itself, never to another segment.c, The Gated DeltaNet layers run the document once from a zero state and copy its final recurrent state to the start
+of every segment; the causal convolution at each segment’s first tokens takes its left context from the document’s last tokens. Every question therefore sees the
+document exactly as in a single-question prompt, its answer does not depend on the other questions, and an extra question costs only its own tokens. The same
+structure supports deletion attribution: because the text before a deleted sentence is unchanged, the model’s state up to it is computed once and reused, and only the
+rest of the document and the questions are re-encoded (Methods).
+28
+
+512 1k 2k 4k 8k 16k
+Document length (tokens)
+0.5
+1
+2
+5
+10
+20Latency per document, 40 questions (s)
+CS1-4B
+Kai-0.6B
+Eos-0.8B
+Sol-2B
+Nox-4B
+Lux-9B
+Vega-27B
+512 1k 2k 4k 8k 16k
+Document length (tokens)
+0.5
+1
+2
+5
+10Speed-up of CS1-4B (×)
+Kai-0.6B
+Eos-0.8B
+Sol-2B
+Nox-4B
+Lux-9B
+Vega-27B
+parity
+512 1k 2k 4k 8k 16k
+Document length (tokens)
+1
+2
+5
+10
+20
+50
+100
+200CS1-4B latency, 40 questions (s)
+4.6×
+7.4×
+12×
+18×
+25×
+29×
+shared document: one pass
+one question per pass
+a b c
+CS1-4B (our inference code: one forward pass per document) Decision 2.0 (official usage: one system_one call per document) input truncated to the model's context
+Extended Data Fig. 3 | Speed against document length. a, Latency per document at 40 questions on one idle NVIDIA GB10 for synthetic documents of 512 to
+16,384 tokens: CS1-4B and the six Decision 2.0 models, each through its released inference code (Decision 2.0: onesystem_onecall per document, not further
+optimized; Methods); median of 10 timed repetitions (5 for runs longer than 5 s). Open markers, input truncated to the model’s context (at 16,384 tokens; Kai-0.6B at
+8,192).b, CS1-4B’s speed-up over each Decision 2.0 model (ratio of latencies; 1, parity).c, CS1-4B reading the document once for all 40 questions (its default)
+against one forward pass per question, with the same weights; both modes gave the same top answers.
+29
+
+Q: Pneumonia during this admission?
+Final answer: P = 0.88
+Necessity Sufficiency
+Chief Complaint: Fall at home
+History of Present Illness:
+Ms. ___ is an 81-year-old woman with
+hypertension and osteoarthritis who was
+found on the kitchen floor by her
+daughter.
+She reports tripping over a rug and
+denies loss of consciousness.
+She has had a mild dry cough for one
+week without fevers.
+Physical Exam: T 37.4, HR 82, BP
+146/78, SpO2 95% on room air.
+Ecchymosis over the left hip.
+Faint crackles at the left lung base.
+Pertinent Results: WBC 8.9.
+Hip radiograph without fracture.
+Chest radiograph: patchy left basilar
+opacity, atelectasis versus early
+pneumonia.
+0.71 0.86
+Brief Hospital Course:
+# Mechanical fall: Evaluated by physical
+therapy and cleared for home with a
+walker.
+# Cough: She remained afebrile with a
+normal white count, so antibiotics were
+not started.
+A repeat chest radiograph in 6 weeks is
+recommended.
+Discharge Disposition: Home with
+services
+Q: Does the note report a serum sodium below 130 mEq/L?
+Final answer: P = 0.94
+Necessity Sufficiency
+Chief Complaint: Confusion
+History of Present Illness:
+Ms. ___ is a 76-year-old woman with
+hypertension treated with
+hydrochlorothiazide who presents with
+two days of confusion and unsteady gait.
+Her daughter reports she has been
+drinking large amounts of water during a
+heat wave.
+Physical Exam: Afebrile, HR 78, BP
+132/70.
+Oriented to person only.
+No focal neurologic deficits.
+Pertinent Results: Sodium 124,
+potassium 3.3, creatinine 0.8.
+0.61 0.57
+Serum osmolality 258, urine sodium 46.
+Head CT without acute process.
+Brief Hospital Course:
+# Hyponatremia: Attributed to thiazide
+use and high water intake.
+Hydrochlorothiazide was stopped and
+fluids were restricted to 1.2 liters per day.
+Sodium rose to 131 on day 2 and 134 at
+discharge, and her confusion resolved.
+# Hypertension: Started amlodipine 5 mg
+daily in place of hydrochlorothiazide.
+Discharge Disposition: Home
+Q: What is the patient's tobacco smoking status?
+Final answer: P = 0.93
+Necessity Sufficiency
+Chief Complaint: Abdominal pain 0.20
+History of Present Illness: 0.16
+Ms. ___ is a 58-year-old woman with
+gallstones who presents with one day of
+right upper quadrant pain, nausea and
+vomiting after a fatty meal.
+0.22
+Social History: Lives with her husband. 0.20
+Works as a librarian. 0.21
+Drinks wine occasionally. 0.19
+Physical Exam: T 38.1, HR 96. 0.22
+Right upper quadrant tenderness with a
+positive Murphy sign.
+0.24
+Pertinent Results: WBC 14.2. 0.22
+Bilirubin 1.1. 0.23
+Ultrasound: gallbladder wall thickening
+and pericholecystic fluid.
+0.24
+Brief Hospital Course: 0.13
+# Acute cholecystitis: Treated with IV
+piperacillin-tazobactam.
+0.23
+Laparoscopic cholecystectomy on
+hospital day 2 without complication.
+0.24
+Discharge Disposition: Home 0.21
+Q: Non-insulin glucose-lowering drug at discharge?
+Final answer: P = 0.78
+Necessity Sufficiency
+Chief Complaint: Vomiting 0.29
+History of Present Illness: 0.19
+Mr. ___ is a 63-year-old man with type 2 diabetes and hypertension who
+presents with two days of vomiting and poor oral intake after a viral illness.
+0.28
+Home Medications: Metformin 1000 mg twice daily.
+Lisinopril 10 mg daily. 0.19
+Atorvastatin 40 mg daily. 0.20
+Physical Exam: HR 104, BP 102/64. 0.30
+Dry mucous membranes. 0.32
+Pertinent Results: Creatinine 2.1 (baseline 0.9). 0.27
+Bicarbonate 18. 0.27
+Glucose 164. 0.27
+Brief Hospital Course: 0.17
+# Acute kidney injury: Prerenal from vomiting; creatinine improved to 1.3 with
+IV fluids.
+0.32
+# Type 2 diabetes: Metformin was stopped on admission because of the
+kidney injury and was not restarted at discharge; glucose was covered with
+sliding-scale insulin.
+0.56 0.24
+# Hypertension: Lisinopril was held for low blood pressure and resumed on the
+day of discharge.
+0.28
+Discharge Instructions: Continue your other home medications. 0.28
+Your primary care doctor will recheck your kidney function next week. 0.32
+Q: Has the patient been diagnosed with breast cancer?
+Final answer: P = 0.93
+Necessity Sufficiency
+Chief Complaint: Right leg redness 0.35
+History of Present Illness: 0.25
+Ms. ___ is a 54-year-old woman with hypothyroidism and migraine who
+presents with three days of redness, warmth and swelling of the right lower leg
+after a scrape while gardening.
+0.37
+She reports chills but no fevers. 0.36
+Past Medical History: Hypothyroidism. 0.36
+Migraine without aura. 0.36
+Right knee arthroscopy. 0.38
+Family History: Mother diagnosed with breast cancer at age 49. 0.25
+Father with type 2 diabetes. 0.37
+Physical Exam: T 37.9, HR 92. 0.34
+Well-demarcated erythema of the right shin around a healing abrasion; no
+fluctuance.
+0.37
+Pertinent Results: WBC 11.4. 0.34
+Lower extremity ultrasound negative for deep vein thrombosis. 0.37
+Brief Hospital Course: 0.18
+# Cellulitis: Treated with IV cefazolin with rapid improvement, then oral
+cephalexin to complete 7 days.
+0.36
+# Health maintenance: Given her family history, she was referred for a
+screening mammogram, last done 3 years ago.
+0.34
+Discharge Disposition: Home 0.33
+Q: Highest creatinine during the stay?
+Final answer: P = 0.95
+Necessity SufficiencyLab lines
+D-400 Labs (first, range, last, number of results): Creatinine (mg/dL) 0.9
+D-200 Labs (first, range, last, number of results): Creatinine (mg/dL) 0.9
+D-6 Labs: Potassium (mEq/L) 4.1; White blood cells (K/uL) 14.8 H;
+Creatinine (mg/dL) 1
+D-5 Labs: Creatinine (mg/dL) 1.7 H 0.75
+D-4 Labs: Creatinine (mg/dL) 2.4 H; Potassium (mEq/L) 5.4 H; White
+blood cells (K/uL) 12.1 H
+0.76
+D-3 Labs: Creatinine (mg/dL) 2.2 H 0.77
+D-2 Labs: Potassium (mEq/L) 4.6; Creatinine (mg/dL) 1.6 H; White
+blood cells (K/uL) 9.4
+0.71
+D-1 Labs: Creatinine (mg/dL) 1.2
+D0 Labs: Creatinine (mg/dL) 1; White blood cells (K/uL) 7.9; Potassium
+(mEq/L) 4.2
+Q: ACE inhibitor / ARB at the end of the stay?
+Final answer: P = 0.97
+Necessity SufficiencyMedication lines
+D-400 Medications (days recorded, first to last day): lisinopril 20 MG Oral
+Tablet (1 day, D-400)
+D-200 Medications (days recorded, first to last day): lisinopril 20 MG Oral
+Tablet (1 day, D-200)
+D-6 Medications: lisinopril 20 MG Oral Tablet; piperacillin-tazobactam 4.5
+G Injection
+D-5 Medications: lisinopril 20 MG Oral Tablet; piperacillin-tazobactam 4.5
+G Injection
+D-4 Medications: piperacillin-tazobactam 4.5 G Injection
+D-3 Medications: ceftriaxone 1000 MG Injection
+D-2 Medications: ceftriaxone 1000 MG Injection
+D-1 Medications: ceftriaxone 1000 MG Injection
+D0 Medications: ceftriaxone 1000 MG Injection
+Hedged finding
+Suspected
+Lab value against a threshold
+Yes
+Answer from silence
+Not documented
+Medication stopped in hospital
+No
+Condition in a relative only
+No
+Structured record: highest value
+1.5–2.9 mg/dL
+Structured record: medication course
+Stopped before end
+a b c
+d e
+f g
+Extended Data Fig. 4 | More evidence attributions by CS1-4B on synthetic documents.Drawn as Fig. 3d–f: necessity left and sufficiency right, as defined in
+Fig. 3a; values below zero (a sentence that lowers the answer’s probability) are drawn as zero; bold, the sentences that carry the answer. All text is synthetic, and the
+bars are model attributions, not ground truth.a, A hedged finding (pneumonia this admission; suspected, P=0.88 ): one radiograph sentence, “atelectasis versus
+early pneumonia”, carries the answer (necessity 0.71, sufficiency 0.86).b, A laboratory value against a threshold (sodium below 130 mEq/L; yes, P=0.94 ): the
+sentence with sodium 124 (necessity 0.61, sufficiency 0.57); the later values of 131 and 134 alone point the other way.c, An answer from silence (smoking status; not
+documented, P=0.93 ): no sentence is necessary, and every sentence alone raises the answer a little, because none mentions smoking.d, A medication stopped
+in hospital (non-insulin glucose-lowering drug at discharge; no, P=0.78 ): deleting the sentence that metformin was stopped and not restarted flips the answer
+(necessity 0.56).e, A condition in a relative only (breast cancer; no, P=0.93 ): no sentence is necessary; the family-history sentence does not move the answer
+towards yes.f,g, The structured record of Fig. 3f, other questions.f, Highest creatinine of the stay (1.5–2.9 mg/dL, P=0.95 ): the measurements are redundant; no
+line is necessary, and each of the four elevated values alone gives the answer (sufficiency 0.71–0.77).g, ACE inhibitor or ARB at the end of the stay (stopped before
+the end,P=0.97): no single line moves the answer, which rests on the pattern across days, a limit of single-sentence attribution.
+30
+
+Is the patient on anticoagulation, how
+has it changed over time and why,
+and have there been any bleeding
+events?
+Test patient
+123
+documents
+322k
+characters
+5
+years
+111 radiology 11 discharge 1 timeline
+2155 2159
+index stay, 2 days
+What does doc say about this patient's anticoagulation status? Consider
+any anticoagulant (warfarin, apixaban, rivaroxaban, edoxaban,…
+Not on anticoagulation | Anticoagulation held or stopped | On
+anticoagulation | Not documented
+Which anticoagulant agent does doc say this patient is taking or
+receiving?
+Warfarin | DOAC | Heparin or LMWH | Other or unspecified agent | Not
+documented
+According to doc, why is this patient on anticoagulation (what indication is
+given)?
+Atrial fibrillation or flutter | Venous thromboembolism | Mechanical valve or
+cardiac thrombus | Other or unspecified indication | Not documented
+Doc: describe a change in this patient's anticoagulation and the reason for
+it?
+Started or restarted | Agent or dose changed | Held or stopped for
+procedure | Held or stopped due to bleeding | Held or stopped other
+reason | Not documented
+Doc: describe a bleeding event in this patient? Include bleeding at any
+site (intracranial, gastrointestinal, urinary, post-procedure hematoma,…
+Major bleeding | Minor bleeding | Bleeding risk discussed only | No
+bleeding | Not documented
+AggregatedShifted dates2155 2158 2159
+Documents
+q1 Anticoagulation 14/123 docs
+q2 Agent 14/123 docs
+q3 Indication 14/123 docs
+q4 Change 14/123 docs
+q5 Bleeding 11/123 docs
+Level (q1, q2) Present (shade = P) Absent Other answer Silent Out of scope
+• Current status: Yes – the patient is on anticoagulation with warfarin.
+• The index-stay discharge summary and the timeline (both 2159-10-22 ) document him on
+anticoagulation (aggregated q1), warfarin is the agent at every documented date with no agent switch
+(aggregated q2, latest 2159-10-22 ), the index discharge instructions state the warfarin dose was
+changed E7, and the timeline's most recent admission block (admission 12) lists warfarin 2 mg PO/NG
+among meds started E1 and 2.5 mg PO/NG among medications active at discharge E3.
+• Change over time and why: On warfarin since at least 2155-02-02 (4 mg PO daily E17) for atrial
+fibrillation with a prosthetic heart valve E5 (mechanical AVR with paroxysmal AF on Coumadin E13); an
+earlier timeline admission (admission 5) also lists heparin and enoxaparin among discharge-active
+meds E2.
+• Aggregated q4 documents temporary holds for procedures (discharge summaries dated 2159-01-27
+and 2159-04-14 ) and holds for other, unspecified reasons (5 summaries, including 2155-02-02 ,
+2159-01-06 , 2159-02-08 ) plus dose/agent changes (5 documents, including 2159-03-28 and the index
+summary) – the specific reasons for the non-bleeding holds are not in the extracted evidence.
+• The clearly evidenced stop: on the admission discharging 2159-09-13 , warfarin was first held because
+of an acute GI bleed and possible surgery E12 (his Coumadin was held E11); he was documented back
+on anticoagulation by the index admission (aggregated q1), with warfarin among meds started in the
+latest admission block E1 and dosing adjusted E7.
+• Bleeding: Yes – major bleeding is documented (aggregated q5: 11 documents, 2159-01-27 through
+2159-10-22 ).
+• Events in evidence: an earlier timeline admission (admission 7, date not stated in the extracted
+evidence) coded chronic gastrojejunal ulcer with hemorrhage and acute posthemorrhagic anemia E9;
+another (admission 11) coded angiodysplasia of stomach and duodenum with bleeding and acute
+posthemorrhagic anemia E10; and the 2159-09-13 acute GI bleed – new melena, hgb 6.2 from 9.6, INR
+in the 4's E15, two units of blood given E16 – which is the event that prompted the warfarin hold E12.
+• The index discharge summary (2159-10-22 ) also documents major bleeding per aggregated q5, though
+its site is not in the extracted evidence; two radiology reports (2159-07-17 , 2159-07-22 ) state no
+bleeding (see conflicts).
+Anticoagulation status (q1): the 2159-09-13 discharge summary states warfarin was held E11 E12,
+while discharge summaries before (most recently 2159-09-10 ) and after (2159-10-22 ) document the
+patient on anticoagulation (aggregated q1); the trajectory shows a temporary hold with
+anticoagulation resumed by the index admission rather than a persistent contradiction.
+Discharge Summary 2159-10-22
+Discharge instructions: the warfarin dose was changed.
+Structured Timeline 2159-10-22
+Medications started include pantoprazole, losartan, rosuvastatin and warfarin 2 mg.
+Medications active at discharge include pantoprazole, losartan and warfarin 2.5 mg.
+Medications active at discharge include aspirin, amiodarone, milrinone, heparin and enoxaparin.
+Billing diagnoses: chronic gastrojejunal ulcer with bleeding, acute kidney failure, dilated
+cardiomyopathy, low blood pressure, …
+Billing diagnoses: bleeding angiodysplasia of the stomach and duodenum, acute-on-chronic
+systolic heart failure, acute cholecystitis, acute blood-loss anaemia, …
+Discharge Summary 2155-02-02
+Prescription: warfarin (Coumadin) 4 mg by mouth once daily.
+Discharge Summary 2159-03-28
+Indication for anticoagulation: atrial fibrillation and a prosthetic heart valve.
+Discharge Summary 2158-12-29
+Paroxysmal AF on warfarin, a resynchronization device and non-obstructive coronary disease;
+admitted with worsening breathlessness and weight gain, suggesting heart failure.
+Discharge Summary 2159-09-13
+Atrial fibrillation: warfarin was first held because of an acute GI bleed and possible surgery.
+His warfarin was held.
+New melena, haemoglobin down to 6.2 from 9.6 a few days earlier, and an INR in the 4s.
+Felt much better after two units of blood.
+q1 choice trajectory
+q2 choice latest
+q3 choice any
+q4 choice any
+q5 choice any
+On anticoagulation
+Warfarin
+Atrial fibrillation or flutter
+Agent or dose changed
+Major bleeding
+D123
+E7
+D122
+E1
+E3
+E2
+E9
+E10
+D004
+E17
+D031
+E5
+D011
+E13
+D120
+E12
+E11
+E15
+E16
+Question Plan
+Scan
+Answer Evidence
+!
+!
+!
+a b
+c
+d e
+Extended Data Fig. 5 | Patient example 2: anticoagulation and bleeding over a whole record.As Fig. 4, for another MIMIC-IV test patient and question.a,
+A clinical question and the summarized record of a MIMIC-IV test patient.b, An LLM (GLM-5.3) plans 5 typed sub-questions, each with an aggregation rule
+and a scope.c, CS1-4B answers every sub-question for every document (620 typed decisions; long documents chunked, nothing truncated); rows are labelled by
+topic. Level rows (trajectory and latest rules) show each document’s level, light to dark in option order; the other rows show whether a document reports the finding
+(blue, shaded by probability), reports it absent (orange), gives another answer or is silent. Right, code aggregates each sub-question across documents and time:
+the aggregated answer and the documents that support it; a warning triangle marks conflicting documents, explained in d.d, The LLM composes a cited answer
+from the aggregated answers and the evidence sentences (one bullet per sentence).e, CS1 attribution selects 18 evidence sentences; the 13 cited in d are shown,
+grouped by document (a sentence cited twice shares a line). The LLM plans from a manifest of the record (document types, counts and dates) and never reads the
+record; at the last step it sees only the aggregated answers and the evidence sentences. Aggregation rules: any, the highest probability over documents; latest, the
+most recent document that addresses the sub-question; trajectory, the per-document level over time; a conflict is confident support and confident contradiction in
+different documents. Sub-questions scoped to this admission are asked only of its documents (white cells, out of scope). Evidence sentences are selected by CS1
+sufficiency attribution; in compliance with the MIMIC-IV data-use policy, the evidence sentences and any record text quoted in the answer are shown as paraphrases,
+not verbatim. Dates are shifted by MIMIC-IV de-identification and documents are relabelled D001. . . in date order. Results shown are from a single run, with
+GLM-5.3 at its default reasoning effort and CS1-4B (raw outputs).
+31
+
+What cancer does the patient have,
+how has it been treated, and what is
+the current status?
+Test patient
+126
+documents
+355k
+characters
+5
+years
+107 radiology 18 discharge 1 timeline
+2142 2147
+index stay, 8 days
+Based on doc alone, which type of cancer does it attribute to this patient?
+Select the category of the primary malignancy that is named or clearly…
+Lung cancer | Breast cancer | Gastrointestinal cancer | Genitourinary
+cancer | Gynecologic cancer | Hematologic malignancy | Other or
+unknown primary | Not documented
+Based on doc alone, choose the level matching the most advanced extent
+of this patient's cancer described in doc.
+No active cancer | Localized | Regional | Metastatic | Not documented
+Based on doc alone, does doc describe cancer-directed surgery for this
+patient? Choose the single best match.
+Curative resection | Palliative or metastatic surgery | Surgery planned only
+| Biopsy or staging procedure only | Surgery declined or contraindicated |
+Not documented
+Based on doc alone, does doc describe systemic anti-cancer therapy for
+this patient (given, ongoing, or planned)? Choose the single best match;…
+Chemotherapy | Immunotherapy | Targeted or hormonal therapy | Multiple
+systemic types | Systemic therapy refused or exhausted | Not documented
+Based on doc alone, does doc describe radiation therapy for this patient's
+cancer? Choose the single best match.
+Definitive radiation given | Palliative radiation given | Radiation planned
+only | Radiation refused or contraindicated | Not documented
+Based on doc alone, what does doc say about this patient's current
+cancer disease status or activity?
+No evidence of disease | Stable or responding | Progressive or recurrent |
+Not documented
+AggregatedShifted dates2142 2143 2144 2145 2146
+Documents
+q1 Cancer type 83/126 docs
+q2 Extent 75/126 docs
+q3 Surgery 25/126 docs
+q4 Systemic therapy 25/126 docs
+q5 Radiation 23/126 docs
+q6 Disease status 66/126 docs
+Level (q2, q6) Present (shade = P) Absent Other answer Silent Out of scope
+• Diagnosis: Metastatic (stage IV) breast cancer E1, identified as breast cancer in 78 of 83 documents
+that address cancer type; the primary was a left breast mass with 4 cm grade 2 infiltrating ductal and
+lobular carcinoma on partial mastectomy pathology E12 E13.
+• Extent has been metastatic (level 4) in all 75 documents describing it — first documented 2142-05-10
+and still level 4 at the index discharge 2147-06-22 — with metastases to lymph nodes, liver, bone/bone
+marrow and brain/spinal cord E14, left hip/femur E3 E9 and spine E4, following a remission period on
+trastuzumab and paclitaxel E3.
+• Treatment: Surgery — partial mastectomy E12; partial hip replacement/hemiarthroplasty for left
+hip/femoral metastases E3 E9; further femur surgery E4; craniotomy with resection of a cerebellar
+metastatic lesion E6 E16 (metastatic/palliative surgery documented in 25 documents, 2142-05-10 to
+2147-06-22 ).
+• Systemic — trastuzumab (Herceptin) with paclitaxel E3 E19; Herceptin with Doxil E1; trastuzumab and
+cisplatin among discharge medications at timeline admission 18 (an earlier admission block) E7; bone
+marrow transplant E14 (multiple systemic therapy types in 25 documents, 2142-10-07 to 2147-06-22 ; no
+refusal or exhaustion documented).
+• Radiation — palliative radiotherapy to the left hip E8 E9; XRT for spine metastases E4; Cyberknife for
+brain metastases E3 (palliative radiation in 21 documents, 2142-08-30 to 2147-06-22 ; planned-only in
+2).
+• Current status: Progressive/recurrent metastatic disease — the most recent status documents (
+2147-06-22 , index discharge) describe progression (aggregated latest result; all status documents since
+2146-12-04 describe progression, though model confidence on the single latest document is moderate),
+extent remains level 4/metastatic at 2147-06-22 , and the timeline lists secondary malignancies of
+brain/spinal cord, bone/bone marrow and liver at admission 18 E10; trastuzumab was ongoing
+(remained on trastuzumab E4) and systemic therapy is documented through 2147-06-22 .
+Cancer type (q1): 4 radiology reports — D047 (2144-06-22 ), D091 (2146-04-12 ), D104 (
+2146-06-16 ), D119 (2147-01-05 ) — classify the malignancy as other/unknown primary, vs breast
+cancer in 78 documents including the discharge summaries E1 E12; the breast attribution is more
+specific (named left-breast histology E12 E13) and more recent (2147-06-22 discharge summary),
+so it is used here.
+Discharge Summary 2146-12-07
+Metastatic breast cancer: stage IV disease, now treated with trastuzumab (Herceptin) and liposomal
+doxorubicin (Doxil).
+Discharge Summary 2143-04-23
+Partial mastectomy pathology: 4 cm, grade 2, infiltrating ductal and lobular carcinoma.
+A left breast mass seen on a screening mammogram, followed by partial mastectomy: 4 cm grade
+2 ductal and lobular carcinoma.
+Recurrence after palliative radiotherapy; admitted from clinic with increasing left hip and thigh pain.
+Known left hip metastasis after arthroplasty and radiotherapy, now with more hip pain, worrying for
+progression.
+Structured Timeline 2147-06-22
+Billing diagnoses: pathological vertebral fracture, metastases to bone and bone marrow, liver and
+brain, …
+Medications active at discharge include oxycodone, enoxaparin, cefepime, trastuzumab and
+cisplatin, among others.
+Billing diagnoses: septicaemia, pneumonia, septic shock, secondary cancer at other sites, leg
+cellulitis, …
+Discharge Summary 2147-01-08
+Brain metastases were found and treated with surgical resection and CyberKnife radiosurgery.
+Received radiotherapy for metastases in the spine.
+Radiology Report 2146-01-06
+Changes after resection of a left cerebellar metastasis are improving, with no sign of residual or
+recurrent tumour.
+Radiology Report 2143-12-21
+After left suboccipital craniotomy: post-surgical changes, including of the dura, and slightly less
+signal from old blood.
+Discharge Summary 2146-08-15
+Recurrence in the liver, treated with trastuzumab and paclitaxel.
+q1 choice majority
+q2 score trajectory
+q3 choice any
+q4 choice count
+q5 choice any
+q6 choice latest
+Breast cancer
+Metastatic
+Palliative or metastatic surgery
+Multiple systemic types
+Palliative radiation given
+Progressive or recurrent
+D118
+E1
+D022
+E12
+E13
+E9
+E8
+D125
+E14
+E7
+E10
+D120
+E3
+E4
+D088
+E6
+D039
+E16
+D109
+E19
+Question Plan
+Scan
+Answer Evidence
+!
+!
+a b
+c
+d e
+Extended Data Fig. 6 | Patient example 3: cancer course over a whole record.As Fig. 4, for another MIMIC-IV test patient and question.a, A clinical question
+and the summarized record of a MIMIC-IV test patient.b, An LLM (GLM-5.3) plans 6 typed sub-questions, each with an aggregation rule and a scope.c, CS1-4B
+answers every sub-question for every document (756 typed decisions; long documents chunked, nothing truncated); rows are labelled by topic. Level rows (trajectory
+and latest rules) show each document’s level, light to dark in option order; the other rows show whether a document reports the finding (blue, shaded by probability),
+reports it absent (orange), gives another answer or is silent. Right, code aggregates each sub-question across documents and time: the aggregated answer and the
+documents that support it; a warning triangle marks conflicting documents, explained in d.d, The LLM composes a cited answer from the aggregated answers and
+the evidence sentences (one bullet per sentence).e, CS1 attribution selects 19 evidence sentences; the 13 cited in d are shown, grouped by document (a sentence cited
+twice shares a line). The LLM plans from a manifest of the record (document types, counts and dates) and never reads the record; at the last step it sees only the
+aggregated answers and the evidence sentences. Aggregation rules: any, the highest probability over documents; latest, the most recent document that addresses the
+sub-question; trajectory, the per-document level over time; a conflict is confident support and confident contradiction in different documents. Sub-questions scoped to
+this admission are asked only of its documents (white cells, out of scope). Evidence sentences are selected by CS1 sufficiency attribution; in compliance with the
+MIMIC-IV data-use policy, the evidence sentences and any record text quoted in the answer are shown as paraphrases, not verbatim. Dates are shifted by MIMIC-IV
+de-identification and documents are relabelled D001. . . in date order. Results shown are from a single run, with GLM-5.3 at its default reasoning effort and CS1-4B
+(raw outputs).
+32
+
+Extended Data Table 1 | Fine-tuning data of CS1-4B. Klaros-12M only, in four groups; no MIMIC, other public or synthetic
+data. Splits are by patient; the test split, MGBQA-1M, is used only for the internal evaluation (Extended Data Table 3). Pairs
+are document–question training pairs; a patient can contribute to several groups, so the total counts patients once.
+Klaros-12M source Labels Documents Unique questions Patients Pairs
+Clinical notes teacher readout 3,765,728 480,238 690,136 4,511,638
+Diagnostic reports teacher readout 687,809 23,063 458,666 2,460,078
+Structured records: outcome forecasting observed outcomes 431,890 6,013 431,862 433,430
+Structured records: structured criteria exact (rules) 2,581,620 497,312 2,425,282 5,011,302
+Total 7,467,047 1,006,626 3,643,798 12,416,448
+Extended Data Table 2 | Speed, compute and calibration. a, Latency per document on one NVIDIA GB10 (bf16, synthetic
+2,900-token note, one document at a time) for 1, 10 and 40 questions; answers per second at 40 questions; and GB10-hours
+to answer 40 questions for each of 106 documents, extrapolated. CS1-4B and the six Decision 2.0 models were timed
+back to back on one idle GB10 with no other GPU process, each through its released inference code (Decision 2.0: one
+system_one call per document, as on its model cards, not further optimized; Methods); median of 10 timed repetitions after
+warm-up; interquartile ranges are within 4.2% of the median. Ratio, latency at 40 questions relative to CS1-4B. Latency
+against document length, Extended Data Fig. 3. b, Top-label expected calibration error (15 equal-count bins; raw model
+outputs, except the LLM teacher, temperature-scaled as labelled) on the public data sets; pooled, the five human-keyed sets
+(14,756 items, identical for every system). None of the open models ships a calibration file. c, Coverage at 99% precision:
+share of judgements a system can decide, taken in order of confidence, while keeping 99% of them correct (confidence,
+the top option’s probability with the option probabilities renormalized to sum to 1, as in the calibration errors of Fig. 2h;
+ties, confidences equal to six decimals, counted together). Same items for every system within a column (Extended Data
+Table 4); the teacher was not run on the structured-record sets.
+a
+System ms/doc (1 q) ms/doc (10 q) ms/doc (40 q) Answers/s (40 q) GB10-h per 10 6 docs Ratio toCS1-4B
+CS1-4B683 955 1,801 22.2 500 1.0
+Decision 2.0 Eos-0.8B 241 377 811 49.3 225 0.5
+Decision 2.0 Kai-0.6B 186 408 818 48.9 227 0.5
+Decision 2.0 Sol-2B 357 535 1,059 37.8 294 0.6
+Decision 2.0 Nox-4B 797 1,136 2,283 17.5 634 1.3
+Decision 2.0 Lux-9B 1,159 1,586 2,978 13.4 827 1.7
+Decision 2.0 Vega-27B 4,559 6,042 11,540 3.5 3,206 6.4
+bECE (raw)
+System
+MIMIC-
+Timelines
+eICU-
+Timelines
+EHRSHOT-
+Timelines
+MIMIC-
+Composite
+eICU-
+Composite
+EHRSHOT-
+Composite Apixaban EHRNoteQA LongHealth Phenotypes CXR-VQA ReXVQA Pooled
+LLM teacher (temperature-scaled) – – – – – – .019 .020 .045 .019 .032 .002 .013
+JEV-27B .022 .038 .023 .012 .008 .052 .015 .014 .028 .008 .067 .005 .010
+Clef .043 .047 .047 .036 .054 .029 .036 .024 .057 .030 .066 .026 .024
+Decision 2.0 Kai-0.6B .057 .234 .104 .281 .163 .031 .100 .266 .164 .152 .090 .111 .133
+Decision 2.0 Eos-0.8B .131 .057 .097 .078 .087 .066 .036 .071 .063 .024 .104 .021 .019
+Decision 2.0 Sol-2B .088 .057 .078 .077 .116 .062 .103 .219 .107 .054 .039 .039 .062
+Decision 2.0 Nox-4B .046 .032 .029 .091 .080 .057 .076 .117 .118 .055 .038 .026 .058
+Decision 2.0 Lux-9B .034 .044 .042 .097 .119 .055 .035 .050 .068 .024 .020 .006 .024
+Decision 2.0 Vega-27B .068 .124 .077 .101 .150 .104 .076 .166 .119 .067 .053 .075 .073
+CS1-4B(raw) .026 .007 .038 .022 .019 .100 .029 .019 .046 .041 .066 .022 .029
+cCoverage at 99% precision
+System
+MIMIC-
+Timelines
+eICU-
+Timelines
+EHRSHOT-
+Timelines
+MIMIC-
+Composite
+eICU-
+Composite
+EHRSHOT-
+Composite Apixaban EHRNoteQA LongHealth Phenotypes CXR-VQA ReXVQA
+LLM teacher – – – – – – 0.01 0.86 0.00 0.01 0.25 0.97
+JEV-27B 0.76 0.45 0.46 0.84 0.76 0.00 0.09 0.84 0.00 0.60 0.38 0.97
+Clef 0.65 0.73 0.26 0.80 0.79 0.02 0.34 0.85 0.09 0.78 0.00 0.97
+Decision 2.0 Kai-0.6B 0.02 0.00 0.02 0.04 0.04 0.00 0.40 0.19 0.07 0.57 0.19 0.87
+Decision 2.0 Eos-0.8B 0.05 0.10 0.03 0.14 0.00 0.00 0.29 0.24 0.17 0.10 0.02 0.87
+Decision 2.0 Sol-2B 0.01 0.35 0.03 0.29 0.14 0.03 0.60 0.53 0.25 0.55 0.39 0.95
+Decision 2.0 Nox-4B 0.31 0.26 0.23 0.67 0.55 0.03 0.76 0.68 0.07 0.52 0.55 0.97
+Decision 2.0 Lux-9B 0.59 0.33 0.43 0.70 0.50 0.02 0.76 0.77 0.07 0.47 0.52 0.97
+Decision 2.0 Vega-27B 0.76 0.03 0.44 0.87 0.68 0.00 0.59 0.79 0.00 0.08 0.63 0.98
+CS1-4B(raw) 0.66 0.84 0.27 0.73 0.77 0.09 0.00 0.82 0.10 0.76 0.46 0.96
+–, not run (the teacher: not run on the structured-record sets).
+33
+
+Extended Data Table 3 | Internal test on held-out MGB patients, per task. Balanced accuracy (%; mean recall over the key’s
+answer classes per question, averaged over questions) of every system on the 28 tasks of the conformed MGBQA-1M test
+set (963,408 held-out patients, one test question each), grouped by task type (Fig. 2a) and kind of key; the means of the
+rule-, outcome- and LLM-keyed rows are plotted in Fig. 2b. Key: rule, computed by a rule from the record or structured
+tables; outcome, observed after the decision point; LLM, written by an open LLM (Gemma-4-26B-A4B79,80); teacher (task
+in italics), the GLM-5.3-Flash teacher’s answer, so these tasks measure agreement with the teacher and are secondary.
+Raw outputs; per-type temperature scaling leaves the top answer, and so balanced accuracy, unchanged on every task.
+Most common, the most common training answer per question (scored on pairs whose question occurs in training). Raw
+accuracy is dominated by the most common answer on several note tasks (for example 98.6% on addenda and 86.3% on
+coding review), so balanced accuracy is the primary metric. Bold, best system per task.
+Internal Open decision models
+Task Key Pairs
+CS1-
+4B
+JEV-
+27B
+Clef-
+27B
+pplx-
+27B
+Vega-
+27B
+Lux-
+9B
+Nox-
+4B
+Sol-
+2B
+Eos-
+0.8B
+Kai-
+0.6B
+BioDec-
+4B
+Most
+common
+1 Patient timelines (rule keys)
+Care process rule 47,09195.472.1 66.2 74.5 64.2 58.7 49.2 47.8 43.9 38.6 31.2 46.6
+Conditions rule 97,49198.493.1 90.9 92.2 94.3 89.0 85.3 74.2 69.1 60.1 38.7 64.1
+Demographics rule 31,78295.890.0 89.7 90.3 88.7 85.6 83.9 76.7 81.4 75.7 48.3 46.4
+Measurements rule 102,18298.790.1 89.2 90.9 90.5 81.9 79.5 60.8 59.1 51.0 29.7 49.9
+Medications rule 106,63892.976.8 72.5 72.9 80.1 65.3 58.8 41.1 43.4 41.5 43.6 38.5
+Miscellaneous rule 67,13794.791.4 88.6 91.1 92.5 83.3 80.7 69.0 64.4 49.4 35.2 57.5
+Timing rule 44,90698.887.8 85.9 85.8 88.6 78.4 76.9 55.7 58.0 47.2 30.5 45.0
+Utilization rule 92,36297.793.0 91.2 94.2 93.7 91.7 92.4 89.4 89.6 86.6 75.1 66.3
+2 Clinical definitions (rule keys)
+BP, BMI, FIB-4, eGFR definitions rule 62,04592.182.2 79.7 78.9 85.0 73.3 63.9 39.8 43.2 27.4 35.6 18.3
+3 Outcome forecasting (observed outcomes)
+Survival and onset forecasts outcome 51,42675.669.4 68.7 63.5 67.9 64.7 64.6 54.2 54.1 51.8 51.4 50.8
+4 Phenotypes and assertions: medication status (rule keys)
+Medication status rule 8,86595.079.7 79.8 71.8 79.4 76.8 74.0 69.2 68.9 74.5 82.6 41.6
+5 Questions over notes, rule- or LLM-keyed
+Coding review rule 14,81389.367.9 73.5 66.3 76.7 64.5 61.9 27.5 37.7 34.6 8.9 73.1
+BRIE-style chart review LLM 49994.793.6 92.9 82.2 93.6 94.5 91.7 86.4 74.2 67.5 78.1 65.7
+5 Questions over notes, teacher-keyed (secondary)
+Addendateacher 14,40386.084.6 78.9 84.3 61.1 77.6 82.9 81.8 81.6 61.9 17.2 82.8
+Care transitionsteacher 9,12184.178.3 74.5 79.8 75.9 74.8 74.8 61.0 53.8 54.0 54.7 41.1
+Cross-cutting clinicalteacher 21,82691.389.5 88.6 90.8 90.4 88.7 87.6 80.0 72.5 67.7 61.8 53.5
+Emergency departmentteacher 21,31687.985.9 84.6 86.5 85.0 83.5 82.9 74.3 68.1 64.1 63.6 49.4
+H&P and consultsteacher 11,06585.483.9 82.3 84.2 82.5 80.1 79.2 68.6 61.7 57.9 61.7 36.5
+Perioperativeteacher 18,99186.883.4 80.7 83.8 82.4 82.1 81.4 73.5 68.6 63.2 63.0 54.1
+Plan of careteacher 12,45583.581.8 78.2 81.5 75.6 78.6 76.8 66.6 59.5 57.3 50.4 51.1
+Progress notesteacher 19,08483.380.1 77.2 80.7 78.6 77.7 77.5 66.8 59.6 57.6 53.8 46.2
+Specialty notesteacher 7,27483.873.7 70.8 73.6 75.2 76.0 72.2 65.0 53.7 56.9 55.0 49.8
+6 Diagnostic reports, rule-keyed
+Cancer staging rule 3,242 86.6 85.7 86.286.986.2 85.7 84.7 69.3 65.8 54.8 71.3 49.3
+6 Diagnostic reports, teacher-keyed (secondary)
+Imagingteacher 41,11691.690.1 88.5 90.4 88.6 87.2 85.3 76.6 68.3 63.3 54.6 30.1
+Molecular, cytogeneticsteacher 3,89191.289.1 86.7 90.3 87.1 86.9 83.6 77.2 61.8 58.8 57.7 30.1
+Ophthalmologyteacher 12,16691.588.7 89.3 89.1 87.4 87.3 84.2 70.4 69.1 65.2 57.0 40.6
+Pathology, cytologyteacher 38,96791.789.1 88.9 88.8 89.0 86.6 85.0 73.1 69.2 62.9 63.6 32.5
+Specialty reportsteacher 1,254 82.4 82.5 85.1 85.0 84.687.177.4 67.1 67.5 66.0 56.9 50.3
+34
+
+Extended Data Table 4 | Public data sets: balanced accuracy. Balanced accuracy (%) of every system on the 21 public data sets (86,830 scored pairs; the structured-record sets
+of MIMIC, EHRSHOT and eICU are in Fig. 2c), grouped by task type, with the source of the key (rule, outcome, human, LLM, registry or teacher), documents and scored
+pairs (MIMIC- and EHRSHOT-Timelines, a seeded subset; Methods). Most common answer: the key’s per-question majority or prior, which marks chance for this metric.
+eICU-Timelines and the three Composite sets: balanced accuracy per concept, averaged over concepts; most common answer, the out-of-sample majority (not defined for
+EHRSHOT-Composite). Prognosis sets: mean AUROC over the outcomes with at least 10 positives and 10 negatives (MIMIC 7, eICU 5, EHRSHOT 15); most common answer,
+a constant forecast (0.500). §, built for this study from public records (13 sets); unmarked, published benchmarks converted without changing their keys (8 sets; Methods).
+BRIE‡: raw accuracy (model-written key); the longest option is correct for 72.9% of its 5,815 items. TCGA: ∗, the teacher on the 1,516 of 2,139 pairs it had labelled. HISTAI†:
+keyed by the teacher’s answer, so the teacher is not scored (key). The hosted TypeSafe API was run only on openly licensed sets. CS1-4B: fine-tuned on Klaros-12M data only;
+raw probabilities. Bold, best measured system per set; –, not run or not applicable. MedDecider-9B returned non-finite probabilities on eICU-Timelines, MIMIC-Composite,
+eICU-Composite, EHRSHOT-Composite and EHRSHOT-Prognosis (–). Parameters, loaded parameters. 95% intervals are in the source data.
+Balanced accuracy (%; Prognosis sets, mean AUROC)
+Teacher Open 27B models, hosted API Decision 2.0 (open) Biomedical (open) CS1
+Set Key Docs Pairs
+Most
+common
+LLM
+teacher
+JEV-
+27B
+Clef-
+27B
+pplx-
+27B
+TypeSafe
+API
+Kai-
+0.6B
+Eos-
+0.8B
+Sol-
+2B
+Nox-
+4B
+Lux-
+9B
+Vega-
+27B
+BioDec-
+4B
+MedDec-
+9B
+MedDec-
+27B
+CS1-
+4B
+1 Patient timelines
+MIMIC-Timelines§ rule 45 1,800 38.5 – 92.493.491.3 – 58.4 61.3 66.9 85.9 88.0 93.0 86.0 86.2 91.0 92.7
+eICU-Timelines§ rule 2,400 2,400 62.1 – 91.1 89.6 91.0 – 60.3 67.1 67.1 74.8 80.3 89.8 81.5 – 90.692.8
+EHRSHOT-Timelines§ rule 35 1,400 39.2 – 90.5 88.9 88.8 – 49.1 58.2 64.7 76.9 80.7 89.6 76.5 78.1 86.494.3
+MedAgentBench records§ rule 402 5,698 45.2 – 99.3 97.1 98.1 99.4 59.8 70.1 71.3 87.8 91.499.689.2 88.8 98.5 95.9
+2 Clinical definitions
+MIMIC-Composite§ rule 2,388 2,388 31.6 – 93.1 86.4 89.9 – 45.8 50.3 53.7 81.9 87.895.179.8 – 93.0 85.4
+eICU-Composite§ rule 2,400 2,400 36.0 –89.682.4 84.4 – 41.8 43.9 56.4 71.0 78.1 86.9 71.6 – 86.4 82.2
+EHRSHOT-Composite§ rule 2,400 2,400 – – 87.2 82.9 83.7 – 31.1 43.7 46.5 69.6 75.589.367.0 – 82.9 76.5
+3 Outcome forecasting
+MIMIC-Prognosis (AUROC)§ outcome 1,507 1,507 0.500 – 0.766 0.753 0.764 – 0.591 0.518 0.583 0.702 0.748 0.769 0.743 0.6800.7710.721
+eICU-Prognosis (AUROC)§ outcome 2,253 2,253 0.500 – 0.741 0.729 0.743 – 0.509 0.540 0.630 0.702 0.713 0.745 0.715 0.7010.7480.725
+EHRSHOT-Prognosis (AUROC)§ outcome 1,637 1,637 0.500 – 0.652 0.681 0.664 – 0.559 0.565 0.623 0.595 0.602 0.672 0.613 – 0.6430.766
+4 Phenotypes and assertions
+Apixaban trial criteria human 100 1,900 46.1 85.5 86.7 85.3 87.8 – 61.2 69.0 80.8 86.8 86.488.181.8 83.4 84.7 84.3
+MIMIC-III phenotypes human 844 10,147 50.0 90.5 91.191.990.9 – 72.6 79.0 86.7 90.2 90.4 91.5 84.7 81.7 88.0 87.6
+MIPA phenotypes human 1,388 22,207 50.0 – 95.4 95.7 95.7 – 76.2 85.7 90.3 95.1 95.5 96.4 95.6 94.6 95.596.9
+Assertions (van Aken) human 237 3,052 33.3 – 83.385.882.5 – 52.1 71.8 79.4 80.7 82.5 84.4 80.5 81.1 82.3 80.6
+5 Questions over notes
+EHRNoteQA human 962 962 20 95.0 95.7 95.196.4– 75.2 81.0 87.0 92.8 94.4 95.2 92.5 95.1 95.8 95.2
+LongHealth human 20 400 20 89.5 89.0 90.2 81.391.946.0 57.0 66.4 83.1 85.4 86.6 76.9 88.6 91.3 88.1
+BRIE (MIMIC)‡§ LLM 599 5,815 28.8 – 94.1 94.6 88.7 – 74.3 77.5 79.6 91.5 92.7 94.1 91.3 94.2 94.794.8
+6 Diagnostic reports
+MIMIC-CXR-VQA (Reports) human 485 1,347 50.0 87.8 86.9 86.8 88.8 – 73.1 81.9 85.2 87.8 90.191.287.4 87.2 86.2 85.2
+ReXVQA (Reports) LLM 4,058 5,000 25.0 97.4 97.8 97.3 97.7 – 93.8 93.4 96.6 97.5 97.7 97.8 97.397.897.7 96.7
+TCGA pathology§ registry 859 2,139 42.0 98.0 ∗ 96.697.897.5 97.6 83.5 84.1 86.8 93.2 94.5 96.8 94.3 95.7 96.5 95.7
+HISTAI pathology†§ teacher 1,000 9,978 36.6key88.385.7 87.6 – 66.4 70.2 77.6 83.7 86.2 87.4 81.2 85.5 87.6 86.8
+Parameters – – 27B 27B 27B n/a 0.6B 0.75B 1.9B 4.2B 8B 29B 4.2B 9B 27B 4.2B
+Extended Data Table 5 | Serializer comparison on MIMIC-IV. Balanced accuracy (%) or mean AUROC of every system on the
+same documents rendered in the timeline layout (periods counted back from the index day; the layout of the Klaros-12M
+training timelines and of the eICU-CRD and EHRSHOT sets) and in the encounter layout (admissions; the layout of the
+MIMIC-IV sets), scored on the identical pairs valid under both; encounter − timeline, the paired difference with its 95%
+interval. Timelines: 2,377 MIMIC-IV timeline questions built as the public timeline sets (one per document; 352 concepts), not
+one of the public data sets. Composite definitions and prognosis: the documents of MIMIC-Composite and MIMIC-Prognosis,
+whose encounter-layout values are those of Extended Data Table 4. On timelines every model with valid predictions, CS1-4B
+included, scored higher in the encounter layout.
+Timelines(bal. acc., %; 352 concepts; 2,377 pairs)Composite definitions(bal. acc., %; 22 concepts; 2,388 pairs)Prognosis(mean AUROC, 7 outcomes; 2,398 pairs)
+System
+Timeline
+(days)
+Encounter
+(admissions)
+Encounter−timeline
+[95% CI]
+Timeline
+(days)
+Encounter
+(admissions)
+Encounter−timeline
+[95% CI]
+Timeline
+(days)
+Encounter
+(admissions)
+Encounter−timeline
+[95% CI]
+Out-of-sample majoritya / constant forecast 76.3 76.3 – 31.6 31.6 – 0.500 0.500 –
+JEV-27B 92.7 97.1 +4.4 [+2.8, +6.0] 90.1 93.1 +3.0 [−0.9, +6.9] 0.739 0.766 +0.027 [+0.002, +0.057]
+Clef-27B 93.6 97.1 +3.5 [+2.0, +5.0] 83.0 86.4 +3.5 [−0.6, +7.6] 0.748 0.753 +0.005 [−0.021, +0.031]
+pplx-decider-27B 93.6 97.8 +4.1 [+2.5, +5.7] 84.6 89.9 +5.3 [−1.8, +12.5] 0.747 0.764 +0.017 [−0.008, +0.044]
+Kai-0.6B 76.1 77.3 +1.1 [−0.8, +3.1] 42.6 45.8 +3.2 [−0.2, +6.5] 0.559 0.591 +0.032 [−0.024, +0.086]
+Eos-0.8B 76.9 77.1 +0.2 [−2.0, +2.4] 57.2 50.3−6.9 [−14.1, +0.3] 0.566 0.518−0.048 [−0.107, +0.012]
+Sol-2B 80.7 80.8 +0.1 [−1.7, +2.0] 55.3 53.7−1.7 [−8.6, +5.3] 0.586 0.583−0.003 [−0.057, +0.049]
+Nox-4B 85.3 92.3 +6.9 [+4.9, +8.9] 80.9 81.9 +0.9 [−5.7, +7.5] 0.715 0.702−0.014 [−0.041, +0.017]
+Lux-9B 87.9 94.1 +6.2 [+4.1, +8.2] 81.4 87.8 +6.4 [−0.6, +13.5] 0.740 0.748 +0.008 [−0.019, +0.036]
+Vega-27B 92.6 97.5 +4.8 [+3.2, +6.5] 91.0 95.1 +4.1 [−0.4, +8.7] 0.746 0.769 +0.023 [−0.004, +0.054]
+BioDecision-4B 87.2 90.9 +3.7 [+1.7, +5.7] 78.0 79.8 +1.8 [−1.4, +5.0] 0.722 0.743 +0.020 [−0.014, +0.053]
+MedDecider-9B – – – – – – 0.706 0.680−0.026 [−0.064, +0.013]
+MedDecider-27B 93.0 98.1 +5.0 [+3.3, +6.7] 89.8 93.0 +3.2 [−0.2, +6.7] 0.749 0.771 +0.022 [−0.003, +0.049]
+CS1-4B 87.5 93.3 +5.8 [+4.4, +7.3] 83.1 85.4 +2.3 [−0.4, +5.0] 0.697 0.721 +0.024 [−0.002, +0.047]
+CIs, 1,000 resamples. Balanced accuracy: Bayesian bootstrap over concepts (Dirichlet(1) concept weights; the difference on the same weights), small-sample t correction. Mean AUROC
+(outcomes with ≥10 positives and ≥10 negatives): 95% percentile of Dirichlet(1) patient weights. a Per concept the most common key among unused test pairs of other patients (the same
+for both layouts); prognosis, a constant forecast (0.500). –, MedDecider-9B: invalid (non-finite) probabilities.
+35
+
+Extended Data Table 6 | Outcome forecasting on the three prognosis sets. AUROC per outcome (raw probabilities; risk
+= P(yes), or the probability of the event option for EHRSHOT question kinds with a clear event option) for the outcomes
+with at least 10 positives and 10 negatives (MIMIC-Prognosis, 7 of 12 outcomes, eICU-Prognosis, 5 of 6 outcomes and
+EHRSHOT-Prognosis, 15 of 20 outcomes (19 with any positive);n / positives per outcome in parentheses), and their mean,
+the value of Fig. 2c and Extended Data Table 4. Mean ECE, over all outcomes with positives; Brier > prev., outcomes with
+positives whose Brier score is worse than always predicting the prevalence. One question per patient. The LLM teacher was
+not run on these sets.
+Decision 2.0
+Outcome (n/ positives)
+JEV-
+27B
+Clef-
+27B
+pplx-
+27B
+Kai-
+0.6B
+Eos-
+0.8B
+Sol-
+2B
+Nox-
+4B
+Lux-
+9B
+Vega-
+27B
+BioDec-
+4B
+MedDec-
+9B
+MedDec-
+27B
+CS1-
+4B
+MIMIC-Prognosis(MIMIC-IV , TD2 encounter layout; 2,398 patients, one question each)
+AKI within 48 h (224/16) 0.670 0.633 0.701 0.664 0.325 0.582 0.697 0.669 0.750 0.709 0.639 0.674 0.690
+1-year death (165/17) 0.913 0.909 0.908 0.631 0.604 0.742 0.860 0.879 0.907 0.896 0.885 0.909 0.890
+30-day emergency revisit (178/30) 0.613 0.592 0.636 0.552 0.579 0.616 0.646 0.668 0.627 0.557 0.553 0.585 0.624
+Intensive care after 24 h (174/20) 0.797 0.811 0.755 0.526 0.375 0.440 0.571 0.808 0.771 0.762 0.611 0.868 0.643
+In-hospital death (296/16) 0.928 0.916 0.922 0.747 0.711 0.760 0.895 0.911 0.934 0.894 0.869 0.914 0.883
+Length of stay>7 days (299/86) 0.696 0.681 0.685 0.533 0.488 0.406 0.565 0.638 0.686 0.681 0.529 0.711 0.603
+30-day readmission (171/28) 0.748 0.726 0.738 0.486 0.541 0.536 0.679 0.664 0.706 0.699 0.671 0.735 0.716
+Mean AUROC 0.766 0.753 0.764 0.591 0.518 0.583 0.702 0.748 0.769 0.743 0.680 0.771 0.721
+Mean ECE (all outcomes) 0.264 0.190 0.196 0.244 0.201 0.216 0.246 0.210 0.261 0.160 0.201 0.173 0.285
+Brier>prev. (of 12) 12 11 12 12 12 12 11 10 11 10 12 10 12
+eICU-Prognosis(eICU-CRD, TD1 timeline layout; 2,400 patients, one question each)
+AKI within 48 h (254/26) 0.671 0.629 0.659 0.480 0.567 0.641 0.648 0.622 0.654 0.699 0.638 0.666 0.684
+ICU death (304/23) 0.903 0.908 0.910 0.519 0.646 0.714 0.853 0.908 0.920 0.864 0.903 0.908 0.819
+ICU readmission (1,113/70) 0.567 0.590 0.593 0.460 0.448 0.440 0.574 0.538 0.578 0.575 0.529 0.591 0.600
+In-hospital death (295/25) 0.868 0.850 0.857 0.483 0.578 0.725 0.808 0.863 0.875 0.849 0.864 0.869 0.843
+Length of stay>7 days (287/101) 0.694 0.667 0.696 0.604 0.458 0.630 0.627 0.636 0.698 0.590 0.574 0.706 0.679
+Mean AUROC 0.741 0.729 0.743 0.509 0.540 0.630 0.702 0.713 0.745 0.715 0.701 0.748 0.725
+Mean ECE (all outcomes) 0.156 0.206 0.206 0.206 0.125 0.133 0.170 0.158 0.185 0.163 0.124 0.123 0.123
+Brier>prev. (of 6) 6 6 6 6 5 5 4 5 6 6 6 6 5
+EHRSHOT-Prognosis(EHRSHOT, TD1 timeline layout; 2,400 patients, one question each)
+Admission within 30 days (110/13) 0.544 0.665 0.665 0.726 0.723 0.647 0.670 0.560 0.694 0.623 – 0.479 0.795
+Admission within 1 year (110/34) 0.505 0.571 0.569 0.581 0.435 0.610 0.641 0.654 0.559 0.556 – 0.658 0.610
+Admission within 90 days (109/12) 0.803 0.834 0.855 0.733 0.527 0.631 0.731 0.818 0.822 0.758 – 0.689 0.824
+New diagnosis within 1 year (109/74) 0.564 0.589 0.550 0.420 0.393 0.472 0.522 0.562 0.492 0.561 – 0.612 0.663
+Diagnosis recorded within 1 year (109/40) 0.651 0.727 0.635 0.513 0.540 0.545 0.625 0.586 0.667 0.508 – 0.640 0.755
+Emergency visit within 30 days (109/13) 0.687 0.649 0.651 0.638 0.720 0.565 0.501 0.355 0.738 0.395 – 0.644 0.756
+Emergency visit within 1 year (109/20) 0.594 0.696 0.653 0.663 0.704 0.696 0.534 0.487 0.724 0.479 – 0.670 0.815
+Emergency visit within 90 days (109/11) 0.710 0.658 0.663 0.474 0.535 0.528 0.543 0.586 0.688 0.521 – 0.582 0.758
+First admission within 30 days (109/42) 0.698 0.758 0.666 0.371 0.596 0.682 0.480 0.668 0.698 0.668 – 0.661 0.794
+First admission within 1 year (109/86) 0.612 0.568 0.692 0.531 0.524 0.584 0.655 0.622 0.585 0.675 – 0.586 0.725
+First emergency visit within 30 days (109/23) 0.669 0.763 0.650 0.483 0.525 0.708 0.370 0.532 0.732 0.739 – 0.782 0.840
+First emergency visit within 1 year (109/70) 0.655 0.600 0.660 0.389 0.518 0.632 0.567 0.480 0.535 0.618 – 0.606 0.720
+HbA1c≥7% (109/18) 0.962 0.947 0.960 0.685 0.744 0.806 0.964 0.964 0.963 0.919 – 0.953 0.954
+New medication class within 1 year (109/68) 0.604 0.620 0.581 0.578 0.614 0.594 0.589 0.666 0.648 0.667 – 0.528 0.747
+Medication class recorded within 1 year (109/36) 0.524 0.563 0.509 0.601 0.381 0.651 0.534 0.486 0.531 0.512 – 0.557 0.740
+Mean AUROC 0.652 0.681 0.664 0.559 0.565 0.623 0.595 0.602 0.672 0.613 – 0.643 0.766
+Mean ECE (all outcomes) 0.136 0.125 0.151 0.242 0.171 0.206 0.197 0.207 0.172 0.149 – 0.143 0.145
+Brier>prev. (of 19) 14 13 12 18 18 16 14 13 14 15 – 16 12
+–, MedDecider-9B returned invalid (non-finite) probabilities on these sets.
+36

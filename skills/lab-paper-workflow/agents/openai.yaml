@@ -1,0 +1,4 @@
+interface:
+  display_name: "实验室论文总控"
+  short_description: "从arXiv/PubMed/bioRxiv/medRxiv采集论文，管理初筛日报、候选选题与公众号及小红书制作的三技能衔接"
+  default_prompt: "使用 $lab-paper-workflow 读取本项目状态并处理这次论文任务。"

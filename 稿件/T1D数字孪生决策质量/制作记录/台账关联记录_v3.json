@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "review_file": "稿件/T1D数字孪生决策质量/制作记录/台账关联记录_v3.json",
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "events": [],
+  "history_review": [
+    {
+      "event_key": "evt-6da9217478626639d4ca",
+      "change_type": "repeat",
+      "status": "drafted",
+      "observed_at": "2026-10-23T14:05:00+08:00",
+      "article_directory": "稿件/T1D数字孪生决策质量",
+      "note": "用户反馈2：正文页改为四章节结构（创新点/方法/结果/结论），每章末尾引用原论文图表（Table 1/Table 2/Figure 1/Table 6，300dpi裁剪自PDF）；上一版归档至 历史版本/二版_连续分页",
+      "platform_outputs": {
+        "xiaohongshu": {
+          "directory": "稿件/T1D数字孪生决策质量/小红书",
+          "review_status": "awaiting_user_review",
+          "published": false,
+          "source_file": "公众号/公众号正文.txt",
+          "source_sha256": "375d883138e6bf096cc321601aac09748368d0c53f94718e9449e7b75a960cb1",
+          "image_count": 6,
+          "dimensions": [
+            1080,
+            1440
+          ],
+          "revision_note": "四章节结构+每章论文图表（渲染输入_v3）"
+        }
+      }
+    }
+  ]
+}

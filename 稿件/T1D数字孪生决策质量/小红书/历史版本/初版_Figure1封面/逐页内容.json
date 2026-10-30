@@ -1,0 +1,296 @@
+[
+  {
+    "page": 1,
+    "type": "cover",
+    "title": "预测最准的数字孪生\n治疗排序接近随机",
+    "summary": "Emory团队按治疗排序直接评价T1D数字孪生：预测精度与决策质量可以严重背离。"
+  },
+  {
+    "page": 2,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 0,
+        "type": "paragraph",
+        "start": 0,
+        "end": 198,
+        "page": 2,
+        "text": "10月22日，Emory大学团队在arXiv发布预印本《Evaluating Type-1 Diabetes Digital Twins by Decision Quality》，对1型糖尿病（T1D）数字孪生提出了一项直接以下游治疗决策质量为标准的评价协议，并用六种方法跑出了一个值得注意的结论：血糖轨迹预测最准的模型，在给候选治疗方案排序时接近随机；而预测精度最差的基线，排序能力却排在第二。",
+        "line_tops": [
+          4,
+          72,
+          140,
+          208,
+          276,
+          344,
+          412,
+          480
+        ]
+      },
+      {
+        "source_block_index": 1,
+        "type": "heading",
+        "start": 0,
+        "end": 17,
+        "page": 2,
+        "text": "数字孪生在1型糖尿病里承担什么任务",
+        "line_tops": [
+          578
+        ]
+      },
+      {
+        "source_block_index": 2,
+        "type": "paragraph",
+        "start": 0,
+        "end": 114,
+        "page": 2,
+        "text": "1型糖尿病患者的血糖对胰岛素剂量高度敏感。数字孪生的设想是：用一个个体的历史血糖、胰岛素和饮食数据拟合出一个个性化模型，再用它去预测“如果换一种基础-餐时胰岛素方案，这位患者的血糖轨迹会怎样”——不必真的试药，就能比较候选方案。",
+        "line_tops": [
+          664,
+          732,
+          800,
+          868,
+          936
+        ]
+      },
+      {
+        "source_block_index": 3,
+        "type": "paragraph",
+        "start": 0,
+        "end": 90,
+        "page": 2,
+        "text": "问题出在评价方式上。目前衡量这类孪生好坏的主流指标，是预测血糖轨迹与真实轨迹的误差（比如RMSE）。但预测轨迹本身不是目的：轨迹会被进一步换算成低血糖风险、高血糖暴露这类统计量，用",
+        "line_tops": [
+          1028,
+          1096,
+          1164,
+          1232
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": false
+  },
+  {
+    "page": 3,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 3,
+        "type": "paragraph",
+        "start": 90,
+        "end": 129,
+        "page": 3,
+        "text": "来给候选治疗方案排序、辅助临床决策。轨迹算得准，不等于最后排出来的治疗顺序对。",
+        "line_tops": [
+          4,
+          72
+        ]
+      },
+      {
+        "source_block_index": 4,
+        "type": "heading",
+        "start": 0,
+        "end": 16,
+        "page": 3,
+        "text": "把评价标准换成“治疗排序对不对”",
+        "line_tops": [
+          170
+        ]
+      },
+      {
+        "source_block_index": 5,
+        "type": "paragraph",
+        "start": 0,
+        "end": 204,
+        "page": 3,
+        "text": "这项工作的做法是直接评价排序。作者用FDA接受的UVA/Padova模拟器构造了30名虚拟1型糖尿病患者，每人模拟21种基础-餐时胰岛素方案。每名患者在一个方案的观测数据上拟合孪生，再让它预测其余20个方案下的血糖轨迹；每条轨迹经过一个血糖风险核（在正常血糖区间接近零、向低血糖和高血糖两个方向不对称增长）打分。决策质量就是：孪生排出的方案顺序，与模拟器给出的真实顺序有多一致，用Spearman秩相关衡量。",
+        "line_tops": [
+          256,
+          324,
+          392,
+          460,
+          528,
+          596,
+          664,
+          732,
+          800
+        ]
+      },
+      {
+        "source_block_index": 6,
+        "type": "heading",
+        "start": 0,
+        "end": 14,
+        "page": 3,
+        "text": "六种方法的结果出现了明显背离",
+        "line_tops": [
+          898
+        ]
+      },
+      {
+        "source_block_index": 7,
+        "type": "paragraph",
+        "start": 0,
+        "end": 96,
+        "page": 3,
+        "text": "作者比较了六种方法：ReplayBG式的贝叶斯辨识（MCMC）、仿真推断SBI（掩码自回归流的神经后验估计）、无迹卡尔曼滤波UKF、岭回归的线性响应模型、两层64单元的多层感知机神经网络，以及",
+        "line_tops": [
+          984,
+          1052,
+          1120,
+          1188
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": false
+  },
+  {
+    "page": 4,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 7,
+        "type": "paragraph",
+        "start": 96,
+        "end": 130,
+        "page": 4,
+        "text": "一个“平均患者”基线Prior——完全不使用个体数据，只用人群先验。",
+        "line_tops": [
+          4,
+          72
+        ]
+      },
+      {
+        "source_block_index": 8,
+        "type": "paragraph",
+        "start": 0,
+        "end": 252,
+        "page": 4,
+        "text": "结果是预测精度和决策质量分道扬镳。平均患者基线的预测精度在六种方法里最差（RMSE 63.6 mg/dL），治疗排序却拿到第二高的Spearman（0.766）；黑箱神经网络的轨迹预测几乎准一倍（RMSE 32.9 mg/dL），排序却只有0.049，与随机打乱20个方案的顺序没有差别。SBI的0.728与平均患者基线在统计上也无法区分（p=0.39）。论文用Friedman检验加多重校正的逐对Wilcoxon检验确认了这些分离在30名患者上成立，下面的临界差异图直观展示了两个指标下方法排名的翻转。",
+        "line_tops": [
+          164,
+          232,
+          300,
+          368,
+          436,
+          504,
+          572,
+          640,
+          708,
+          776
+        ]
+      }
+    ],
+    "image_blocks": [
+      9
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 5,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 10,
+        "type": "heading",
+        "start": 0,
+        "end": 10,
+        "page": 5,
+        "text": "为什么会出现这种背离",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 11,
+        "type": "paragraph",
+        "start": 0,
+        "end": 178,
+        "page": 5,
+        "text": "论文的解释思路并不复杂：血糖风险核把轨迹压缩成一个标量分数，排序只取决于分数的相对高低，而不要求轨迹逐点吻合。一个只用人群先验的模型，虽然画不准这个患者的血糖曲线，但如果它能捕捉“剂量加大→风险结构如何移动”的总体方向，排序就可能大体正确。反过来，一个对轨迹细节拟合得很好的黑箱模型，可能在各方案的分数差异上产生系统性的偏差，把不该排前面的方案排到了前面。",
+        "line_tops": [
+          88,
+          156,
+          224,
+          292,
+          360,
+          428,
+          496,
+          564,
+          632
+        ]
+      },
+      {
+        "source_block_index": 12,
+        "type": "paragraph",
+        "start": 0,
+        "end": 126,
+        "page": 5,
+        "text": "计算成本把这个结论变得更实际。作者报告的成本数据里，MCMC每名患者的拟合与评分约8小时，而线性响应模型约2.4秒、神经网络约0.1秒。如果精度与决策质量脱钩，那么“花大力气拟合高精度轨迹”的做法，在以辅助治疗选择为目标的场景里就未必是正确的投入方向。",
+        "line_tops": [
+          724,
+          792,
+          860,
+          928,
+          996,
+          1064
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": false
+  },
+  {
+    "page": 6,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 13,
+        "type": "heading",
+        "start": 0,
+        "end": 10,
+        "page": 6,
+        "text": "这项结论的边界在哪里",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 14,
+        "type": "paragraph",
+        "start": 0,
+        "end": 151,
+        "page": 6,
+        "text": "几点限制论文自己也写得很清楚。全部证据来自UVA/Padova这一个模拟器的回顾性仿真，没有真实患者数据或前瞻性验证；30名虚拟患者的规模有限；风险核的形状、24小时预测窗口这些设计选择会影响结论的强度，作者也提醒不知道换一个风险核后背离还剩多少。这是一篇预印本，尚未同行评审，论文随附了代码可以复现。",
+        "line_tops": [
+          88,
+          156,
+          224,
+          292,
+          360,
+          428,
+          496
+        ]
+      },
+      {
+        "source_block_index": 15,
+        "type": "paragraph",
+        "start": 0,
+        "end": 105,
+        "page": 6,
+        "text": "对做数字孪生和虚拟试验的团队，这篇论文的价值不在提出了新模型，而在给评价标准提了个醒：如果你的孪生最终要回答的是“哪个方案更好”，就应该直接评价它排序排得对不对——这个性质不会因为轨迹预测精度的提高而自动到来。",
+        "line_tops": [
+          588,
+          656,
+          724,
+          792,
+          860
+        ]
+      }
+    ],
+    "image_blocks": [],
+    "source_visible": true
+  }
+]

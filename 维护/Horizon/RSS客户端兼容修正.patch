@@ -1,0 +1,17 @@
+diff --git a/src/scrapers/rss.py b/src/scrapers/rss.py
+index c14e47f..422ecc3 100644
+--- a/src/scrapers/rss.py
++++ b/src/scrapers/rss.py
+@@ -81,7 +81,11 @@ class RSSScraper(BaseScraper):
+             )
+ 
+             # Fetch feed content
+-            response = await self.client.get(feed_url, follow_redirects=True)
++            response = await self.client.get(
++                feed_url,
++                headers={"User-Agent": "Horizon/0.1 (+https://github.com/Thysrael/Horizon)"},
++                follow_redirects=True,
++            )
+             response.raise_for_status()
+ 
+             # Parse feed

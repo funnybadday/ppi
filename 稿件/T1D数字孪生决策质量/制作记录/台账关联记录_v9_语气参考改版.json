@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "review_file": "稿件/T1D数字孪生决策质量/制作记录/台账关联记录_v9_语气参考改版.json",
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "events": [],
+  "history_review": [
+    {
+      "event_key": "evt-6da9217478626639d4ca",
+      "change_type": "repeat",
+      "status": "drafted",
+      "observed_at": "2026-10-23T16:15:00+08:00",
+      "article_directory": "稿件/T1D数字孪生决策质量",
+      "note": "用户指令：语气参考新闻版素材全部删除并改为论文版few-shot。已删：公众号两篇新闻few-shot、小红书新闻分页样例/、两组新闻账号截图、稿件/甲骨文患者匹配样例（原件均在蓝图宣传项目）。已建：论文版few-shot=本项目首篇论文解读（T1D案例，HTML+正文+索引哈希，load_fewshots验证通过）；小红书认可样例.json改为论文版（指向T1D案例5页）；语气偏好与参考状态.txt重写为论文版；全部引用文档同步。注意：few-shot当前为待用户认可版，认可或修订后需同步更新索引哈希。",
+      "platform_outputs": {}
+    }
+  ]
+}

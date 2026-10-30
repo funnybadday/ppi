@@ -1,0 +1,135 @@
+{
+ "schema_version": 1,
+ "updated_date": "2026-10-28",
+ "timezone": "Asia/Shanghai",
+ "phase": "awaiting_manual_content_review",
+ "project_root": "/Users/xulei/项目/搜索/蓝图论文",
+ "article_root": "稿件",
+ "skills": {
+  "lab-paper-workflow": {
+   "source": "skills/lab-paper-workflow",
+   "installation_status": "installed",
+   "offline_checks": "not_run",
+   "user_content_acceptance": "pending"
+  },
+  "lab-paper-wechat-article": {
+   "source": "skills/lab-paper-wechat-article",
+   "installation_status": "installed",
+   "offline_checks": "not_run",
+   "user_content_acceptance": "pending"
+  },
+  "lab-paper-xhs-post": {
+   "source": "skills/lab-paper-xhs-post",
+   "installation_status": "installed",
+   "offline_checks": "not_run",
+   "user_content_acceptance": "pending"
+  }
+ },
+ "automation": {
+  "status": "not_created",
+  "enable_requires": "用户明确提出启用定时采集，并核对自动化创建",
+  "future_schedule": {
+   "weekdays": [
+    "MO",
+    "TU",
+    "WE",
+    "TH",
+    "FR"
+   ],
+   "start_time": "09:30",
+   "timezone": "Asia/Shanghai"
+  }
+ },
+ "scope": {
+  "wechat_paper_interpretation": true,
+  "xiaohongshu_in_skill": true,
+  "news_workflow_in_this_project": false,
+  "news_project": "/Users/xulei/项目/搜索/蓝图宣传"
+ },
+ "publication": "由用户和同事审阅、排版并发布",
+ "horizon_report_root": "Horizon日报",
+ "candidate_root": "选题池",
+ "event_ledger": "选题池/事件台账.json",
+ "usage_guide": "使用说明.txt",
+ "profile_source": "规则/Horizon-clinical-papers",
+ "source_registry": {
+  "papers": "信源/论文库/信源目录.json",
+  "runtime_config": "Horizon/data/config.json",
+  "libraries": [
+   "arxiv",
+   "pubmed",
+   "biorxiv",
+   "medrxiv"
+  ],
+  "channels": 6,
+  "proxy_required": "arXiv与bioRxiv/medRxiv需本地代理127.0.0.1:6864（Horizon/.env已配置）",
+  "verification_record": "信源/论文库/信源与接入说明.txt"
+ },
+ "runtime": {
+  "venv": "Horizon/.venv（本机 uv sync 重建，Python 3.13）",
+  "adapter": "Horizon/skills/horizon/scripts/horizon_ops.py（checkout自带）",
+  "custom_scrapers": [
+   "src/scrapers/pubmed.py",
+   "src/scrapers/biorxiv.py"
+  ]
+ },
+ "latest_horizon_run": {
+  "run_id": "run-20261023T042727Z-53b4a346",
+  "collected_at": "2026-10-23T12:27:27+08:00",
+  "completed_at": "2026-10-23T12:40:00+08:00",
+  "hours": 96,
+  "raw_count": 241,
+  "scored_count": 241,
+  "unscored_count": 0,
+  "filtered_count": 81,
+  "review_queue_count": 27,
+  "report": "Horizon日报/2026-10-23_122727_53b4a346_筛选摘要.txt",
+  "coverage_record": "fetch_status=success；arXiv 4/PubMed 40/medRxiv 51/bioRxiv 147"
+ },
+ "latest_candidates": {
+  "source_run": "run-20261023T042727Z-53b4a346",
+  "brief": "选题池/2026-10-23_122727_首轮论文候选.txt",
+  "structured": "选题池/2026-10-23_122727_首轮论文候选.json",
+  "count": 5,
+  "status": "awaiting_user_selection"
+ },
+ "latest_article": {
+  "event_key": "evt-6da9217478626639d4ca",
+  "selection_file": "选题池/2026-10-23_122727_首轮论文候选.json",
+  "selection_id": "C01",
+  "topic": "T1D数字孪生决策质量",
+  "article_directory": "稿件/T1D数字孪生决策质量",
+  "word_file": "公众号/公众号稿件.docx",
+  "verification_record": "制作记录/制作与检查记录.json",
+  "status": "awaiting_user_review",
+  "content_approved": false,
+  "published": false,
+  "delivered_at": "2026-10-23T13:20:00+08:00"
+ },
+ "latest_xiaohongshu": {
+  "event_key": "evt-1f6d571d17f62ca4f45f",
+  "article_directory": "稿件/多智能体诊断反转",
+  "output_directory": "小红书/图片/图片",
+  "image_count": 7,
+  "dimensions": [
+   1080,
+   1440
+  ],
+  "copy": "小红书/发布标题与正文.txt",
+  "status": "awaiting_user_review",
+  "content_approved": false,
+  "published": false,
+  "approved_at": null,
+  "source_article": "公众号/公众号正文.txt（未改动）",
+  "revision_note": "v2.2（2026-10-26）：用户定稿标题（五个AI专家综合问诊，诊断准确率竟输给了直接向AI提问），封面3行修复孤字行；发布标题19字合规；正文沿用v2大众用语版；历史版本v1在历史版本/，v2.0/v2.1封面存制作记录各渲染目录"
+ },
+ "history_tracking": {
+  "status": "enabled",
+  "ledger": "选题池/事件台账.json",
+  "event_count": 6,
+  "article_count": 6,
+  "score_cache": false
+ },
+ "maintenance_note": "2026-10-23 批量制作5篇论文小红书（C02-C05+MERIT池中补位），各7页1080x1440渲染全过、坐标裁剪断言全过、逐张目检通过，均待用户审阅：稿件/SystemOne入组筛选、CDISC管线技能加载、SIMCO孕期用药孪生、多智能体诊断反转、MERIT药物结局预测。crop_paper_figure.py已补分词标题短语匹配+行首优先。 2026-10-26 多智能体诊断反转小红书v2大众用语改写：用语基准（参考NEJM医学前沿）录入小红书偏好.txt，7页重渲+逐张目检通过，待用户审阅；其余4篇2026-10-23批次仍为v1技术用语版，未按新基准回改。 2026-10-27 用户指定PFA样例（心航路医学）为公众号语气与结构few-shot，原文索引.json已更新（当次会话录入）。 2026-10-28上午 另一会话按PFA样例对6篇公众号做过一轮样式改写并重建docx（未回源核验、未记录台账与状态文件；用户已自行打包存档于稿件/新公众号稿件/）。 2026-10-28 应用户要求对全部6篇按完整流程重做公众号：6个子代理各自回到素材/论文全文提取.txt逐项核验事实后重写正文（PFA样例结构、图文引用式、[1]引用+参考文献+免责声明），重建6份docx（宋体版式与上午版一致），内容完整性6/6、qlmanage首页渲染6/6、图片高度全过；上午版存各案例历史版本/公众号正文_上午版20261028.txt与公众号稿件_上午版20261028.docx；制作记录已补修订条目，事件台账已更新6事件（MERIT补录evt-0912fb2154a179344ad3），全部待用户审阅。已知限制：本机Word不支持AppleScript导出PDF、截屏无权限，第2页起未逐页目检。",
+ "updated_at": "2026-10-28T11:30:00+08:00"
+}

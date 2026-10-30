@@ -1,0 +1,57 @@
+{
+  "_comment": "主配置 Horizon/data/config.json 中论文信源部分的镜像，便于校对；不能用它覆盖主配置（主配置还含 ai/collection/processing 等设置）。",
+  "sources": {
+    "rss": [
+      {
+        "name": "arXiv｜虚拟试验与数字孪生",
+        "url": "http://export.arxiv.org/api/query?search_query=all:%22virtual+clinical+trial%22+OR+all:%22in+silico+clinical+trial%22+OR+all:%22in+silico+trials%22+OR+all:%22patient+digital+twin%22+OR+all:%22synthetic+control+arm%22+OR+all:%22virtual+patients%22&sortBy=submittedDate&sortOrder=descending&max_results=80",
+        "enabled": true,
+        "category": "preprint-arxiv",
+        "profile": "clinical-papers"
+      },
+      {
+        "name": "arXiv｜AI与临床试验任务",
+        "url": "http://export.arxiv.org/api/query?search_query=%28cat:q-bio.QM+OR+cat:stat.AP+OR+cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.LG%29+AND+abs:%22clinical+trial%22+AND+%28abs:%22large+language+model%22+OR+abs:%22artificial+intelligence%22+OR+abs:%22machine+learning%22+OR+abs:%22deep+learning%22+OR+abs:agent+OR+abs:%22foundation+model%22%29&sortBy=submittedDate&sortOrder=descending&max_results=80",
+        "enabled": true,
+        "category": "preprint-arxiv",
+        "profile": "clinical-papers"
+      },
+      {
+        "name": "arXiv｜试验提效与招募匹配",
+        "url": "http://export.arxiv.org/api/query?search_query=abs:%22clinical+trial%22+AND+%28abs:%22patient+recruitment%22+OR+abs:%22eligibility+criteria%22+OR+abs:%22trial+design%22+OR+abs:%22protocol+design%22+OR+abs:%22patient+matching%22+OR+abs:%22medical+coding%22%29&sortBy=submittedDate&sortOrder=descending&max_results=80",
+        "enabled": true,
+        "category": "preprint-arxiv",
+        "profile": "clinical-papers"
+      }
+    ],
+    "pubmed": {
+      "enabled": true,
+      "term": "(\"virtual clinical trial\"[tiab] OR \"in silico clinical trial\"[tiab] OR \"in silico trials\"[tiab] OR \"digital twin\"[tiab] OR \"virtual patients\"[tiab] OR \"synthetic control arm\"[tiab] OR \"synthetic patients\"[tiab] OR \"simulated patients\"[tiab]) OR ((\"clinical trial\"[tiab] OR \"clinical trials\"[tiab] OR \"trial design\"[tiab] OR \"patient recruitment\"[tiab] OR \"trial recruitment\"[tiab] OR \"eligibility criteria\"[tiab] OR \"patient matching\"[tiab] OR \"protocol design\"[tiab] OR \"medical coding\"[tiab]) AND (\"large language model\"[tiab] OR \"language models\"[tiab] OR \"artificial intelligence\"[tiab] OR \"machine learning\"[tiab] OR \"deep learning\"[tiab] OR generative[tiab] OR \"foundation model\"[tiab] OR \"AI agent\"[tiab] OR agentic[tiab]))",
+      "reldate": 3,
+      "max_results": 150,
+      "feed_name": "PubMed｜AI临床试验检索",
+      "category": "journal-pubmed",
+      "profile": "clinical-papers"
+    },
+    "biorxiv": [
+      {
+        "enabled": true,
+        "server": "medrxiv",
+        "subjects": ["health informatics", "epidemiology"],
+        "max_results": 200,
+        "feed_name": "medRxiv｜健康信息学与流行病学方法",
+        "category": "preprint-medrxiv",
+        "profile": "clinical-papers"
+      },
+      {
+        "enabled": true,
+        "server": "biorxiv",
+        "subjects": ["bioinformatics"],
+        "max_results": 200,
+        "feed_name": "bioRxiv｜生物信息学",
+        "category": "preprint-biorxiv",
+        "profile": "clinical-papers"
+      }
+    ]
+  }
+}

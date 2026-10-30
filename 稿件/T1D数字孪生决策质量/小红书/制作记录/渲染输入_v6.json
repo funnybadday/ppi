@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "article": {
+    "title": "1型糖尿病数字孪生评价的一个反直觉结果：预测最准的模型，治疗排序接近随机",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "创新点"
+      },
+      {
+        "type": "paragraph",
+        "text": "这篇论文的创新不在提出新模型，而在换掉评价标准：直接以下游治疗决策质量评价1型糖尿病（T1D）数字孪生。"
+      },
+      {
+        "type": "paragraph",
+        "text": "作者定义了两类指标——轨迹预测精度（RMSE）与治疗排序质量（Spearman秩相关）：孪生预测20个候选方案下的血糖轨迹，经血糖风险核打分后排序，与真实排序越一致，决策质量越高。两类指标的完整定义见论文Table 1。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/公众号/配图/论文Table1_指标定义.png",
+        "caption": "论文Table 1：两类指标的定义（arXiv:2610.30577v1）"
+      },
+      {
+        "type": "heading",
+        "text": "方法"
+      },
+      {
+        "type": "paragraph",
+        "text": "用FDA接受的UVA/Padova模拟器构造30名虚拟1型糖尿病患者，每人模拟21种基础-餐时胰岛素方案：在一个方案的观测数据上拟合孪生，预测其余20个反事实方案，比较排序。基准的全部设置与出处见论文Table 2。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/公众号/配图/论文Table2_基准设置.png",
+        "caption": "论文Table 2：基准设置与各选择的出处（arXiv:2610.30577v1）"
+      },
+      {
+        "type": "paragraph",
+        "text": "六种方法同场比较：ReplayBG式贝叶斯辨识（MCMC）、仿真推断SBI、无迹卡尔曼滤波UKF、岭回归线性模型、多层感知机神经网络，以及完全不用个体数据的“平均患者”基线Prior。"
+      },
+      {
+        "type": "heading",
+        "text": "结果"
+      },
+      {
+        "type": "paragraph",
+        "text": "预测精度与决策质量分道扬镳：平均患者基线精度最差（RMSE 63.6 mg/dL），排序却拿第二高（0.766）；黑箱神经网络精度几乎高一倍（RMSE 32.9），排序只有0.049，与随机无异。"
+      },
+      {
+        "type": "paragraph",
+        "text": "Friedman检验加多重校正的逐对Wilcoxon检验确认分离在30名患者上成立；SBI的0.728与平均患者基线无显著差异。两个指标下的方法排名翻转见论文Figure 1的临界差异图。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/公众号/配图/论文原图_Figure1_决策质量对比.png",
+        "caption": "论文Figure 1：两个指标下的临界差异图，方法排名明显翻转（arXiv:2610.30577v1）"
+      },
+      {
+        "type": "heading",
+        "text": "结论"
+      },
+      {
+        "type": "paragraph",
+        "text": "只按轨迹精度选孪生，可能选出决策上接近随机的模型；决策质量必须直接评价，不会随精度提高自动到来。每名患者的成本见论文Table 6：MCMC约8小时，平均患者基线约175秒，神经网络约2.4秒，线性模型只要约0.1秒。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/公众号/配图/论文Table6_计算成本.png",
+        "caption": "论文Table 6：每名患者的拟合与评分成本（arXiv:2610.30577v1）"
+      },
+      {
+        "type": "paragraph",
+        "text": "证据边界：全部来自单一模拟器的回顾性仿真，30名虚拟患者，预印本未经同行评审；代码已公开可复现。"
+      }
+    ],
+    "sources": [
+      {
+        "label": "论文：Evaluating Type-1 Diabetes Digital Twins by Decision Quality",
+        "publisher": "arXiv（Emory University，Victor Li等）",
+        "date": "2026-10-22",
+        "url": "https://arxiv.org/abs/2610.30577v1"
+      }
+    ]
+  },
+  "copy": {
+    "cover_title": "预测最准的数字孪生\n治疗排序接近随机",
+    "cover_summary": "Emory团队按治疗排序直接评价T1D数字孪生：预测精度与决策质量可以严重背离。",
+    "post_title": "预测最准的数字孪生，治疗排序接近随机",
+    "post_body": "Emory大学团队10月22日在arXiv发布预印本，直接以下游治疗决策质量评价1型糖尿病数字孪生：用FDA接受的UVA/Padova模拟器构造30名虚拟患者、每人21种基础-餐时胰岛素方案，检验孪生排出的方案顺序与真实顺序是否一致（Spearman秩相关）。\n\n结果出现了背离：完全不用个体数据的“平均患者”基线，预测精度六种方法里最差（RMSE 63.6 mg/dL），治疗排序却排第二（0.766）；轨迹预测几乎准一倍的黑箱神经网络（RMSE 32.9 mg/dL），排序只有0.049，与随机无异。\n\n作者的提醒很直接：如果孪生最终要回答“哪个方案更好”，就应该直接评价它排序排得对不对——这个性质不会随轨迹精度的提高自动到来。结论目前来自单一模拟器的回顾性仿真，预印本尚未同行评审，代码已公开。",
+    "source_line": "来源：arXiv:2610.30577v1（Emory University，2026-10-22提交）。",
+    "hashtags": [
+      "AI临床试验",
+      "数字孪生",
+      "虚拟患者",
+      "1型糖尿病",
+      "论文解读"
+    ],
+    "content_basis": "复用已完成的公众号解读及其已核验来源；本次未重新联网核验。",
+    "status": "awaiting_user_review"
+  },
+  "cover": {
+    "mode": "image",
+    "image": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/公众号/配图/论文首页_标题与作者.png"
+  },
+  "source": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/公众号/公众号正文.txt",
+    "sha256": "d504d12a3f084907ea67cd812c7dfafcf23463a3610557f56d5aa84004aa97aa"
+  }
+}

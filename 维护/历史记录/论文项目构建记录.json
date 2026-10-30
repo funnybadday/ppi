@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "record_type": "project_build_record",
+  "built_at": "2026-10-23",
+  "built_from": "/Users/xulei/项目/搜索/蓝图宣传（新闻版项目，本机拷贝）",
+  "project_root": "/Users/xulei/项目/搜索/蓝图论文",
+  "user_requirements": {
+    "sources": ["arxiv", "pubmed", "biorxiv", "medrxiv"],
+    "topic": "与新闻版一致：AI临床试验（虚拟临床试验、患者数字孪生、试验提效智能体，择优纳入方法学与AI医疗研究）",
+    "deliverables": "完整复刻两平台：论文候选 → 论文解读公众号Word → 小红书派生",
+    "decisions": ["位置 /Users/xulei/项目/搜索/蓝图论文", "只接四个库", "完整两平台"]
+  },
+  "build_steps": [
+    {"phase": "P1", "what": "骨架复制", "detail": "rsync Horizon（排除.venv/mcp-runs/summaries/logs，保留git与rss.py User-Agent本地补丁）；三技能改名复制；语气参考/.baoyu-skills/维护-Horizon原样复制；小红书认可样例子集（5 PNG+封面与发布文案.json+发布标题与正文.txt）复制到 稿件/甲骨文患者匹配/小红书/；台账初始化"},
+    {"phase": "P2", "what": "运行时重建", "detail": "uv sync --frozen --extra dev（Python 3.13.13，本机 /opt/homebrew/bin/uv）；.env 复制后删 SSL_CERT_FILE（原机器断链路径），新增 HTTP_PROXY/HTTPS_PROXY=http://127.0.0.1:6864"},
+    {"phase": "P3", "what": "论文抓取器", "detail": "新增 src/scrapers/pubmed.py（esearch+efetch，edat窗口，429/503重试，摘要保留Label分段，作者截6位）与 src/scrapers/biorxiv.py（api.biorxiv.org details 按日期区间分页，category白名单过滤，DOI去重保留最新版本）；models.py SourceType/SOURCE_REGISTRY/两个Config/SourcesConfig 接线（biorxiv为列表配置）；orchestrator.py 分发块；tests/test_pubmed.py(8)+test_biorxiv.py(11)；全套 pytest 通过；test_fetch_reporting/test_mcp_adapter 夹具同步更新"},
+    {"phase": "P4", "what": "信源与Profile", "detail": "config.json：3条arXiv Atom查询（RSS通道）+pubmed检索式（两分支tiab）+biorxiv双源（medrxiv=health informatics+epidemiology，biorxiv=bioinformatics，实测category分布定稿）；规则/Horizon-clinical-papers/四件套（match/analysis从新闻版改写为论文边界：预印本同池评分、修订须实质变化、产业论文按论文标准评）；软链 local-profiles/clinical-papers；validate_config 通过（missing_env=[]，selected_sources=[rss,pubmed,biorxiv]）；信源/论文库/ 三件（目录+镜像+接入说明）"},
+    {"phase": "P5", "what": "技能与文档改写", "detail": "全局替换 nickychen路径/技能名/clinical-news→clinical-papers/Horizon-clinical-papers（27文件）；SKILL.md×3 语义改写（新闻总控→论文总控、解读边界、代理提示）；horizon-operations.md 适配器路径改checkout自带、sources示例扩为三类型；AGENTS.md/使用说明.txt 重写、内容工作流与交付规范.txt 语义替换；工作流状态.json 全新初始化；语气偏好附注沿用新闻few-shot；openai.yaml×3 更新；技能检查5测试通过（xhs_renderer 静默通过 exit=0）"}
+  ],
+  "connectivity_findings": {
+    "pubmed_eutils": "直连可用（esearch实测200）",
+    "arxiv_api": "直连被干扰（SSL错误/超时），走127.0.0.1:6864代理证书验证通过，曾见429限速",
+    "biorxiv_medrxiv": "旧connect.biorxiv.com主题RSS已404全废弃；api.biorxiv.org（.org非.com）走代理可用，details端点每页30条，含逐版本记录（count_new_papers与total分离），medRxiv单日新论文约153篇",
+    "deepseek": "api.deepseek.com 走代理与直连均可达（401无密钥响应）"
+  },
+  "key_paths": {
+    "scrapers": ["Horizon/src/scrapers/pubmed.py", "Horizon/src/scrapers/biorxiv.py"],
+    "profile": "规则/Horizon-clinical-papers/",
+    "config": "Horizon/data/config.json",
+    "source_registry": "信源/论文库/信源目录.json"
+  },
+  "pending": [
+    "P6 首轮采集与管线验收",
+    "P7 端到端验收（一篇论文走通两平台，需用户选题参与）"
+  ]
+}

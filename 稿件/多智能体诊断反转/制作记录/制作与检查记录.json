@@ -1,0 +1,248 @@
+{
+ "case": "多智能体诊断反转",
+ "event_key": "evt-C05-多智能体诊断反转",
+ "created_at": "2026-10-23T15:00:00+08:00",
+ "completed_at": "2026-10-23T15:30:00+08:00",
+ "status": "completed_awaiting_user_review",
+ "input": {
+  "entry": "C05",
+  "file": "选题池/2026-10-23_122727_首轮论文候选.json",
+  "topic": "多智能体LLM诊断团队：整理病例上的召回提升在真实急诊记录上反转",
+  "source_url": "https://doi.org/10.64898/2026.09.24.26363897"
+ },
+ "source_check": {
+  "proxy": "curl -sL -x http://127.0.0.1:6864",
+  "medrxiv_abstract_html": "素材/medRxiv摘要页.html（HTTP 200，已读；标题/作者/摘要核验）",
+  "medrxiv_pdf": "素材/论文全文.pdf（HTTP 200，24页，CC-BY 4.0；本版2026-09-26提交）",
+  "full_text_extraction": "素材/论文全文提取.txt；教训：pdfplumber提取该PDF出现系统性连字/数字乱码（9→E、7→6等，曾把n=87读成n=86），改用pdftotext全文重提，与HTML摘要页逐字一致后作为数字依据",
+  "fact_check": {
+   "87例CPC": "核验通过（摘要/Table 1/Figure 2/Methods均为n=87；41开发+46留出）",
+   "406例MedCaseReasoning": "核验通过（Table 1: MCR (n = 406)）",
+   "364份急诊记录": "核验通过（ER-Reason n=364，自3,984次就诊分层抽样；症状级168+疾病级196）",
+   "392例冻结核验队列": "未核验：v1全文与摘要页grep '392'均无命中，未采用",
+   "盲法医生无安全性差异": "未核验：原文无此表述；v1局限性明言'no blinded clinician rated the discordant emergency pairs for acceptability'。实际材料为判分器经两位盲法资深临床医生100对核验（κ=0.814/0.878，医生间0.812），按此改写",
+   "预印本状态": "核验通过（medRxiv preprint，not certified by peer review，本版2026-09-26）",
+   "其他差异": "选题池记录的论文标题（Multi-agent LLM diagnostic teams...）与回源后v1实际标题（Perspective independence, more than personas, drives LLM teams — and where they reverse）不同；按工作流要求以回源实际材料为准"
+  }
+ },
+ "wechat_article": {
+  "file": "公众号/公众号正文.txt",
+  "sha256": "01325446220e439ef126e5d54f2134967033739f749214f35e4533aa72724cd9",
+  "length_chars_nospace": 3574,
+  "length_hanzi": 1363,
+  "structure": "标题+导语+5个分节小标题+图文引用式配图3处+论文信息尾注",
+  "negative_findings": "急诊反转、无盲法医生可接受性评定、未注册、事后敏感性分析、预印本状态均如实写入"
+ },
+ "figures": [
+  {
+   "file": "公众号/配图/论文首页_标题与作者.png",
+   "method": "pdftoppm -r 300 第1页 + PIL按1080:800（2550x1889）自页顶裁剪",
+   "page": 1,
+   "bounds": "垂直0-57.3%（完整含标题、全部6位作者、通讯作者与ORCID行，底边无半切）",
+   "visual_check": "analyze_image核验：标题Perspective independence...完整、六位作者齐全、底部ORCID行完整、顶部medRxiv声明横幅。注意：CDN按文件名命中旧会话缓存返回过T1D旧图，改用改尺寸副本c05_cover_resized_zz9.png取新URL后核验通过"
+  },
+  {
+   "file": "公众号/配图/论文Figure1_三种策略设计.png",
+   "method": "crop_paper_figure.py --page 4 --caption Study --bottom 0.802",
+   "page": 4,
+   "bounds": "垂直40.3%-80.2%，水平4%-96%（标题行40.5%起，图像对象43.1%-79.4%）",
+   "assertion": "首行=Figure 1标题，断言通过",
+   "visual_check": "analyze_image核验：A×1/P/MDT三架构与调用次数标注齐全，四边完整，无正文混入"
+  },
+  {
+   "file": "公众号/配图/论文Figure2_三数据集召回对比.png",
+   "method": "crop_paper_figure.py --page 5 --caption Top-k --bottom 0.842",
+   "page": 5,
+   "bounds": "垂直31.7%-84.2%，水平4%-96%（标题行31.9%起，图像对象36.5%-83.5%）",
+   "assertion": "首行=Figure 2标题，断言通过",
+   "visual_check": "analyze_image核验：CPC(n=87)/MedCaseReasoning(n=406)/ER-Reason(n=364)三面板、图例A×1/P/MDT、panel c虚线分隔输入对比、A×1柱高领先（反转可见）、边缘完整"
+  },
+  {
+   "file": "公众号/配图/论文Table3_每例token成本.png",
+   "method": "crop_paper_figure.py --page 14 --caption Token --bottom 0.84",
+   "page": 14,
+   "bounds": "垂直24.4%-84.0%，水平4%-96%（标题行24.5%起，表体至约82.4%）",
+   "assertion": "首行=Table 3标题，断言通过；区域28行",
+   "visual_check": "analyze_image核验：表头与全部行齐全，CPC行A×1 2,846±1,268/MDT 19,422±7,686等可读，末行deepseek组MDT完整无半切，未含表注（有意裁至表体）"
+  },
+  {
+   "file": "公众号/配图/论文Table2_急诊两种输入条件.png",
+   "method": "crop_paper_figure.py --page 8 --caption ER-Reason --next-text Figure",
+   "page": 8,
+   "bounds": "垂直15.7%-64.4%，水平4%-96%（Table 2标题15.9%起，Figure 4标题64.5%止）",
+   "assertion": "首行=Table 2标题、后续正文零混入，断言通过",
+   "visual_check": "analyze_image核验：列序Strategy/Input/Top-1/Top-3/Top-5与A×1两行数值（40.1/54.6/61.6与42.9/57.2/66.4）逐项与原文一致；本版图组未引用（备用于公众号改版），保留在配图目录",
+   "note": "本PDF的caption为分词存储（'Table'与'2.'分属不同词元），--caption需选标题行内唯一词（ER-Reason/Token/Top-k/Study）而非'Table N'整串"
+  }
+ ],
+ "xiaohongshu": {
+  "article_json": "小红书/制作记录/文章内容_四章节.json",
+  "copy_json": "小红书/制作记录/封面与发布文案.json",
+  "manifest": "小红书/制作记录/渲染输入_v1.json",
+  "render_dir_source": "小红书/制作记录/渲染输出_v1",
+  "delivery_dir": "小红书/图片",
+  "render_command": "node skills/lab-paper-xhs-post/scripts/render_pages.cjs --input 渲染输入_v1.json --output-dir 渲染输出_v1 --browser-executable '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'",
+  "pages": 7,
+  "dimensions": [
+   1080,
+   1440
+  ],
+  "layout_check": "status=passed；text_exact_match=true；来源仅第7页；block4跨页2-3（完整行跨页，允许）；无标题孤悬告警",
+  "page_visual_checks": [
+   "p1封面：论文首页截图+两行中文标题+一句摘要，标题作者完整，版面正常",
+   "p2创新点：紫色底纹小标题+2段，无截断（'固定'为正常CJK断行）",
+   "p3方法：Figure 1图表完整无变形，图注正确",
+   "p4结果：Figure 2图表完整无变形，图注正确",
+   "p5正文延续页：纯文字，正常",
+   "p6结论：Table 3完整（末行deepseek组MDT），图注正确",
+   "p7末页：正文结尾+来源短署名，无页眉页脚页码"
+  ],
+  "deliverables": [
+   "小红书/图片/（图片/01-07 PNG + 分页排版.html + 逐页内容.json + 排版检查.json + 来源链接.txt）",
+   "小红书/图片总览.jpg（4x2拼图2260x1500）",
+   "小红书/发布标题与正文.txt",
+   "小红书/来源链接.txt",
+   "小红书/小红书图文.zip（7张PNG+文案+来源，UTF-8文件名，python zipfile重建）"
+  ]
+ },
+ "citations_check": "四章节JSON与公众号引用句中数字（+5.5/+3.0/+3.9点、p=0.0079、3.8×10⁻⁵、40.1%对34.3%、−5.8点、38.3%对30.7%、κ=0.814/0.878/0.812、2,846/19,422/17,419 token、6.8–8.4倍、3,984、87/406/364、41+46、176B、ileus一例）逐项对照pdftotext干净全文一致；表列序（Top-1/Top-3/Top-5）已按Table 2实图核对",
+ "deviations": [
+  "analyze_image经CDN按文件名/内容去重回缓存：同名'论文首页_标题与作者.png'曾返回旧会话T1D图；以改尺寸新文件名副本重取URL后完成封面核验；7页PNG均以c05_pageXX_check新名副本核验",
+  "macOS zip命令未写UTF-8文件名标志，改用python zipfile重建ZIP",
+  "未改用Word：本次工作流要求交付公众号正文TXT底稿（参考C01固化流程），docx不在交付清单"
+ ],
+ "human_acceptance": "pending",
+ "revisions": [
+  {
+   "revision": "xiaohongshu_v2_大众用语改写",
+   "date": "2026-10-26",
+   "trigger": "用户评估指出v1文案面向大众过于晦涩，指定用语参考《NEJM医学前沿》报道（mp.weixin.qq.com/s/tJeL0NwXTzI9h9cRqjtT9g）；用语基准已录入语气参考/小红书偏好.txt",
+   "changes": [
+    "封面标题/摘要、发布标题/短正文、四章节正文全部按用语基准改写：术语首现白话化（top-3召回→前三位诊断包含正确答案的比例、三臂对照→三种方式对照、MDT→五个独立AI加主持人汇总、176B→1760亿参数）",
+    "κ值三处与科学计数法p值转文字结论（判断高度一致/差异显著），保留百分点与百分比",
+    "补回v1丢失的CPC偏乐观说明（含调试病例）与ileus实例；结果章改以外部复现数据领起",
+    "公众号未改动：source SHA256与v1一致（c1d5ac8c…）"
+   ],
+   "inputs": {
+    "article_json": "小红书/制作记录/文章内容_四章节_v2.json",
+    "copy_json": "小红书/制作记录/封面与发布文案_v2.json",
+    "manifest": "小红书/制作记录/渲染输入_v2.json",
+    "approved_draft": "小红书/制作记录/大众用语改写_v2草稿.txt（用户2026-10-26确认后转正式输入）"
+   },
+   "render": {
+    "render_dir": "小红书/制作记录/渲染输出_v2",
+    "command": "node skills/lab-paper-xhs-post/scripts/render_pages.cjs --input 渲染输入_v2.json --output-dir 渲染输出_v2",
+    "pages": 7,
+    "dimensions": [
+     1080,
+     1440
+    ],
+    "layout_check": "status=passed；text_exact_match=true（1,128字）；来源仅第7页；block4跨页2-3完整行；4个小标题follow行数4/6/6/7均≥2无孤悬"
+   },
+   "visual_checks": [
+    "自动检查全过后逐张目检：封面标题两行完整、论文首页截图完整、摘要条全分辨率条带逐字核对无误（'协和团队用同一模型对比三种问诊方式…364份…'）",
+    "p2创新点/方法小标题样式正确无孤悬；p3 Figure 1完整图注正确；p4 Figure 2完整，底部条带确认为'论文Figure 2：…（medRxiv:10.64898/…v1）'图注、图后无其他元素",
+    "p5跨页续文+结论小标题（底纹下划线、后接正文7行）末行'量见论文Table 3。'句号完整；p6 Table 3+图注+证据边界段完整；p7来源页仅来源文字"
+   ],
+   "deviations": [
+    "CDN缩图OCR不可靠：全页视觉模型低分辨率下误读（Figure 1→Figure 5、364→56、同一→一般、qwen3.8-flash→flush），并以第4页图注DOI为据幻觉出'URL/参考文献行'；经排版JSON交叉核对+素材底部条带与页面局部条带全分辨率复核，均为误读，实际渲染正确",
+    "第5页整页在analyze_image侧两次400解析失败，改用上下半幅条带分别核查通过",
+    "07页顶端细线为模板来源分隔样式，v1相同，非页眉"
+   ],
+   "delivery": {
+    "delivered": [
+     "小红书/图片/（v2：7 PNG+分页排版.html+逐页内容.json+排版检查.json+来源链接.txt）",
+     "小红书/图片总览.jpg（4x2拼图2250x1496）",
+     "小红书/发布标题与正文.txt",
+     "小红书/来源链接.txt",
+     "小红书/小红书图文.zip（python zipfile，UTF-8文件名）"
+    ],
+    "archived_v1": "小红书/历史版本/v1_技术用语版/（图片/、图片总览.jpg、发布标题与正文.txt、来源链接.txt）",
+    "ledger_record": "制作记录/台账记录_小红书v2用语改写.json（evt-1f6d571d17f62ca4f45f，xiaohongshu awaiting_user_review）"
+   },
+   "human_acceptance": "pending"
+  },
+  {
+   "revision": "xiaohongshu_v2_1_标题零上下文可读",
+   "date": "2026-10-26",
+   "trigger": "用户三轮反馈：①'反转'不说方向；②'更差'缺指标；③'五专家会诊/直接问一次'系术语压缩、冷读者不可懂；随后确认'可适当增加字数，让标题更直接被理解'",
+   "changes": [
+    "封面标题扩为3行完整句：'让AI扮演专家会诊／364份急诊记录实测／准确率不如直接问一次'（主体+场景+指标+比较对象全齐，零上下文可读）",
+    "封面摘要改为与标题互补：'协和团队实测：整理好的病例上会诊诊断清单更全，换到真实急诊却输给直接问一次——问题出在让AI扮演专科专家'",
+    "发布标题改为'让AI演专家会诊，急诊实测不如直接问一次'（20字整，含标点，压线合规；v2的25字超小红书20字上限，系本轮发现的既有问题）",
+    "正文6页未动：与v2渲染逐字节一致（SHA256核对），仅封面页变化；封面图高768px（3行标题下仍为主体）"
+   ],
+   "render": {
+    "render_dir": "小红书/制作记录/渲染输出_v2_1",
+    "pages": 7,
+    "dimensions": [
+     1080,
+     1440
+    ],
+    "layout_check": "status=passed；text_exact_match=true；来源仅第7页；block4跨页2-3完整行；小标题无孤悬",
+    "body_pages_identical_to": "渲染输出_v2（2-7页SHA256逐字节一致）"
+   },
+   "visual_checks": [
+    "封面文字区条带逐字核对：3行标题完整无截断无孤字、摘要正确；已知小瑕疵：摘要自然换行处'AI'落行首，属可接受范围未回改"
+   ],
+   "delivery": {
+    "updated": [
+     "小红书/图片/（v2.1封面+排版证据）",
+     "小红书/发布标题与正文.txt",
+     "小红书/图片总览.jpg",
+     "小红书/小红书图文.zip"
+    ],
+    "ledger_record": "制作记录/台账记录_小红书v2_1标题修正.json"
+   },
+   "human_acceptance": "pending"
+  },
+  {
+   "revision": "xiaohongshu_v2_2_用户定稿标题",
+   "date": "2026-10-26",
+   "trigger": "用户提供标题：'五个ai专家的综合问诊，诊断准确率竟输给了直接向ai提问'（四要素齐全+反转情绪词'竟'）",
+   "changes": [
+    "封面标题采用用户原句3行排版；第一行删'的'（原句约979px超952px可用宽，'诊'成孤字行——CDISC案例同款问题；删后约880px单行放下，语义不变）",
+    "发布标题精简至19字：'五个AI专家综合问诊，竟输给直接问AI'（用户原句28字超平台20字上限；发布标题仅在文案TXT可随时改，不涉重渲）",
+    "摘要措辞与新标题对齐（直接问一次→直接向AI提问）；正文6页与v2逐字节一致"
+   ],
+   "render": {
+    "render_dir": "小红书/制作记录/渲染输出_v2_2c",
+    "manifest": "渲染输入_v2_2b.json",
+    "layout_check": "status=passed；text_exact_match=true；来源仅第7页；block4跨页2-3；封面图高769px",
+    "visual_checks": [
+     "封面文字区条带逐字核对：3行标题完整无截断无孤字、行宽均衡、摘要正确；顶部小字为论文首页截图内的作者单位行，属封面图本体"
+    ],
+    "diagnostic_kept": "渲染输出_v2_2与v2_2b为孤字问题诊断版本（v2_2b因manifest路径占用渲染了旧标题），按'失败保留诊断'保留未清理"
+   },
+   "human_acceptance": "pending"
+  },
+  {
+   "revision": "wechat_full_rewrite_v3",
+   "date": "2026-10-28",
+   "trigger": "用户要求对项目全部6篇论文按完整流程重新生成公众号稿件（此前2026-10-28上午另一会话已按PFA样例做过一轮样式改写但未回源核验、未记录台账）；本次回到各案例素材全文提取逐项核验事实后重写，并补全记录。",
+   "changes": [
+    "正文全文重写（PFA样例结构：主标题+——副标题、读者痛点开头、三个加粗追问路线图、判断句加粗小标题、[1]引用、参考文献节、按主题定制的斜体免责声明）",
+    "事实逐项回源：草稿中每个数字/专名在素材/论文全文提取.txt中找到对应原文行，未核验主张删除（详见制作记录/公众号正文_重写草稿_20261028.txt随附核验报告，报告正文存于当次会话交付摘要）",
+    "历史未核验主张（多智能体案例392例队列、盲法医生安全性差异）确认未写入",
+    "图文引用式配图：配图标记与配图/清单文件一一对应；多智能体案例启用此前备用Table 2",
+    "Word重建：宋体/Songti SC，标题16pt居中加粗、副标题12pt、小标题13pt、正文11pt、图6.1英寸+9pt来源题注、表格Table Grid 10pt、数据来源注9pt斜体、参考文献10pt",
+    "上午版正文与docx存历史版本/公众号正文_上午版20261028.txt、公众号稿件_上午版20261028.docx"
+   ],
+   "verification": {
+    "content_completeness": "6/6通过：docx全文与正文TXT规范化比对，仅markdown表格对齐行（语法行）不入文，无内容缺漏",
+    "visual_check": "6/6通过：qlmanage原生渲染首页逐张核查（无豆腐块乱码、无重叠截断、标题居中加粗、正文两端对齐、图片完整）；MERIT首页可见表格边框表头完整与自然分页",
+    "image_fit": "全部嵌入图高≤7.36英寸（页可用高8.9英寸），无跨页异常",
+    "limitations": "本机Word版本AppleScript不支持save as导出PDF、screencapture无屏幕录制权限，第2页起未做逐页目检；分页正常性由同版式参数（与已交付上午版一致）+无超高元素+首页自然分页佐证"
+   },
+   "human_acceptance": "pending",
+   "files": {
+    "article": "公众号/公众号正文.txt",
+    "article_sha256": "01325446220e439ef126e5d54f2134967033739f749214f35e4533aa72724cd9",
+    "docx": "公众号/公众号稿件.docx",
+    "docx_sha256": "129b6b14a6873277678f70872ecc7a416265018f32366b83a9bc714cd4832c37",
+    "draft_with_verification": "制作记录/公众号正文_重写草稿_20261028.txt"
+   },
+   "chars_nospace": 3574
+  }
+ ]
+}

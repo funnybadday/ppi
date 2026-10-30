@@ -1,0 +1,19 @@
+论文库信源：当前接入与维护
+
+论文版项目接入4个论文库、共6条通道：arXiv 3条Atom查询（RSS通道）、PubMed 1条检索式（原生pubmed抓取器）、bioRxiv与medRxiv各1条（共用biorxiv抓取器，server参数区分）。本目录保留信源目录、配置镜像与接入说明；实际运行配置是项目根目录下的Horizon/data/config.json，不能用本目录片段覆盖整份配置。
+
+网络与代理（重要）
+
+arXiv（export.arxiv.org）、bioRxiv/medRxiv（api.biorxiv.org）在本机直连被干扰，必须走本地代理：Horizon/.env 已配置 HTTP_PROXY/HTTPS_PROXY=http://127.0.0.1:6864，采集前确认代理应用正在运行。PubMed（eutils.ncbi.nlm.nih.gov）可直连亦可走代理。api.biorxiv.org 注意域名是 .org；旧 connect.biorxiv.com 主题RSS端点已于2026-10实测全部404，勿再使用。
+
+接入方式与量级
+
+arXiv：Atom API查询URL作为普通RSS通道接入（feedparser可解析Atom），sortBy=submittedDate只取新提交；三条查询分别覆盖虚拟试验/数字孪生短语网、分类×AI词网、试验任务词网；限速约1请求/3秒，偶发429时合并查询重试。量级约20—60条/天。
+
+PubMed：esearch（term + reldate窗口 + datetype=edat）→ efetch（XML批量取标题/摘要/作者/期刊/DOI），由 src/scrapers/pubmed.py 实现；匿名限速3请求/秒。量级约30—100条/天。
+
+bioRxiv/medRxiv：api.biorxiv.org details端点按日期区间分页（每页30条，页间1秒），category白名单本地过滤（API无服务端主题筛选；medRxiv=health informatics+epidemiology，bioRxiv=bioinformatics）；API返回逐版本记录，抓取器按DOI去重保留最新版本。量级合计约60—120条/天。
+
+增删与调优
+
+先对照信源目录.json确认现有覆盖；修改检索式或主题后同步更新三处：主配置、本目录镜像、信源目录.json。量控优先收窄检索式/主题（bioinformatics第一候选），阈值5.0不动（复筛线不是淘汰线）。检查记录的日期代表当时连通情况，不能作为今天仍成功的证明。运行和窗口规则见 skills/lab-paper-workflow/references/horizon-operations.md。

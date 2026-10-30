@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "article": {
+    "title": "单细胞级数字孪生筛选早产预防用药：模拟排序中叶酸代谢物与阿司匹林+兰索拉唑居前",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "创新点"
+      },
+      {
+        "type": "paragraph",
+        "text": "Stanford团队10月21日在Science Advances发表SIMCO框架（Simulated Immunome Modeling of Clinical Outcomes）：把数字孪生做到单细胞分辨率，直接模拟免疫调节药物对\"距自然分娩时间\"这一临床结局的影响，用于自发性早产（sPTL）的预防用药筛选——孕期新药临床试验受伦理与经费限制，这类模拟正是数字孪生的适用场景。"
+      },
+      {
+        "type": "paragraph",
+        "text": "框架分三步：用最优传输模型CellOT学习单细胞扰动响应，投影到独立队列生成\"用药/不用药\"两个数字孪生，再用稀疏模型Stabl预测分娩时间，两个孪生的预测差即药物模拟效应。框架总览见论文Figure 1。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/公众号/配图/论文原图_Figure1_框架总览.png",
+        "caption": "论文Figure 1：SIMCO单细胞级数字孪生框架总览（Science Advances, eaed2741）"
+      },
+      {
+        "type": "heading",
+        "text": "方法"
+      },
+      {
+        "type": "paragraph",
+        "text": "训练数据是新建的质谱流式扰动图谱：8名非孕与11名孕20-27周女性，96孔外显全血免疫分析，共2.18亿个白细胞、80个扰动场景。9种候选药全部为FDA妊娠A/B类口服药（8种单药+1个组合），由已发表的计算药物重定位管线预选，实验浓度按口服标准剂量后的血浆水平设定，各药剂量与浓度见论文Table 2。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/公众号/配图/论文Table2_候选药物.png",
+        "caption": "论文Table 2：9种sPTL预防候选药的剂量、半衰期与实验浓度（Science Advances, eaed2741）"
+      },
+      {
+        "type": "paragraph",
+        "text": "在扰动图谱内的四折交叉验证中，SIMCO的单细胞模拟在MAE、R2、MMD三项指标上均优于两个基线，模拟误差与患者间真实变异的相关达Spearman R=0.93，验证设计见论文Figure 4。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/公众号/配图/论文原图_Figure4_模拟验证.png",
+        "caption": "论文Figure 4：模拟与实测免疫响应的对比验证（Science Advances, eaed2741）"
+      },
+      {
+        "type": "heading",
+        "text": "结果"
+      },
+      {
+        "type": "paragraph",
+        "text": "应用于独立纵向队列（Stelzer等采集的177份血样、63名孕妇，含5名sPTL患者）：SIMCO预测距分娩时间为Pearson R=0.64、RMSE 24.1天，区分早产与足月的AUROC为0.75（95%CI 0.59-0.88）。"
+      },
+      {
+        "type": "paragraph",
+        "text": "药物模拟排序：THF（叶酸活性代谢物）平均延长24.7天（IQR 11.4-45.9）居首，马普替林18.8天、阿司匹林+兰索拉唑组合（SALPZ）17.3天；THF、SALPZ、马普替林分别让90.5%、87.3%、82.5%的孕妇在模拟中延长孕周，单用阿司匹林代谢物SA只有46%。各药效应与机制见论文Figure 5。"
+      },
+      {
+        "type": "image",
+        "file": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/公众号/配图/论文原图_Figure5_药物效应.png",
+        "caption": "论文Figure 5：SIMCO预测九种候选药对分娩时间的影响（Science Advances, eaed2741）"
+      },
+      {
+        "type": "paragraph",
+        "text": "机制解释：THF与SALPZ主要通过抑制初始CD4+ T细胞的pSTAT3信号（JAK/STAT通路）与增强粒细胞pS6响应（mTOR通路）延迟分娩相关的免疫演变，两者对模型前10个关键特征中的7个产生期望方向的调节。"
+      },
+      {
+        "type": "heading",
+        "text": "结论"
+      },
+      {
+        "type": "paragraph",
+        "text": "论文反复明确：全部药物效应来自in silico模拟，不是临床试验结果。局限包括训练图谱仅19人、集中于孕中期窗口、只取外周血；独立队列中早产患者仅5人；实验只测2小时内的急性磷酸化信号；单次给药模拟以患者内聚合近似重复用药。作者将SIMCO定位为概念验证：适合早期化合物优先级排序与机制假设生成，转化为预防策略还需跨孕周大队列、动物实验与前瞻性临床验证。"
+      }
+    ],
+    "sources": [
+      {
+        "label": "论文：Single-cell-level digital twins for preterm birth prevention strategies",
+        "publisher": "Science Advances（Stanford University，Jakob Einhaus等）",
+        "date": "2026-10-21",
+        "url": "https://www.science.org/doi/10.1126/sciadv.aed2741"
+      }
+    ]
+  },
+  "copy": {
+    "cover_title": "单细胞级数字孪生\n模拟筛选早产预防用药",
+    "cover_summary": "Stanford团队在Science Advances提出SIMCO：在独立孕妇队列模拟九种候选药对分娩时间的影响，叶酸代谢物与阿司匹林+兰索拉唑居前。",
+    "post_title": "单细胞级数字孪生模拟孕期用药：九种候选药谁最延迟分娩",
+    "post_body": "Stanford团队10月21日在Science Advances发表SIMCO框架：把数字孪生做到单细胞分辨率，先在自建的质谱流式扰动图谱（19名志愿者、9种FDA妊娠A/B类候选药、2.18亿个白细胞）上学习药物如何改变免疫细胞，再到独立孕妇队列（177份血样、63人）上生成\"用药/不用药\"两个数字孪生，用预测差估计药物对\"距自然分娩时间\"的影响。\n\n模拟结果里叶酸活性代谢物THF平均延长24.7天居首，阿司匹林+兰索拉唑组合17.3天、让87.3%的孕妇延长孕周；机制指向抑制初始CD4+ T细胞的JAK/STAT信号与增强粒细胞的mTOR信号。\n\n注意边界：这些天数全部来自in silico模拟而非临床试验，论文也明确训练样本仅19人、队列中早产患者仅5人。作者定位是概念验证，用于候选药优先级排序与机制假设。",
+    "source_line": "来源：Science Advances 12, eaed2741（Stanford University，2026-10-21在线）。",
+    "hashtags": [
+      "数字孪生",
+      "虚拟患者",
+      "早产预防",
+      "单细胞",
+      "论文解读"
+    ],
+    "content_basis": "基于回源后的论文全文PDF与PubMed记录制作；关键数字已对照原文逐项核对。",
+    "status": "awaiting_user_review"
+  },
+  "cover": {
+    "mode": "image",
+    "image": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/公众号/配图/论文首页_标题与作者.png"
+  },
+  "source": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/SIMCO孕期用药孪生/公众号/公众号正文.txt",
+    "sha256": "5475d0a785fe61fceaa276bd1f66d08f8dab62d8d0a3894aca8a83052e1b6da7"
+  }
+}

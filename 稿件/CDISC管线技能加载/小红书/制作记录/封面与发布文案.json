@@ -1,0 +1,10 @@
+{
+  "cover_title": "拓扑引导技能加载\n何时有用、何时无用",
+  "cover_summary": "JMIR Formative Research单作者研究：45节点CDISC工作流DAG引导59个SKILL.md技能加载，把拓扑的价值从语料获取里分离出来。",
+  "post_title": "按工序给AI加载规则：工作流拓扑何时有用、何时无用",
+  "post_body": "Harrisburg University的Jaime Yan 10月20日在JMIR Formative Research发表研究，针对CDISC SDTM/ADaM管线里LLM生成“看似合理”的伪影（漏变量、错术语、编派生逻辑），把管线建成45节点、7层的工作流DAG，59个模块化SKILL.md规则文件绑定到节点上，在8000 token预算内按拓扑路由加载。\n\n结论是条件性的：任务措辞已点名证据时，图+BM25与纯BM25等价（差0.009），此时BM25已召回95.8%必需证据；证据藏在依赖链、措辞找不到时，纯图选择0.715对0.367大胜BM25，必需证据召回从0.500补到1.000。拓扑路由没有全面超过扁平或随机加载，但低上下文调度器少用28.82%上下文仍保持质量，559个注入片段全有来源记录、120份manifest全部复现。\n\n证据来自合成基准、单一GLM-5骨干与单一评分专家，作者定位为形成性研究，待独立因子验证。",
+  "source_line": "来源：JMIR Form Res 2026;10:e100769（Harrisburg University，Jaime Yan，2026-10-20发表，DOI: 10.2196/100769）。",
+  "hashtags": ["AI临床试验", "CDISC", "智能体", "大语言模型", "论文解读"],
+  "content_basis": "本轮从PubMed记录与JMIR期刊PDF回源核验后新制；图表坐标级裁剪自论文PDF。",
+  "status": "awaiting_user_review"
+}

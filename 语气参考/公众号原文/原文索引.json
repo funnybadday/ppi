@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-27",
+  "note": "用户指定的公众号文章分享样例，已替换原T1D项目内制作稿。仅保留文章正文、论文图表和参考文献；移除文末公司标识、公司介绍、官网与关注引导。HTML为原文正文的本地可读存档，两张正文配图内嵌，文字未改写。来源署名仅存于本索引。",
+  "references": [
+    {
+      "title": "PFA能否改写室上速消融？621例中国研究带来一年随访新证据",
+      "account": "心航路医学",
+      "url": "https://mp.weixin.qq.com/s/UHHSJ59g5MUQT2tKZhS-uQ",
+      "published_at": "2026-10-26 20:00 +08:00",
+      "html": "PFA室上速消融_一年随访研究.html",
+      "text": "PFA室上速消融_一年随访研究_正文.txt",
+      "html_sha256": "d35805bcc394beb6aa9e8a13dbbfff87ea736f41fbc0ebaebf5aef772c299931",
+      "text_sha256": "a7006a5ac5e673a7de33ed5298fb4867e4a0603db6247fc3f2812719c8380a13",
+      "body_chars": 3523,
+      "role": "用户指定的文章分享语气与结构样例；只参考论文解读内容，不模仿公司介绍与推广。",
+      "integrity_checked_at": "2026-10-27T17:44:37+08:00",
+      "extraction": {
+        "scope": "article_body_and_references",
+        "excluded": "文末公司Logo及关于心航路医学（EnChannel Medical）开始的全部公司介绍、官网与关注引导",
+        "paragraph_blocks": 47,
+        "table_count": 1,
+        "table_rows": 5,
+        "embedded_article_images": 2,
+        "image_sources": [
+          "https://mmbiz.qpic.cn/sz_mmbiz_png/Fm1zcm3DWkbH8V4g3yjBzLNic9DIOhr15oEHC9tpEM4esI8zdCFo2JsLojcGVAXvR4vZxMVIlp0uG2FSQ4rE2HLO8iatToKTpCOysLYwGdibPw/640?wx_fmt=png&from=appmsg",
+          "https://mmbiz.qpic.cn/mmbiz_png/Fm1zcm3DWkZC4OyN0OiaeyvAKtFjP2yu1ibOmuGczWY7aAibz1yonfNfLicZwPNFZMIu8fv6dgLxkCY4GiammaADaibnfvryn67L6jficsdMc6f36E/640?wx_fmt=png&from=appmsg"
+        ],
+        "text_matches_source_article": true
+      }
+    }
+  ]
+}

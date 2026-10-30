@@ -1,0 +1,780 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-23T07:15:14.705Z",
+  "input": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/MERIT药物结局预测/小红书/制作记录/渲染输入_v1.json",
+    "sha256": "c49927941c3e8faf858ce152ba5143149a491924976ca65c1f9d16538d711013",
+    "source": {
+      "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/MERIT药物结局预测/公众号/公众号正文.txt",
+      "sha256": "8601267039f3c46570557f4f48d1d0315ede18cabfe2269a856d8990629b6315"
+    }
+  },
+  "theme": {
+    "width": 1080,
+    "height": 1440,
+    "margin": 64,
+    "font_size": 42,
+    "line_height": 68,
+    "paragraph_gap": 24,
+    "heading_size": 42,
+    "heading_line_height": 64,
+    "column_gap": 128,
+    "highlight": "#EAE3F4",
+    "underline": "#8064A8",
+    "background": "#FFFFFF",
+    "text": "#161616",
+    "font_family": "Songti SC",
+    "cover_title_size": 96,
+    "cover_summary_size": 40,
+    "source_size": 22,
+    "source_line_height": 36
+  },
+  "text_exact_match": true,
+  "text_blocks": 12,
+  "text_characters": 1258,
+  "body_columns": 6,
+  "image_count": 7,
+  "dimensions": [
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    }
+  ],
+  "pages": [
+    {
+      "page": 2,
+      "column": 0,
+      "content_top": 2,
+      "content_bottom": 1169.03125,
+      "bottom_whitespace": 142.96875,
+      "fragments": [
+        {
+          "source_block_index": 0,
+          "type": "heading",
+          "start": 0,
+          "end": 3,
+          "page": 2,
+          "text": "创新点",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 1,
+          "type": "paragraph",
+          "start": 0,
+          "end": 117,
+          "page": 2,
+          "text": "这篇论文先改评估、再谈模型。以往药物试验结局预测常把试验设计、既往研发史或化合物身份放进特征，同一化合物可同时出现在训练集与测试集，模型靠“记住哪些药容易成功”就能得高分。MERIT只用分子机制与疾病特征，评估时把化合物结构整体留出。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292,
+            360,
+            428
+          ]
+        },
+        {
+          "source_block_index": 2,
+          "type": "paragraph",
+          "start": 0,
+          "end": 132,
+          "page": 2,
+          "text": "作者把这种仅由数据划分造成的成绩差量化为“记忆差距”。在此标准下重训的HINT为0.626，MERIT为0.704；TrialBench的特征从报告的0.794降到0.637，信号很大程度来自入组人数与工业申办等机构元特征。与已发表方法的对照见论文Table 1。",
+          "line_tops": [
+            520,
+            588,
+            656,
+            724,
+            792
+          ]
+        }
+      ],
+      "image_blocks": [
+        3
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 3,
+      "column": 1,
+      "content_top": 2,
+      "content_bottom": 919,
+      "bottom_whitespace": 393,
+      "fragments": [
+        {
+          "source_block_index": 4,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 3,
+          "text": "方法",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 5,
+          "type": "paragraph",
+          "start": 0,
+          "end": 108,
+          "page": 3,
+          "text": "队列来自ClinicalTrials.gov的AACT库：428,377条药物干预记录，经人工复核与盲法标签审计，收敛为753个小分子药物、3,133项试验（通过2,558、疗效失败490、安全失败80、双失败5）。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292
+          ]
+        },
+        {
+          "source_block_index": 6,
+          "type": "paragraph",
+          "start": 0,
+          "end": 191,
+          "page": 3,
+          "text": "每个化合物用八个试验前模块刻画——组织特异结合（Human Protein Atlas）、通路富集（STRING对Open Targets）、靶点-疾病机制与遗传支持、结合特异性、安全药理、药代（DruMAP）、疾病与试验背景——加第九个试验设计模块，合计285个特征进梯度提升树；交叉验证按SMILES结构分组，测试化合物的结构绝不进训练集。筛选漏斗与架构见论文Figure 1。",
+          "line_tops": [
+            384,
+            452,
+            520,
+            588,
+            656,
+            724,
+            792,
+            860
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": false
+    },
+    {
+      "page": 4,
+      "column": 2,
+      "content_top": 0,
+      "content_bottom": 1134,
+      "bottom_whitespace": 178,
+      "fragments": [
+        {
+          "source_block_index": 8,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 4,
+          "text": "结果",
+          "line_tops": [
+            921
+          ]
+        },
+        {
+          "source_block_index": 9,
+          "type": "paragraph",
+          "start": 0,
+          "end": 62,
+          "page": 4,
+          "text": "化合物留出测试下，MERIT整体AUC 0.770（药物聚类自助95% CI 0.745–0.796），疗效0.765、安全",
+          "line_tops": [
+            1007,
+            1075
+          ]
+        }
+      ],
+      "image_blocks": [
+        7
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 5,
+      "column": 3,
+      "content_top": 4,
+      "content_bottom": 1151.34375,
+      "bottom_whitespace": 160.65625,
+      "fragments": [
+        {
+          "source_block_index": 9,
+          "type": "paragraph",
+          "start": 62,
+          "end": 139,
+          "page": 5,
+          "text": "0.784；50次打乱标签平均0.498，跌回随机。被标记最可能失败的100项试验实际失败率是背景的4–6倍。ROC曲线与信号分解见论文Figure 2。",
+          "line_tops": [
+            4,
+            72,
+            140
+          ]
+        },
+        {
+          "source_block_index": 11,
+          "type": "paragraph",
+          "start": 0,
+          "end": 133,
+          "page": 5,
+          "text": "机制特征是真信号源：只用疾病/试验标志为0.615，加疾病历史失败率升至0.689，再加分子机制到0.740，疗效上的机制增量（+0.051）超过疾病自身难度（+0.026）。只用截止年前试验训练、在更晚且结构全新的化合物上测试，整体AUC 0.704–0.737。",
+          "line_tops": [
+            752.34,
+            820.34,
+            888.34,
+            956.34,
+            1024.34,
+            1092.34
+          ]
+        }
+      ],
+      "image_blocks": [
+        10
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 6,
+      "column": 4,
+      "content_top": 2,
+      "content_bottom": 1176.390625,
+      "bottom_whitespace": 135.609375,
+      "fragments": [
+        {
+          "source_block_index": 12,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 6,
+          "text": "结论",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 13,
+          "type": "paragraph",
+          "start": 0,
+          "end": 210,
+          "page": 6,
+          "text": "把失败概率反过来（fit = 1 − P(fail)）就是机制匹配分，预测时化合物被留出、不用药名特征。60个“一个适应症失败、另一个适应症获批”的药物中83%（50个）获批项排在失败项之上；139个同时有成功与疗效失败适应症的化合物中75%（104/139）匹配分指向成功项。伊马替尼映射到慢性髓系白血病0.99、胃肠间质瘤0.98，远高于其失败的COVID-19（0.006）。三项再定位验证见论文Figure 4。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292,
+            360,
+            428,
+            496,
+            564
+          ]
+        }
+      ],
+      "image_blocks": [
+        14
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 7,
+      "column": 5,
+      "content_top": 4,
+      "content_bottom": 770,
+      "bottom_whitespace": 542,
+      "fragments": [
+        {
+          "source_block_index": 15,
+          "type": "paragraph",
+          "start": 0,
+          "end": 219,
+          "page": 7,
+          "text": "对154个疗效失败且无获批适应症的药物，模型提名新适应症：经核验的146个提名中88%至少有临床前证据，67%已有同药或同靶药物的注册试验。边界如实：全部性能为回顾性；安全头最弱（III期限定0.731）且依赖未完全公开的STAR结合层；重复试验18%结果不一致，疗效0.765接近试验前分子模型上限；作者另注册了55个进行中III期组合的锁定盲态预测等待读出。Omic Inc.资助的预印本，未经同行评审，代码与数据在GitHub公开。",
+          "line_tops": [
+            4,
+            72,
+            140,
+            208,
+            276,
+            344,
+            412,
+            480,
+            548
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": true
+    }
+  ],
+  "fragments": [
+    {
+      "source_block_index": 0,
+      "type": "heading",
+      "start": 0,
+      "end": 3,
+      "page": 2,
+      "text": "创新点",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 1,
+      "type": "paragraph",
+      "start": 0,
+      "end": 117,
+      "page": 2,
+      "text": "这篇论文先改评估、再谈模型。以往药物试验结局预测常把试验设计、既往研发史或化合物身份放进特征，同一化合物可同时出现在训练集与测试集，模型靠“记住哪些药容易成功”就能得高分。MERIT只用分子机制与疾病特征，评估时把化合物结构整体留出。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292,
+        360,
+        428
+      ]
+    },
+    {
+      "source_block_index": 2,
+      "type": "paragraph",
+      "start": 0,
+      "end": 132,
+      "page": 2,
+      "text": "作者把这种仅由数据划分造成的成绩差量化为“记忆差距”。在此标准下重训的HINT为0.626，MERIT为0.704；TrialBench的特征从报告的0.794降到0.637，信号很大程度来自入组人数与工业申办等机构元特征。与已发表方法的对照见论文Table 1。",
+      "line_tops": [
+        520,
+        588,
+        656,
+        724,
+        792
+      ]
+    },
+    {
+      "source_block_index": 4,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 3,
+      "text": "方法",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 5,
+      "type": "paragraph",
+      "start": 0,
+      "end": 108,
+      "page": 3,
+      "text": "队列来自ClinicalTrials.gov的AACT库：428,377条药物干预记录，经人工复核与盲法标签审计，收敛为753个小分子药物、3,133项试验（通过2,558、疗效失败490、安全失败80、双失败5）。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292
+      ]
+    },
+    {
+      "source_block_index": 6,
+      "type": "paragraph",
+      "start": 0,
+      "end": 191,
+      "page": 3,
+      "text": "每个化合物用八个试验前模块刻画——组织特异结合（Human Protein Atlas）、通路富集（STRING对Open Targets）、靶点-疾病机制与遗传支持、结合特异性、安全药理、药代（DruMAP）、疾病与试验背景——加第九个试验设计模块，合计285个特征进梯度提升树；交叉验证按SMILES结构分组，测试化合物的结构绝不进训练集。筛选漏斗与架构见论文Figure 1。",
+      "line_tops": [
+        384,
+        452,
+        520,
+        588,
+        656,
+        724,
+        792,
+        860
+      ]
+    },
+    {
+      "source_block_index": 8,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 4,
+      "text": "结果",
+      "line_tops": [
+        921
+      ]
+    },
+    {
+      "source_block_index": 9,
+      "type": "paragraph",
+      "start": 0,
+      "end": 62,
+      "page": 4,
+      "text": "化合物留出测试下，MERIT整体AUC 0.770（药物聚类自助95% CI 0.745–0.796），疗效0.765、安全",
+      "line_tops": [
+        1007,
+        1075
+      ]
+    },
+    {
+      "source_block_index": 9,
+      "type": "paragraph",
+      "start": 62,
+      "end": 139,
+      "page": 5,
+      "text": "0.784；50次打乱标签平均0.498，跌回随机。被标记最可能失败的100项试验实际失败率是背景的4–6倍。ROC曲线与信号分解见论文Figure 2。",
+      "line_tops": [
+        4,
+        72,
+        140
+      ]
+    },
+    {
+      "source_block_index": 11,
+      "type": "paragraph",
+      "start": 0,
+      "end": 133,
+      "page": 5,
+      "text": "机制特征是真信号源：只用疾病/试验标志为0.615，加疾病历史失败率升至0.689，再加分子机制到0.740，疗效上的机制增量（+0.051）超过疾病自身难度（+0.026）。只用截止年前试验训练、在更晚且结构全新的化合物上测试，整体AUC 0.704–0.737。",
+      "line_tops": [
+        752.34,
+        820.34,
+        888.34,
+        956.34,
+        1024.34,
+        1092.34
+      ]
+    },
+    {
+      "source_block_index": 12,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 6,
+      "text": "结论",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 13,
+      "type": "paragraph",
+      "start": 0,
+      "end": 210,
+      "page": 6,
+      "text": "把失败概率反过来（fit = 1 − P(fail)）就是机制匹配分，预测时化合物被留出、不用药名特征。60个“一个适应症失败、另一个适应症获批”的药物中83%（50个）获批项排在失败项之上；139个同时有成功与疗效失败适应症的化合物中75%（104/139）匹配分指向成功项。伊马替尼映射到慢性髓系白血病0.99、胃肠间质瘤0.98，远高于其失败的COVID-19（0.006）。三项再定位验证见论文Figure 4。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292,
+        360,
+        428,
+        496,
+        564
+      ]
+    },
+    {
+      "source_block_index": 15,
+      "type": "paragraph",
+      "start": 0,
+      "end": 219,
+      "page": 7,
+      "text": "对154个疗效失败且无获批适应症的药物，模型提名新适应症：经核验的146个提名中88%至少有临床前证据，67%已有同药或同靶药物的注册试验。边界如实：全部性能为回顾性；安全头最弱（III期限定0.731）且依赖未完全公开的STAR结合层；重复试验18%结果不一致，疗效0.765接近试验前分子模型上限；作者另注册了55个进行中III期组合的锁定盲态预测等待读出。Omic Inc.资助的预印本，未经同行评审，代码与数据在GitHub公开。",
+      "line_tops": [
+        4,
+        72,
+        140,
+        208,
+        276,
+        344,
+        412,
+        480,
+        548
+      ]
+    }
+  ],
+  "split_paragraphs": [
+    {
+      "index": 9,
+      "type": "paragraph",
+      "text": "化合物留出测试下，MERIT整体AUC 0.770（药物聚类自助95% CI 0.745–0.796），疗效0.765、安全0.784；50次打乱标签平均0.498，跌回随机。被标记最可能失败的100项试验实际失败率是背景的4–6倍。ROC曲线与信号分解见论文Figure 2。",
+      "pages": [
+        4,
+        5
+      ]
+    }
+  ],
+  "heading_checks": [
+    {
+      "source_block_index": 0,
+      "page": 2,
+      "following_text_lines": 6,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 4,
+      "page": 3,
+      "following_text_lines": 4,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 8,
+      "page": 4,
+      "following_text_lines": 2,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 12,
+      "page": 6,
+      "following_text_lines": 8,
+      "required_lines": 2
+    }
+  ],
+  "palette": [
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    }
+  ],
+  "cover": {
+    "image_height": 768.671875,
+    "bottom_whitespace": 64
+  },
+  "header_footer_count": 0,
+  "source_present": true,
+  "source_only_final_visible_page": true,
+  "source_pages": [
+    7
+  ],
+  "blocks": [
+    {
+      "index": 0,
+      "type": "heading",
+      "text": "创新点",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 1,
+      "type": "paragraph",
+      "text": "这篇论文先改评估、再谈模型。以往药物试验结局预测常把试验设计、既往研发史或化合物身份放进特征，同一化合物可同时出现在训练集与测试集，模型靠“记住哪些药容易成功”就能得高分。MERIT只用分子机制与疾病特征，评估时把化合物结构整体留出。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "type": "paragraph",
+      "text": "作者把这种仅由数据划分造成的成绩差量化为“记忆差距”。在此标准下重训的HINT为0.626，MERIT为0.704；TrialBench的特征从报告的0.794降到0.637，信号很大程度来自入组人数与工业申办等机构元特征。与已发表方法的对照见论文Table 1。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "pages": [
+        2
+      ],
+      "caption": "论文Table 1：与已发表试验结局预测方法在共享试验上的对照（bioRxiv:2026.08.09.743088）",
+      "image_bounds": {
+        "x": 0,
+        "top": 880,
+        "bottom": 1169.03125,
+        "width": 952
+      }
+    },
+    {
+      "index": 4,
+      "type": "heading",
+      "text": "方法",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 5,
+      "type": "paragraph",
+      "text": "队列来自ClinicalTrials.gov的AACT库：428,377条药物干预记录，经人工复核与盲法标签审计，收敛为753个小分子药物、3,133项试验（通过2,558、疗效失败490、安全失败80、双失败5）。",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 6,
+      "type": "paragraph",
+      "text": "每个化合物用八个试验前模块刻画——组织特异结合（Human Protein Atlas）、通路富集（STRING对Open Targets）、靶点-疾病机制与遗传支持、结合特异性、安全药理、药代（DruMAP）、疾病与试验背景——加第九个试验设计模块，合计285个特征进梯度提升树；交叉验证按SMILES结构分组，测试化合物的结构绝不进训练集。筛选漏斗与架构见论文Figure 1。",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 7,
+      "type": "image",
+      "pages": [
+        4
+      ],
+      "caption": "论文Figure 1：试验筛选漏斗与九模块计算架构（bioRxiv:2026.08.09.743088）",
+      "image_bounds": {
+        "x": 0,
+        "top": 0,
+        "bottom": 887,
+        "width": 952
+      }
+    },
+    {
+      "index": 8,
+      "type": "heading",
+      "text": "结果",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 9,
+      "type": "paragraph",
+      "text": "化合物留出测试下，MERIT整体AUC 0.770（药物聚类自助95% CI 0.745–0.796），疗效0.765、安全0.784；50次打乱标签平均0.498，跌回随机。被标记最可能失败的100项试验实际失败率是背景的4–6倍。ROC曲线与信号分解见论文Figure 2。",
+      "pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "index": 10,
+      "type": "image",
+      "pages": [
+        5
+      ],
+      "caption": "论文Figure 2：ROC曲线、逐折AUC与信号分解（bioRxiv:2026.08.09.743088）",
+      "image_bounds": {
+        "x": 0,
+        "top": 228,
+        "bottom": 720.34375,
+        "width": 952
+      }
+    },
+    {
+      "index": 11,
+      "type": "paragraph",
+      "text": "机制特征是真信号源：只用疾病/试验标志为0.615，加疾病历史失败率升至0.689，再加分子机制到0.740，疗效上的机制增量（+0.051）超过疾病自身难度（+0.026）。只用截止年前试验训练、在更晚且结构全新的化合物上测试，整体AUC 0.704–0.737。",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 12,
+      "type": "heading",
+      "text": "结论",
+      "pages": [
+        6
+      ]
+    },
+    {
+      "index": 13,
+      "type": "paragraph",
+      "text": "把失败概率反过来（fit = 1 − P(fail)）就是机制匹配分，预测时化合物被留出、不用药名特征。60个“一个适应症失败、另一个适应症获批”的药物中83%（50个）获批项排在失败项之上；139个同时有成功与疗效失败适应症的化合物中75%（104/139）匹配分指向成功项。伊马替尼映射到慢性髓系白血病0.99、胃肠间质瘤0.98，远高于其失败的COVID-19（0.006）。三项再定位验证见论文Figure 4。",
+      "pages": [
+        6
+      ]
+    },
+    {
+      "index": 14,
+      "type": "image",
+      "pages": [
+        6
+      ],
+      "caption": "论文Figure 4：机制反向运用的三项再定位验证（bioRxiv:2026.08.09.743088）",
+      "image_bounds": {
+        "x": 0,
+        "top": 652,
+        "bottom": 1176.390625,
+        "width": 952
+      }
+    },
+    {
+      "index": 15,
+      "type": "paragraph",
+      "text": "对154个疗效失败且无获批适应症的药物，模型提名新适应症：经核验的146个提名中88%至少有临床前证据，67%已有同药或同靶药物的注册试验。边界如实：全部性能为回顾性；安全头最弱（III期限定0.731）且依赖未完全公开的STAR结合层；重复试验18%结果不一致，疗效0.765接近试验前分子模型上限；作者另注册了55个进行中III期组合的锁定盲态预测等待读出。Omic Inc.资助的预印本，未经同行评审，代码与数据在GitHub公开。",
+      "pages": [
+        7
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "图片/01_封面.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "87453c46df62b48e7484e642544d4739d85cded56964dc311f7104dbec6b6fec"
+    },
+    {
+      "file": "图片/02_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "827ad74f792c0ebed0490f8cc1435bad43971b5255ee1e1e766230fa4a5a4edf"
+    },
+    {
+      "file": "图片/03_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "4d7ba47c4f55a05b72594c9db7348a9dbdc3fb1bf4eee0518e842f492797325f"
+    },
+    {
+      "file": "图片/04_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "0b78c8d41558b8e594ca9e687b3bb725ebd4153a39338f130ad944b6f2982282"
+    },
+    {
+      "file": "图片/05_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "7b09578c45f57f33cd043fcdab1c74216c1750050656d7fab075ae70c53df816"
+    },
+    {
+      "file": "图片/06_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "3f4289d65ea427cfac593472399c745c0813f48d81f385c29540b0af057447a1"
+    },
+    {
+      "file": "图片/07_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "d67d6c8618f8f215048880edabd1a4152c925e2a787c80e174b72d7c6d0d3530"
+    }
+  ],
+  "visual_review": "PNG files still require actual visual inspection before delivery."
+}

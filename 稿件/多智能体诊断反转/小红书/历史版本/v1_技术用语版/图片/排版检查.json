@@ -1,0 +1,763 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-23T07:19:50.698Z",
+  "input": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/多智能体诊断反转/小红书/制作记录/渲染输入_v1.json",
+    "sha256": "e5ecf44ff4582eded8ddcc9d7229f34c630a0b27317fafb5d50cd64e8193c0be",
+    "source": {
+      "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/多智能体诊断反转/公众号/公众号正文.txt",
+      "sha256": "c1d5ac8ce358b71ed548ca27dccce389448b3227d2e344db40bf67689f9f4d47"
+    }
+  },
+  "theme": {
+    "width": 1080,
+    "height": 1440,
+    "margin": 64,
+    "font_size": 42,
+    "line_height": 68,
+    "paragraph_gap": 24,
+    "heading_size": 42,
+    "heading_line_height": 64,
+    "column_gap": 128,
+    "highlight": "#EAE3F4",
+    "underline": "#8064A8",
+    "background": "#FFFFFF",
+    "text": "#161616",
+    "font_family": "Songti SC",
+    "cover_title_size": 96,
+    "cover_summary_size": 40,
+    "source_size": 22,
+    "source_line_height": 36
+  },
+  "text_exact_match": true,
+  "text_blocks": 12,
+  "text_characters": 1203,
+  "body_columns": 6,
+  "image_count": 7,
+  "dimensions": [
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    }
+  ],
+  "pages": [
+    {
+      "page": 2,
+      "column": 0,
+      "content_top": 2,
+      "content_bottom": 1239,
+      "bottom_whitespace": 73,
+      "fragments": [
+        {
+          "source_block_index": 0,
+          "type": "heading",
+          "start": 0,
+          "end": 3,
+          "page": 2,
+          "text": "创新点",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 1,
+          "type": "paragraph",
+          "start": 0,
+          "end": 95,
+          "page": 2,
+          "text": "这篇论文把文献里混在一起的“多视角”拆成两个变量：一个上下文里依次扮演五个专家（互相看得见），还是五份互相隔离的意见再汇总。此前没有工作在固定角色、模型和提示词的前提下单独操纵“是否隔离”。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292,
+            360
+          ]
+        },
+        {
+          "source_block_index": 2,
+          "type": "paragraph",
+          "start": 0,
+          "end": 108,
+          "page": 2,
+          "text": "在同一个骨干模型上比较三种架构——单次直接调用A×1、单上下文五角色P、隔离五角色加主持人整合的MDT——并跑了因子归因：增益到底来自专科角色，还是来自“独立生成＋主持人整合”这个结构。结论是后者，专科角色是可选的。",
+          "line_tops": [
+            452,
+            520,
+            588,
+            656,
+            724
+          ]
+        },
+        {
+          "source_block_index": 3,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 2,
+          "text": "方法",
+          "line_tops": [
+            822
+          ]
+        },
+        {
+          "source_block_index": 4,
+          "type": "paragraph",
+          "start": 0,
+          "end": 114,
+          "page": 2,
+          "text": "三种策略都输出top-5鉴别诊断：A×1单次零样本调用（1次）；P在同一上下文依次给出主治医师、病理生理、影像与检验、流行病学与暴露、怀疑者五个视角（1次）；MDT把五角色发给互相看不到输出的独立调用再加主持人整合（6次）。骨干",
+          "line_tops": [
+            908,
+            976,
+            1044,
+            1112,
+            1180
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": false
+    },
+    {
+      "page": 3,
+      "column": 1,
+      "content_top": 4,
+      "content_bottom": 1241.015625,
+      "bottom_whitespace": 70.984375,
+      "fragments": [
+        {
+          "source_block_index": 4,
+          "type": "paragraph",
+          "start": 114,
+          "end": 167,
+          "page": 3,
+          "text": "qwen3.8-flash（176B），每例五个种子。三种策略的设计与两个受控对比见论文Figure 1。",
+          "line_tops": [
+            4,
+            72
+          ]
+        },
+        {
+          "source_block_index": 6,
+          "type": "paragraph",
+          "start": 0,
+          "end": 186,
+          "page": 3,
+          "text": "三个数据集拉开距离：87例CPC、406例外部基准MedCaseReasoning、364份真实急诊记录ER-Reason（输入在“Medical Decision Making”之前截断，参考诊断是接诊医生的工作标签）。评分用语义等价LLM判分器，规则分析前冻结、对策略设盲，并与两位盲法资深临床医生核对100对样本（κ=0.814和0.878，医生间κ=0.812）。",
+          "line_tops": [
+            774.02,
+            842.02,
+            910.02,
+            978.02,
+            1046.02,
+            1114.02,
+            1182.02
+          ]
+        }
+      ],
+      "image_blocks": [
+        5
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 4,
+      "column": 2,
+      "content_top": 2,
+      "content_bottom": 1302.421875,
+      "bottom_whitespace": 9.578125,
+      "fragments": [
+        {
+          "source_block_index": 7,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 4,
+          "text": "结果",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 8,
+          "type": "paragraph",
+          "start": 0,
+          "end": 161,
+          "page": 4,
+          "text": "整理病例上团队赢在召回：CPC上MDT的top-3召回比单次调用高5.5点（p=0.0079）；外部复现MedCaseReasoning上top-3高3.0点（p=0.0079）、top-5高3.9点（p=3.8×10⁻⁵），top-1无差异——增益集中在列表召回，不在首位诊断。三个数据集上的对比见论文Figure 2。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292,
+            360,
+            428
+          ]
+        }
+      ],
+      "image_blocks": [
+        9
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 5,
+      "column": 3,
+      "content_top": 4,
+      "content_bottom": 1131,
+      "bottom_whitespace": 181,
+      "fragments": [
+        {
+          "source_block_index": 10,
+          "type": "paragraph",
+          "start": 0,
+          "end": 168,
+          "page": 5,
+          "text": "真实急诊上方向反转：单次调用每项都赢，top-1为40.1%对MDT的34.3%（差5.8点，p<0.0001），top-3差9.0点、top-5差9.8点。把化验、生命体征、影像印象追加到输入里，各策略同步提升、排序不变、交互为零——输入太薄不是原因；把主持人套在普通采样上则完全抹平反转——伤害来自专科角色列表，不来自多次调用本身。",
+          "line_tops": [
+            4,
+            72,
+            140,
+            208,
+            276,
+            344,
+            412
+          ]
+        },
+        {
+          "source_block_index": 11,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 5,
+          "text": "结论",
+          "line_tops": [
+            510
+          ]
+        },
+        {
+          "source_block_index": 12,
+          "type": "paragraph",
+          "start": 0,
+          "end": 180,
+          "page": 5,
+          "text": "部署上按输入选策略：要“最可能是什么”，开放权重家族上单次调用仍是默认；要“鉴别清单够宽”（罕见病服务、转诊、教学），独立列表加一次整合调用对得起token溢价；参考标签是接诊医生工作诊断时（首诊急诊）应避免角色式多视角提示。每例token用量见论文Table 3：CPC上单次调用2,846、MDT为19,422，普通采样加主持人17,419即达到同样召回。",
+          "line_tops": [
+            596,
+            664,
+            732,
+            800,
+            868,
+            936,
+            1004,
+            1072
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": false
+    },
+    {
+      "page": 6,
+      "column": 4,
+      "content_top": 0,
+      "content_bottom": 1278,
+      "bottom_whitespace": 34,
+      "fragments": [
+        {
+          "source_block_index": 14,
+          "type": "paragraph",
+          "start": 0,
+          "end": 129,
+          "page": 6,
+          "text": "证据边界：急诊输入在Medical Decision Making前截断，不能外推到完整病历；分歧急诊病例未做盲法医生可接受性评定，反转在标签匹配层面而非临床判断层面确立；研究未外部注册，若干对照臂为事后敏感性分析；预印本未经同行评审，代码与判断缓存已公开。",
+          "line_tops": [
+            879,
+            947,
+            1015,
+            1083,
+            1151,
+            1219
+          ]
+        }
+      ],
+      "image_blocks": [
+        13
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 7,
+      "column": 5,
+      "content_top": 20,
+      "content_bottom": 134,
+      "bottom_whitespace": 1178,
+      "fragments": [],
+      "image_blocks": [],
+      "source_visible": true
+    }
+  ],
+  "fragments": [
+    {
+      "source_block_index": 0,
+      "type": "heading",
+      "start": 0,
+      "end": 3,
+      "page": 2,
+      "text": "创新点",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 1,
+      "type": "paragraph",
+      "start": 0,
+      "end": 95,
+      "page": 2,
+      "text": "这篇论文把文献里混在一起的“多视角”拆成两个变量：一个上下文里依次扮演五个专家（互相看得见），还是五份互相隔离的意见再汇总。此前没有工作在固定角色、模型和提示词的前提下单独操纵“是否隔离”。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292,
+        360
+      ]
+    },
+    {
+      "source_block_index": 2,
+      "type": "paragraph",
+      "start": 0,
+      "end": 108,
+      "page": 2,
+      "text": "在同一个骨干模型上比较三种架构——单次直接调用A×1、单上下文五角色P、隔离五角色加主持人整合的MDT——并跑了因子归因：增益到底来自专科角色，还是来自“独立生成＋主持人整合”这个结构。结论是后者，专科角色是可选的。",
+      "line_tops": [
+        452,
+        520,
+        588,
+        656,
+        724
+      ]
+    },
+    {
+      "source_block_index": 3,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 2,
+      "text": "方法",
+      "line_tops": [
+        822
+      ]
+    },
+    {
+      "source_block_index": 4,
+      "type": "paragraph",
+      "start": 0,
+      "end": 114,
+      "page": 2,
+      "text": "三种策略都输出top-5鉴别诊断：A×1单次零样本调用（1次）；P在同一上下文依次给出主治医师、病理生理、影像与检验、流行病学与暴露、怀疑者五个视角（1次）；MDT把五角色发给互相看不到输出的独立调用再加主持人整合（6次）。骨干",
+      "line_tops": [
+        908,
+        976,
+        1044,
+        1112,
+        1180
+      ]
+    },
+    {
+      "source_block_index": 4,
+      "type": "paragraph",
+      "start": 114,
+      "end": 167,
+      "page": 3,
+      "text": "qwen3.8-flash（176B），每例五个种子。三种策略的设计与两个受控对比见论文Figure 1。",
+      "line_tops": [
+        4,
+        72
+      ]
+    },
+    {
+      "source_block_index": 6,
+      "type": "paragraph",
+      "start": 0,
+      "end": 186,
+      "page": 3,
+      "text": "三个数据集拉开距离：87例CPC、406例外部基准MedCaseReasoning、364份真实急诊记录ER-Reason（输入在“Medical Decision Making”之前截断，参考诊断是接诊医生的工作标签）。评分用语义等价LLM判分器，规则分析前冻结、对策略设盲，并与两位盲法资深临床医生核对100对样本（κ=0.814和0.878，医生间κ=0.812）。",
+      "line_tops": [
+        774.02,
+        842.02,
+        910.02,
+        978.02,
+        1046.02,
+        1114.02,
+        1182.02
+      ]
+    },
+    {
+      "source_block_index": 7,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 4,
+      "text": "结果",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 8,
+      "type": "paragraph",
+      "start": 0,
+      "end": 161,
+      "page": 4,
+      "text": "整理病例上团队赢在召回：CPC上MDT的top-3召回比单次调用高5.5点（p=0.0079）；外部复现MedCaseReasoning上top-3高3.0点（p=0.0079）、top-5高3.9点（p=3.8×10⁻⁵），top-1无差异——增益集中在列表召回，不在首位诊断。三个数据集上的对比见论文Figure 2。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292,
+        360,
+        428
+      ]
+    },
+    {
+      "source_block_index": 10,
+      "type": "paragraph",
+      "start": 0,
+      "end": 168,
+      "page": 5,
+      "text": "真实急诊上方向反转：单次调用每项都赢，top-1为40.1%对MDT的34.3%（差5.8点，p<0.0001），top-3差9.0点、top-5差9.8点。把化验、生命体征、影像印象追加到输入里，各策略同步提升、排序不变、交互为零——输入太薄不是原因；把主持人套在普通采样上则完全抹平反转——伤害来自专科角色列表，不来自多次调用本身。",
+      "line_tops": [
+        4,
+        72,
+        140,
+        208,
+        276,
+        344,
+        412
+      ]
+    },
+    {
+      "source_block_index": 11,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 5,
+      "text": "结论",
+      "line_tops": [
+        510
+      ]
+    },
+    {
+      "source_block_index": 12,
+      "type": "paragraph",
+      "start": 0,
+      "end": 180,
+      "page": 5,
+      "text": "部署上按输入选策略：要“最可能是什么”，开放权重家族上单次调用仍是默认；要“鉴别清单够宽”（罕见病服务、转诊、教学），独立列表加一次整合调用对得起token溢价；参考标签是接诊医生工作诊断时（首诊急诊）应避免角色式多视角提示。每例token用量见论文Table 3：CPC上单次调用2,846、MDT为19,422，普通采样加主持人17,419即达到同样召回。",
+      "line_tops": [
+        596,
+        664,
+        732,
+        800,
+        868,
+        936,
+        1004,
+        1072
+      ]
+    },
+    {
+      "source_block_index": 14,
+      "type": "paragraph",
+      "start": 0,
+      "end": 129,
+      "page": 6,
+      "text": "证据边界：急诊输入在Medical Decision Making前截断，不能外推到完整病历；分歧急诊病例未做盲法医生可接受性评定，反转在标签匹配层面而非临床判断层面确立；研究未外部注册，若干对照臂为事后敏感性分析；预印本未经同行评审，代码与判断缓存已公开。",
+      "line_tops": [
+        879,
+        947,
+        1015,
+        1083,
+        1151,
+        1219
+      ]
+    }
+  ],
+  "split_paragraphs": [
+    {
+      "index": 4,
+      "type": "paragraph",
+      "text": "三种策略都输出top-5鉴别诊断：A×1单次零样本调用（1次）；P在同一上下文依次给出主治医师、病理生理、影像与检验、流行病学与暴露、怀疑者五个视角（1次）；MDT把五角色发给互相看不到输出的独立调用再加主持人整合（6次）。骨干qwen3.8-flash（176B），每例五个种子。三种策略的设计与两个受控对比见论文Figure 1。",
+      "pages": [
+        2,
+        3
+      ]
+    }
+  ],
+  "heading_checks": [
+    {
+      "source_block_index": 0,
+      "page": 2,
+      "following_text_lines": 5,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 3,
+      "page": 2,
+      "following_text_lines": 5,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 7,
+      "page": 4,
+      "following_text_lines": 6,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 11,
+      "page": 5,
+      "following_text_lines": 8,
+      "required_lines": 2
+    }
+  ],
+  "palette": [
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    }
+  ],
+  "cover": {
+    "image_height": 885.78125,
+    "bottom_whitespace": 64
+  },
+  "header_footer_count": 0,
+  "source_present": true,
+  "source_only_final_visible_page": true,
+  "source_pages": [
+    7
+  ],
+  "blocks": [
+    {
+      "index": 0,
+      "type": "heading",
+      "text": "创新点",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 1,
+      "type": "paragraph",
+      "text": "这篇论文把文献里混在一起的“多视角”拆成两个变量：一个上下文里依次扮演五个专家（互相看得见），还是五份互相隔离的意见再汇总。此前没有工作在固定角色、模型和提示词的前提下单独操纵“是否隔离”。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "type": "paragraph",
+      "text": "在同一个骨干模型上比较三种架构——单次直接调用A×1、单上下文五角色P、隔离五角色加主持人整合的MDT——并跑了因子归因：增益到底来自专科角色，还是来自“独立生成＋主持人整合”这个结构。结论是后者，专科角色是可选的。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 3,
+      "type": "heading",
+      "text": "方法",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 4,
+      "type": "paragraph",
+      "text": "三种策略都输出top-5鉴别诊断：A×1单次零样本调用（1次）；P在同一上下文依次给出主治医师、病理生理、影像与检验、流行病学与暴露、怀疑者五个视角（1次）；MDT把五角色发给互相看不到输出的独立调用再加主持人整合（6次）。骨干qwen3.8-flash（176B），每例五个种子。三种策略的设计与两个受控对比见论文Figure 1。",
+      "pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "pages": [
+        3
+      ],
+      "caption": "论文Figure 1：三种提示策略与两个受控对比（medRxiv:10.64898/2026.09.24.26363897v1）",
+      "image_bounds": {
+        "x": 0,
+        "top": 160,
+        "bottom": 742.015625,
+        "width": 952
+      }
+    },
+    {
+      "index": 6,
+      "type": "paragraph",
+      "text": "三个数据集拉开距离：87例CPC、406例外部基准MedCaseReasoning、364份真实急诊记录ER-Reason（输入在“Medical Decision Making”之前截断，参考诊断是接诊医生的工作标签）。评分用语义等价LLM判分器，规则分析前冻结、对策略设盲，并与两位盲法资深临床医生核对100对样本（κ=0.814和0.878，医生间κ=0.812）。",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 7,
+      "type": "heading",
+      "text": "结果",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 8,
+      "type": "paragraph",
+      "text": "整理病例上团队赢在召回：CPC上MDT的top-3召回比单次调用高5.5点（p=0.0079）；外部复现MedCaseReasoning上top-3高3.0点（p=0.0079）、top-5高3.9点（p=3.8×10⁻⁵），top-1无差异——增益集中在列表召回，不在首位诊断。三个数据集上的对比见论文Figure 2。",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 9,
+      "type": "image",
+      "pages": [
+        4
+      ],
+      "caption": "论文Figure 2：三个数据集上的top-k召回，panel c为急诊记录的两种输入条件对比（medRxiv:10.64898/2026.09.24.26363897v1）",
+      "image_bounds": {
+        "x": 0,
+        "top": 516,
+        "bottom": 1302.421875,
+        "width": 952
+      }
+    },
+    {
+      "index": 10,
+      "type": "paragraph",
+      "text": "真实急诊上方向反转：单次调用每项都赢，top-1为40.1%对MDT的34.3%（差5.8点，p<0.0001），top-3差9.0点、top-5差9.8点。把化验、生命体征、影像印象追加到输入里，各策略同步提升、排序不变、交互为零——输入太薄不是原因；把主持人套在普通采样上则完全抹平反转——伤害来自专科角色列表，不来自多次调用本身。",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 11,
+      "type": "heading",
+      "text": "结论",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 12,
+      "type": "paragraph",
+      "text": "部署上按输入选策略：要“最可能是什么”，开放权重家族上单次调用仍是默认；要“鉴别清单够宽”（罕见病服务、转诊、教学），独立列表加一次整合调用对得起token溢价；参考标签是接诊医生工作诊断时（首诊急诊）应避免角色式多视角提示。每例token用量见论文Table 3：CPC上单次调用2,846、MDT为19,422，普通采样加主持人17,419即达到同样召回。",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 13,
+      "type": "image",
+      "pages": [
+        6
+      ],
+      "caption": "论文Table 3：各策略每例调用数与token用量（medRxiv:10.64898/2026.09.24.26363897v1）",
+      "image_bounds": {
+        "x": 0,
+        "top": 0,
+        "bottom": 847,
+        "width": 952
+      }
+    },
+    {
+      "index": 14,
+      "type": "paragraph",
+      "text": "证据边界：急诊输入在Medical Decision Making前截断，不能外推到完整病历；分歧急诊病例未做盲法医生可接受性评定，反转在标签匹配层面而非临床判断层面确立；研究未外部注册，若干对照臂为事后敏感性分析；预印本未经同行评审，代码与判断缓存已公开。",
+      "pages": [
+        6
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "图片/01_封面.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "5f3e0d3bd035bad5971a7f2f7ff4f78ef34540ad22e22f939baf7a4bacd284e4"
+    },
+    {
+      "file": "图片/02_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "54287c73d7706b7f18a5d178104a7866edf2780c61642f83d4e15795b9288582"
+    },
+    {
+      "file": "图片/03_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "03481524694a879e159a2f5afc3d088e31092e49bee1d0580b642c174ded5e19"
+    },
+    {
+      "file": "图片/04_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "96db5523c1c865126ca82b7f01a6e552a36372538b021ad6d4aae090f78047a9"
+    },
+    {
+      "file": "图片/05_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "a3d246e4213cd7153e0a6a8ab297a67dd8c4cc28f8aea55c4a7a6b03097c82f0"
+    },
+    {
+      "file": "图片/06_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "2af4d5978e4863b2e472c9df621d610a0a1dc2c13a47f6d1cba47663a5c362fc"
+    },
+    {
+      "file": "图片/07_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "3620fa48870ab82dce828bc96c41686dc78865d755ee911b3c2d0eb551aa5077"
+    }
+  ],
+  "visual_review": "PNG files still require actual visual inspection before delivery."
+}

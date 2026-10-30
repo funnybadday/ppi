@@ -1,0 +1,719 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-23T05:51:15.979Z",
+  "input": {
+    "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/小红书/制作记录/渲染输入_v4.json",
+    "sha256": "1c86b7fa2de3f4c5f5ea371796c248a4eddef97a0622aa7d9b3365339b6e9f5a",
+    "source": {
+      "path": "/Users/xulei/项目/搜索/蓝图论文/稿件/T1D数字孪生决策质量/公众号/公众号正文.txt",
+      "sha256": "375d883138e6bf096cc321601aac09748368d0c53f94718e9449e7b75a960cb1"
+    }
+  },
+  "theme": {
+    "width": 1080,
+    "height": 1440,
+    "margin": 64,
+    "font_size": 42,
+    "line_height": 68,
+    "paragraph_gap": 24,
+    "heading_size": 42,
+    "heading_line_height": 64,
+    "column_gap": 128,
+    "highlight": "#EAE3F4",
+    "underline": "#8064A8",
+    "background": "#FFFFFF",
+    "text": "#161616",
+    "font_family": "Songti SC",
+    "cover_title_size": 96,
+    "cover_summary_size": 40,
+    "source_size": 22,
+    "source_line_height": 36
+  },
+  "text_exact_match": true,
+  "text_blocks": 12,
+  "text_characters": 666,
+  "body_columns": 5,
+  "image_count": 6,
+  "dimensions": [
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "width": 1080,
+      "height": 1440
+    }
+  ],
+  "pages": [
+    {
+      "page": 2,
+      "column": 0,
+      "content_top": 2,
+      "content_bottom": 647,
+      "bottom_whitespace": 665,
+      "fragments": [
+        {
+          "source_block_index": 0,
+          "type": "heading",
+          "start": 0,
+          "end": 3,
+          "page": 2,
+          "text": "创新点",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 1,
+          "type": "paragraph",
+          "start": 0,
+          "end": 52,
+          "page": 2,
+          "text": "这篇论文的创新不在提出新模型，而在换掉评价标准：直接以下游治疗决策质量评价1型糖尿病（T1D）数字孪生。",
+          "line_tops": [
+            88,
+            156,
+            224
+          ]
+        },
+        {
+          "source_block_index": 2,
+          "type": "paragraph",
+          "start": 0,
+          "end": 108,
+          "page": 2,
+          "text": "作者定义了两类指标——轨迹预测精度（RMSE）与治疗排序质量（Spearman秩相关）：孪生预测20个候选方案下的血糖轨迹，经血糖风险核打分后排序，与真实排序越一致，决策质量越高。评价指标怎么定义，直接决定选型方向。",
+          "line_tops": [
+            316,
+            384,
+            452,
+            520,
+            588
+          ]
+        }
+      ],
+      "image_blocks": [],
+      "source_visible": false
+    },
+    {
+      "page": 3,
+      "column": 1,
+      "content_top": 0,
+      "content_bottom": 1071.6875,
+      "bottom_whitespace": 240.3125,
+      "fragments": [
+        {
+          "source_block_index": 4,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 3,
+          "text": "方法",
+          "line_tops": [
+            858.69
+          ]
+        },
+        {
+          "source_block_index": 5,
+          "type": "paragraph",
+          "start": 0,
+          "end": 53,
+          "page": 3,
+          "text": "用FDA接受的UVA/Padova模拟器构造30名虚拟1型糖尿病患者，每人模拟21种基础-餐时胰岛素方案：",
+          "line_tops": [
+            944.69,
+            1012.69
+          ]
+        }
+      ],
+      "image_blocks": [
+        3
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 4,
+      "column": 2,
+      "content_top": 4,
+      "content_bottom": 1172.5625,
+      "bottom_whitespace": 139.4375,
+      "fragments": [
+        {
+          "source_block_index": 5,
+          "type": "paragraph",
+          "start": 53,
+          "end": 87,
+          "page": 4,
+          "text": "在一个方案的观测数据上拟合孪生，预测其余20个反事实方案，比较排序。",
+          "line_tops": [
+            4,
+            72
+          ]
+        },
+        {
+          "source_block_index": 7,
+          "type": "paragraph",
+          "start": 0,
+          "end": 92,
+          "page": 4,
+          "text": "六种方法同场比较：ReplayBG式贝叶斯辨识（MCMC）、仿真推断SBI、无迹卡尔曼滤波UKF、岭回归线性模型、多层感知机神经网络，以及完全不用个体数据的“平均患者”基线Prior。",
+          "line_tops": [
+            909.56,
+            977.56,
+            1045.56,
+            1113.56
+          ]
+        }
+      ],
+      "image_blocks": [
+        6
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 5,
+      "column": 3,
+      "content_top": 2,
+      "content_bottom": 1116,
+      "bottom_whitespace": 196,
+      "fragments": [
+        {
+          "source_block_index": 8,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 5,
+          "text": "结果",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 9,
+          "type": "paragraph",
+          "start": 0,
+          "end": 98,
+          "page": 5,
+          "text": "预测精度与决策质量分道扬镳：平均患者基线精度最差（RMSE 63.6 mg/dL），排序却拿第二高（0.766）；黑箱神经网络精度几乎高一倍（RMSE 32.9），排序只有0.049，与随机无异。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292
+          ]
+        },
+        {
+          "source_block_index": 10,
+          "type": "paragraph",
+          "start": 0,
+          "end": 81,
+          "page": 5,
+          "text": "Friedman检验加多重校正的逐对Wilcoxon检验确认分离在30名患者上成立；SBI的0.728与平均患者基线无显著差异。两个指标下的方法排名出现明显翻转。",
+          "line_tops": [
+            384,
+            452,
+            520,
+            588
+          ]
+        }
+      ],
+      "image_blocks": [
+        11
+      ],
+      "source_visible": false
+    },
+    {
+      "page": 6,
+      "column": 4,
+      "content_top": 2,
+      "content_bottom": 1139.390625,
+      "bottom_whitespace": 172.609375,
+      "fragments": [
+        {
+          "source_block_index": 12,
+          "type": "heading",
+          "start": 0,
+          "end": 2,
+          "page": 6,
+          "text": "结论",
+          "line_tops": [
+            2
+          ]
+        },
+        {
+          "source_block_index": 13,
+          "type": "paragraph",
+          "start": 0,
+          "end": 91,
+          "page": 6,
+          "text": "只按轨迹精度选孪生，可能选出决策上接近随机的模型；决策质量必须直接评价，不会随精度提高自动到来。成本数据同样支持这一点：MCMC每名患者约8小时，线性模型2.4秒、神经网络0.1秒。",
+          "line_tops": [
+            88,
+            156,
+            224,
+            292
+          ]
+        },
+        {
+          "source_block_index": 15,
+          "type": "paragraph",
+          "start": 0,
+          "end": 48,
+          "page": 6,
+          "text": "证据边界：全部来自单一模拟器的回顾性仿真，30名虚拟患者，预印本未经同行评审；代码已公开可复现。",
+          "line_tops": [
+            781.39,
+            849.39,
+            917.39
+          ]
+        }
+      ],
+      "image_blocks": [
+        14
+      ],
+      "source_visible": true
+    }
+  ],
+  "fragments": [
+    {
+      "source_block_index": 0,
+      "type": "heading",
+      "start": 0,
+      "end": 3,
+      "page": 2,
+      "text": "创新点",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 1,
+      "type": "paragraph",
+      "start": 0,
+      "end": 52,
+      "page": 2,
+      "text": "这篇论文的创新不在提出新模型，而在换掉评价标准：直接以下游治疗决策质量评价1型糖尿病（T1D）数字孪生。",
+      "line_tops": [
+        88,
+        156,
+        224
+      ]
+    },
+    {
+      "source_block_index": 2,
+      "type": "paragraph",
+      "start": 0,
+      "end": 108,
+      "page": 2,
+      "text": "作者定义了两类指标——轨迹预测精度（RMSE）与治疗排序质量（Spearman秩相关）：孪生预测20个候选方案下的血糖轨迹，经血糖风险核打分后排序，与真实排序越一致，决策质量越高。评价指标怎么定义，直接决定选型方向。",
+      "line_tops": [
+        316,
+        384,
+        452,
+        520,
+        588
+      ]
+    },
+    {
+      "source_block_index": 4,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 3,
+      "text": "方法",
+      "line_tops": [
+        858.69
+      ]
+    },
+    {
+      "source_block_index": 5,
+      "type": "paragraph",
+      "start": 0,
+      "end": 53,
+      "page": 3,
+      "text": "用FDA接受的UVA/Padova模拟器构造30名虚拟1型糖尿病患者，每人模拟21种基础-餐时胰岛素方案：",
+      "line_tops": [
+        944.69,
+        1012.69
+      ]
+    },
+    {
+      "source_block_index": 5,
+      "type": "paragraph",
+      "start": 53,
+      "end": 87,
+      "page": 4,
+      "text": "在一个方案的观测数据上拟合孪生，预测其余20个反事实方案，比较排序。",
+      "line_tops": [
+        4,
+        72
+      ]
+    },
+    {
+      "source_block_index": 7,
+      "type": "paragraph",
+      "start": 0,
+      "end": 92,
+      "page": 4,
+      "text": "六种方法同场比较：ReplayBG式贝叶斯辨识（MCMC）、仿真推断SBI、无迹卡尔曼滤波UKF、岭回归线性模型、多层感知机神经网络，以及完全不用个体数据的“平均患者”基线Prior。",
+      "line_tops": [
+        909.56,
+        977.56,
+        1045.56,
+        1113.56
+      ]
+    },
+    {
+      "source_block_index": 8,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 5,
+      "text": "结果",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 9,
+      "type": "paragraph",
+      "start": 0,
+      "end": 98,
+      "page": 5,
+      "text": "预测精度与决策质量分道扬镳：平均患者基线精度最差（RMSE 63.6 mg/dL），排序却拿第二高（0.766）；黑箱神经网络精度几乎高一倍（RMSE 32.9），排序只有0.049，与随机无异。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292
+      ]
+    },
+    {
+      "source_block_index": 10,
+      "type": "paragraph",
+      "start": 0,
+      "end": 81,
+      "page": 5,
+      "text": "Friedman检验加多重校正的逐对Wilcoxon检验确认分离在30名患者上成立；SBI的0.728与平均患者基线无显著差异。两个指标下的方法排名出现明显翻转。",
+      "line_tops": [
+        384,
+        452,
+        520,
+        588
+      ]
+    },
+    {
+      "source_block_index": 12,
+      "type": "heading",
+      "start": 0,
+      "end": 2,
+      "page": 6,
+      "text": "结论",
+      "line_tops": [
+        2
+      ]
+    },
+    {
+      "source_block_index": 13,
+      "type": "paragraph",
+      "start": 0,
+      "end": 91,
+      "page": 6,
+      "text": "只按轨迹精度选孪生，可能选出决策上接近随机的模型；决策质量必须直接评价，不会随精度提高自动到来。成本数据同样支持这一点：MCMC每名患者约8小时，线性模型2.4秒、神经网络0.1秒。",
+      "line_tops": [
+        88,
+        156,
+        224,
+        292
+      ]
+    },
+    {
+      "source_block_index": 15,
+      "type": "paragraph",
+      "start": 0,
+      "end": 48,
+      "page": 6,
+      "text": "证据边界：全部来自单一模拟器的回顾性仿真，30名虚拟患者，预印本未经同行评审；代码已公开可复现。",
+      "line_tops": [
+        781.39,
+        849.39,
+        917.39
+      ]
+    }
+  ],
+  "split_paragraphs": [
+    {
+      "index": 5,
+      "type": "paragraph",
+      "text": "用FDA接受的UVA/Padova模拟器构造30名虚拟1型糖尿病患者，每人模拟21种基础-餐时胰岛素方案：在一个方案的观测数据上拟合孪生，预测其余20个反事实方案，比较排序。",
+      "pages": [
+        3,
+        4
+      ]
+    }
+  ],
+  "heading_checks": [
+    {
+      "source_block_index": 0,
+      "page": 2,
+      "following_text_lines": 3,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 4,
+      "page": 3,
+      "following_text_lines": 2,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 8,
+      "page": 5,
+      "following_text_lines": 4,
+      "required_lines": 2
+    },
+    {
+      "source_block_index": 12,
+      "page": 6,
+      "following_text_lines": 4,
+      "required_lines": 2
+    }
+  ],
+  "palette": [
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    },
+    {
+      "background": "linear-gradient(rgba(0, 0, 0, 0) 16%, rgb(234, 227, 244) 16%, rgb(234, 227, 244) 93%, rgba(0, 0, 0, 0) 93%)",
+      "underline": "rgb(128, 100, 168)"
+    }
+  ],
+  "cover": {
+    "image_height": 949.78125,
+    "bottom_whitespace": 64
+  },
+  "header_footer_count": 0,
+  "source_present": true,
+  "source_only_final_visible_page": true,
+  "source_pages": [
+    6
+  ],
+  "blocks": [
+    {
+      "index": 0,
+      "type": "heading",
+      "text": "创新点",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 1,
+      "type": "paragraph",
+      "text": "这篇论文的创新不在提出新模型，而在换掉评价标准：直接以下游治疗决策质量评价1型糖尿病（T1D）数字孪生。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "type": "paragraph",
+      "text": "作者定义了两类指标——轨迹预测精度（RMSE）与治疗排序质量（Spearman秩相关）：孪生预测20个候选方案下的血糖轨迹，经血糖风险核打分后排序，与真实排序越一致，决策质量越高。评价指标怎么定义，直接决定选型方向。",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "pages": [
+        3
+      ],
+      "caption": "论文Table 1：两类指标的定义（arXiv:2610.30577v1）",
+      "image_bounds": {
+        "x": 0,
+        "top": 0,
+        "bottom": 824.6875,
+        "width": 952
+      }
+    },
+    {
+      "index": 4,
+      "type": "heading",
+      "text": "方法",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "index": 5,
+      "type": "paragraph",
+      "text": "用FDA接受的UVA/Padova模拟器构造30名虚拟1型糖尿病患者，每人模拟21种基础-餐时胰岛素方案：在一个方案的观测数据上拟合孪生，预测其余20个反事实方案，比较排序。",
+      "pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "pages": [
+        4
+      ],
+      "caption": "论文Table 2：基准设置与各选择的出处（arXiv:2610.30577v1）",
+      "image_bounds": {
+        "x": 0,
+        "top": 160,
+        "bottom": 877.5625,
+        "width": 952
+      }
+    },
+    {
+      "index": 7,
+      "type": "paragraph",
+      "text": "六种方法同场比较：ReplayBG式贝叶斯辨识（MCMC）、仿真推断SBI、无迹卡尔曼滤波UKF、岭回归线性模型、多层感知机神经网络，以及完全不用个体数据的“平均患者”基线Prior。",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "index": 8,
+      "type": "heading",
+      "text": "结果",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 9,
+      "type": "paragraph",
+      "text": "预测精度与决策质量分道扬镳：平均患者基线精度最差（RMSE 63.6 mg/dL），排序却拿第二高（0.766）；黑箱神经网络精度几乎高一倍（RMSE 32.9），排序只有0.049，与随机无异。",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 10,
+      "type": "paragraph",
+      "text": "Friedman检验加多重校正的逐对Wilcoxon检验确认分离在30名患者上成立；SBI的0.728与平均患者基线无显著差异。两个指标下的方法排名出现明显翻转。",
+      "pages": [
+        5
+      ]
+    },
+    {
+      "index": 11,
+      "type": "image",
+      "pages": [
+        5
+      ],
+      "caption": "论文Figure 1：两个指标下的临界差异图，方法排名明显翻转（arXiv:2610.30577v1）",
+      "image_bounds": {
+        "x": 0,
+        "top": 676,
+        "bottom": 1116,
+        "width": 952
+      }
+    },
+    {
+      "index": 12,
+      "type": "heading",
+      "text": "结论",
+      "pages": [
+        6
+      ]
+    },
+    {
+      "index": 13,
+      "type": "paragraph",
+      "text": "只按轨迹精度选孪生，可能选出决策上接近随机的模型；决策质量必须直接评价，不会随精度提高自动到来。成本数据同样支持这一点：MCMC每名患者约8小时，线性模型2.4秒、神经网络0.1秒。",
+      "pages": [
+        6
+      ]
+    },
+    {
+      "index": 14,
+      "type": "image",
+      "pages": [
+        6
+      ],
+      "caption": "论文Table 6：每名患者的拟合与评分成本（arXiv:2610.30577v1）",
+      "image_bounds": {
+        "x": 0,
+        "top": 380,
+        "bottom": 749.390625,
+        "width": 952
+      }
+    },
+    {
+      "index": 15,
+      "type": "paragraph",
+      "text": "证据边界：全部来自单一模拟器的回顾性仿真，30名虚拟患者，预印本未经同行评审；代码已公开可复现。",
+      "pages": [
+        6
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "图片/01_封面.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "d3a0e393a156218cb2979194dd6122810abf648e91973c4c115bc93387be3a70"
+    },
+    {
+      "file": "图片/02_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "5eedb11a55ce7b361d895b3daa9c2b9846f8dea74bd7cf4ec020d4b8ec6f9e12"
+    },
+    {
+      "file": "图片/03_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "8b829d02822022fc5a053dec7d622c8980bd27b3ab213649dcea46d8a12ddcdc"
+    },
+    {
+      "file": "图片/04_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "4dc6dd6010b211c3d704da25a9dc6f03301928e74e877846eb04503e848b548b"
+    },
+    {
+      "file": "图片/05_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "7ed94361ed2efdf8439108d2e3dbc3c5353335ee3997524dfe74e998b40b2643"
+    },
+    {
+      "file": "图片/06_正文.png",
+      "width": 1080,
+      "height": 1440,
+      "sha256": "567283e1fb48ace849b1daa28b0cca7128dd38345792c97b54b9bd66fa0fa1af"
+    }
+  ],
+  "visual_review": "PNG files still require actual visual inspection before delivery."
+}

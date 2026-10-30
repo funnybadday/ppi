@@ -1,0 +1,4 @@
+论文：Evaluating Type-1 Diabetes Digital Twins by Decision Quality
+arXiv（Emory University，Victor Li等）
+2026-10-22
+https://arxiv.org/abs/2610.30577v1

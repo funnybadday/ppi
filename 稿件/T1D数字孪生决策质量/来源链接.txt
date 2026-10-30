@@ -1,0 +1,6 @@
+T1D数字孪生决策质量｜公众号解读来源
+1. arXiv摘要页（已回源读取，2026-10-23）：https://arxiv.org/abs/2610.30577v1
+2. 论文PDF全文（已回源，用于方法核验与配图提取）：https://arxiv.org/pdf/2610.30577v1
+3. 论文代码仓库：见arXiv摘要页链接（备注"Code: this https URL"）
+配图：论文Figure 1（critical difference diagrams），从PDF第7页300dpi渲染裁剪，未作内容修改。
+候选来源：选题池/2026-10-23_122727_首轮论文候选.json C01（run-20261023T042727Z-53b4a346，评分8）

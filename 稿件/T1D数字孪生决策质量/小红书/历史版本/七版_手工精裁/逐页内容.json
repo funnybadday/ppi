@@ -1,0 +1,215 @@
+[
+  {
+    "page": 1,
+    "type": "cover",
+    "title": "预测最准的数字孪生\n治疗排序接近随机",
+    "summary": "Emory团队按治疗排序直接评价T1D数字孪生：预测精度与决策质量可以严重背离。"
+  },
+  {
+    "page": 2,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 0,
+        "type": "heading",
+        "start": 0,
+        "end": 3,
+        "page": 2,
+        "text": "创新点",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 1,
+        "type": "paragraph",
+        "start": 0,
+        "end": 52,
+        "page": 2,
+        "text": "这篇论文的创新不在提出新模型，而在换掉评价标准：直接以下游治疗决策质量评价1型糖尿病（T1D）数字孪生。",
+        "line_tops": [
+          88,
+          156,
+          224
+        ]
+      },
+      {
+        "source_block_index": 2,
+        "type": "paragraph",
+        "start": 0,
+        "end": 110,
+        "page": 2,
+        "text": "作者定义了两类指标——轨迹预测精度（RMSE）与治疗排序质量（Spearman秩相关）：孪生预测20个候选方案下的血糖轨迹，经血糖风险核打分后排序，与真实排序越一致，决策质量越高。两类指标的完整定义见论文Table 1。",
+        "line_tops": [
+          316,
+          384,
+          452,
+          520,
+          588
+        ]
+      },
+      {
+        "source_block_index": 4,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 2,
+        "text": "方法",
+        "line_tops": [
+          969.41
+        ]
+      },
+      {
+        "source_block_index": 5,
+        "type": "paragraph",
+        "start": 0,
+        "end": 53,
+        "page": 2,
+        "text": "用FDA接受的UVA/Padova模拟器构造30名虚拟1型糖尿病患者，每人模拟21种基础-餐时胰岛素方案：",
+        "line_tops": [
+          1055.41,
+          1123.41
+        ]
+      }
+    ],
+    "image_blocks": [
+      3
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 3,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 5,
+        "type": "paragraph",
+        "start": 53,
+        "end": 108,
+        "page": 3,
+        "text": "在一个方案的观测数据上拟合孪生，预测其余20个反事实方案，比较排序。基准的全部设置与出处见论文Table 2。",
+        "line_tops": [
+          4,
+          72,
+          140
+        ]
+      },
+      {
+        "source_block_index": 7,
+        "type": "paragraph",
+        "start": 0,
+        "end": 92,
+        "page": 3,
+        "text": "六种方法同场比较：ReplayBG式贝叶斯辨识（MCMC）、仿真推断SBI、无迹卡尔曼滤波UKF、岭回归线性模型、多层感知机神经网络，以及完全不用个体数据的“平均患者”基线Prior。",
+        "line_tops": [
+          914.66,
+          982.66,
+          1050.66,
+          1118.66
+        ]
+      }
+    ],
+    "image_blocks": [
+      6
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 4,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 8,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 4,
+        "text": "结果",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 9,
+        "type": "paragraph",
+        "start": 0,
+        "end": 98,
+        "page": 4,
+        "text": "预测精度与决策质量分道扬镳：平均患者基线精度最差（RMSE 63.6 mg/dL），排序却拿第二高（0.766）；黑箱神经网络精度几乎高一倍（RMSE 32.9），排序只有0.049，与随机无异。",
+        "line_tops": [
+          88,
+          156,
+          224,
+          292
+        ]
+      },
+      {
+        "source_block_index": 10,
+        "type": "paragraph",
+        "start": 0,
+        "end": 94,
+        "page": 4,
+        "text": "Friedman检验加多重校正的逐对Wilcoxon检验确认分离在30名患者上成立；SBI的0.728与平均患者基线无显著差异。两个指标下的方法排名翻转见论文Figure 1的临界差异图。",
+        "line_tops": [
+          384,
+          452,
+          520,
+          588
+        ]
+      }
+    ],
+    "image_blocks": [
+      11
+    ],
+    "source_visible": false
+  },
+  {
+    "page": 5,
+    "type": "article",
+    "fragments": [
+      {
+        "source_block_index": 12,
+        "type": "heading",
+        "start": 0,
+        "end": 2,
+        "page": 5,
+        "text": "结论",
+        "line_tops": [
+          2
+        ]
+      },
+      {
+        "source_block_index": 13,
+        "type": "paragraph",
+        "start": 0,
+        "end": 109,
+        "page": 5,
+        "text": "只按轨迹精度选孪生，可能选出决策上接近随机的模型；决策质量必须直接评价，不会随精度提高自动到来。每名患者的成本见论文Table 6：MCMC约8小时，平均患者基线约175秒，神经网络约2.4秒，线性模型只要约0.1秒。",
+        "line_tops": [
+          88,
+          156,
+          224,
+          292,
+          360
+        ]
+      },
+      {
+        "source_block_index": 15,
+        "type": "paragraph",
+        "start": 0,
+        "end": 48,
+        "page": 5,
+        "text": "证据边界：全部来自单一模拟器的回顾性仿真，30名虚拟患者，预印本未经同行评审；代码已公开可复现。",
+        "line_tops": [
+          664.34,
+          732.34,
+          800.34
+        ]
+      }
+    ],
+    "image_blocks": [
+      14
+    ],
+    "source_visible": true
+  }
+]

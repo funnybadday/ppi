@@ -1,0 +1,22 @@
+{
+ "source_run": null,
+ "events": [],
+ "history_review": [
+  {
+   "event_key": "evt-1f6d571d17f62ca4f45f",
+   "change_type": "repeat",
+   "status": "drafted",
+   "article_directory": "稿件/多智能体诊断反转",
+   "platform_outputs": {
+    "xiaohongshu": {
+     "directory": "稿件/多智能体诊断反转/小红书",
+     "review_status": "awaiting_user_review",
+     "published": false,
+     "source_file": "稿件/多智能体诊断反转/公众号/公众号正文.txt",
+     "source_sha256": "c1d5ac8ce358b71ed548ca27dccce389448b3227d2e344db40bf67689f9f4d47",
+     "change_note": "小红书v2.1标题修正：封面标题扩为3行完整句（让AI扮演专家会诊/364份急诊记录实测/准确率不如直接问一次），发布标题压至20字上限内；正文6页与v2逐字节一致；公众号未改动。"
+    }
+   }
+  }
+ ]
+}
